@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 devDependencies:
+  '@natoboram/heroicons.svelte':
+    specifier: ^1.0.2
+    version: 1.0.2(svelte@4.0.1)(tailwindcss@3.3.2)
   '@playwright/test':
     specifier: ^1.35.1
     version: 1.35.1
@@ -373,6 +376,19 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /@natoboram/heroicons.svelte@1.0.2(svelte@4.0.1)(tailwindcss@3.3.2):
+    resolution: {integrity: sha512-XWI+7j9Wfu8QX0s48iDElPoFAznAHFQ2j4eb1jhIT1GSH7PQAjB/c+PcdLW9Q1qBT7eJJa++/uDYieegNoj4MA==}
+    peerDependencies:
+      svelte: ^3.59.1
+      tailwindcss: ^3.3.2
+    peerDependenciesMeta:
+      tailwindcss:
+        optional: true
+    dependencies:
+      svelte: 4.0.1
+      tailwindcss: 3.3.2
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:

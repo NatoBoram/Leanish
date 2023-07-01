@@ -3,12 +3,12 @@ import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
 import type { LayoutLoad } from './$types'
 
-export const load = (async ({ params }) => {
+export const load = (({ params }) => {
 	const url = newUrl(`https://${params.site}`)
 	if (!url) return error(400, 'Malformed Lemmy URL')
+	const client = new LemmyHttp(url.toString(), { headers: {} })
 
-	const client = new LemmyHttp(url.toString())
-	const site = await client.getSite()
+	const site = client.getSite()
 
 	return { site }
 }) satisfies LayoutLoad
