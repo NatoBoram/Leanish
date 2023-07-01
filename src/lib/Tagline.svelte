@@ -4,6 +4,6 @@
 	export let tagline: Tagline
 </script>
 
-<p>
+<p class="p-4 rounded border">
 	{tagline.content}
 </p>

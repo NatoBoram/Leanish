@@ -9,8 +9,13 @@
 	$: site = data.site as unknown as GetSiteResponse
 </script>
 
-{#each site.taglines as tagline (tagline.id)}
-	<Tagline {tagline} />
-{/each}
+<!-- Taglines -->
+<div class="flex flex-col gap-4 mb-4">
+	{#each site.taglines as tagline (tagline.id)}
+		<Tagline {tagline} />
+	{/each}
+</div>
 
-{JSON.stringify(data, undefined, '\t')}
+<pre>
+	{JSON.stringify(data, undefined, '\t')}
+</pre>

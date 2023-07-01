@@ -1,3 +1,3 @@
 # Leanish
 
-A lean-ish Lemmy web client.
+A lean-ish web client for Lemmy.

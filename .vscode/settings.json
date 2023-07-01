@@ -1,0 +1,7 @@
+{
+	"[css][html][javascript][json][jsonc][markdown][postcss][scss][svelte][typescript][xml][yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.minimap.maxColumn": 100,
+		"editor.rulers": [100]
+	}
+}

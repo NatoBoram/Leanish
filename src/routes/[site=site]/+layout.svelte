@@ -8,9 +8,13 @@
 	$: site = data.site as unknown as GetSiteResponse
 </script>
 
-<nav>
-	<img src={site.site_view.site.icon} alt={site.site_view.site.name} />
-	<h1 title={site.site_view.site.description}>{site.site_view.site.name}</h1>
+<nav class="top-0 left-0 right-0 p-4 mb-4">
+	<div class="container flex flex-row gap-4 items-center mx-auto">
+		<img src={site.site_view.site.icon} alt={site.site_view.site.name} class="w-8 h-8" />
+		<h1 title={site.site_view.site.description}>{site.site_view.site.name}</h1>
+	</div>
 </nav>
 
-<slot />
+<div class="container mx-auto">
+	<slot />
+</div>
