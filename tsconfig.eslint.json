@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.json",
+	"include": [
+		".eslintrc.cjs",
+		"playwright.config.ts",
+		"src",
+		"svelte.config.js",
+		"tests",
+		"vite.config.ts"
+	]
+}
