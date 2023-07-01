@@ -1,14 +1,13 @@
-import { newUrl } from '$lib/utils'
-import { error } from '@sveltejs/kit'
+import { markedOptions } from '$lib/marked_options'
+import { Marked } from '@ts-stack/markdown'
 import { LemmyHttp } from 'lemmy-js-client'
 import type { LayoutLoad } from './$types'
 
 export const load = (({ params }) => {
-	const url = newUrl(`https://${params.site}`)
-	if (!url) return error(400, 'Malformed Lemmy URL')
-	const client = new LemmyHttp(url.toString(), { headers: {} })
-
+	const client = new LemmyHttp(`https://${params.site}`)
 	const site = client.getSite()
+
+	Marked.setOptions(markedOptions)
 
 	return { site }
 }) satisfies LayoutLoad

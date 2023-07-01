@@ -17,6 +17,9 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.21.0
     version: 1.21.0(svelte@4.0.1)(vite@4.3.9)
+  '@ts-stack/markdown':
+    specifier: ^1.4.0
+    version: 1.4.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.60.1
     version: 5.60.1(@typescript-eslint/parser@5.60.1)(eslint@8.44.0)(typescript@5.0.4)
@@ -35,6 +38,9 @@ devDependencies:
   eslint-plugin-svelte:
     specifier: ^2.32.2
     version: 2.32.2(eslint@8.44.0)(svelte@4.0.1)
+  highlight.js:
+    specifier: ^11.8.0
+    version: 11.8.0
   lemmy-js-client:
     specifier: 0.18.1-rc.2
     version: 0.18.1-rc.2
@@ -497,6 +503,12 @@ packages:
       vitefu: 0.2.4(vite@4.3.9)
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@ts-stack/markdown@1.4.0:
+    resolution: {integrity: sha512-z3fkD8wGSyqTCp+axZVlr9hFKyM18XKPHEyC8vmohyTcqf5sRRy9Sd0omYBJ85IDW57DLEcfvVatXfUt1unEew==}
+    dependencies:
+      tslib: 2.6.0
     dev: true
 
   /@types/chai-subset@1.3.3:
@@ -1463,6 +1475,11 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+    dev: true
+
+  /highlight.js@11.8.0:
+    resolution: {integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==}
+    engines: {node: '>=12.0.0'}
     dev: true
 
   /ignore@5.2.4:

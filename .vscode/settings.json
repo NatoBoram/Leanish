@@ -3,5 +3,6 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.minimap.maxColumn": 100,
 		"editor.rulers": [100]
-	}
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

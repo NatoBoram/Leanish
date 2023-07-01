@@ -1,8 +1,16 @@
 <script lang="ts">
 	import { base } from '$app/paths'
+	import { markedOptions } from '$lib/marked_options'
 	import { siteHostname } from '$lib/utils'
+	import { Marked } from '@ts-stack/markdown'
+	import 'highlight.js/styles/vs.css'
 	import type { GetSiteResponse } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
 	import type { LayoutData } from './$types'
+
+	onMount(() => {
+		Marked.setOptions(markedOptions)
+	})
 
 	export let data: LayoutData
 

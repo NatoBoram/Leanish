@@ -4,6 +4,7 @@
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
 	import type { GetSiteResponse, PostView } from 'lemmy-js-client'
 	import { communityUri } from './utils'
+	import { Marked } from '@ts-stack/markdown'
 
 	export let post: PostView
 	export let site: GetSiteResponse
@@ -24,7 +25,7 @@
 	<h2 class="text-xl">{post.post.name}</h2>
 
 	{#if post.post.body}
-		<p>{post.post.body}</p>
+		<p>{@html Marked.parse(post.post.body)}</p>
 	{/if}
 
 	{#if post.post.thumbnail_url}
