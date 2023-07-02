@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { LemmyHttp } from 'lemmy-js-client'
-	import { newUrl } from '$lib/utils'
+	import { goto } from '$app/navigation'
+	import { cors } from '$lib/cors'
+	import { headers, newUrl, siteLink } from '$lib/utils'
 
 	let input: string
 
-	let error: string | undefined
+	let message: string | undefined
 
 	async function submit() {
 		if (input.startsWith('http://')) input = input.replace('http://', 'https://')
@@ -12,28 +14,47 @@
 
 		const url = newUrl(input)
 		if (!url) {
-			error = 'Please enter a valid URL.'
+			message = 'Please enter a valid URL.'
 			return
 		}
 
-		let client = new LemmyHttp(input)
+		const client = new LemmyHttp(input, {
+			fetchFunction: cors(fetch, location.origin),
+			headers: headers({ site: url.hostname }),
+		})
+
 		let site = await client.getSite()
 
-		console.log(site)
+		return goto(siteLink(site.site_view.site))
 	}
 </script>
 
-<h1>Leanish</h1>
+<div class="flex flex-col items-center gap-4">
+	<h1 class="text-7xl">Leanish</h1>
+	<p class="italic">A lean-ish Lemmy web client.</p>
 
-Enter a Lemmy instance URL:
+	<br />
 
-<input
-	type="text"
-	bind:value={input}
-	on:submit={submit}
-	on:keypress={k => k.key === 'Enter' && submit()}
-/>
+	<label for="input">Enter a Lemmy instance URL:</label>
 
-{#if error}
-	{error}
-{/if}
+	<input
+		id="input"
+		class="bg-base-container text-on-base-container rounded p-2"
+		type="text"
+		bind:value={input}
+		on:submit={submit}
+		on:keypress={k => k.key === 'Enter' && submit()}
+	/>
+
+	<button
+		type="submit"
+		class="bg-base-container text-on-base-container px-4 py-2 rounded"
+		on:click={submit}>Submit</button
+	>
+
+	{#if message}
+		<p class="bg-danger-container text-on-danger-container p-4 rounded-md">
+			{message}
+		</p>
+	{/if}
+</div>

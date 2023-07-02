@@ -8,8 +8,8 @@ export const GET: RequestHandler = async ({ url, fetch }) => {
 	const init = JSON.parse(url.searchParams.get('init') ?? '{}') as RequestInit
 	const original = await fetch(input, init)
 
-	const headers = new Headers(original.headers)
-	// headers.set('Access-Control-Allow-Origin', '*')
-
-	return new Response(original.body, { ...original, headers })
+	return new Response(await original.text(), {
+		status: original.status,
+		statusText: original.statusText,
+	})
 }

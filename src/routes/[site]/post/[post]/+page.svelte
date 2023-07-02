@@ -10,7 +10,7 @@
 	<title>{data.post_view.post.name}</title>
 </svelte:head>
 
-<div class="container mx-auto">
+<div class="container mx-auto flex flex-col gap-8">
 	<Post post={data.post_view} site={data.site_view.site} />
 
 	<!-- Comments -->

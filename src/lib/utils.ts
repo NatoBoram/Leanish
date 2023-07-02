@@ -15,7 +15,6 @@ export function personUri(person: Person): string {
 }
 
 export function personLink(site: Site, person: Person) {
-	console.log(site, person)
 	return `${base}/${siteHostname(site)}/u/${personUri(person)}`
 }
 
@@ -63,7 +62,7 @@ export function fetchFunction(fetch: typeof globalThis.fetch): typeof globalThis
 		if (res.ok) return res
 
 		console.error({
-			headers: { ...res.headers },
+			headers: Array.from(res.headers),
 			init,
 			input,
 			status: res.status,
