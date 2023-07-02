@@ -30,4 +30,8 @@ module.exports = {
 			},
 		},
 	],
+	rules: {
+		'svelte/no-at-html-tags': 'off',
+		'@typescript-eslint/no-throw-literal': 'off',
+	},
 }

@@ -1,20 +1,16 @@
 <script lang="ts">
-	import { base } from '$app/paths'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
-	import type { GetSiteResponse, PostView } from 'lemmy-js-client'
-	import { communityUri } from './utils'
 	import { Marked } from '@ts-stack/markdown'
+	import type { PostView, Site } from 'lemmy-js-client'
+	import { communityLink, communityUri, postLink } from './utils'
 
 	export let post: PostView
-	export let site: GetSiteResponse
+	export let site: Site
 </script>
 
 <div class="flex flex-col gap-2 mb-4">
-	<a
-		class="flex flex-row gap-2 items-center text-sm"
-		href="{base}/{new URL(site.site_view.site.actor_id).hostname}/c/{communityUri(post.community)}"
-	>
+	<a class="flex flex-row gap-2 items-center text-sm" href={communityLink(site, post.community)}>
 		{#if post.community.icon}
 			<img src={post.community.icon} alt={post.community.name} class="h-4" />
 		{:else}
@@ -22,10 +18,14 @@
 		{/if}
 		<div>{communityUri(post.community)}</div>
 	</a>
-	<h2 class="text-xl">{post.post.name}</h2>
+	<h2 class="text-xl">
+		<a href={postLink(site, post.post)}>
+			{post.post.name}
+		</a>
+	</h2>
 
 	{#if post.post.body}
-		<p>{@html Marked.parse(post.post.body)}</p>
+		<p class="prose">{@html Marked.parse(post.post.body)}</p>
 	{/if}
 
 	{#if post.post.thumbnail_url}
@@ -33,6 +33,7 @@
 			src={post.post.thumbnail_url}
 			alt={post.post.name}
 			class="w-full aspect-video object-cover"
+			loading="lazy"
 		/>
 	{/if}
 
@@ -44,10 +45,10 @@
 			<button title="Downvote ({post.counts.downvotes})"><ArrowDown /></button>
 		</div>
 
-		<button class="flex flex-row gap-2 items-center">
+		<a class="flex flex-row gap-2 items-center" href={postLink(site, post.post)}>
 			<ChatBubbleLeft class="w-5 h-5" />
 			{post.counts.comments}
 			<span>Comments</span>
-		</button>
+		</a>
 	</div>
 </div>
