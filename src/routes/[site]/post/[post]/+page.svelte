@@ -6,9 +6,13 @@
 	export let data: PageData
 </script>
 
+<svelte:head>
+	<title>{data.post_view.post.name}</title>
+</svelte:head>
+
 <div class="container mx-auto">
-	<Post post={data.post_view} site={data.site_view.site} class="rounded-xl p-4" />
+	<Post post={data.post_view} site={data.site_view.site} />
 
 	<!-- Comments -->
-	<Comments comments={data.comments} />
+	<Comments comments={data.comments} site={data.site_view.site} />
 </div>

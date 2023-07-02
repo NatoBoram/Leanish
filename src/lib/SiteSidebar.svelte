@@ -9,9 +9,15 @@
 </script>
 
 <div class="flex flex-col gap-4 p-4 {className}">
+	{#if site.banner}
+		<img src={site.banner} alt={site.name} class="rounded-xl" />
+	{/if}
+
+	<br />
+
 	{#if site.sidebar}
-		<p class="prose prose-invert mx-auto">
+		<div class="prose prose-invert mx-auto prose-a:no-underline hover:prose-a:underline">
 			{@html Marked.parse(site.sidebar)}
-		</p>
+		</div>
 	{/if}
 </div>

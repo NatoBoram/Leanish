@@ -6,6 +6,10 @@
 	export let data: PageData
 </script>
 
+<svelte:head>
+	<title>Communities - {data.site_view.site.name}</title>
+</svelte:head>
+
 <div class="container mx-auto flex flex-col gap-2">
 	<h1 class="text-xl">List of communities</h1>
 

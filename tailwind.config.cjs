@@ -9,19 +9,18 @@ export default {
 		extend: {
 			colors: {
 				base: { container: colors.neutral[900], DEFAULT: colors.neutral[950] },
-				danger: { container: colors.rose[200], DEFAULT: colors.rose[500] },
+				danger: { container: colors.rose[900], DEFAULT: colors.rose[600] },
 				muted: colors.zinc[400],
-				primary: { container: colors.sky[200], DEFAULT: colors.sky[500] },
+				primary: { container: colors.sky[900], DEFAULT: colors.sky[600] },
 				on: {
 					base: { container: colors.neutral[200], DEFAULT: colors.neutral[100] },
-					contrast: colors.slate[100],
-					danger: { container: colors.rose[600], DEFAULT: colors.rose[50] },
+					danger: { container: colors.rose[100], DEFAULT: colors.rose[50] },
 					muted: colors.zinc[50],
-					primary: { container: colors.sky[700], DEFAULT: colors.sky[50] },
+					primary: { container: colors.sky[100], DEFAULT: colors.sky[50] },
 				},
 			},
 		},
 	},
-	safelist: ['w-5', 'h-5', 'w-6', 'h-6'],
+	safelist: ['h-5', 'h-6', 'w-5', 'w-6'],
 	plugins: [require('@tailwindcss/typography')],
 }

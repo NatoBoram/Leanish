@@ -11,6 +11,6 @@
 
 <div class="mb-4 flex flex-col gap-4 {className}">
 	{#each posts as post (post.post.id)}
-		<Post {post} {site} class="rounded-lg p-4" />
+		<Post {post} {site} />
 	{/each}
 </div>

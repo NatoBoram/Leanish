@@ -22,14 +22,16 @@
 	})
 </script>
 
-<div class="mb-4 flex flex-col gap-4 bg-base-container text-on-base-container {className}">
+<div
+	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
+>
 	<!-- Info bar -->
-	<div class="flex flex-row items-center gap-2 text-sm text-muted">
+	<div class="flex flex-col items-start gap-2 text-sm text-muted xl:flex-row xl:items-center">
 		<a class="flex flex-row items-center gap-2" href={communityLink(site, post.community)}>
 			<CommunityIcon community={post.community} />
 			<div>{communityUri(post.community)}</div>
 		</a>
-		•
+		<div class="hidden xl:block">•</div>
 		<div class="flex flex-row items-center gap-2">
 			Posted by
 			<a class="flex flex-row items-center gap-2" href={personLink(site, post.creator)}>
@@ -37,7 +39,7 @@
 				<div>{personUri(post.creator)}</div>
 			</a>
 		</div>
-		•
+		<div class="hidden xl:block">•</div>
 		<span title={new Date(post.post.published).toISOString()}>
 			{dtf.format(new Date(post.post.published))}
 		</span>
@@ -53,7 +55,7 @@
 	<!-- Body -->
 	{#if post.post.body}
 		<p
-			class="prose prose-invert max-w-none prose-a:text-primary prose-a:no-underline hover:prose-a:underline"
+			class="prose prose-invert min-w-0 max-w-none prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:break-all lg:prose-pre:max-w-3xl"
 		>
 			{@html Marked.parse(post.post.body)}
 		</p>

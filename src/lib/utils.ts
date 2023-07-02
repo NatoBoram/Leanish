@@ -15,6 +15,7 @@ export function personUri(person: Person): string {
 }
 
 export function personLink(site: Site, person: Person) {
+	console.log(site, person)
 	return `${base}/${siteHostname(site)}/u/${personUri(person)}`
 }
 
@@ -38,9 +39,18 @@ export function siteLink(site: Site) {
 	return `${base}/${siteHostname(site)}`
 }
 
+/**
+ * If a Lemmy instance is blocking non-browser clients that have the goodwill to announce
+ * themselves, then just don't tell it.
+ */
+const userAgentBlacklists: string[] = []
+
 export function headers(params: { site: string }, referer: `/${string}` = '/') {
+	const name = __NAME__
+	const version = __VERSION__
+
 	return {
-		'User-Agent': `__NAME__@__VERSION__`,
+		...(userAgentBlacklists.includes(params.site) ? {} : { 'User-Agent': `${name}@${version}` }),
 		Host: params.site,
 		Origin: `https://${params.site}`,
 		Referer: `https://${params.site}${referer}`,

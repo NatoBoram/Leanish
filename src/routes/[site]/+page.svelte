@@ -7,24 +7,28 @@
 	export let data: PageData
 </script>
 
+<svelte:head>
+	<title>{data.site_view.site.name} - {data.site_view.site.description}</title>
+</svelte:head>
+
 <div class="container mx-auto">
 	<!-- Taglines -->
 	<div class="mb-4 flex flex-col gap-4">
 		{#if data.taglines}
 			{#each data.taglines as tagline (tagline.id)}
-				<Tagline {tagline} />
+				<Tagline {tagline} class="rounded-md bg-base-container text-on-base-container" />
 			{/each}
 		{/if}
 	</div>
 
-	<div class="flex flex-row gap-4">
-		<!-- Posts -->
-		<Posts posts={data.posts} site={data.site_view.site} class="flex-grow" />
-
+	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<SiteSidebar
-			class="hidden rounded-lg bg-base-container text-on-base-container sm:block sm:max-w-xs md:max-w-sm"
+			class="w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
 			site={data.site_view.site}
 		/>
+
+		<!-- Posts -->
+		<Posts posts={data.posts} site={data.site_view.site} class="flex-grow" />
 	</div>
 </div>
