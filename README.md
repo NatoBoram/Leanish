@@ -4,4 +4,4 @@
 
 A lean-ish web client for Lemmy.
 
-![image](https://github.com/NatoBoram/Leanish/assets/10495562/78d2f275-2aff-4a46-81cd-f2602bb22457)
+![image](https://github.com/NatoBoram/Leanish/assets/10495562/35a918aa-4196-42c6-9a54-3ff70d359657)
