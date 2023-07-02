@@ -7,7 +7,7 @@
 </script>
 
 <div class="container mx-auto">
-	<Post post={data.post_view} site={data.site_view.site} class="p-4 rounded-xl" />
+	<Post post={data.post_view} site={data.site_view.site} class="rounded-xl p-4" />
 
 	<!-- Comments -->
 	<Comments comments={data.comments} />
