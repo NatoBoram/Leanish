@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { Marked } from '@ts-stack/markdown'
+	import Comments from '$lib/Comments.svelte'
+	import Post from '$lib/Post.svelte'
 	import type { PageData } from './$types'
 
 	export let data: PageData
 </script>
 
 <div class="container mx-auto">
-	<h1 class="text-xl">{data.post_view.post.name}</h1>
+	<Post post={data.post_view} site={data.site_view.site} class="p-4 rounded-xl" />
 
-	<p class="prose">
-		{#if data.post_view.post.body}
-			{@html Marked.parse(data.post_view.post.body)}
-		{/if}
-	</p>
+	<!-- Comments -->
+	<Comments comments={data.comments} />
 </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { newUrl } from '$lib/utils'
 	import { LemmyHttp } from 'lemmy-js-client'
+	import { newUrl } from '$lib/utils'
+
 	let input: string
 
 	let error: string | undefined
@@ -30,7 +31,7 @@ Enter a Lemmy instance URL:
 	type="text"
 	bind:value={input}
 	on:submit={submit}
-	on:keypress={(k) => k.key === 'Enter' && submit()}
+	on:keypress={k => k.key === 'Enter' && submit()}
 />
 
 {#if error}

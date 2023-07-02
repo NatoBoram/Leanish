@@ -1,6 +1,6 @@
-import { base } from '$app/paths'
 import { error } from '@sveltejs/kit'
-import type { Community, Post, Site } from 'lemmy-js-client'
+import type { Community, Person, Post, Site } from 'lemmy-js-client'
+import { base } from '$app/paths'
 
 export function newUrl(input: string) {
 	try {
@@ -8,6 +8,14 @@ export function newUrl(input: string) {
 	} catch (error) {
 		return false
 	}
+}
+
+export function personUri(person: Person): string {
+	return `${person.name}@${new URL(person.actor_id).hostname}`
+}
+
+export function personLink(site: Site, person: Person) {
+	return `${base}/${siteHostname(site)}/u/${personUri(person)}`
 }
 
 export function communityUri(community: Community): string {
@@ -32,7 +40,7 @@ export function siteLink(site: Site) {
 
 export function headers(params: { site: string }, referer: `/${string}` = '/') {
 	return {
-		'User-Agent': '__NAME__@__VERSION__',
+		'User-Agent': `__NAME__@__VERSION__`,
 		Host: params.site,
 		Origin: `https://${params.site}`,
 		Referer: `https://${params.site}${referer}`,

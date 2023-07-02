@@ -8,9 +8,9 @@
 	export let site: Site
 </script>
 
-<div class="p-4 flex flex-col gap-4 {className}">
+<div class="flex flex-col gap-4 p-4 {className}">
 	{#if site.sidebar}
-		<p class="prose">
+		<p class="prose prose-invert mx-auto">
 			{@html Marked.parse(site.sidebar)}
 		</p>
 	{/if}

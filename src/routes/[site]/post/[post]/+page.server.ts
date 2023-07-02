@@ -1,6 +1,6 @@
-import { fetchFunction, headers } from '$lib/utils'
 import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
+import { fetchFunction, headers } from '$lib/utils'
 import type { PageServerLoad } from './$types'
 
 export const load = (async ({ params, fetch }) => {
@@ -13,11 +13,11 @@ export const load = (async ({ params, fetch }) => {
 	})
 
 	const [post, comments] = await Promise.all([
-		client.getPost({ id }).catch((e) => {
+		client.getPost({ id }).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load post')
 		}),
-		client.getComments({ post_id: id }).catch((e) => {
+		client.getComments({ post_id: id }).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load comments')
 		}),

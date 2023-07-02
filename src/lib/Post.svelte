@@ -3,50 +3,82 @@
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
 	import type { PostView, Site } from 'lemmy-js-client'
-	import { communityLink, communityUri, postLink } from './utils'
+	import CommunityIcon from './CommunityIcon.svelte'
+	import PersonIcon from './PersonIcon.svelte'
+	import { communityLink, communityUri, personLink, personUri, postLink } from './utils'
+
+	let className: string | undefined = undefined
+	export { className as class }
 
 	export let post: PostView
 	export let site: Site
+
+	const dtf = Intl.DateTimeFormat('en-GB', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: '2-digit',
+	})
 </script>
 
-<div class="flex flex-col gap-2 mb-4">
-	<a class="flex flex-row gap-2 items-center text-sm" href={communityLink(site, post.community)}>
-		{#if post.community.icon}
-			<img src={post.community.icon} alt={post.community.name} class="h-4" />
-		{:else}
-			<div class="w-4 h-4 bg-gray-300 rounded-full" />
-		{/if}
-		<div>{communityUri(post.community)}</div>
-	</a>
+<div class="mb-4 flex flex-col gap-4 bg-base-container text-on-base-container {className}">
+	<!-- Info bar -->
+	<div class="flex flex-row items-center gap-2 text-sm text-muted">
+		<a class="flex flex-row items-center gap-2" href={communityLink(site, post.community)}>
+			<CommunityIcon community={post.community} />
+			<div>{communityUri(post.community)}</div>
+		</a>
+		•
+		<div class="flex flex-row items-center gap-2">
+			Posted by
+			<a class="flex flex-row items-center gap-2" href={personLink(site, post.creator)}>
+				<PersonIcon person={post.creator} />
+				<div>{personUri(post.creator)}</div>
+			</a>
+		</div>
+		•
+		<span title={new Date(post.post.published).toISOString()}>
+			{dtf.format(new Date(post.post.published))}
+		</span>
+	</div>
+
+	<!-- Title -->
 	<h2 class="text-xl">
 		<a href={postLink(site, post.post)}>
 			{post.post.name}
 		</a>
 	</h2>
 
+	<!-- Body -->
 	{#if post.post.body}
-		<p class="prose">{@html Marked.parse(post.post.body)}</p>
+		<p
+			class="prose prose-invert max-w-none prose-a:text-primary prose-a:no-underline hover:prose-a:underline"
+		>
+			{@html Marked.parse(post.post.body)}
+		</p>
 	{/if}
 
+	<!-- Thumbnail -->
 	{#if post.post.thumbnail_url}
 		<img
 			src={post.post.thumbnail_url}
 			alt={post.post.name}
-			class="w-full aspect-video object-cover"
+			class="aspect-video w-full object-cover"
 			loading="lazy"
 		/>
 	{/if}
 
-	<!-- Post action bar -->
-	<div class="flex flex-row gap-4 items-center text-sm">
-		<div class="flex flex-row gap-2 items-center">
+	<!-- Action bar -->
+	<div class="flex flex-row items-center gap-4 text-sm text-muted">
+		<div class="flex flex-row items-center gap-2">
 			<button title="Upvote ({post.counts.upvotes})"><ArrowUp /></button>
 			<div>{post.counts.score}</div>
 			<button title="Downvote ({post.counts.downvotes})"><ArrowDown /></button>
 		</div>
 
-		<a class="flex flex-row gap-2 items-center" href={postLink(site, post.post)}>
-			<ChatBubbleLeft class="w-5 h-5" />
+		<a class="flex flex-row items-center gap-2" href={postLink(site, post.post)}>
+			<ChatBubbleLeft class="h-5 w-5" />
 			{post.counts.comments}
 			<span>Comments</span>
 		</a>
