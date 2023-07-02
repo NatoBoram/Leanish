@@ -39,7 +39,7 @@
 
 	<input
 		id="input"
-		class="bg-base-container text-on-base-container rounded p-2"
+		class="rounded bg-base-container p-2 text-on-base-container"
 		type="text"
 		bind:value={input}
 		on:submit={submit}
@@ -48,12 +48,12 @@
 
 	<button
 		type="submit"
-		class="bg-base-container text-on-base-container px-4 py-2 rounded"
+		class="rounded bg-base-container px-4 py-2 text-on-base-container"
 		on:click={submit}>Submit</button
 	>
 
 	{#if message}
-		<p class="bg-danger-container text-on-danger-container p-4 rounded-md">
+		<p class="rounded-md bg-danger-container p-4 text-on-danger-container">
 			{message}
 		</p>
 	{/if}
