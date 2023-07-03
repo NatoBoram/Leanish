@@ -66,7 +66,7 @@
 		<img
 			src={post.post.thumbnail_url}
 			alt={post.post.name}
-			class="aspect-video w-full object-cover"
+			class="max-h-screen w-full object-cover"
 			loading="lazy"
 		/>
 	{/if}
