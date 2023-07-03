@@ -11,7 +11,7 @@ export const load = (async ({ params, fetch, cookies, parent, url }) => {
 	})
 
 	const data = await parent()
-	const posts = client.getPosts(formGetPosts(cookies, data, url)).catch(e => {
+	const posts = await client.getPosts(formGetPosts(cookies, data, url)).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load posts')
 	})

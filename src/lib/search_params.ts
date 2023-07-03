@@ -106,7 +106,9 @@ export function setType<T extends { type_?: ListingType }>(
 	if (form.type_) return form
 	const type_ =
 		url.searchParams.get('type_') ?? my_user?.local_user_view.local_user.default_listing_type
-	if (!isListingType(type_)) throw error(400, 'Invalid type_')
+
+	if (!type_) return form
+	if (!isListingType(type_)) throw error(400, `Invalid type_: ${type_}`)
 
 	form.type_ = type_
 	return form
