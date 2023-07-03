@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation'
+	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
 	import Posts from '$lib/Posts.svelte'
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
@@ -65,7 +65,10 @@
 				{#if hasPrevious($page.url)}
 					<button
 						class="w-24 rounded-lg bg-base-container p-4 text-center text-on-base-container"
-						on:click={() => goto(previousPage($page.url), { replaceState: true })}
+						on:click={async () => {
+							await goto(previousPage($page.url))
+							await invalidate('app:paginate')
+						}}
 					>
 						Previous
 					</button>
@@ -78,7 +81,10 @@
 				{#if hasNext($page.url)}
 					<button
 						class="w-24 rounded-lg bg-base-container p-4 text-center text-on-base-container"
-						on:click={() => goto(nextPage($page.url), { replaceState: true, noScroll: true })}
+						on:click={async () => {
+							await goto(nextPage($page.url))
+							await invalidate('app:paginate')
+						}}
 					>
 						Next
 					</button>
