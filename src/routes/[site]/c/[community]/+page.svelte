@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { GetCommunityResponse, GetPostsResponse } from 'lemmy-js-client'
+	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
 	import Posts from '$lib/Posts.svelte'
 	import { communityUri } from '$lib/utils'
@@ -12,24 +13,18 @@
 	<title>{data.community_view.community.title}</title>
 </svelte:head>
 
-<img
-	src={data.community_view.community.banner}
-	class="mb-4 max-h-96 w-full object-cover"
-	alt={data.community_view.community.title}
-/>
+{#if data.community_view.community.banner}
+	<img
+		src={data.community_view.community.banner}
+		class="mb-4 max-h-96 w-full object-cover"
+		alt={data.community_view.community.title}
+	/>
+{/if}
 
 <div class="container mx-auto flex flex-col gap-4">
 	<!-- Community header -->
 	<div class="flex flex-row items-start gap-4">
-		{#if data.community_view.community.icon}
-			<img
-				src={data.community_view.community.icon}
-				class="h-16 w-16 object-cover"
-				alt={data.community_view.community.title}
-			/>
-		{:else}
-			<div class="h-4 w-4 rounded-full bg-gray-300" />
-		{/if}
+		<CommunityIcon community={data.community_view.community} class="h-16 w-16" />
 
 		<div class="flex flex-col gap-2">
 			<h1 class="text-xl">{data.community_view.community.title}</h1>
