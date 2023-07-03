@@ -13,7 +13,7 @@
 	let password = ''
 	let totp_2fa_token = ''
 
-	let request: undefined | Promise<LoginResponse> = undefined
+	let request: Promise<LoginResponse> | undefined = undefined
 
 	async function login() {
 		const client = new LemmyHttp(data.site_view.site.actor_id, {
@@ -78,15 +78,15 @@
 	{#if request}
 		{#await request}
 			<div class="rounded bg-base-container p-4 text-on-base-container">Loading...</div>
-		{:then request}
-			{#if request.jwt}
+		{:then response}
+			{#if response.jwt}
 				<div class="rounded bg-primary-container p-4 text-on-primary-container">Logged in!</div>
 			{:else}
 				<div class="rounded bg-base-container p-4 text-on-base-container">
 					Hm, something strange happened.
 				</div>
 				<div class="prose">
-					<pre>{JSON.stringify(request, undefined, '\t')}</pre>
+					<pre>{JSON.stringify(response, undefined, '\t')}</pre>
 				</div>
 			{/if}
 		{:catch request}

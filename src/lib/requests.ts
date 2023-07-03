@@ -1,4 +1,4 @@
-import { type Cookies, error } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 
 /**
  * If a Lemmy instance is blocking non-browser clients that have the goodwill to announce
@@ -19,7 +19,7 @@ export function headers(params: { site: string }, referer: `/${string}` = '/') {
 }
 
 export function fetchFunction(fetch: typeof globalThis.fetch): typeof globalThis.fetch {
-	return async (input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response> => {
+	return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
 		const res = await fetch(input, init)
 		if (res.ok) return res
 
@@ -33,13 +33,5 @@ export function fetchFunction(fetch: typeof globalThis.fetch): typeof globalThis
 		})
 
 		throw error(res.status, res.statusText)
-	}
-}
-
-export function auth<T extends { auth?: string }>(form: T, cookies: Cookies): T {
-	const jwt = cookies.get('jwt')
-	return {
-		...form,
-		...(jwt ? { auth: jwt } : {}),
 	}
 }

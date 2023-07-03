@@ -1,4 +1,5 @@
-import { MarkedOptions, Renderer } from '@ts-stack/markdown'
+import type { MarkedOptions } from '@ts-stack/markdown'
+import { Renderer } from '@ts-stack/markdown'
 import hljs from 'highlight.js'
 
 export const markedOptions = {

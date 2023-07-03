@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
-import { auth, fetchFunction, headers } from '$lib/requests'
+import { fetchFunction, headers } from '$lib/requests'
+import { setAuth } from '$lib/search_params'
 import type { LayoutServerLoad } from './$types'
 
 export const load = (({ params, fetch, cookies }) => {
@@ -9,7 +10,7 @@ export const load = (({ params, fetch, cookies }) => {
 		headers: headers(params, '/'),
 	})
 
-	const site = client.getSite(auth({}, cookies)).catch(e => {
+	const site = client.getSite(setAuth({}, cookies)).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load site')
 	})

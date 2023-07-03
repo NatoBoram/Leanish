@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit'
 import { type GetComments, type GetPost, LemmyHttp } from 'lemmy-js-client'
-import { auth, fetchFunction, headers } from '$lib/requests'
+import { fetchFunction, headers } from '$lib/requests'
+import { setAuth } from '$lib/search_params'
 import type { PageServerLoad } from './$types'
 
 export const load = (async ({ params, fetch, cookies }) => {
@@ -13,11 +14,11 @@ export const load = (async ({ params, fetch, cookies }) => {
 	})
 
 	const [post, comments] = await Promise.all([
-		client.getPost(auth<GetPost>({ id }, cookies)).catch(e => {
+		client.getPost(setAuth<GetPost>({ id }, cookies)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load post')
 		}),
-		client.getComments(auth<GetComments>({ post_id: id }, cookies)).catch(e => {
+		client.getComments(setAuth<GetComments>({ post_id: id }, cookies)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load comments')
 		}),

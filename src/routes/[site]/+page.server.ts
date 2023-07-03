@@ -1,17 +1,20 @@
 import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
-import { auth, fetchFunction, headers } from '$lib/requests'
+import { fetchFunction, headers } from '$lib/requests'
+import { formGetPosts } from '$lib/search_params'
 import type { PageServerLoad } from './$types'
 
-export const load = (({ params, fetch, cookies }) => {
+export const load = (async ({ params, fetch, cookies, parent, url }) => {
 	const client = new LemmyHttp(`https://${params.site}`, {
 		fetchFunction: fetchFunction(fetch),
 		headers: headers(params, '/'),
 	})
 
-	const posts = client.getPosts(auth({}, cookies)).catch(e => {
+	const data = await parent()
+	const posts = client.getPosts(formGetPosts(cookies, data, url)).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load posts')
 	})
+
 	return posts
 }) satisfies PageServerLoad

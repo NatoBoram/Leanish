@@ -5,7 +5,7 @@
 	import { communityUri } from '$lib/utils'
 	import type { PageData } from './$types'
 
-	export let data: GetPostsResponse & GetCommunityResponse & PageData
+	export let data: GetCommunityResponse & GetPostsResponse & PageData
 </script>
 
 <svelte:head>
