@@ -2,7 +2,8 @@
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
 	import { cors } from '$lib/cors'
-	import { headers, newUrl, siteLink } from '$lib/utils'
+	import { headers } from '$lib/requests'
+	import { newUrl, siteLink } from '$lib/utils'
 
 	let input: string
 

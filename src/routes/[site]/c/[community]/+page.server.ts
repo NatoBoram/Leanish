@@ -1,16 +1,16 @@
 import { error } from '@sveltejs/kit'
-import { LemmyHttp } from 'lemmy-js-client'
-import { fetchFunction, headers } from '$lib/utils'
+import { type GetCommunity, LemmyHttp } from 'lemmy-js-client'
+import { auth, fetchFunction, headers } from '$lib/requests'
 import type { PageServerLoad } from './$types'
 
-export const load = (async ({ params, fetch }) => {
+export const load = (async ({ params, fetch, cookies }) => {
 	const client = new LemmyHttp(`https://${params.site}`, {
 		fetchFunction: fetchFunction(fetch),
 		headers: headers(params, `/c/${params.community}`),
 	})
 
 	const [community, posts] = await Promise.all([
-		client.getCommunity({ name: params.community }).catch(e => {
+		client.getCommunity(auth<GetCommunity>({ name: params.community }, cookies)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load community')
 		}),

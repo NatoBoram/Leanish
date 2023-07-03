@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit'
-import { LemmyHttp } from 'lemmy-js-client'
-import { fetchFunction, headers } from '$lib/utils'
+import { type GetComments, type GetPost, LemmyHttp } from 'lemmy-js-client'
+import { auth, fetchFunction, headers } from '$lib/requests'
 import type { PageServerLoad } from './$types'
 
-export const load = (async ({ params, fetch }) => {
+export const load = (async ({ params, fetch, cookies }) => {
 	const id = parseInt(params.post)
 	if (isNaN(id)) throw error(400, 'Invalid post ID')
 
@@ -13,11 +13,11 @@ export const load = (async ({ params, fetch }) => {
 	})
 
 	const [post, comments] = await Promise.all([
-		client.getPost({ id }).catch(e => {
+		client.getPost(auth<GetPost>({ id }, cookies)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load post')
 		}),
-		client.getComments({ post_id: id }).catch(e => {
+		client.getComments(auth<GetComments>({ post_id: id }, cookies)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load comments')
 		}),

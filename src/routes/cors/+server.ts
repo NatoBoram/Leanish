@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
-export const GET: RequestHandler = async ({ url, fetch }) => {
+const handler: RequestHandler = async ({ url, fetch }) => {
 	const input = url.searchParams.get('url')
 	if (!input) throw error(400, 'Missing url parameter')
 
@@ -13,3 +13,6 @@ export const GET: RequestHandler = async ({ url, fetch }) => {
 		statusText: original.statusText,
 	})
 }
+
+export const GET: RequestHandler = handler
+export const POST: RequestHandler = handler
