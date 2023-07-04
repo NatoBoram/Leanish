@@ -11,22 +11,22 @@
 
 {#await community}
 	<button class="rounded-full bg-surface px-4 py-2 text-on-surface {className}">Loading...</button>
-{:then community}
-	{#if community.subscribed === 'NotSubscribed'}
+{:then response}
+	{#if response.subscribed === 'NotSubscribed'}
 		<button
 			class="rounded-full border-surface-container bg-surface-container px-4 py-2 text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
 			on:click={() => followCommunity(true)}
 		>
 			Join
 		</button>
-	{:else if community.subscribed === 'Pending'}
+	{:else if response.subscribed === 'Pending'}
 		<button
 			class="rounded-full border-surface-container bg-surface-container px-4 py-2 text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
 			on:click={() => followCommunity(false)}
 		>
 			Pending
 		</button>
-	{:else if community.subscribed === 'Subscribed'}
+	{:else if response.subscribed === 'Subscribed'}
 		<button
 			class="rounded-full border-surface-container bg-surface-container px-4 py-2 text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
 			on:click={() => followCommunity(true)}
