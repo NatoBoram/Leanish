@@ -1,0 +1,40 @@
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte'
+	import { goto, invalidate } from '$app/navigation'
+	import { page } from '$app/stores'
+
+	export let limit: number
+
+	const dispatch = createEventDispatcher<{ limit: number }>()
+	let input: HTMLInputElement
+
+	let timeout: NodeJS.Timeout
+	function debounceChangeLimit(url: URL) {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => void changeLimit(url), 1000)
+	}
+
+	async function changeLimit(url: URL) {
+		let value = Number(input.value)
+		if (!value || isNaN(value)) value = 10
+
+		url.searchParams.set('limit', String(value))
+		await goto(url.toString())
+		await invalidate('app:paginate')
+		dispatch('limit', value)
+	}
+</script>
+
+<div class="flex flex-row items-center gap-2">
+	<label for="limit">Limit</label>
+	<input
+		bind:this={input}
+		class="w-16 rounded-md bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
+		id="limit"
+		on:blur={() => debounceChangeLimit($page.url)}
+		on:keypress={e => e.key === 'Enter' && debounceChangeLimit($page.url)}
+		on:submit={() => debounceChangeLimit($page.url)}
+		type="number"
+		value={limit}
+	/>
+</div>

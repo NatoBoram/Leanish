@@ -2,6 +2,7 @@
 	import type { GetCommunityResponse, GetPostsResponse } from 'lemmy-js-client'
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
+	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Posts from '$lib/Posts.svelte'
@@ -49,6 +50,8 @@
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
 
 				<!-- Sort selector -->
+
+				<LimitSelector limit={data.limit ?? 10} />
 			</div>
 
 			{#if data.posts.length}

@@ -43,7 +43,7 @@
 	async function firstPage(url: URL) {
 		const index = Number(url.searchParams.get('page') ?? 1)
 		if (isNaN(index) || index === 1) return
-		movePage(url, -index + 1)
+		return movePage(url, -index + 1)
 	}
 
 	function hasPrevious(url: URL) {

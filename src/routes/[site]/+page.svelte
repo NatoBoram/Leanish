@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import { LocalStorage } from '$lib/local_storage'
 	import PaginationBar from '$lib/PaginationBar.svelte'
@@ -53,12 +54,12 @@
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
 			<!-- Action bar -->
-			<div class="flex flex-row">
+			<div class="flex flex-row gap-4">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
 
 				<!-- Sort selector -->
 
-				<!-- Limit selector -->
+				<LimitSelector limit={data.limit ?? 10} />
 			</div>
 
 			{#if data.posts.length}
