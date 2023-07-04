@@ -4,6 +4,29 @@
 
 	export let length: number
 
+	let input: HTMLInputElement
+
+	function initialIndex(url: URL): number {
+		const index = Number(url.searchParams.get('page') ?? 1)
+		if (!index || isNaN(index)) return 1
+		return index
+	}
+
+	let timeout: NodeJS.Timeout
+	function debounceChangePage(url: URL) {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => void changePage(url), 1000)
+	}
+
+	async function changePage(url: URL) {
+		const value = Number(input.value)
+		if (!value || isNaN(value)) return
+
+		url.searchParams.set('page', String(value))
+		await goto(url.toString())
+		await invalidate('app:paginate')
+	}
+
 	function hasPrevious(url: URL) {
 		const index = url.searchParams.get('page')
 		if (!index) return false
@@ -46,6 +69,20 @@
 			Previous
 		</button>
 	{/if}
+
+	<div class="flex flex-row items-center gap-2">
+		<label for="page">Page</label>
+		<input
+			bind:this={input}
+			class="w-16 rounded bg-base-container px-4 py-2 text-center text-on-base-container [-moz-appearance:textfield]"
+			id="page"
+			on:blur={() => debounceChangePage($page.url)}
+			on:keypress={e => e.key === 'Enter' && debounceChangePage($page.url)}
+			on:submit={() => debounceChangePage($page.url)}
+			type="number"
+			value={initialIndex($page.url)}
+		/>
+	</div>
 
 	{#if hasNext($page.url)}
 		<button

@@ -30,9 +30,6 @@
 		"strictPropertyInitialization": true,
 		"useUnknownInCatchVariables": true,
 
-		// Type issues
-		"typeRoots": ["./node_modules/@types", "./src/lib/types"],
-
 		// SvelteKit issues
 		"moduleResolution": "bundler"
 	}
