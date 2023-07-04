@@ -10,7 +10,7 @@ export const load = (({ params, fetch, cookies }) => {
 		headers: headers(params, '/'),
 	})
 
-	const site = client.getSite(setAuth({}, cookies)).catch(e => {
+	const site = client.getSite(setAuth({}, cookies, params.site)).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load site')
 	})

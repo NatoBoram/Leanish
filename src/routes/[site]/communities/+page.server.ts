@@ -9,7 +9,7 @@ export const load = (({ params, fetch, cookies }) => {
 		fetchFunction: fetchFunction(fetch),
 		headers: headers(params, '/communities'),
 	})
-	const communities = client.listCommunities(setAuth({}, cookies)).catch(e => {
+	const communities = client.listCommunities(setAuth({}, cookies, params.site)).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load communities')
 	})

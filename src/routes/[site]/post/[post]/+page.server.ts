@@ -14,11 +14,11 @@ export const load = (async ({ params, fetch, cookies }) => {
 	})
 
 	const [post, comments] = await Promise.all([
-		client.getPost(setAuth<GetPost>({ id }, cookies)).catch(e => {
+		client.getPost(setAuth<GetPost>({ id }, cookies, params.site)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load post')
 		}),
-		client.getComments(setAuth<GetComments>({ post_id: id }, cookies)).catch(e => {
+		client.getComments(setAuth<GetComments>({ post_id: id }, cookies, params.site)).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load comments')
 		}),

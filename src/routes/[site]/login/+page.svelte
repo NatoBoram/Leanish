@@ -31,13 +31,11 @@
 		if (!response.jwt) return
 
 		const threeMonths = new Duration(3, durationUnit.month).to(durationUnit.second).value
+		const hostname = siteHostname(data.site_view.site)
 
-		document.cookie = `jwt=${response.jwt}; Path=/${siteHostname(data.site_view.site)}; Domain=${
-			location.hostname
-		}; SameSite=Strict; Max-Age=${threeMonths}`
+		document.cookie = `${hostname}_jwt=${response.jwt}; Path=/${hostname}; Domain=${location.hostname}; SameSite=Strict; Max-Age=${threeMonths}`
 
 		await new Promise(resolve => requestIdleCallback(resolve))
-		await new Promise(resolve => setTimeout(resolve, 1000))
 		return goto(siteLink(data.site_view.site))
 	}
 </script>

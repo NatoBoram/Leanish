@@ -6,10 +6,11 @@ import { isListingType, isSortType } from './guards'
 export function formGetPosts(
 	cookies: Cookies,
 	data: { my_user?: MyUserInfo | undefined },
+	site: string,
 	url: URL,
 	form: GetPosts = {},
 ): GetPosts {
-	setAuth(form, cookies)
+	setAuth(form, cookies, site)
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setLimit(form, url)
@@ -21,9 +22,9 @@ export function formGetPosts(
 	return form
 }
 
-export function setAuth<T extends { auth?: string }>(form: T, cookies: Cookies): T {
+export function setAuth<T extends { auth?: string }>(form: T, cookies: Cookies, site: string): T {
 	if (form.auth) return form
-	const jwt = cookies.get('jwt')
+	const jwt = cookies.get(`${site}_jwt`)
 	if (jwt) form.auth = jwt
 	return form
 }

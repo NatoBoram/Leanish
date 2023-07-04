@@ -11,13 +11,17 @@ export const load = (async ({ params, fetch, cookies, parent, url }) => {
 	})
 
 	const [community, posts] = await Promise.all([
-		client.getCommunity(setAuth<GetCommunity>({ name: params.community }, cookies)).catch(e => {
-			console.error(e)
-			throw error(500, 'Failed to load community')
-		}),
+		client
+			.getCommunity(setAuth<GetCommunity>({ name: params.community }, cookies, params.site))
+			.catch(e => {
+				console.error(e)
+				throw error(500, 'Failed to load community')
+			}),
 		parent().then(data =>
 			client
-				.getPosts(formGetPosts(cookies, data, url, { community_name: params.community }))
+				.getPosts(
+					formGetPosts(cookies, data, params.site, url, { community_name: params.community }),
+				)
 				.catch(e => {
 					console.error(e)
 					throw error(500, 'Failed to load posts')

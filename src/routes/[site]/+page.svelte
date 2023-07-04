@@ -1,12 +1,33 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
+	import { LocalStorage } from '$lib/local_storage'
 	import Posts from '$lib/Posts.svelte'
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
 	import Tagline from '$lib/Tagline.svelte'
 	import type { PageData } from './$types'
 
 	export let data: PageData
+
+	onMount(() => {
+		const sites = LocalStorage.sites.filter(
+			site => site.site_view.site.id !== data.site_view.site.id,
+		)
+
+		sites.push({
+			...(data.my_user ? { my_user: data.my_user } : {}),
+			admins: data.admins,
+			all_languages: data.all_languages,
+			custom_emojis: data.custom_emojis,
+			discussion_languages: data.discussion_languages,
+			site_view: data.site_view,
+			taglines: data.taglines,
+			version: data.version,
+		})
+
+		LocalStorage.sites = sites
+	})
 
 	function hasPrevious(url: URL) {
 		const index = url.searchParams.get('page')
