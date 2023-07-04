@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { type CommunityView, LemmyHttp, type SiteView } from 'lemmy-js-client'
 	import BlockCommunityButton from './BlockCommunityButton.svelte'
-	import { cors } from './cors'
-	import { headers } from './requests'
+	import { fetchFunction, headers } from './requests'
 	import { communityUri, siteHostname } from './utils'
 
 	let className: string | undefined = undefined
@@ -18,7 +17,7 @@
 		blockError = ''
 
 		const client = new LemmyHttp(site_view.site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
+			fetchFunction: fetchFunction(fetch),
 			headers: headers(
 				{ site: siteHostname(site_view.site) },
 				`/c/${communityUri(community.community)}`,

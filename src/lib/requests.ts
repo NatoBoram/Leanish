@@ -20,7 +20,11 @@ export function headers(params: { site: string }, referer: `/${string}` = '/') {
 
 export function fetchFunction(fetch: typeof globalThis.fetch): typeof globalThis.fetch {
 	return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
-		const res = await fetch(input, init)
+		const res = await fetch(input, init).catch((e: unknown) => {
+			console.error(e)
+			throw error(500, 'Failed to fetch')
+		})
+
 		if (res.ok) return res
 
 		console.error({

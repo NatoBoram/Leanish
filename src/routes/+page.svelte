@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import { cors } from '$lib/cors'
-	import { headers } from '$lib/requests'
+	import { fetchFunction, headers } from '$lib/requests'
 	import { newUrl, siteLink } from '$lib/utils'
 
 	let input: string
@@ -20,7 +19,7 @@
 		}
 
 		const client = new LemmyHttp(input, {
-			fetchFunction: cors(fetch, location.origin),
+			fetchFunction: fetchFunction(fetch),
 			headers: headers({ site: url.hostname }),
 		})
 

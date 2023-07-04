@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { LemmyHttp, type LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import { cors } from '$lib/cors'
 	import { Duration, durationUnit } from '$lib/duration'
-	import { headers } from '$lib/requests'
+	import { fetchFunction, headers } from '$lib/requests'
 	import { siteHostname, siteLink } from '$lib/utils'
 	import type { PageData } from './$types'
 
@@ -17,7 +16,7 @@
 
 	async function login() {
 		const client = new LemmyHttp(data.site_view.site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
+			fetchFunction: fetchFunction(fetch),
 			headers: headers({ site: siteHostname(data.site_view.site) }, '/login'),
 		})
 
