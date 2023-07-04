@@ -43,6 +43,7 @@
 		"@natoboram/heroicons.svelte": "^1.0.2",
 		"@playwright/test": "^1.35.1",
 		"@sveltejs/adapter-auto": "^2.1.0",
+		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/kit": "^1.21.0",
 		"@tailwindcss/typography": "^0.5.9",
 		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
