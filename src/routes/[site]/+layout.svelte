@@ -13,8 +13,10 @@
 </script>
 
 <nav class="left-0 right-0 top-0 mb-4 p-4">
-	<div class="container mx-auto flex flex-row items-center justify-between gap-4 text-xl">
-		<div class="flex flex-row items-center gap-4">
+	<div
+		class="container mx-auto flex flex-col items-center justify-between gap-4 text-xl sm:flex-row"
+	>
+		<div class="flex flex-col items-center gap-4 sm:flex-row">
 			<!-- Site -->
 			<a class="flex flex-row items-center gap-4" href="{base}/{siteHostname(data.site_view.site)}">
 				{#if data.site_view.site.icon}
@@ -27,14 +29,14 @@
 			<a href="{base}/{siteHostname(data.site_view.site)}/communities"> Communities </a>
 		</div>
 
-		<div class="flex flex-row items-center gap-4 text-base text-on-base">
+		<div class="flex flex-col items-center gap-4 text-base text-on-base sm:flex-row">
 			<!-- User -->
 			{#if data.my_user}
 				<a
 					class="flex flex-row items-center gap-4"
 					href={personLink(data.site_view.site, data.my_user.local_user_view.person)}
 				>
-					<PersonIcon person={data.my_user.local_user_view.person} />
+					<PersonIcon person={data.my_user.local_user_view.person} class="h-8 w-8" />
 					{personUri(data.my_user.local_user_view.person)}
 				</a>
 			{:else}
