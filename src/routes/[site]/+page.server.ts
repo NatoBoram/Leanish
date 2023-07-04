@@ -13,10 +13,11 @@ export const load = (async ({ params, fetch, cookies, parent, url, depends }) =>
 	depends('app:paginate')
 
 	const data = await parent()
-	const posts = await client.getPosts(formGetPosts(cookies, data, params.site, url)).catch(e => {
+	const getPosts = formGetPosts(cookies, data, params.site, url)
+	const posts = await client.getPosts(getPosts).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load posts')
 	})
 
-	return posts
+	return { ...getPosts, ...posts }
 }) satisfies PageServerLoad

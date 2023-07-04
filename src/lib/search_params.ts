@@ -1,6 +1,6 @@
 import type { Cookies } from '@sveltejs/kit'
 import { error } from '@sveltejs/kit'
-import type { GetPosts, ListingType, MyUserInfo } from 'lemmy-js-client'
+import type { GetPosts, ListingType, MyUserInfo, SortType } from 'lemmy-js-client'
 import { isListingType, isSortType } from './guards'
 
 export function formGetPosts(
@@ -90,7 +90,10 @@ export function setSort<T extends { sort?: string }>(
 	my_user: MyUserInfo | undefined,
 ): T {
 	if (form.sort) return form
-	const sort = url.searchParams.get('sort') ?? my_user?.local_user_view.local_user.default_sort_type
+	const sort =
+		url.searchParams.get('sort') ??
+		my_user?.local_user_view.local_user.default_sort_type ??
+		('Active' satisfies SortType)
 	if (!sort) return form
 
 	if (!isSortType(sort)) throw error(400, 'Invalid sort')
@@ -106,7 +109,9 @@ export function setType<T extends { type_?: ListingType }>(
 ): T {
 	if (form.type_) return form
 	const type_ =
-		url.searchParams.get('type_') ?? my_user?.local_user_view.local_user.default_listing_type
+		url.searchParams.get('type_') ??
+		my_user?.local_user_view.local_user.default_listing_type ??
+		('Local' satisfies ListingType)
 
 	if (!type_) return form
 	if (!isListingType(type_)) throw error(400, `Invalid type_: ${type_}`)
