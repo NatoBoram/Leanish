@@ -57,6 +57,8 @@
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
 
 				<!-- Sort selector -->
+
+				<!-- Limit selector -->
 			</div>
 
 			{#if data.posts.length}

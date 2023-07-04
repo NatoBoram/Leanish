@@ -4,11 +4,14 @@
 		ChevronLeft,
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
+	import { createEventDispatcher } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
+	import FlatButton from './buttons/FlatButton.svelte'
 
 	export let length: number
 
+	const dispatch = createEventDispatcher<{ previous: number; next: number }>()
 	let input: HTMLInputElement
 
 	function initialIndex(url: URL): number {
@@ -38,25 +41,26 @@
 	}
 
 	async function firstPage(url: URL) {
-		url.searchParams.set('page', '1')
-		await goto(url.toString())
-		await invalidate('app:paginate')
+		const index = Number(url.searchParams.get('page') ?? 1)
+		if (isNaN(index) || index === 1) return
+		movePage(url, -index + 1)
 	}
 
 	function hasPrevious(url: URL) {
-		const index = url.searchParams.get('page')
-		if (!index) return false
-		const number = Number(index)
-		if (isNaN(number)) return false
-		return number > 1
+		const index = Number(url.searchParams.get('page') ?? 1)
+		if (isNaN(index)) return false
+		return index > 1
 	}
 
 	async function movePage(url: URL, amount: number) {
 		const index = Number(url.searchParams.get('page') ?? 1)
-		url.searchParams.set('page', String(Math.max(index + amount, 1)))
+		const destination = Math.max(index + amount, 1)
+		url.searchParams.set('page', String(destination))
 
 		await goto(url)
 		await invalidate('app:paginate')
+		if (amount > 0) dispatch('next', destination)
+		else if (amount < 0) dispatch('previous', destination)
 	}
 
 	function hasNext(url: URL) {
@@ -65,48 +69,44 @@
 	}
 </script>
 
-<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-	<div class="flex flex-row items-center gap-4">
+<div class="grid w-full grid-cols-2 items-center justify-between gap-4 sm:grid-cols-3">
+	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
 		{#if canFirst($page.url)}
-			<button
-				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-base-container px-2 py-3 text-on-base-container"
+			<FlatButton
 				on:click={() => firstPage($page.url)}
+				class="w-28 bg-base-container text-on-base-container"
 			>
 				<ChevronDoubleLeft />
 				First
-			</button>
+			</FlatButton>
 		{:else}
-			<button
-				disabled={true}
-				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-muted px-2 py-3 text-on-muted"
-			>
+			<FlatButton disabled={true} class="w-28 bg-muted text-on-muted">
 				<ChevronDoubleLeft />
 				First
-			</button>
+			</FlatButton>
 		{/if}
 
 		<!-- Previous -->
 		{#if hasPrevious($page.url)}
-			<button
-				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-base-container px-2 py-3 text-on-base-container"
+			<FlatButton
+				class="w-28 justify-self-start bg-base-container text-on-base-container"
 				on:click={() => movePage($page.url, -1)}
 			>
 				<ChevronLeft />
 				Previous
-			</button>
+			</FlatButton>
 		{:else}
-			<button
-				disabled={true}
-				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-muted px-2 py-3 text-on-muted"
-			>
+			<FlatButton disabled={true} class="w-28 bg-muted text-on-muted">
 				<ChevronLeft />
 				Previous
-			</button>
+			</FlatButton>
 		{/if}
 	</div>
 
-	<div class="flex flex-row items-center gap-2">
+	<div
+		class="col-span-2 flex flex-row items-center gap-2 justify-self-center max-sm:order-1 sm:col-span-1"
+	>
 		<label for="page">Page</label>
 		<input
 			bind:this={input}
@@ -122,20 +122,17 @@
 
 	<!-- Next -->
 	{#if hasNext($page.url)}
-		<button
-			class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-base-container px-2 py-3 text-on-base-container"
+		<FlatButton
+			class="w-28 justify-self-end bg-base-container text-on-base-container"
 			on:click={() => movePage($page.url, 1)}
 		>
 			Next
 			<ChevronRight />
-		</button>
+		</FlatButton>
 	{:else}
-		<button
-			disabled={true}
-			class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-muted px-2 py-3 text-on-muted"
-		>
+		<FlatButton disabled={true} class="w-28 justify-self-end bg-muted text-on-muted">
 			Next
 			<ChevronRight />
-		</button>
+		</FlatButton>
 	{/if}
 </div>
