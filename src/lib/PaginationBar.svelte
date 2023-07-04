@@ -1,4 +1,9 @@
 <script lang="ts">
+	import {
+		ChevronDoubleLeft,
+		ChevronLeft,
+		ChevronRight,
+	} from '@natoboram/heroicons.svelte/20/solid'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
 
@@ -27,6 +32,17 @@
 		await invalidate('app:paginate')
 	}
 
+	function canFirst(url: URL) {
+		const index = Number(url.searchParams.get('page') ?? 1)
+		return index > 1
+	}
+
+	async function firstPage(url: URL) {
+		url.searchParams.set('page', '1')
+		await goto(url.toString())
+		await invalidate('app:paginate')
+	}
+
 	function hasPrevious(url: URL) {
 		const index = url.searchParams.get('page')
 		if (!index) return false
@@ -35,16 +51,12 @@
 		return number > 1
 	}
 
-	function nextPage(url: URL) {
+	async function movePage(url: URL, amount: number) {
 		const index = Number(url.searchParams.get('page') ?? 1)
-		url.searchParams.set('page', String(index + 1))
-		return url.toString()
-	}
+		url.searchParams.set('page', String(Math.max(index + amount, 1)))
 
-	function previousPage(url: URL) {
-		const index = Number(url.searchParams.get('page') ?? 1)
-		url.searchParams.set('page', String(index - 1))
-		return url.toString()
+		await goto(url)
+		await invalidate('app:paginate')
 	}
 
 	function hasNext(url: URL) {
@@ -53,28 +65,52 @@
 	}
 </script>
 
-<div class="flex flex-row items-center justify-between">
-	{#if hasPrevious($page.url)}
-		<button
-			class="w-24 rounded-lg bg-base-container p-4 text-center text-on-base-container"
-			on:click={async () => {
-				await goto(previousPage($page.url))
-				await invalidate('app:paginate')
-			}}
-		>
-			Previous
-		</button>
-	{:else}
-		<button disabled={true} class="w-24 rounded-lg bg-muted p-4 text-center text-on-muted">
-			Previous
-		</button>
-	{/if}
+<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+	<div class="flex flex-row items-center gap-4">
+		<!-- First -->
+		{#if canFirst($page.url)}
+			<button
+				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-base-container px-2 py-3 text-on-base-container"
+				on:click={() => firstPage($page.url)}
+			>
+				<ChevronDoubleLeft />
+				First
+			</button>
+		{:else}
+			<button
+				disabled={true}
+				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-muted px-2 py-3 text-on-muted"
+			>
+				<ChevronDoubleLeft />
+				First
+			</button>
+		{/if}
+
+		<!-- Previous -->
+		{#if hasPrevious($page.url)}
+			<button
+				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-base-container px-2 py-3 text-on-base-container"
+				on:click={() => movePage($page.url, -1)}
+			>
+				<ChevronLeft />
+				Previous
+			</button>
+		{:else}
+			<button
+				disabled={true}
+				class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-muted px-2 py-3 text-on-muted"
+			>
+				<ChevronLeft />
+				Previous
+			</button>
+		{/if}
+	</div>
 
 	<div class="flex flex-row items-center gap-2">
 		<label for="page">Page</label>
 		<input
 			bind:this={input}
-			class="w-16 rounded bg-base-container px-4 py-2 text-center text-on-base-container [-moz-appearance:textfield]"
+			class="w-16 rounded-md bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
 			on:blur={() => debounceChangePage($page.url)}
 			on:keypress={e => e.key === 'Enter' && debounceChangePage($page.url)}
@@ -84,19 +120,22 @@
 		/>
 	</div>
 
+	<!-- Next -->
 	{#if hasNext($page.url)}
 		<button
-			class="w-24 rounded-lg bg-base-container p-4 text-center text-on-base-container"
-			on:click={async () => {
-				await goto(nextPage($page.url))
-				await invalidate('app:paginate')
-			}}
+			class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-base-container px-2 py-3 text-on-base-container"
+			on:click={() => movePage($page.url, 1)}
 		>
 			Next
+			<ChevronRight />
 		</button>
 	{:else}
-		<button disabled={true} class="w-24 rounded-lg bg-muted p-4 text-center text-on-muted">
+		<button
+			disabled={true}
+			class="flex w-28 flex-row items-center justify-center gap-2 rounded-lg bg-muted px-2 py-3 text-on-muted"
+		>
 			Next
+			<ChevronRight />
 		</button>
 	{/if}
 </div>
