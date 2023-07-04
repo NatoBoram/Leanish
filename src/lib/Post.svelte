@@ -5,6 +5,7 @@
 	import type { PostView, Site } from 'lemmy-js-client'
 	import CommunityIcon from './CommunityIcon.svelte'
 	import PersonIcon from './PersonIcon.svelte'
+	import PostUrl from './PostUrl.svelte'
 	import { communityLink, communityUri, personLink, personUri, postLink } from './utils'
 
 	let className: string | undefined = undefined
@@ -59,6 +60,10 @@
 		{/if}
 	</div>
 
+	{#if post.post.url}
+		<PostUrl url={post.post.url} alt={post.post.name} />
+	{/if}
+
 	<!-- Body -->
 	{#if post.post.body}
 		<p
@@ -78,7 +83,7 @@
 			on:click={() => (showNsfw = !showNsfw)}
 			src={post.post.thumbnail_url}
 			alt={post.post.name}
-			class="max-h-screen w-full object-cover"
+			class="max-h-screen w-full object-contain"
 			loading="lazy"
 		/>
 	{/if}
