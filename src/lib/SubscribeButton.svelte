@@ -29,7 +29,7 @@
 	{:else if response.subscribed === 'Subscribed'}
 		<button
 			class="rounded-full border-surface-container bg-surface-container px-4 py-2 text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
-			on:click={() => followCommunity(true)}
+			on:click={() => followCommunity(false)}
 		>
 			Subscribed
 		</button>
