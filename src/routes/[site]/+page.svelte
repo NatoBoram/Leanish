@@ -59,9 +59,13 @@
 				<!-- Sort selector -->
 			</div>
 
-			<PaginationBar length={data.posts.length} />
+			{#if data.posts.length}
+				<PaginationBar length={data.posts.length} />
+			{/if}
 			<Posts posts={data.posts} site={data.site_view.site} />
-			<PaginationBar length={data.posts.length} />
+			{#if data.posts.length}
+				<PaginationBar length={data.posts.length} />
+			{/if}
 		</div>
 	</div>
 </div>

@@ -4,10 +4,17 @@ import { fetchFunction, headers } from '$lib/requests'
 import { formGetPosts, setAuth } from '$lib/search_params'
 import type { PageServerLoad } from './$types'
 
-export const load = (async ({ params, fetch, cookies, parent, url }) => {
+export const load = (async ({ params, fetch, cookies, parent, url, depends }) => {
 	const client = new LemmyHttp(`https://${params.site}`, {
 		fetchFunction: fetchFunction(fetch),
 		headers: headers(params, `/c/${params.community}`),
+	})
+
+	depends('app:paginate')
+
+	const data = await parent()
+	const getPosts = formGetPosts(cookies, data, params.site, url, {
+		community_name: params.community,
 	})
 
 	const [community, posts] = await Promise.all([
@@ -17,17 +24,11 @@ export const load = (async ({ params, fetch, cookies, parent, url }) => {
 				console.error(e)
 				throw error(500, 'Failed to load community')
 			}),
-		parent().then(data =>
-			client
-				.getPosts(
-					formGetPosts(cookies, data, params.site, url, { community_name: params.community }),
-				)
-				.catch(e => {
-					console.error(e)
-					throw error(500, 'Failed to load posts')
-				}),
-		),
+		client.getPosts(getPosts).catch(e => {
+			console.error(e)
+			throw error(500, 'Failed to load posts')
+		}),
 	])
 
-	return { ...posts, ...community }
+	return { ...getPosts, ...posts, ...community }
 }) satisfies PageServerLoad
