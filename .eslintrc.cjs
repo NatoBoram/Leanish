@@ -6,6 +6,7 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended-requiring-type-checking',
 		'plugin:@typescript-eslint/strict',
 		'plugin:svelte/recommended',
+		'plugin:svelte/prettier',
 		'prettier',
 	],
 	parser: '@typescript-eslint/parser',

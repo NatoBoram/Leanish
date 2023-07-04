@@ -38,7 +38,9 @@
 		<!-- Sidebar -->
 		<CommunitySidebar
 			class="w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-sm"
-			community={data.community_view.community}
+			community={data.community_view}
+			my_user={data.my_user}
+			site_view={data.site_view}
 		/>
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
