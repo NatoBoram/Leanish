@@ -9,7 +9,7 @@
 	export let site: Site
 </script>
 
-<div class="mb-4 flex flex-col gap-4 {className}">
+<div class="flex flex-col gap-4 {className}">
 	{#each posts as post (post.post.id)}
 		<Post {post} {site} />
 	{/each}

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { Marked } from '@ts-stack/markdown'
 	import type { CommunityView, MyUserInfo, SiteView } from 'lemmy-js-client'
-	import SubscribeButtonLayout from './SubscribeButtonLayout.svelte'
+	import BlockCommunityLayout from './BlockCommunityLayout.svelte'
+	import SubscribeButtonLayout from './FollowCommunityLayout.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -18,6 +19,7 @@
 
 	{#if my_user}
 		<SubscribeButtonLayout {community} {site_view} />
+		<BlockCommunityLayout {community} {site_view} />
 	{/if}
 
 	{#if community.community.description}

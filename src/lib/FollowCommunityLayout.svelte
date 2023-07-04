@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { type CommunityView, LemmyHttp, type SiteView } from 'lemmy-js-client'
 	import { cors } from './cors'
+	import SubscribeButton from './FollowCommunityButton.svelte'
 	import { headers } from './requests'
-	import SubscribeButton from './SubscribeButton.svelte'
 	import { communityUri, siteHostname } from './utils'
 
 	let className: string | undefined = undefined

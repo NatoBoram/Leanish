@@ -5,7 +5,6 @@
 	export { className as class }
 
 	export let community: Promise<CommunityView>
-
 	export let followCommunity: (follow: boolean) => Promise<void>
 </script>
 

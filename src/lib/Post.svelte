@@ -13,6 +13,8 @@
 	export let post: PostView
 	export let site: Site
 
+	let showNsfw = false
+
 	const dtf = Intl.DateTimeFormat('en-GB', {
 		year: 'numeric',
 		month: 'long',
@@ -46,11 +48,16 @@
 	</div>
 
 	<!-- Title -->
-	<h2 class="text-xl">
-		<a href={postLink(site, post.post)}>
-			{post.post.name}
-		</a>
-	</h2>
+	<div class="flex flex-row items-center gap-2">
+		<h2 class="text-xl">
+			<a href={postLink(site, post.post)}>
+				{post.post.name}
+			</a>
+		</h2>
+		{#if post.post.nsfw}
+			<div class="mx-1 w-min rounded-full bg-danger px-2 py-1 text-xs text-on-danger">NSFW</div>
+		{/if}
+	</div>
 
 	<!-- Body -->
 	{#if post.post.body}
@@ -63,7 +70,12 @@
 
 	<!-- Thumbnail -->
 	{#if post.post.thumbnail_url}
+		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<img
+			on:keypress={e => {
+				if (e.key === 'Enter') showNsfw = !showNsfw
+			}}
+			on:click={() => (showNsfw = !showNsfw)}
 			src={post.post.thumbnail_url}
 			alt={post.post.name}
 			class="max-h-screen w-full object-cover"
