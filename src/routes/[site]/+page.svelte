@@ -30,7 +30,7 @@
 		LocalStorage.sites = sites
 	})
 
-	function onNext(_: CustomEvent<number>) {
+	function onNext() {
 		const first = data.posts[0]
 		if (!first) return
 
@@ -39,7 +39,7 @@
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
-	function onPrevious(_: CustomEvent<number>) {
+	function onPrevious() {
 		const last = data.posts[data.posts.length - 1]
 		if (!last) return
 

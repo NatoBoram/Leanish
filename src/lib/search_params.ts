@@ -1,6 +1,6 @@
 import type { Cookies } from '@sveltejs/kit'
 import { error } from '@sveltejs/kit'
-import type { GetPosts, ListingType, MyUserInfo, SortType } from 'lemmy-js-client'
+import type { GetPersonDetails, GetPosts, ListingType, MyUserInfo, SortType } from 'lemmy-js-client'
 import { isListingType, isSortType } from './guards'
 
 export function formGetPosts(
@@ -18,6 +18,23 @@ export function formGetPosts(
 	setSavedOnly(form, url)
 	setSort(form, url, data.my_user)
 	setType(form, url, data.my_user)
+
+	return form
+}
+
+export function formGetPersonDetails(
+	cookies: Cookies,
+	data: { my_user?: MyUserInfo | undefined },
+	site: string,
+	url: URL,
+	form: GetPersonDetails = {},
+): GetPersonDetails {
+	setAuth(form, cookies, site)
+	setSort(form, url, data.my_user)
+	setPage(form, url)
+	setLimit(form, url)
+	setCommunityId(form, url)
+	setSavedOnly(form, url)
 
 	return form
 }

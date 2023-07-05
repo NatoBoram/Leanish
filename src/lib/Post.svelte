@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
+	import { ArrowDown, ArrowTopRightOnSquare, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
 	import type { PostView, Site } from 'lemmy-js-client'
 	import CommunityIcon from './CommunityIcon.svelte'
+	import { imageExtensions } from './consts/image_extensions'
 	import PersonIcon from './PersonIcon.svelte'
-	import PostUrl from './PostUrl.svelte'
 	import { communityLink, communityUri, personLink, personUri, postLink } from './utils'
 
 	let className: string | undefined = undefined
@@ -13,8 +13,6 @@
 
 	export let post: PostView
 	export let site: Site
-
-	let showNsfw = false
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
 		year: 'numeric',
@@ -61,8 +59,31 @@
 		{/if}
 	</div>
 
+	<!-- Image or link -->
 	{#if post.post.url}
-		<PostUrl url={post.post.url} alt={post.post.name} />
+		{@const url = post.post.url}
+
+		{#if imageExtensions.some(e => url.endsWith(e))}
+			<img
+				class="max-h-screen w-full object-contain"
+				src={post.post.url}
+				alt="thumbnail"
+				loading="lazy"
+			/>
+		{:else if post.post.url}
+			<p>
+				<ArrowTopRightOnSquare class="inline h-5 w-5" />
+
+				<a class="hover:underline" href={post.post.url}>{post.post.url}</a>
+			</p>
+		{:else if post.post.thumbnail_url}
+			<img
+				class="max-h-screen w-full object-contain"
+				src={post.post.url}
+				alt="thumbnail"
+				loading="lazy"
+			/>
+		{/if}
 	{/if}
 
 	<!-- Body -->
@@ -72,21 +93,6 @@
 		>
 			{@html Marked.parse(post.post.body)}
 		</p>
-	{/if}
-
-	<!-- Thumbnail -->
-	{#if post.post.thumbnail_url}
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-		<img
-			on:keypress={e => {
-				if (e.key === 'Enter') showNsfw = !showNsfw
-			}}
-			on:click={() => (showNsfw = !showNsfw)}
-			src={post.post.thumbnail_url}
-			alt={post.post.name}
-			class="max-h-screen w-full object-contain"
-			loading="lazy"
-		/>
 	{/if}
 
 	<!-- Action bar -->
