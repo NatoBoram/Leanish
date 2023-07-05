@@ -6,7 +6,7 @@
 
 	export let person: Person
 
-	let error: (Event & { currentTarget: EventTarget & Element }) | undefined
+	let error: (Event & { currentTarget: Element & EventTarget }) | undefined
 </script>
 
 {#if person.avatar && !error}
