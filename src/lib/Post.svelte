@@ -26,6 +26,7 @@
 </script>
 
 <div
+	data-post-id={post.post.id}
 	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
 >
 	<!-- Info bar -->

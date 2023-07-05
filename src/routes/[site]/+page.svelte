@@ -29,6 +29,24 @@
 
 		LocalStorage.sites = sites
 	})
+
+	function onNext(_: CustomEvent<number>) {
+		const first = data.posts[0]
+		if (!first) return
+
+		document
+			.querySelector(`[data-post-id="${first.post.id}"]`)
+			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+	}
+
+	function onPrevious(_: CustomEvent<number>) {
+		const last = data.posts[data.posts.length - 1]
+		if (!last) return
+
+		document
+			.querySelector(`[data-post-id="${last.post.id}"]`)
+			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+	}
 </script>
 
 <svelte:head>
@@ -63,11 +81,11 @@
 			</div>
 
 			{#if data.posts.length}
-				<PaginationBar length={data.posts.length} />
+				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
 			{/if}
 			<Posts posts={data.posts} site={data.site_view.site} />
 			{#if data.posts.length}
-				<PaginationBar length={data.posts.length} />
+				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
 			{/if}
 		</div>
 	</div>

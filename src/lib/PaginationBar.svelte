@@ -52,6 +52,14 @@
 		return index > 1
 	}
 
+	async function next(url: URL) {
+		await movePage(url, 1)
+	}
+
+	async function previous(url: URL) {
+		await movePage(url, -1)
+	}
+
 	async function movePage(url: URL, amount: number) {
 		const index = Number(url.searchParams.get('page') ?? 1)
 		const destination = Math.max(index + amount, 1)
@@ -91,7 +99,7 @@
 		{#if hasPrevious($page.url)}
 			<FlatButton
 				class="w-28 justify-self-start bg-base-container text-on-base-container"
-				on:click={() => movePage($page.url, -1)}
+				on:click={() => previous($page.url)}
 			>
 				<ChevronLeft />
 				Previous
@@ -124,7 +132,7 @@
 	{#if hasNext($page.url)}
 		<FlatButton
 			class="w-28 justify-self-end bg-base-container text-on-base-container"
-			on:click={() => movePage($page.url, 1)}
+			on:click={() => next($page.url)}
 		>
 			Next
 			<ChevronRight />
