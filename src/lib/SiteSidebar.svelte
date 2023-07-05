@@ -10,7 +10,7 @@
 
 <div class="flex flex-col gap-4 p-4 {className}">
 	{#if site.banner}
-		<img src={site.banner} alt={site.name} class="rounded-xl" />
+		<img src={site.banner} alt="banner" class="rounded-xl" />
 	{/if}
 
 	<br />

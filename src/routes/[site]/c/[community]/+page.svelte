@@ -38,7 +38,7 @@
 	<img
 		src={data.community_view.community.banner}
 		class="mb-4 max-h-96 w-full object-cover"
-		alt={data.community_view.community.title}
+		alt="banner"
 	/>
 {/if}
 
@@ -63,8 +63,8 @@
 		/>
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
-			<!-- Action bar -->
-			<div class="flex flex-row">
+			<!-- Post form -->
+			<div class="flex flex-row flex-wrap items-center gap-4">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
 				<SortSelector sort={data.sort ?? 'Active'} />
 				<LimitSelector limit={data.limit ?? 10} />

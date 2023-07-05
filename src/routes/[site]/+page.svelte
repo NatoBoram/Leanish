@@ -72,8 +72,8 @@
 		/>
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
-			<!-- Action bar -->
-			<div class="flex flex-row gap-4">
+			<!-- Post form -->
+			<div class="flex flex-row flex-wrap items-center gap-4">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
 				<SortSelector sort={data.sort ?? 'Active'} />
 				<LimitSelector limit={data.limit ?? 10} />

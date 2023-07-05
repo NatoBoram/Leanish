@@ -8,7 +8,7 @@
 </script>
 
 {#if community.icon}
-	<img src={community.icon} alt={community.title} class="bg-muted object-cover {className}" />
+	<img src={community.icon} alt="icon" class="bg-muted object-cover {className}" />
 {:else}
 	<div class="bg-muted {className}" />
 {/if}

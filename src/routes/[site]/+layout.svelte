@@ -20,7 +20,7 @@
 			<!-- Site -->
 			<a class="flex flex-row items-center gap-4" href="{base}/{siteHostname(data.site_view.site)}">
 				{#if data.site_view.site.icon}
-					<img src={data.site_view.site.icon} alt={data.site_view.site.name} class="h-10 w-10" />
+					<img src={data.site_view.site.icon} alt="icon" class="h-10 w-10" />
 				{/if}
 				<h1 title={data.site_view.site.description}>{data.site_view.site.name}</h1>
 			</a>
