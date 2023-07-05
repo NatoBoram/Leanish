@@ -6,9 +6,9 @@
 		type PersonView,
 		type SiteView,
 	} from 'lemmy-js-client'
-	import { cors } from './cors'
-	import { headers } from './requests'
-	import { personUri, siteHostname } from './utils'
+	import { cors } from '$lib/utils/cors'
+	import { personUri, siteHostname } from '$lib/utils/links'
+	import { headers } from '$lib/utils/requests'
 
 	let className: string | undefined = undefined
 	export { className as class }

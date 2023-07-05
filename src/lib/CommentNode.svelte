@@ -2,9 +2,9 @@
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { Marked } from '@ts-stack/markdown'
 	import type { CommentView, Site } from 'lemmy-js-client'
-	import type { CommentNode } from './comment_node'
-	import PersonIcon from './PersonIcon.svelte'
-	import { personLink, personUri } from './utils'
+	import type { CommentNode } from '$lib/comment_node'
+	import PersonIcon from '$lib/PersonIcon.svelte'
+	import { personLink, personUri } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }

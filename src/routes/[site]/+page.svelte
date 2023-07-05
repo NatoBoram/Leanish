@@ -2,11 +2,12 @@
 	import { onMount } from 'svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
-	import { LocalStorage } from '$lib/local_storage'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Posts from '$lib/Posts.svelte'
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
+	import SortSelector from '$lib/SortSelector.svelte'
 	import Tagline from '$lib/Tagline.svelte'
+	import { LocalStorage } from '$lib/utils/local_storage'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -74,9 +75,7 @@
 			<!-- Action bar -->
 			<div class="flex flex-row gap-4">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
-
-				<!-- Sort selector -->
-
+				<SortSelector sort={data.sort ?? 'Active'} />
 				<LimitSelector limit={data.limit ?? 10} />
 			</div>
 

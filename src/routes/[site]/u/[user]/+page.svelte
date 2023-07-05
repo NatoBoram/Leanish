@@ -4,7 +4,8 @@
 	import PersonIcon from '$lib/PersonIcon.svelte'
 	import PersonSidebar from '$lib/PersonSidebar.svelte'
 	import Posts from '$lib/Posts.svelte'
-	import { personUri } from '$lib/utils'
+	import SortSelector from '$lib/SortSelector.svelte'
+	import { personUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -60,8 +61,7 @@
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
 			<!-- Action bar -->
 			<div class="flex flex-row gap-4">
-				<!-- Sort selector -->
-
+				<SortSelector sort={data.sort ?? 'Active'} />
 				<LimitSelector limit={data.limit ?? 10} />
 			</div>
 

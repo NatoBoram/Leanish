@@ -5,7 +5,8 @@
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Posts from '$lib/Posts.svelte'
-	import { communityUri } from '$lib/utils'
+	import SortSelector from '$lib/SortSelector.svelte'
+	import { communityUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -65,9 +66,7 @@
 			<!-- Action bar -->
 			<div class="flex flex-row">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
-
-				<!-- Sort selector -->
-
+				<SortSelector sort={data.sort ?? 'Active'} />
 				<LimitSelector limit={data.limit ?? 10} />
 			</div>
 

@@ -1,6 +1,6 @@
 import { LemmyHttp } from 'lemmy-js-client'
-import { fetchFunction, headers } from '$lib/requests'
-import { formGetPersonDetails } from '$lib/search_params'
+import { fetchFunction, headers } from '$lib/utils/requests'
+import { formGetPersonDetails } from '$lib/utils/search_params'
 import type { PageServerLoad } from './$types'
 
 export const load = (async ({ params, cookies, url, fetch, depends, parent }) => {

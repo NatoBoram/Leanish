@@ -98,7 +98,7 @@
 		<!-- Previous -->
 		{#if hasPrevious($page.url)}
 			<FlatButton
-				class="w-28 justify-self-start bg-base-container text-on-base-container"
+				class="w-28 bg-base-container text-on-base-container"
 				on:click={() => previous($page.url)}
 			>
 				<ChevronLeft />
@@ -118,7 +118,7 @@
 		<label for="page">Page</label>
 		<input
 			bind:this={input}
-			class="w-16 rounded-md bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
+			class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
 			on:blur={() => debounceChangePage($page.url)}
 			on:keypress={e => e.key === 'Enter' && debounceChangePage($page.url)}

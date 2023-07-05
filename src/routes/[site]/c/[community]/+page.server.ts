@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit'
 import { type GetCommunity, LemmyHttp } from 'lemmy-js-client'
-import { fetchFunction, headers } from '$lib/requests'
-import { formGetPosts, setAuth } from '$lib/search_params'
+import { fetchFunction, headers } from '$lib/utils/requests'
+import { formGetPosts, setAuth } from '$lib/utils/search_params'
 import type { PageServerLoad } from './$types'
 
 export const load = (async ({ params, fetch, cookies, parent, url, depends }) => {

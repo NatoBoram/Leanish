@@ -29,7 +29,7 @@
 	<label for="limit">Limit</label>
 	<input
 		bind:this={input}
-		class="w-16 rounded-md bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
+		class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 		id="limit"
 		on:blur={() => debounceChangeLimit($page.url)}
 		on:keypress={e => e.key === 'Enter' && debounceChangeLimit($page.url)}

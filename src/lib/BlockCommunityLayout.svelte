@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { type CommunityView, LemmyHttp, type SiteView } from 'lemmy-js-client'
-	import BlockCommunityButton from './BlockCommunityButton.svelte'
-	import { cors } from './cors'
-	import { headers } from './requests'
-	import { communityUri, siteHostname } from './utils'
+	import BlockCommunityButton from '$lib/BlockCommunityButton.svelte'
+	import { cors } from '$lib/utils/cors'
+	import { communityUri, siteHostname } from '$lib/utils/links'
+	import { headers } from '$lib/utils/requests'
 
 	let className: string | undefined = undefined
 	export { className as class }

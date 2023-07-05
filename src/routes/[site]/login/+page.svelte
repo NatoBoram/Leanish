@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { LemmyHttp, type LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import { cors } from '$lib/cors'
-	import { Duration, durationUnit } from '$lib/duration'
-	import { headers } from '$lib/requests'
-	import { siteHostname, siteLink } from '$lib/utils'
+	import { cors } from '$lib/utils/cors'
+	import { Duration, durationUnit } from '$lib/utils/duration'
+	import { siteHostname, siteLink } from '$lib/utils/links'
+	import { headers } from '$lib/utils/requests'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -47,7 +47,7 @@
 			<input
 				id="username_or_email"
 				bind:value={username_or_email}
-				class="rounded bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
@@ -57,7 +57,7 @@
 				id="password"
 				type="password"
 				bind:value={password}
-				class="rounded bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
@@ -66,7 +66,7 @@
 			<input
 				id="totp_2fa_token"
 				bind:value={totp_2fa_token}
-				class="rounded bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 

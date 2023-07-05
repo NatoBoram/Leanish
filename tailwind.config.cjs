@@ -26,5 +26,5 @@ export default {
 		},
 	},
 	safelist: ['h-5', 'h-6', 'w-5', 'w-6'],
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }

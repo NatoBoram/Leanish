@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
-	import { communityLink, communityUri } from '$lib/utils'
+	import { communityLink, communityUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData

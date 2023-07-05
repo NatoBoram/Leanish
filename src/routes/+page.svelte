@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import { cors } from '$lib/cors'
-	import { headers } from '$lib/requests'
-	import { newUrl, siteLink } from '$lib/utils'
+	import { cors } from '$lib/utils/cors'
+	import { newUrl, siteLink } from '$lib/utils/links'
+	import { headers } from '$lib/utils/requests'
 
 	let input: string
 
@@ -40,7 +40,7 @@
 
 	<input
 		id="input"
-		class="rounded bg-base-container p-2 text-on-base-container"
+		class="rounded border-none bg-base-container p-2 text-on-base-container"
 		type="text"
 		bind:value={input}
 		on:submit={submit}

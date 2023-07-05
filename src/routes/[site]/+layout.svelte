@@ -2,9 +2,9 @@
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { base } from '$app/paths'
-	import { markedOptions } from '$lib/marked_options'
+	import { markedOptions } from '$lib/consts/marked_options'
 	import PersonIcon from '$lib/PersonIcon.svelte'
-	import { personLink, personUri, siteHostname, siteLink } from '$lib/utils'
+	import { personLink, personUri, siteHostname, siteLink } from '$lib/utils/links'
 	import type { LayoutData } from './$types'
 
 	Marked.setOptions(markedOptions)

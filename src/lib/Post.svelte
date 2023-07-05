@@ -3,10 +3,10 @@
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
 	import type { PostView, Site } from 'lemmy-js-client'
-	import CommunityIcon from './CommunityIcon.svelte'
-	import { imageExtensions } from './consts/image_extensions'
-	import PersonIcon from './PersonIcon.svelte'
-	import { communityLink, communityUri, personLink, personUri, postLink } from './utils'
+	import CommunityIcon from '$lib/CommunityIcon.svelte'
+	import { imageExtensions } from '$lib/consts/image_extensions'
+	import PersonIcon from '$lib/PersonIcon.svelte'
+	import { communityLink, communityUri, personLink, personUri, postLink } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
