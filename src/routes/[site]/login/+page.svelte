@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { LemmyHttp, type LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
+	import { setJwt } from '$lib/utils/cookies'
 	import { cors } from '$lib/utils/cors'
-	import { Duration, durationUnit } from '$lib/utils/duration'
 	import { siteHostname, siteLink } from '$lib/utils/links'
 	import { headers } from '$lib/utils/requests'
 	import type { PageData } from './$types'
@@ -30,10 +30,7 @@
 		const response = await request
 		if (!response.jwt) return
 
-		const threeMonths = new Duration(3, durationUnit.month).to(durationUnit.second).value
-		const hostname = siteHostname(data.site_view.site)
-
-		document.cookie = `${hostname}_jwt=${response.jwt}; Path=/${hostname}; Domain=${location.hostname}; SameSite=Strict; Max-Age=${threeMonths}`
+		setJwt(data.site_view.site, response.jwt)
 
 		await new Promise(resolve => requestIdleCallback(resolve))
 		return goto(siteLink(data.site_view.site))

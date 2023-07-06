@@ -9,6 +9,7 @@
 	import { cors } from '$lib/utils/cors'
 	import { personUri, siteHostname } from '$lib/utils/links'
 	import { headers } from '$lib/utils/requests'
+	import { getJwt } from './utils/cookies'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -32,11 +33,7 @@
 			headers: headers({ site: siteHostname(siteView.site) }, `/u/${personUri(personView.person)}`),
 		})
 
-		const cookies = document.cookie ? document.cookie.split('; ') : []
-		const jwt = cookies
-			.find(cookie => cookie.startsWith(`${siteHostname(siteView.site)}_jwt=`))
-			?.split('=')[1]
-
+		const jwt = getJwt(siteView.site)
 		if (!jwt) {
 			blockError = 'You must be logged in to block a person.'
 			return

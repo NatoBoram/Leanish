@@ -2,17 +2,60 @@
 	import { ArrowDown, ArrowTopRightOnSquare, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
-	import type { PostView, Site } from 'lemmy-js-client'
+	import { LemmyHttp, type PostView, type Site } from 'lemmy-js-client'
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import { imageExtensions } from '$lib/consts/image_extensions'
 	import PersonIcon from '$lib/PersonIcon.svelte'
-	import { communityLink, communityUri, personLink, personUri, postLink } from '$lib/utils/links'
+	import {
+		communityLink,
+		communityUri,
+		personLink,
+		personUri,
+		postLink,
+		siteHostname,
+	} from '$lib/utils/links'
+	import { getJwt } from './utils/cookies'
+	import { cors } from './utils/cors'
+	import { headers } from './utils/requests'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
 	export let post: PostView
 	export let site: Site
+
+	let myVote = post.my_vote ?? 0
+	let votePending = false
+
+	function newClient() {
+		return new LemmyHttp(site.actor_id, {
+			fetchFunction: cors(fetch, location.origin),
+			headers: headers({ site: siteHostname(site) }, `/post/${post.post.id}`),
+		})
+	}
+
+	async function like() {
+		const score = myVote <= 0 ? 1 : 0
+		return likePost(score)
+	}
+
+	async function dislike() {
+		const score = myVote >= 0 ? -1 : 0
+		return likePost(score)
+	}
+
+	async function likePost(score: number) {
+		const client = newClient()
+
+		const jwt = getJwt(site)
+		if (!jwt) throw new Error('You must be logged in to upvote a post.')
+		votePending = true
+
+		const response = await client.likePost({ auth: jwt, post_id: post.post.id, score: score })
+
+		myVote = response.post_view.my_vote ?? 0
+		votePending = false
+	}
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
 		year: 'numeric',
@@ -98,9 +141,25 @@
 	<!-- Action bar -->
 	<div class="flex flex-row items-center gap-4 text-sm text-muted">
 		<div class="flex flex-row items-center gap-2">
-			<button title="Upvote ({post.counts.upvotes})"><ArrowUp /></button>
+			<button
+				class:text-muted={votePending}
+				class:text-primary={!votePending && myVote > 0}
+				disabled={votePending}
+				on:click={like}
+				title="Upvote ({post.counts.upvotes})"
+			>
+				<ArrowUp />
+			</button>
 			<div>{post.counts.score}</div>
-			<button title="Downvote ({post.counts.downvotes})"><ArrowDown /></button>
+			<button
+				class:text-muted={votePending}
+				class:text-primary={!votePending && myVote < 0}
+				disabled={votePending}
+				on:click={dislike}
+				title="Downvote ({post.counts.downvotes})"
+			>
+				<ArrowDown />
+			</button>
 		</div>
 
 		<a class="flex flex-row items-center gap-2" href={postLink(site, post.post)}>

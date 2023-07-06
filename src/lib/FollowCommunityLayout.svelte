@@ -4,6 +4,7 @@
 	import { communityUri, siteHostname } from '$lib/utils/links'
 	import { headers } from '$lib/utils/requests'
 	import SubscribeButton from './FollowCommunityButton.svelte'
+	import { getJwt } from './utils/cookies'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -25,11 +26,7 @@
 			),
 		})
 
-		const cookies = document.cookie ? document.cookie.split('; ') : []
-		const jwt = cookies
-			.find(cookie => cookie.startsWith(`${siteHostname(site_view.site)}_jwt=`))
-			?.split('=')[1]
-
+		const jwt = getJwt(site_view.site)
 		if (!jwt) {
 			subscribeError = 'You must be logged in to subscribe to a community.'
 			return
