@@ -2,18 +2,11 @@
 	import { ArrowDown, ArrowTopRightOnSquare, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
-	import { LemmyHttp, type PostView, type Site } from 'lemmy-js-client'
+	import { type CommunityModeratorView, LemmyHttp, type PostView, type Site } from 'lemmy-js-client'
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import { imageExtensions } from '$lib/consts/image_extensions'
-	import PersonIcon from '$lib/PersonIcon.svelte'
-	import {
-		communityLink,
-		communityUri,
-		personLink,
-		personUri,
-		postLink,
-		siteHostname,
-	} from '$lib/utils/links'
+	import { communityLink, communityUri, postLink, siteHostname } from '$lib/utils/links'
+	import PersonUri from './PersonUri.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
 	import { headers } from './utils/requests'
@@ -23,6 +16,7 @@
 
 	export let post: PostView
 	export let site: Site
+	export let moderators: CommunityModeratorView[]
 
 	let myVote = post.my_vote ?? 0
 	let votePending = false
@@ -79,10 +73,7 @@
 		<div class="hidden xl:block">•</div>
 		<div class="flex flex-row items-center gap-2">
 			Posted by
-			<a class="flex flex-row items-center gap-2" href={personLink(site, post.creator)}>
-				<PersonIcon person={post.creator} />
-				<div>{personUri(post.creator)}</div>
-			</a>
+			<PersonUri person={post.creator} {site} {moderators} />
 		</div>
 		<div class="hidden xl:block">•</div>
 		<span title={new Date(post.post.published).toISOString()}>

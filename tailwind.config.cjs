@@ -12,6 +12,7 @@ export default {
 				danger: { container: colors.rose[900], DEFAULT: colors.rose[600] },
 				muted: colors.zinc[400],
 				primary: { container: colors.sky[900], DEFAULT: colors.sky[600] },
+				success: { container: colors.emerald[900], DEFAULT: colors.emerald[600] },
 				surface: { container: colors.neutral[300], DEFAULT: colors.neutral[200] },
 				warning: { container: colors.amber[900], DEFAULT: colors.amber[600] },
 				on: {
@@ -19,6 +20,7 @@ export default {
 					danger: { container: colors.rose[100], DEFAULT: colors.rose[50] },
 					muted: colors.zinc[50],
 					primary: { container: colors.sky[100], DEFAULT: colors.sky[50] },
+					success: { container: colors.emerald[100], DEFAULT: colors.emerald[50] },
 					surface: { container: colors.neutral[900], DEFAULT: colors.neutral[950] },
 					warning: { container: colors.amber[100], DEFAULT: colors.amber[50] },
 				},
