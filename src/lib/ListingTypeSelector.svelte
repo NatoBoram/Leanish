@@ -5,7 +5,7 @@
 
 	async function clickListingType(url: URL, type_: ListingType) {
 		url.searchParams.set('type_', type_)
-		await goto(url.toString())
+		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
 	}
 

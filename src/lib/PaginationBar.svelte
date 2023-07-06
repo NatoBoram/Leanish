@@ -31,7 +31,7 @@
 		if (!value || isNaN(value)) return
 
 		url.searchParams.set('page', String(value))
-		await goto(url.toString())
+		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
 	}
 
@@ -65,8 +65,9 @@
 		const destination = Math.max(index + amount, 1)
 		url.searchParams.set('page', String(destination))
 
-		await goto(url)
+		await goto(url, { noScroll: true })
 		await invalidate('app:paginate')
+
 		if (amount > 0) dispatch('next', destination)
 		else if (amount < 0) dispatch('previous', destination)
 	}
@@ -112,6 +113,7 @@
 		{/if}
 	</div>
 
+	<!-- Current -->
 	<div
 		class="col-span-2 flex flex-row items-center gap-2 justify-self-center max-sm:order-1 sm:col-span-1"
 	>
@@ -120,9 +122,8 @@
 			bind:this={input}
 			class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
-			on:blur={() => debounceChangePage($page.url)}
+			on:change={() => debounceChangePage($page.url)}
 			on:keypress={e => e.key === 'Enter' && debounceChangePage($page.url)}
-			on:submit={() => debounceChangePage($page.url)}
 			type="number"
 			value={initialIndex($page.url)}
 		/>

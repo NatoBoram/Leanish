@@ -23,7 +23,7 @@
 
 		if (isSortType(value)) {
 			url.searchParams.set('sort', String(value))
-			await goto(url.toString())
+			await goto(url.toString(), { noScroll: true })
 			await invalidate('app:paginate')
 			dispatch('sort', value)
 		}
@@ -34,9 +34,7 @@
 	bind:this={select}
 	value={sort}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:blur={() => debounceChangeSort($page.url)}
-	on:keypress={e => e.key === 'Enter' && debounceChangeSort($page.url)}
-	on:submit={() => debounceChangeSort($page.url)}
+	on:change={() => debounceChangeSort($page.url)}
 >
 	<option disabled={true} aria-hidden="true" value={undefined}>Sort type</option>
 	<option value="Active">Active</option>

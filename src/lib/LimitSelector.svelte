@@ -19,7 +19,7 @@
 		if (!value || isNaN(value)) value = 10
 
 		url.searchParams.set('limit', String(value))
-		await goto(url.toString())
+		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
 		dispatch('limit', value)
 	}
@@ -31,9 +31,9 @@
 		bind:this={input}
 		class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 		id="limit"
-		on:blur={() => debounceChangeLimit($page.url)}
+		max="50"
+		on:change={() => debounceChangeLimit($page.url)}
 		on:keypress={e => e.key === 'Enter' && debounceChangeLimit($page.url)}
-		on:submit={() => debounceChangeLimit($page.url)}
 		type="number"
 		value={limit}
 	/>
