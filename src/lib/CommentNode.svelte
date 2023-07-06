@@ -1,17 +1,57 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { Marked } from '@ts-stack/markdown'
-	import type { CommentView, Site } from 'lemmy-js-client'
+	import { type CommentView, LemmyHttp, type Site } from 'lemmy-js-client'
 	import type { CommentNode } from '$lib/comment_node'
 	import PersonIcon from '$lib/PersonIcon.svelte'
-	import { personLink, personUri } from '$lib/utils/links'
+	import { personLink, personUri, siteHostname } from '$lib/utils/links'
+	import { getJwt } from './utils/cookies'
+	import { cors } from './utils/cors'
+	import { headers } from './utils/requests'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let comment: CommentView
 	export let children: CommentNode[]
+	export let comment: CommentView
 	export let site: Site
+
+	let myVote = comment.my_vote ?? 0
+	let votePending = false
+
+	function newClient() {
+		return new LemmyHttp(site.actor_id, {
+			fetchFunction: cors(fetch, location.origin),
+			headers: headers({ site: siteHostname(site) }, `/comment/${comment.comment.id}`),
+		})
+	}
+
+	async function like() {
+		const score = myVote <= 0 ? 1 : 0
+		return likePost(score)
+	}
+
+	async function dislike() {
+		const score = myVote >= 0 ? -1 : 0
+		return likePost(score)
+	}
+
+	async function likePost(score: number) {
+		const jwt = getJwt(site)
+		if (!jwt) return
+
+		const client = newClient()
+		votePending = true
+
+		const response = await client.likeComment({
+			auth: jwt,
+			comment_id: comment.comment.id,
+			score: score,
+		})
+
+		myVote = response.comment_view.my_vote ?? 0
+		votePending = false
+	}
 </script>
 
 <div class="flex flex-col gap-4 {className}">
@@ -31,16 +71,32 @@
 	<!-- Comment action bar -->
 	<div class="flex flex-row items-center gap-4 text-sm text-muted">
 		<div class="flex flex-row items-center gap-2">
-			<button title="Upvote ({comment.counts.upvotes})"><ArrowUp /></button>
+			<button
+				class:text-muted={votePending}
+				class:text-primary={!votePending && myVote > 0}
+				disabled={votePending}
+				on:click={like}
+				title="Upvote ({comment.counts.upvotes})"
+			>
+				<ArrowUp />
+			</button>
 			<div>{comment.counts.score}</div>
-			<button title="Downvote ({comment.counts.downvotes})"><ArrowDown /></button>
+			<button
+				class:text-muted={votePending}
+				class:text-primary={!votePending && myVote < 0}
+				disabled={votePending}
+				on:click={dislike}
+				title="Downvote ({comment.counts.downvotes})"
+			>
+				<ArrowDown />
+			</button>
 		</div>
 	</div>
 
 	<!-- Children -->
 	<div class="ml-4 border-l border-muted pl-4">
 		{#each children as child (child.comment.comment.id)}
-			<svelte:self comment={child.comment} children={child.children} />
+			<svelte:self comment={child.comment} children={child.children} {site} />
 		{/each}
 	</div>
 </div>

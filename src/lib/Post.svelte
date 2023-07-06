@@ -39,10 +39,10 @@
 	}
 
 	async function likePost(score: number) {
-		const client = newClient()
-
 		const jwt = getJwt(site)
-		if (!jwt) throw new Error('You must be logged in to upvote a post.')
+		if (!jwt) return
+
+		const client = newClient()
 		votePending = true
 
 		const response = await client.likePost({ auth: jwt, post_id: post.post.id, score: score })
