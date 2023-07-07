@@ -16,8 +16,8 @@ Not ready for general usage. The build at <https://natoboram.github.io/Leanish> 
 git clone https://github.com/NatoBoram/Leanish.git
 cd Leanish
 pnpm i
-pnpm build
-pnpm preview --host
+BUILD_ADAPTER=node pnpm build
+node ./build/index.js
 ```
 
-This gives you access to a local server at <http://localhost:4173> that you can even access from your mobile device.
+This gives you access to a local server at <http://localhost:3000> that you can even access from your mobile device.
