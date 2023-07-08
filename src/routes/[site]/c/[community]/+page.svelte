@@ -73,7 +73,13 @@
 			{#if data.posts.length}
 				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
 			{/if}
-			<Posts posts={data.posts} site={data.site_view.site} moderators={data.moderators} />
+			<Posts
+				allLanguages={data.all_languages}
+				moderators={data.moderators}
+				myUser={data.my_user}
+				posts={data.posts}
+				site={data.site_view.site}
+			/>
 			{#if data.posts.length}
 				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
 			{/if}

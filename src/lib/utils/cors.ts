@@ -1,7 +1,7 @@
 import { base } from '$app/paths'
 
 /** If a Lemmy instance is blocking web clients, use a proxy. */
-const bypass = ['lemmy.world']
+const bypass: string[] = ['lemmy.world']
 
 export function cors(f: typeof fetch, origin: string): typeof fetch {
 	return (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {

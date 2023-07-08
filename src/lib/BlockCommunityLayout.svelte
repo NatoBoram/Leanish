@@ -52,14 +52,13 @@
 	<BlockCommunityButton {blockCommunity} community={response ?? Promise.resolve(community)} />
 
 	{#if blockError}
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<p
-			role="alertdialog"
 			class="rounded-lg bg-danger-container p-4 text-on-danger-container"
 			on:click={() => (blockError = '')}
 			on:keypress={e => {
 				if (e.key === 'Escale') blockError = ''
 			}}
+			role="presentation"
 		>
 			{blockError}
 		</p>

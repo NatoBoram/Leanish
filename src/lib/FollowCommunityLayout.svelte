@@ -52,14 +52,13 @@
 	<SubscribeButton {followCommunity} community={response ?? Promise.resolve(community)} />
 
 	{#if subscribeError}
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<p
-			role="alertdialog"
 			class="rounded-lg bg-danger-container p-4 text-on-danger-container"
 			on:click={() => (subscribeError = '')}
 			on:keypress={e => {
 				if (e.key === 'Escale') subscribeError = ''
 			}}
+			role="presentation"
 		>
 			{subscribeError}
 		</p>

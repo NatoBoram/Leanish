@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { ArrowDown, ArrowTopRightOnSquare, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
-	import { ChatBubbleLeft } from '@natoboram/heroicons.svelte/24/outline'
+	import { ChatBubbleLeft, ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
-	import { type CommunityModeratorView, LemmyHttp, type PostView, type Site } from 'lemmy-js-client'
+	import type {
+		CommunityModeratorView,
+		Language,
+		LanguageId,
+		MyUserInfo,
+		PostView,
+		Site,
+	} from 'lemmy-js-client'
+	import { LemmyHttp } from 'lemmy-js-client'
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import { imageExtensions } from '$lib/consts/image_extensions'
 	import { communityLink, communityUri, postLink, siteHostname } from '$lib/utils/links'
+	import CommentForm from './CommentForm.svelte'
 	import PersonUri from './PersonUri.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
@@ -14,18 +23,40 @@
 	let className: string | undefined = undefined
 	export { className as class }
 
+	export let allLanguages: Language[]
+	export let moderators: CommunityModeratorView[]
+	export let myUser: MyUserInfo | undefined
 	export let post: PostView
 	export let site: Site
-	export let moderators: CommunityModeratorView[]
 
 	let myVote = post.my_vote ?? 0
 	let votePending = false
+	let replying = false
 
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
 			fetchFunction: cors(fetch, location.origin),
 			headers: headers({ site: siteHostname(site) }, `/post/${post.post.id}`),
 		})
+	}
+
+	function clickReply() {
+		replying = !replying
+	}
+
+	async function createComment(content: string, language_id: LanguageId) {
+		const client = newClient()
+		const jwt = getJwt(site)
+		if (!jwt) throw new Error('You must be logged in to comment.')
+
+		const response = await client.createComment({
+			auth: jwt,
+			content,
+			language_id: language_id,
+			post_id: post.post.id,
+		})
+
+		return response
 	}
 
 	async function like() {
@@ -135,7 +166,7 @@
 			<button
 				class:text-muted={votePending}
 				class:text-primary={!votePending && myVote > 0}
-				disabled={votePending}
+				disabled={votePending || !myUser}
 				on:click={like}
 				title="Upvote ({post.counts.upvotes})"
 			>
@@ -145,7 +176,7 @@
 			<button
 				class:text-muted={votePending}
 				class:text-primary={!votePending && myVote < 0}
-				disabled={votePending}
+				disabled={votePending || !myUser}
 				on:click={dislike}
 				title="Downvote ({post.counts.downvotes})"
 			>
@@ -158,5 +189,17 @@
 			{post.counts.comments}
 			<span>Comments</span>
 		</a>
+
+		{#if myUser}
+			<button class="flex flex-row items-center gap-2" on:click={clickReply}>
+				<ChatBubbleLeftEllipsis class="h-5 w-5" />
+				Reply
+			</button>
+		{/if}
 	</div>
+
+	<!-- Comment form -->
+	{#if replying && myUser}
+		<CommentForm {allLanguages} {myUser} {createComment} on:comment />
+	{/if}
 </div>
