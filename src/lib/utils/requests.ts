@@ -1,20 +1,24 @@
 import { error } from '@sveltejs/kit'
 
-/**
- * If a Lemmy instance is blocking non-browser clients that have the goodwill to announce
- * themselves, then just don't tell it.
- */
-const userAgentBlacklists: string[] = []
+/** If a Lemmy instance is blocking clients that have the goodwill to announce themselves, then
+ * don't announce it. */
+const bypass: string[] = []
 
 export function headers(params: { site: string }, referer: `/${string}` = '/') {
 	const name = __NAME__
 	const version = __VERSION__
 
 	return {
-		...(userAgentBlacklists.includes(params.site) ? {} : { 'User-Agent': `${name}@${version}` }),
-		Host: params.site,
-		Origin: `https://${params.site}`,
-		Referer: `https://${params.site}${referer}`,
+		...(bypass.includes(params.site)
+			? {
+					Host: params.site,
+					Origin: `https://${params.site}`,
+					Referer: `https://${params.site}${referer}`,
+			  }
+			: {
+					// https://github.com/LemmyNet/lemmy/issues/3537
+					'User-Agent': `${name}@${version}`,
+			  }),
 	}
 }
 
