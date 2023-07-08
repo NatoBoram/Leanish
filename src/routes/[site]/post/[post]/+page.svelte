@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { CommentResponse } from 'lemmy-js-client'
 	import Comments from '$lib/Comments.svelte'
+	import CommentSortSelector from '$lib/CommentSortSelector.svelte'
+	import LimitSelector from '$lib/LimitSelector.svelte'
+	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import Post from '$lib/Post.svelte'
 	import type { PageData } from './$types'
 
@@ -27,6 +30,12 @@
 		post={data.post_view}
 		site={data.site_view.site}
 	/>
+
+	<div class="flex flex-row flex-wrap items-center gap-4">
+		<ListingTypeSelector type_={data.type_ ?? 'All'} />
+		<CommentSortSelector sort={data.sort ?? 'Hot'} />
+		<LimitSelector limit={data.limit ?? 10} />
+	</div>
 
 	<!-- Comments -->
 	<Comments {comments} site={data.site_view.site} />
