@@ -28,6 +28,7 @@ export const durationUnit = {
 	hour,
 	day,
 	week,
+	month,
 	year,
 	decade,
 	century,
@@ -38,7 +39,6 @@ export const durationUnit = {
 	period,
 	era,
 	eon,
-	month,
 } as const
 
 export type DurationUnit = (typeof durationUnit)[keyof typeof durationUnit]

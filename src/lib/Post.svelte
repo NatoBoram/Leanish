@@ -28,6 +28,7 @@
 	import PersonUri from './PersonUri.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
+	import { lemmyDate, timeAgo } from './utils/dates'
 	import { headers } from './utils/requests'
 
 	let className: string | undefined = undefined
@@ -109,14 +110,12 @@
 	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
 >
 	<!-- Info bar -->
-	<div class="flex flex-col items-start gap-2 text-sm text-muted xl:flex-row xl:items-center">
+	<div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted">
 		<!-- Community -->
 		<a class="flex flex-row items-center gap-2" href={communityLink(site, post.community)}>
 			<CommunityIcon community={post.community} />
 			<div>{communityUri(post.community)}</div>
 		</a>
-
-		<div class="hidden xl:block">•</div>
 
 		<!-- Author -->
 		<div class="flex flex-row items-center gap-2">
@@ -124,17 +123,27 @@
 			<PersonUri person={post.creator} {site} {moderators} />
 		</div>
 
-		<div class="hidden xl:block">•</div>
-
 		<!-- Published -->
-		<span title={new Date(post.post.published).toISOString()}>
-			{dtf.format(new Date(post.post.published))}
-		</span>
+		<a
+			href={postLink(site, post.post)}
+			class="flex flex-row items-center gap-2"
+			title={dtf.format(lemmyDate(post.post.published))}
+		>
+			{timeAgo(lemmyDate(post.post.published))}
+		</a>
 
+		<!-- Updated -->
 		{#if post.post.updated}
-			<span title="Edited on {dtf.format(new Date(post.post.published))}">
+			{@const updated = lemmyDate(post.post.updated)}
+			<a
+				href={postLink(site, post.post)}
+				class="flex flex-row items-center gap-2"
+				title={dtf.format(updated)}
+			>
 				<Pencil class="h-5 w-5" />
-			</span>
+
+				Edited {timeAgo(updated)}
+			</a>
 		{/if}
 	</div>
 

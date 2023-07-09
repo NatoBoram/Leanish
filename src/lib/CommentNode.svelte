@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
-	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
+	import { ChatBubbleLeftEllipsis, Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
 	import type {
 		CommentResponse,
@@ -19,6 +19,7 @@
 	import CommentForm from './CommentForm.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
+	import { lemmyDate, timeAgo } from './utils/dates'
 	import { headers } from './utils/requests'
 
 	let className: string | undefined = undefined
@@ -93,9 +94,10 @@
 	}
 
 	function commentLink(url: URL) {
-		url.searchParams.set('parent_id', comment.comment.id.toString())
-		url.searchParams.delete('page')
-		return url
+		const clone = new URL(url.href)
+		clone.searchParams.set('parent_id', comment.comment.id.toString())
+		clone.searchParams.delete('page')
+		return clone
 	}
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
@@ -109,20 +111,36 @@
 
 <div class="flex flex-col gap-4 {className}">
 	<!-- Author bar -->
-	<div class="flex flex-row items-center gap-4">
+	<div class="flex flex-row flex-wrap items-center gap-4">
 		<!-- Author -->
 		<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
 			<PersonIcon person={comment.creator} />
 			<div>{personUri(comment.creator)}</div>
 		</a>
 
+		<!-- Published -->
 		<a
 			href={commentLink($page.url).toString()}
-			class="text-sm text-muted"
-			title={new Date(comment.comment.published).toISOString()}
+			class="flex text-sm text-muted"
+			title={dtf.format(lemmyDate(comment.comment.published))}
 		>
-			{dtf.format(new Date(comment.comment.published))}
+			{timeAgo(lemmyDate(comment.comment.published))}
 		</a>
+
+		<!-- Updated -->
+		{#if comment.comment.updated}
+			{@const updated = lemmyDate(comment.comment.updated)}
+
+			<a
+				href={commentLink($page.url).toString()}
+				class="flex flex-row items-center gap-2 text-sm text-muted"
+				title={dtf.format(updated)}
+			>
+				<Pencil class="h-5 w-5" />
+
+				Edited {timeAgo(updated)}
+			</a>
+		{/if}
 	</div>
 
 	<!-- Body -->
