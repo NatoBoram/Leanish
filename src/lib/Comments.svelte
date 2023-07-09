@@ -49,7 +49,7 @@
 			{site}
 			{moderators}
 			children={node.children}
-			comment={node.comment}
+			commentView={node.comment}
 			on:comment
 		/>
 	{/each}

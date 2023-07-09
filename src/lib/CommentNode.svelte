@@ -33,7 +33,7 @@
 
 	export let allLanguages: Language[]
 	export let children: CommentNode[]
-	export let comment: CommentView
+	export let commentView: CommentView
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let post: Post
@@ -42,21 +42,22 @@
 	let replying = false
 	let votePending = false
 	let savePending = false
+	let errorMessage = ''
 
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
 			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: siteHostname(site) }, `/comment/${comment.comment.id}`),
+			headers: headers({ site: siteHostname(site) }, `/comment/${commentView.comment.id}`),
 		})
 	}
 
 	async function like() {
-		const score = (comment.my_vote ?? 0) <= 0 ? 1 : 0
+		const score = (commentView.my_vote ?? 0) <= 0 ? 1 : 0
 		return likeComment(score)
 	}
 
 	async function dislike() {
-		const score = (comment.my_vote ?? 0) >= 0 ? -1 : 0
+		const score = (commentView.my_vote ?? 0) >= 0 ? -1 : 0
 		return likeComment(score)
 	}
 
@@ -67,13 +68,17 @@
 		const client = newClient()
 		votePending = true
 
-		const response = await client.likeComment({
-			auth: jwt,
-			comment_id: comment.comment.id,
-			score: score,
-		})
+		const response = await client
+			.likeComment({
+				auth: jwt,
+				comment_id: commentView.comment.id,
+				score: score,
+			})
+			.catch((e: unknown) => {
+				if (e instanceof Error) errorMessage = e.message
+			})
 
-		comment = response.comment_view
+		if (response) commentView = response.comment_view
 		votePending = false
 	}
 
@@ -90,7 +95,7 @@
 			auth: jwt,
 			content,
 			language_id: language_id,
-			parent_id: comment.comment.id,
+			parent_id: commentView.comment.id,
 			post_id: post.id,
 		})
 
@@ -103,7 +108,7 @@
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
-		clone.searchParams.set('parent_id', comment.comment.id.toString())
+		clone.searchParams.set('parent_id', commentView.comment.id.toString())
 		clone.searchParams.delete('page')
 		return clone
 	}
@@ -132,35 +137,35 @@
 		savePending = true
 		const response = await client.saveComment({
 			auth: jwt,
-			comment_id: comment.comment.id,
-			save: !comment.saved,
+			comment_id: commentView.comment.id,
+			save: !commentView.saved,
 		})
 
-		comment = response.comment_view
+		commentView = response.comment_view
 		savePending = false
 	}
 </script>
 
-<div class="flex flex-col gap-4 {className}" data-comment-id={comment.comment.id}>
+<div class="flex flex-col gap-4 {className}" data-comment-id={commentView.comment.id}>
 	<!-- Author bar -->
 	<div class="flex flex-row flex-wrap items-center gap-4">
 		<!-- Author -->
-		<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
-			<PersonUri person={comment.creator} {site} {moderators} />
+		<a class="flex flex-row items-center gap-2" href={personLink(site, commentView.creator)}>
+			<PersonUri person={commentView.creator} {site} {moderators} />
 		</a>
 
 		<!-- Published -->
 		<a
 			href={commentLink($page.url).toString()}
 			class="flex text-sm text-muted"
-			title={dtf.format(lemmyDate(comment.comment.published))}
+			title={dtf.format(lemmyDate(commentView.comment.published))}
 		>
-			{timeAgo(lemmyDate(comment.comment.published))}
+			{timeAgo(lemmyDate(commentView.comment.published))}
 		</a>
 
 		<!-- Updated -->
-		{#if comment.comment.updated}
-			{@const updated = lemmyDate(comment.comment.updated)}
+		{#if commentView.comment.updated}
+			{@const updated = lemmyDate(commentView.comment.updated)}
 
 			<a
 				href={commentLink($page.url).toString()}
@@ -174,14 +179,14 @@
 		{/if}
 
 		<!-- Removed -->
-		{#if comment.comment.removed}
+		{#if commentView.comment.removed}
 			<div title="Removed">
 				<Trash class="h-5 w-5 text-danger" />
 			</div>
 		{/if}
 
 		<!-- Deleted -->
-		{#if comment.comment.deleted}
+		{#if commentView.comment.deleted}
 			<div title="Deleted">
 				<Trash class="h-5 w-5" />
 			</div>
@@ -190,8 +195,8 @@
 
 	<!-- Body -->
 	<Prose
-		markdown={comment.comment.content}
-		muted={comment.comment.deleted || comment.comment.removed}
+		markdown={commentView.comment.content}
+		muted={commentView.comment.deleted || commentView.comment.removed}
 	/>
 
 	<!-- Comment action bar -->
@@ -199,20 +204,20 @@
 		<div class="flex flex-row items-center gap-2">
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && (comment.my_vote ?? 0) > 0}
+				class:text-primary={!votePending && (commentView.my_vote ?? 0) > 0}
 				disabled={votePending}
 				on:click={like}
-				title="Upvote ({comment.counts.upvotes})"
+				title="Upvote ({commentView.counts.upvotes})"
 			>
 				<ArrowUp />
 			</button>
-			<div>{comment.counts.score}</div>
+			<div>{commentView.counts.score}</div>
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && (comment.my_vote ?? 0) < 0}
+				class:text-primary={!votePending && (commentView.my_vote ?? 0) < 0}
 				disabled={votePending}
 				on:click={dislike}
-				title="Downvote ({comment.counts.downvotes})"
+				title="Downvote ({commentView.counts.downvotes})"
 			>
 				<ArrowDown />
 			</button>
@@ -225,8 +230,8 @@
 				Reply
 			</button>
 
-			<button class="flex flex-row items-center gap-2" on:click={clickSave}>
-				{#if comment.saved}
+			<button class="flex flex-row items-center gap-2" on:click={clickSave} disabled={savePending}>
+				{#if commentView.saved}
 					<StarSolid class="h-5 w-5 text-warning" />
 					Saved
 				{:else}
@@ -236,6 +241,19 @@
 			</button>
 		{/if}
 	</div>
+
+	{#if errorMessage}
+		<p
+			class="rounded-md bg-danger-container p-4 text-on-danger-container"
+			on:click={() => (errorMessage = '')}
+			on:keypress={e => {
+				if (e.key === 'Enter') errorMessage = ''
+			}}
+			role="presentation"
+		>
+			{errorMessage}
+		</p>
+	{/if}
 
 	{#if replying && myUser}
 		<CommentForm {allLanguages} {myUser} {createComment} on:comment on:comment={onComment} />
@@ -251,18 +269,18 @@
 				{post}
 				{site}
 				children={child.children}
-				comment={child.comment}
+				commentView={child.comment}
 				on:comment
 			/>
 		{/each}
 
 		<!-- Amount of children -->
-		{#if Number($page.url.searchParams.get('parent_id')) !== comment.comment.id && comment.counts.child_count > countAllChildren(children)}
+		{#if Number($page.url.searchParams.get('parent_id')) !== commentView.comment.id && commentView.counts.child_count > countAllChildren(children)}
 			<a
 				class="max-w-fit rounded-md bg-base-container px-4 py-2 text-on-base-container"
 				href={commentLink($page.url).href}
 			>
-				Load {comment.counts.child_count} comments
+				Load {commentView.counts.child_count} comments
 			</a>
 		{/if}
 	</div>

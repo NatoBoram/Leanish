@@ -45,6 +45,7 @@
 	let votePending = false
 	let replying = false
 	let savePending = false
+	let errorMessage = ''
 
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
@@ -88,9 +89,14 @@
 
 		const client = newClient()
 		votePending = true
-		const response = await client.likePost({ auth: jwt, post_id: postView.post.id, score: score })
+		const response = await client
+			.likePost({ auth: jwt, post_id: postView.post.id, score: score })
+			.catch((e: unknown) => {
+				errorMessage =
+					e instanceof Error ? e.message : 'An unknown error happened while voting on the post.'
+			})
 
-		postView = response.post_view
+		if (response) postView = response.post_view
 		votePending = false
 	}
 
@@ -112,13 +118,18 @@
 
 		const client = newClient()
 		savePending = true
-		const response = await client.savePost({
-			auth: jwt,
-			post_id: postView.post.id,
-			save: !postView.saved,
-		})
+		const response = await client
+			.savePost({
+				auth: jwt,
+				post_id: postView.post.id,
+				save: !postView.saved,
+			})
+			.catch((e: unknown) => {
+				errorMessage =
+					e instanceof Error ? e.message : 'An unknown error happened while saving the post.'
+			})
 
-		postView = response.post_view
+		if (response) postView = response.post_view
 		savePending = false
 	}
 </script>
@@ -227,7 +238,7 @@
 	{/if}
 
 	<!-- Action bar -->
-	<div class="flex flex-row items-center gap-4 text-sm text-muted flex-wrap">
+	<div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted">
 		<div class="flex flex-row items-center gap-2">
 			<button
 				class:text-muted={votePending}
@@ -273,6 +284,19 @@
 			</button>
 		{/if}
 	</div>
+
+	{#if errorMessage}
+		<p
+			class="rounded-md bg-danger-container p-4 text-on-danger-container"
+			on:click={() => (errorMessage = '')}
+			on:keypress={e => {
+				if (e.key === 'Enter') errorMessage = ''
+			}}
+			role="presentation"
+		>
+			{errorMessage}
+		</p>
+	{/if}
 
 	<!-- Comment form -->
 	{#if replying && myUser}
