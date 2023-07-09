@@ -182,7 +182,7 @@
 			<p>
 				<ArrowTopRightOnSquare class="inline h-5 w-5" />
 
-				<a class="hover:underline break-all" href={post.post.url}>{post.post.url}</a>
+				<a class="break-all hover:underline" href={post.post.url}>{post.post.url}</a>
 			</p>
 		{:else if post.post.thumbnail_url}
 			<img

@@ -109,7 +109,7 @@
 
 <div class="flex flex-col gap-4 {className}">
 	<!-- Author bar -->
-	<div class="flex flex-row gap-4 items-center">
+	<div class="flex flex-row items-center gap-4">
 		<!-- Author -->
 		<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
 			<PersonIcon person={comment.creator} />
