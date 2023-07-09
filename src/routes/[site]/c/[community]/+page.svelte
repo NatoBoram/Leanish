@@ -71,7 +71,12 @@
 			</div>
 
 			{#if data.posts.length}
-				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
+				<PaginationBar
+					length={data.posts.length}
+					on:next={onNext}
+					on:previous={onPrevious}
+					on:first={onNext}
+				/>
 			{/if}
 			<Posts
 				allLanguages={data.all_languages}
@@ -81,7 +86,12 @@
 				site={data.site_view.site}
 			/>
 			{#if data.posts.length}
-				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
+				<PaginationBar
+					length={data.posts.length}
+					on:next={onNext}
+					on:previous={onPrevious}
+					on:first={onNext}
+				/>
 			{/if}
 		</div>
 	</div>

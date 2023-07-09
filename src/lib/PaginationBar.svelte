@@ -11,7 +11,7 @@
 
 	export let length: number
 
-	const dispatch = createEventDispatcher<{ previous: number; next: number }>()
+	const dispatch = createEventDispatcher<{ previous: number; next: number; first: 1 }>()
 	let input: HTMLInputElement
 
 	function initialIndex(url: URL): number {
@@ -42,9 +42,11 @@
 	}
 
 	async function firstPage(url: URL) {
-		const index = Number(url.searchParams.get('page') ?? 1)
-		if (isNaN(index) || index === 1) return
-		return movePage(url, -index + 1)
+		url.searchParams.set('page', String(1))
+		await goto(url, { noScroll: true })
+
+		dispatch('first', 1)
+		await invalidate('app:paginate')
 	}
 
 	function hasPrevious(url: URL) {
@@ -54,23 +56,25 @@
 	}
 
 	async function next(url: URL) {
-		await movePage(url, 1)
-	}
-
-	async function previous(url: URL) {
-		await movePage(url, -1)
-	}
-
-	async function movePage(url: URL, amount: number) {
+		const amount = 1
 		const index = Number(url.searchParams.get('page') ?? 1)
 		const destination = Math.max(index + amount, 1)
 		url.searchParams.set('page', String(destination))
-
 		await goto(url, { noScroll: true })
-		await invalidate('app:paginate')
 
-		if (amount > 0) dispatch('next', destination)
-		else if (amount < 0) dispatch('previous', destination)
+		dispatch('next', destination)
+		await invalidate('app:paginate')
+	}
+
+	async function previous(url: URL) {
+		const amount = -1
+		const index = Number(url.searchParams.get('page') ?? 1)
+		const destination = Math.max(index + amount, 1)
+		url.searchParams.set('page', String(destination))
+		await goto(url, { noScroll: true })
+
+		dispatch('previous', destination)
+		await invalidate('app:paginate')
 	}
 
 	function hasNext(url: URL) {

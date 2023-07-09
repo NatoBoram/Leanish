@@ -66,7 +66,12 @@
 			</div>
 
 			{#if data.posts.length}
-				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
+				<PaginationBar
+					length={data.posts.length}
+					on:next={onNext}
+					on:previous={onPrevious}
+					on:first={onNext}
+				/>
 			{/if}
 			<Posts
 				posts={data.posts}
@@ -76,7 +81,12 @@
 				myUser={data.my_user}
 			/>
 			{#if data.posts.length}
-				<PaginationBar length={data.posts.length} on:next={onNext} on:previous={onPrevious} />
+				<PaginationBar
+					length={data.posts.length}
+					on:next={onNext}
+					on:previous={onPrevious}
+					on:first={onNext}
+				/>
 			{/if}
 		</div>
 	</div>

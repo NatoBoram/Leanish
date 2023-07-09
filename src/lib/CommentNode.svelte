@@ -12,6 +12,7 @@
 		Site,
 	} from 'lemmy-js-client'
 	import { LemmyHttp } from 'lemmy-js-client'
+	import { page } from '$app/stores'
 	import type { CommentNode } from '$lib/comment_node'
 	import PersonIcon from '$lib/PersonIcon.svelte'
 	import { personLink, personUri, siteHostname } from '$lib/utils/links'
@@ -90,14 +91,39 @@
 	function onComment() {
 		replying = false
 	}
+
+	function commentLink(url: URL) {
+		url.searchParams.set('parent_id', comment.comment.id.toString())
+		url.searchParams.delete('page')
+		return url
+	}
+
+	const dtf = Intl.DateTimeFormat('en-GB', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: '2-digit',
+	})
 </script>
 
 <div class="flex flex-col gap-4 {className}">
-	<!-- Author -->
-	<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
-		<PersonIcon person={comment.creator} />
-		<div>{personUri(comment.creator)}</div>
-	</a>
+	<!-- Author bar -->
+	<div class="flex flex-row gap-4 items-center">
+		<!-- Author -->
+		<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
+			<PersonIcon person={comment.creator} />
+			<div>{personUri(comment.creator)}</div>
+		</a>
+
+		<a
+			href={commentLink($page.url).toString()}
+			class="text-sm text-muted"
+			title={new Date(comment.comment.published).toISOString()}
+		>
+			{dtf.format(new Date(comment.comment.published))}
+		</a>
+	</div>
 
 	<!-- Body -->
 	<div class="prose prose-invert max-w-none">

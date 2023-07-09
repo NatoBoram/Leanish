@@ -1,4 +1,4 @@
-import type { Community, Person, Post, Site } from 'lemmy-js-client'
+import type { Comment, Community, Person, Post, Site } from 'lemmy-js-client'
 import { base } from '$app/paths'
 
 export function newUrl(input: string) {
@@ -38,4 +38,8 @@ export function postLink(site: Site, post: Post) {
 
 export function siteLink(site: Site) {
 	return `${base}/${siteHostname(site)}`
+}
+
+export function commentLink(site: Site, post: Post, comment: Comment) {
+	return `${postLink(site, post)}?parent_id=${comment.id}`
 }

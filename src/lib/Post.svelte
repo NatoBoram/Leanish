@@ -39,7 +39,6 @@
 	export let post: PostView
 	export let site: Site
 
-	let myVote = post.my_vote ?? 0
 	let votePending = false
 	let replying = false
 
@@ -70,12 +69,12 @@
 	}
 
 	async function like() {
-		const score = myVote <= 0 ? 1 : 0
+		const score = (post.my_vote ?? 0) <= 0 ? 1 : 0
 		return likePost(score)
 	}
 
 	async function dislike() {
-		const score = myVote >= 0 ? -1 : 0
+		const score = (post.my_vote ?? 0) >= 0 ? -1 : 0
 		return likePost(score)
 	}
 
@@ -88,7 +87,6 @@
 
 		const response = await client.likePost({ auth: jwt, post_id: post.post.id, score: score })
 
-		myVote = response.post_view.my_vote ?? 0
 		post = response.post_view
 		votePending = false
 	}
@@ -184,7 +182,7 @@
 			<p>
 				<ArrowTopRightOnSquare class="inline h-5 w-5" />
 
-				<a class="hover:underline" href={post.post.url}>{post.post.url}</a>
+				<a class="hover:underline break-all" href={post.post.url}>{post.post.url}</a>
 			</p>
 		{:else if post.post.thumbnail_url}
 			<img
@@ -210,7 +208,7 @@
 		<div class="flex flex-row items-center gap-2">
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && myVote > 0}
+				class:text-primary={!votePending && (post.my_vote ?? 0) > 0}
 				disabled={votePending || !myUser}
 				on:click={like}
 				title="Upvote ({post.counts.upvotes})"
@@ -220,7 +218,7 @@
 			<div>{post.counts.score}</div>
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && myVote < 0}
+				class:text-primary={!votePending && (post.my_vote ?? 0) < 0}
 				disabled={votePending || !myUser}
 				on:click={dislike}
 				title="Downvote ({post.counts.downvotes})"
