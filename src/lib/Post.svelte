@@ -207,9 +207,9 @@
 
 	<!-- Image or link -->
 	{#if postView.post.url}
-		{@const url = postView.post.url}
+		{@const url = new URL(postView.post.url)}
 
-		{#if imageExtensions.some(e => url.endsWith(e))}
+		{#if imageExtensions.some(e => url.pathname.endsWith(e))}
 			<img
 				class="max-h-screen w-full object-contain"
 				src={postView.post.url}
