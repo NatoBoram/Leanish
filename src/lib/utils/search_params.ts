@@ -7,6 +7,7 @@ import type {
 	GetComments,
 	GetPersonDetails,
 	GetPosts,
+	ListCommunities,
 	ListingType,
 	MyUserInfo,
 	SortType,
@@ -40,11 +41,28 @@ export function formGetPersonDetails(
 	form: GetPersonDetails = {},
 ): GetPersonDetails {
 	setAuth(form, cookies, site)
-	setSort(form, url, data.my_user)
-	setPage(form, url)
-	setLimit(form, url)
 	setCommunityId(form, url)
+	setLimit(form, url)
+	setPage(form, url)
 	setSavedOnly(form, url)
+	setSort(form, url, data.my_user)
+
+	return form
+}
+
+export function formListCommunities(
+	cookies: Cookies,
+	data: { my_user?: MyUserInfo | undefined },
+	site: string,
+	url: URL,
+	form: ListCommunities = {},
+): ListCommunities {
+	setAuth(form, cookies, site)
+	setLimit(form, url)
+	setPage(form, url)
+	setShowNsfw(form, url, data.my_user)
+	setSort(form, url, data.my_user)
+	setType(form, url, data.my_user)
 
 	return form
 }
@@ -57,6 +75,8 @@ export function formGetComments(
 	form: GetComments = {},
 ): GetComments {
 	setAuth(form, cookies, site)
+	setCommentSort(form, url, data.my_user)
+	setCommentType(form, url)
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setLimit(form, url)
@@ -64,8 +84,25 @@ export function formGetComments(
 	setPage(form, url)
 	setParentId(form, url)
 	setSavedOnly(form, url)
-	setCommentSort(form, url, data.my_user)
-	setCommentType(form, url)
+
+	return form
+}
+
+export function setShowNsfw<T extends { show_nsfw?: boolean }>(
+	form: T,
+	url: URL,
+	myUser?: MyUserInfo | undefined,
+): T {
+	if (form.show_nsfw) return form
+	const show_nsfw = url.searchParams.get('show_nsfw')
+	if (!show_nsfw && myUser?.local_user_view.local_user.show_nsfw !== undefined) {
+		form.show_nsfw = myUser.local_user_view.local_user.show_nsfw
+		return form
+	}
+
+	if (show_nsfw === true.toString()) form.show_nsfw = true
+	else if (show_nsfw === false.toString()) form.show_nsfw = false
+	else throw error(400, 'Invalid show_nsfw')
 
 	return form
 }
