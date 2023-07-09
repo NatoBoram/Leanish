@@ -1,0 +1,18 @@
+<script lang="ts">
+	import { Marked } from '@ts-stack/markdown'
+
+	let className: string | undefined = undefined
+	export { className as class }
+
+	export let markdown: string
+	export let muted = false
+</script>
+
+<div
+	class="prose prose-invert max-w-none prose-a:break-all prose-a:no-underline hover:prose-a:underline prose-code:break-all {className}"
+	class:text-muted={muted}
+>
+	<slot>
+		{@html Marked.parse(markdown)}
+	</slot>
+</div>

@@ -11,7 +11,6 @@
 		ChatBubbleLeftEllipsis,
 		Pencil,
 	} from '@natoboram/heroicons.svelte/24/outline'
-	import { Marked } from '@ts-stack/markdown'
 	import type {
 		CommunityModeratorView,
 		Language,
@@ -26,6 +25,7 @@
 	import { communityLink, communityUri, postLink, siteHostname } from '$lib/utils/links'
 	import CommentForm from './CommentForm.svelte'
 	import PersonUri from './PersonUri.svelte'
+	import Prose from './Prose.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
 	import { lemmyDate, timeAgo } from './utils/dates'
@@ -205,11 +205,7 @@
 
 	<!-- Body -->
 	{#if post.post.body}
-		<p
-			class="prose prose-invert min-w-0 max-w-none prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:break-all lg:prose-pre:max-w-3xl"
-		>
-			{@html Marked.parse(post.post.body)}
-		</p>
+		<Prose class="prose-a:text-primary" markdown={post.post.body} />
 	{/if}
 
 	<!-- Action bar -->

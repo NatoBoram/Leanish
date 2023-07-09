@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
+	import { ArrowDown, ArrowUp, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeftEllipsis, Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import { Marked } from '@ts-stack/markdown'
 	import type {
 		CommentResponse,
 		CommentView,
@@ -18,6 +17,7 @@
 	import { personLink, siteHostname } from '$lib/utils/links'
 	import CommentForm from './CommentForm.svelte'
 	import PersonUri from './PersonUri.svelte'
+	import Prose from './Prose.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
 	import { lemmyDate, timeAgo } from './utils/dates'
@@ -150,12 +150,27 @@
 				Edited {timeAgo(updated)}
 			</a>
 		{/if}
+
+		<!-- Removed -->
+		{#if comment.comment.removed}
+			<div title="Removed">
+				<Trash class="h-5 w-5 text-danger" />
+			</div>
+		{/if}
+
+		<!-- Deleted -->
+		{#if comment.comment.deleted}
+			<div title="Deleted">
+				<Trash class="h-5 w-5" />
+			</div>
+		{/if}
 	</div>
 
 	<!-- Body -->
-	<div class="prose prose-invert max-w-none prose-a:break-all">
-		{@html Marked.parse(comment.comment.content)}
-	</div>
+	<Prose
+		markdown={comment.comment.content}
+		muted={comment.comment.deleted || comment.comment.removed}
+	/>
 
 	<!-- Comment action bar -->
 	<div class="flex flex-row items-center gap-4 text-sm text-muted">
@@ -182,7 +197,7 @@
 		</div>
 
 		<!-- Reply button -->
-		{#if myUser}
+		{#if myUser && !post.locked}
 			<button class="flex flex-row items-center gap-2" on:click={clickReply}>
 				<ChatBubbleLeftEllipsis class="h-5 w-5" />
 				Reply

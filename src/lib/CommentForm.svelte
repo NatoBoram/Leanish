@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Marked } from '@ts-stack/markdown'
 	import type { CommentResponse, Language, LanguageId, MyUserInfo } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './buttons/FlatButton.svelte'
+	import Prose from './Prose.svelte'
 
 	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
 
@@ -64,11 +64,9 @@
 
 <div class="flex flex-col gap-4">
 	{#if previewing}
-		<div
-			class="prose prose-invert max-w-full rounded-xl bg-surface-container p-4 text-on-surface-container"
-		>
+		<div class="rounded-xl bg-surface-container p-4 text-on-surface-container">
 			{#if text}
-				{@html Marked.parse(text)}
+				<Prose markdown={text} />
 			{:else}
 				<p class="text-center text-muted">Nothing to preview</p>
 			{/if}

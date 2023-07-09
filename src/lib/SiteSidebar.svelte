@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Marked } from '@ts-stack/markdown'
 	import type { Site } from 'lemmy-js-client'
+	import Prose from './Prose.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -16,8 +16,6 @@
 	<br />
 
 	{#if site.sidebar}
-		<div class="prose prose-invert mx-auto prose-a:no-underline hover:prose-a:underline">
-			{@html Marked.parse(site.sidebar)}
-		</div>
+		<Prose class="mx-auto" markdown={site.sidebar} />
 	{/if}
 </div>
