@@ -10,7 +10,9 @@
 		ChatBubbleLeft,
 		ChatBubbleLeftEllipsis,
 		Pencil,
+		Star as StarOutline,
 	} from '@natoboram/heroicons.svelte/24/outline'
+	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type {
 		CommunityModeratorView,
 		Language,
@@ -42,6 +44,7 @@
 
 	let votePending = false
 	let replying = false
+	let savePending = false
 
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
@@ -85,7 +88,6 @@
 
 		const client = newClient()
 		votePending = true
-
 		const response = await client.likePost({ auth: jwt, post_id: postView.post.id, score: score })
 
 		postView = response.post_view
@@ -102,6 +104,22 @@
 
 	function onComment() {
 		replying = false
+	}
+
+	async function clickSave() {
+		const jwt = getJwt(site)
+		if (!jwt) throw new Error('You must be logged in to save posts.')
+
+		const client = newClient()
+		savePending = true
+		const response = await client.savePost({
+			auth: jwt,
+			post_id: postView.post.id,
+			save: !postView.saved,
+		})
+
+		postView = response.post_view
+		savePending = false
 	}
 </script>
 
@@ -209,7 +227,7 @@
 	{/if}
 
 	<!-- Action bar -->
-	<div class="flex flex-row items-center gap-4 text-sm text-muted">
+	<div class="flex flex-row items-center gap-4 text-sm text-muted flex-wrap">
 		<div class="flex flex-row items-center gap-2">
 			<button
 				class:text-muted={votePending}
@@ -242,6 +260,16 @@
 			<button class="flex flex-row items-center gap-2" on:click={clickReply}>
 				<ChatBubbleLeftEllipsis class="h-5 w-5" />
 				Reply
+			</button>
+
+			<button class="flex flex-row items-center gap-2" on:click={clickSave} disabled={savePending}>
+				{#if postView.saved}
+					<StarSolid class="h-5 w-5 text-warning" />
+					Saved
+				{:else}
+					<StarOutline class="h-5 w-5" />
+					Save
+				{/if}
 			</button>
 		{/if}
 	</div>

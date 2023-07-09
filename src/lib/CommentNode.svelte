@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp, Trash } from '@natoboram/heroicons.svelte/20/solid'
-	import { ChatBubbleLeftEllipsis, Pencil } from '@natoboram/heroicons.svelte/24/outline'
+	import {
+		ChatBubbleLeftEllipsis,
+		Pencil,
+		Star as StarOutline,
+	} from '@natoboram/heroicons.svelte/24/outline'
+	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type {
 		CommentResponse,
 		CommentView,
@@ -36,6 +41,7 @@
 
 	let replying = false
 	let votePending = false
+	let savePending = false
 
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
@@ -116,6 +122,22 @@
 			count += 1 + countAllChildren(child.children)
 		}
 		return count
+	}
+
+	async function clickSave() {
+		const jwt = getJwt(site)
+		if (!jwt) throw new Error('You must be logged in to save posts.')
+
+		const client = newClient()
+		savePending = true
+		const response = await client.saveComment({
+			auth: jwt,
+			comment_id: comment.comment.id,
+			save: !comment.saved,
+		})
+
+		comment = response.comment_view
+		savePending = false
 	}
 </script>
 
@@ -201,6 +223,16 @@
 			<button class="flex flex-row items-center gap-2" on:click={clickReply}>
 				<ChatBubbleLeftEllipsis class="h-5 w-5" />
 				Reply
+			</button>
+
+			<button class="flex flex-row items-center gap-2" on:click={clickSave}>
+				{#if comment.saved}
+					<StarSolid class="h-5 w-5 text-warning" />
+					Saved
+				{:else}
+					<StarOutline class="h-5 w-5" />
+					Save
+				{/if}
 			</button>
 		{/if}
 	</div>
