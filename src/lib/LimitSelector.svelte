@@ -17,6 +17,7 @@
 	async function changeLimit(url: URL) {
 		let value = Number(input.value)
 		if (!value || isNaN(value)) value = 10
+		value = Math.min(Math.max(value, 1), 50)
 
 		url.searchParams.set('limit', String(value))
 		await goto(url.toString(), { noScroll: true })
@@ -31,7 +32,8 @@
 		bind:this={input}
 		class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 		id="limit"
-		max="50"
+		max={50}
+		min={1}
 		on:change={() => debounceChangeLimit($page.url)}
 		on:keypress={e => e.key === 'Enter' && debounceChangeLimit($page.url)}
 		type="number"

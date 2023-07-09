@@ -4,6 +4,7 @@
 	import CommentSortSelector from '$lib/CommentSortSelector.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
+	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Post from '$lib/Post.svelte'
 	import type { PageData } from './$types'
 
@@ -21,7 +22,7 @@
 	<title>{data.post_view.post.name}</title>
 </svelte:head>
 
-<div class="container mx-auto flex flex-col gap-8">
+<div class="container mx-auto mb-4 flex flex-col gap-4">
 	<Post
 		allLanguages={data.all_languages}
 		moderators={data.moderators}
@@ -38,5 +39,7 @@
 	</div>
 
 	<!-- Comments -->
+	<PaginationBar length={comments.length} />
 	<Comments {comments} site={data.site_view.site} />
+	<PaginationBar length={comments.length} />
 </div>

@@ -27,8 +27,9 @@
 	}
 
 	async function changePage(url: URL) {
-		const value = Number(input.value)
+		let value = Number(input.value)
 		if (!value || isNaN(value)) return
+		value = Math.max(value, 1)
 
 		url.searchParams.set('page', String(value))
 		await goto(url.toString(), { noScroll: true })
@@ -74,7 +75,7 @@
 
 	function hasNext(url: URL) {
 		const limit = Number(url.searchParams.get('limit') ?? 10)
-		return length === limit
+		return length >= limit
 	}
 </script>
 
@@ -122,6 +123,7 @@
 			bind:this={input}
 			class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
+			min={1}
 			on:change={() => debounceChangePage($page.url)}
 			on:keypress={e => e.key === 'Enter' && debounceChangePage($page.url)}
 			type="number"
