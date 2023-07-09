@@ -18,6 +18,5 @@ export const load = (async ({ params, fetch, cookies, parent, url, depends }) =>
 	})
 
 	depends('app:paginate')
-
 	return { ...listCommunities, ...communities }
 }) satisfies PageServerLoad
