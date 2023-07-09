@@ -8,7 +8,7 @@
 	export let site: Site
 </script>
 
-<div class="flex flex-col gap-4 p-4 {className}">
+<aside class="flex flex-col gap-4 p-4 {className}">
 	{#if site.banner}
 		<img src={site.banner} alt="banner" class="rounded-xl" />
 	{/if}
@@ -18,4 +18,4 @@
 	{#if site.sidebar}
 		<Prose class="mx-auto prose-a:text-primary" markdown={site.sidebar} />
 	{/if}
-</div>
+</aside>

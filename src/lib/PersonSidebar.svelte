@@ -11,7 +11,7 @@
 	export let siteView: SiteView
 </script>
 
-<div class="flex flex-col gap-4 p-4 {className}">
+<aside class="flex flex-col gap-4 p-4 {className}">
 	<h1 class="text-xl">
 		{personView.person.display_name ?? personView.person.name}
 	</h1>
@@ -23,4 +23,4 @@
 	{#if personView.person.bio}
 		{@html Marked.parse(personView.person.bio)}
 	{/if}
-</div>
+</aside>

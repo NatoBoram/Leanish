@@ -20,6 +20,6 @@
 
 <div class="flex flex-col gap-4 {className}">
 	{#each posts as post (post.post.id)}
-		<Post {post} {site} {moderators} {allLanguages} {myUser} />
+		<Post postView={post} {site} {moderators} {allLanguages} {myUser} />
 	{/each}
 </div>

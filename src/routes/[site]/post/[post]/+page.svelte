@@ -2,6 +2,7 @@
 	import type { CommentResponse } from 'lemmy-js-client'
 	import Comments from '$lib/Comments.svelte'
 	import CommentSortSelector from '$lib/CommentSortSelector.svelte'
+	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Post from '$lib/Post.svelte'
@@ -39,43 +40,59 @@
 	<title>{data.post_view.post.name}</title>
 </svelte:head>
 
-<div class="container mx-auto mb-4 flex flex-col gap-4">
-	<Post
-		allLanguages={data.all_languages}
-		moderators={data.moderators}
-		myUser={data.my_user}
-		on:comment={onComment}
-		post={data.post_view}
-		site={data.site_view.site}
+<div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
+	<CommunitySidebar
+		site_view={data.site_view}
+		community={data.community_view}
+		my_user={data.my_user}
+		class="h-fit w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
 	/>
 
-	<div class="flex flex-row flex-wrap items-center gap-4">
-		<ListingTypeSelector type_={data.type_ ?? 'All'} />
-		<CommentSortSelector sort={data.sort ?? 'Hot'} />
-	</div>
+	<main class="flex flex-col gap-4">
+		<Post
+			allLanguages={data.all_languages}
+			moderators={data.moderators}
+			myUser={data.my_user}
+			on:comment={onComment}
+			postView={data.post_view}
+			site={data.site_view.site}
+		/>
 
-	<!-- Comments -->
-	<PaginationBar
-		length={comments.length}
-		limit={data.limit ?? 50}
-		on:next={onNext}
-		on:previous={onPrevious}
-		on:first={onNext}
-	/>
-	<Comments
-		{comments}
-		allLanguages={data.all_languages}
-		moderators={data.moderators}
-		myUser={data.my_user}
-		on:comment={onComment}
-		post={data.post_view.post}
-		site={data.site_view.site}
-	/>
-	<PaginationBar
-		length={comments.length}
-		limit={data.limit ?? 50}
-		on:next={onNext}
-		on:previous={onPrevious}
-		on:first={onNext}
-	/>
+		<!-- Comments form -->
+		<nav class="flex flex-row flex-wrap items-center gap-4">
+			<ListingTypeSelector type_={data.type_ ?? 'All'} />
+			<CommentSortSelector sort={data.sort ?? 'Hot'} />
+		</nav>
+
+		{#if data.comments.length}
+			<!-- Comments -->
+			<PaginationBar
+				length={comments.length}
+				limit={data.limit ?? 50}
+				on:next={onNext}
+				on:previous={onPrevious}
+				on:first={onNext}
+			/>
+		{/if}
+
+		<Comments
+			{comments}
+			allLanguages={data.all_languages}
+			moderators={data.moderators}
+			myUser={data.my_user}
+			on:comment={onComment}
+			post={data.post_view.post}
+			site={data.site_view.site}
+		/>
+
+		{#if data.comments.length}
+			<PaginationBar
+				length={comments.length}
+				limit={data.limit ?? 50}
+				on:next={onNext}
+				on:previous={onPrevious}
+				on:first={onNext}
+			/>
+		{/if}
+	</main>
 </div>

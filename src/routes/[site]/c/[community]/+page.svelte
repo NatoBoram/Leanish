@@ -44,14 +44,14 @@
 
 <div class="container mx-auto flex flex-col gap-4">
 	<!-- Community header -->
-	<div class="flex flex-row items-start gap-4">
+	<header class="flex flex-row items-start gap-4">
 		<CommunityIcon community={data.community_view.community} class="h-16 w-16" />
 
 		<div class="flex flex-col gap-2">
 			<h1 class="text-xl">{data.community_view.community.title}</h1>
 			<div>{communityUri(data.community_view.community)}</div>
 		</div>
-	</div>
+	</header>
 
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
@@ -64,11 +64,11 @@
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
 			<!-- Post form -->
-			<div class="flex flex-row flex-wrap items-center gap-4">
+			<nav class="flex flex-row flex-wrap items-center gap-4">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
 				<SortSelector sort={data.sort ?? 'Active'} />
 				<LimitSelector limit={data.limit ?? 10} />
-			</div>
+			</nav>
 
 			{#if data.posts.length}
 				<PaginationBar

@@ -79,7 +79,7 @@
 	}
 </script>
 
-<div class="grid w-full grid-cols-2 items-center justify-between gap-4 sm:grid-cols-3">
+<nav class="grid w-full grid-cols-2 items-center justify-between gap-4 sm:grid-cols-3">
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
 		{#if canFirst($page.url)}
@@ -146,4 +146,4 @@
 			<ChevronRight />
 		</FlatButton>
 	{/if}
-</div>
+</nav>

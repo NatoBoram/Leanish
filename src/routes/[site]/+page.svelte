@@ -54,56 +54,56 @@
 	<title>{data.site_view.site.name} - {data.site_view.site.description}</title>
 </svelte:head>
 
-<div class="container mx-auto mb-4">
-	<!-- Taglines -->
-	<div class="mb-4 flex flex-col gap-4">
-		{#if data.taglines}
-			{#each data.taglines as tagline (tagline.id)}
-				<Tagline {tagline} class="rounded-md bg-base-container text-on-base-container" />
-			{/each}
-		{/if}
-	</div>
+<div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
+	<!-- Sidebar -->
+	<SiteSidebar
+		class="h-fit w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
+		site={data.site_view.site}
+	/>
 
-	<div class="flex flex-col gap-4 lg:flex-row">
-		<!-- Sidebar -->
-		<SiteSidebar
-			class="w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
-			site={data.site_view.site}
-		/>
-
-		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
-			<!-- Post form -->
-			<div class="flex flex-row flex-wrap items-center gap-4">
-				<ListingTypeSelector type_={data.type_ ?? 'Local'} />
-				<SortSelector sort={data.sort ?? 'Active'} />
-				<LimitSelector limit={data.limit ?? 10} />
-			</div>
-
-			{#if data.posts.length}
-				<PaginationBar
-					length={data.posts.length}
-					limit={data.limit ?? 10}
-					on:next={onNext}
-					on:previous={onPrevious}
-					on:first={onNext}
-				/>
-			{/if}
-			<Posts
-				allLanguages={data.all_languages}
-				moderators={[]}
-				myUser={data.my_user}
-				posts={data.posts}
-				site={data.site_view.site}
-			/>
-			{#if data.posts.length}
-				<PaginationBar
-					length={data.posts.length}
-					limit={data.limit ?? 10}
-					on:next={onNext}
-					on:previous={onPrevious}
-					on:first={onNext}
-				/>
+	<!-- Main content -->
+	<main class="flex flex-grow flex-col gap-4 justify-self-stretch">
+		<!-- Taglines -->
+		<div class="flex flex-col gap-4">
+			{#if data.taglines}
+				{#each data.taglines as tagline (tagline.id)}
+					<Tagline {tagline} class="rounded-md bg-base-container text-on-base-container" />
+				{/each}
 			{/if}
 		</div>
-	</div>
+
+		<!-- Post form -->
+		<nav class="flex flex-row flex-wrap items-center gap-4">
+			<ListingTypeSelector type_={data.type_ ?? 'Local'} />
+			<SortSelector sort={data.sort ?? 'Active'} />
+			<LimitSelector limit={data.limit ?? 10} />
+		</nav>
+
+		<!-- Posts -->
+		{#if data.posts.length}
+			<PaginationBar
+				length={data.posts.length}
+				limit={data.limit ?? 10}
+				on:next={onNext}
+				on:previous={onPrevious}
+				on:first={onNext}
+			/>
+		{/if}
+		<Posts
+			allLanguages={data.all_languages}
+			moderators={[]}
+			myUser={data.my_user}
+			posts={data.posts}
+			site={data.site_view.site}
+		/>
+		{#if data.posts.length}
+			<PaginationBar
+				length={data.posts.length}
+				limit={data.limit ?? 10}
+				on:next={onNext}
+				on:previous={onPrevious}
+				on:first={onNext}
+			/>
+		{/if}
+	</main>
 </div>

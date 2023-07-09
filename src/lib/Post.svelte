@@ -37,7 +37,7 @@
 	export let allLanguages: Language[]
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
-	export let post: PostView
+	export let postView: PostView
 	export let site: Site
 
 	let votePending = false
@@ -46,7 +46,7 @@
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
 			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: siteHostname(site) }, `/post/${post.post.id}`),
+			headers: headers({ site: siteHostname(site) }, `/post/${postView.post.id}`),
 		})
 	}
 
@@ -63,19 +63,19 @@
 			auth: jwt,
 			content,
 			language_id: language_id,
-			post_id: post.post.id,
+			post_id: postView.post.id,
 		})
 
 		return response
 	}
 
 	async function like() {
-		const score = (post.my_vote ?? 0) <= 0 ? 1 : 0
+		const score = (postView.my_vote ?? 0) <= 0 ? 1 : 0
 		return likePost(score)
 	}
 
 	async function dislike() {
-		const score = (post.my_vote ?? 0) >= 0 ? -1 : 0
+		const score = (postView.my_vote ?? 0) >= 0 ? -1 : 0
 		return likePost(score)
 	}
 
@@ -86,9 +86,9 @@
 		const client = newClient()
 		votePending = true
 
-		const response = await client.likePost({ auth: jwt, post_id: post.post.id, score: score })
+		const response = await client.likePost({ auth: jwt, post_id: postView.post.id, score: score })
 
-		post = response.post_view
+		postView = response.post_view
 		votePending = false
 	}
 
@@ -105,38 +105,38 @@
 	}
 </script>
 
-<div
-	data-post-id={post.post.id}
+<article
+	data-post-id={postView.post.id}
 	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
 >
 	<!-- Info bar -->
 	<div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted">
 		<!-- Community -->
-		<a class="flex flex-row items-center gap-2" href={communityLink(site, post.community)}>
-			<CommunityIcon community={post.community} />
-			<div class="hover:underline">{communityUri(post.community)}</div>
+		<a class="flex flex-row items-center gap-2" href={communityLink(site, postView.community)}>
+			<CommunityIcon community={postView.community} />
+			<div class="hover:underline">{communityUri(postView.community)}</div>
 		</a>
 
 		<!-- Author -->
 		<div class="flex flex-row items-center gap-2">
 			Posted by
-			<PersonUri person={post.creator} {site} {moderators} />
+			<PersonUri person={postView.creator} {site} {moderators} />
 		</div>
 
 		<!-- Published -->
 		<a
-			href={postLink(site, post.post)}
+			href={postLink(site, postView.post)}
 			class="flex flex-row items-center gap-2"
-			title={dtf.format(lemmyDate(post.post.published))}
+			title={dtf.format(lemmyDate(postView.post.published))}
 		>
-			{timeAgo(lemmyDate(post.post.published))}
+			{timeAgo(lemmyDate(postView.post.published))}
 		</a>
 
 		<!-- Updated -->
-		{#if post.post.updated}
-			{@const updated = lemmyDate(post.post.updated)}
+		{#if postView.post.updated}
+			{@const updated = lemmyDate(postView.post.updated)}
 			<a
-				href={postLink(site, post.post)}
+				href={postLink(site, postView.post)}
 				class="flex flex-row items-center gap-2"
 				title={dtf.format(updated)}
 			>
@@ -148,55 +148,55 @@
 	</div>
 
 	<!-- Title -->
-	<div class="flex flex-row flex-wrap items-center gap-2">
+	<header class="flex flex-row flex-wrap items-center gap-2">
 		<h2 class="mx-1 inline text-xl">
-			<a href={postLink(site, post.post)}>
-				{post.post.name}
+			<a href={postLink(site, postView.post)}>
+				{postView.post.name}
 			</a>
 		</h2>
 
 		<div class="flex flex-row items-center gap-2">
-			{#if post.post.nsfw}
+			{#if postView.post.nsfw}
 				<div class="rounded-full bg-danger px-2 py-1 text-xs text-on-danger">NSFW</div>
 			{/if}
 
 			<!-- Locked -->
-			{#if post.post.locked}
+			{#if postView.post.locked}
 				<div title="Locked">
 					<LockClosed class="h-5 w-5 text-warning" />
 				</div>
 			{/if}
 
 			<!-- Removed -->
-			{#if post.post.removed}
+			{#if postView.post.removed}
 				<div title="Removed">
 					<Trash class="h-5 w-5 text-danger" />
 				</div>
 			{/if}
 		</div>
-	</div>
+	</header>
 
 	<!-- Image or link -->
-	{#if post.post.url}
-		{@const url = post.post.url}
+	{#if postView.post.url}
+		{@const url = postView.post.url}
 
 		{#if imageExtensions.some(e => url.endsWith(e))}
 			<img
 				class="max-h-screen w-full object-contain"
-				src={post.post.url}
+				src={postView.post.url}
 				alt="thumbnail"
 				loading="lazy"
 			/>
-		{:else if post.post.url}
+		{:else if postView.post.url}
 			<p>
 				<ArrowTopRightOnSquare class="inline h-5 w-5" />
 
-				<a class="break-all hover:underline" href={post.post.url}>{post.post.url}</a>
+				<a class="break-all hover:underline" href={postView.post.url}>{postView.post.url}</a>
 			</p>
-		{:else if post.post.thumbnail_url}
+		{:else if postView.post.thumbnail_url}
 			<img
 				class="max-h-screen w-full object-contain"
-				src={post.post.url}
+				src={postView.post.url}
 				alt="thumbnail"
 				loading="lazy"
 			/>
@@ -204,8 +204,8 @@
 	{/if}
 
 	<!-- Body -->
-	{#if post.post.body}
-		<Prose class="prose-a:text-primary" markdown={post.post.body} />
+	{#if postView.post.body}
+		<Prose class="prose-a:text-primary" markdown={postView.post.body} />
 	{/if}
 
 	<!-- Action bar -->
@@ -213,28 +213,28 @@
 		<div class="flex flex-row items-center gap-2">
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && (post.my_vote ?? 0) > 0}
+				class:text-primary={!votePending && (postView.my_vote ?? 0) > 0}
 				disabled={votePending || !myUser}
 				on:click={like}
-				title="Upvote ({post.counts.upvotes})"
+				title="Upvote ({postView.counts.upvotes})"
 			>
 				<ArrowUp />
 			</button>
-			<div>{post.counts.score}</div>
+			<div>{postView.counts.score}</div>
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && (post.my_vote ?? 0) < 0}
+				class:text-primary={!votePending && (postView.my_vote ?? 0) < 0}
 				disabled={votePending || !myUser}
 				on:click={dislike}
-				title="Downvote ({post.counts.downvotes})"
+				title="Downvote ({postView.counts.downvotes})"
 			>
 				<ArrowDown />
 			</button>
 		</div>
 
-		<a class="flex flex-row items-center gap-2" href={postLink(site, post.post)}>
+		<a class="flex flex-row items-center gap-2" href={postLink(site, postView.post)}>
 			<ChatBubbleLeft class="h-5 w-5" />
-			{post.counts.comments}
+			{postView.counts.comments}
 			<span>Comments</span>
 		</a>
 
@@ -250,4 +250,4 @@
 	{#if replying && myUser}
 		<CommentForm {allLanguages} {myUser} {createComment} on:comment={onComment} on:comment />
 	{/if}
-</div>
+</article>

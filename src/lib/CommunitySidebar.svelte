@@ -12,7 +12,7 @@
 	export let community: CommunityView
 </script>
 
-<div class="flex flex-col gap-4 p-4 {className}">
+<aside class="flex flex-col gap-4 p-4 {className}">
 	<h1 class="text-xl">
 		{community.community.title}
 	</h1>
@@ -25,4 +25,4 @@
 	{#if community.community.description}
 		<Prose markdown={community.community.description} class="prose-a:text-primary" />
 	{/if}
-</div>
+</aside>
