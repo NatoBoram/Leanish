@@ -1,13 +1,16 @@
 <script lang="ts">
-	import type { CommentView, Site } from 'lemmy-js-client'
+	import type { CommentView, Language, MyUserInfo, Post, Site } from 'lemmy-js-client'
 	import type { CommentNode } from './comment_node'
 	import CommentNodeSvelte from './CommentNode.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let site: Site
+	export let allLanguages: Language[]
 	export let comments: CommentView[]
+	export let myUser: MyUserInfo | undefined
+	export let post: Post
+	export let site: Site
 
 	let tree: CommentNode[]
 	$: {
@@ -31,6 +34,14 @@
 
 <div class="flex flex-col gap-4 {className}">
 	{#each tree as node (node.comment.comment.id)}
-		<CommentNodeSvelte comment={node.comment} children={node.children} {site} />
+		<CommentNodeSvelte
+			{allLanguages}
+			{myUser}
+			{post}
+			{site}
+			children={node.children}
+			comment={node.comment}
+			on:comment
+		/>
 	{/each}
 </div>

@@ -1,10 +1,21 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
+	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
-	import { type CommentView, LemmyHttp, type Site } from 'lemmy-js-client'
+	import type {
+		CommentResponse,
+		CommentView,
+		Language,
+		LanguageId,
+		MyUserInfo,
+		Post,
+		Site,
+	} from 'lemmy-js-client'
+	import { LemmyHttp } from 'lemmy-js-client'
 	import type { CommentNode } from '$lib/comment_node'
 	import PersonIcon from '$lib/PersonIcon.svelte'
 	import { personLink, personUri, siteHostname } from '$lib/utils/links'
+	import CommentForm from './CommentForm.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
 	import { headers } from './utils/requests'
@@ -12,11 +23,15 @@
 	let className: string | undefined = undefined
 	export { className as class }
 
+	export let allLanguages: Language[]
 	export let children: CommentNode[]
 	export let comment: CommentView
+	export let myUser: MyUserInfo | undefined
+	export let post: Post
 	export let site: Site
 
 	let myVote = comment.my_vote ?? 0
+	let replying = false
 	let votePending = false
 
 	function newClient() {
@@ -51,6 +66,30 @@
 
 		myVote = response.comment_view.my_vote ?? 0
 		votePending = false
+	}
+
+	function clickReply() {
+		replying = !replying
+	}
+
+	async function createComment(content: string, language_id: LanguageId): Promise<CommentResponse> {
+		const client = newClient()
+		const jwt = getJwt(site)
+		if (!jwt) throw new Error('You must be logged in to comment.')
+
+		const response = await client.createComment({
+			auth: jwt,
+			content,
+			language_id: language_id,
+			parent_id: comment.comment.id,
+			post_id: post.id,
+		})
+
+		return response
+	}
+
+	function onComment() {
+		replying = false
 	}
 </script>
 
@@ -91,12 +130,32 @@
 				<ArrowDown />
 			</button>
 		</div>
+
+		<!-- Reply button -->
+		{#if myUser}
+			<button class="flex flex-row items-center gap-2" on:click={clickReply}>
+				<ChatBubbleLeftEllipsis class="h-5 w-5" />
+				Reply
+			</button>
+		{/if}
 	</div>
+
+	{#if replying && myUser}
+		<CommentForm {allLanguages} {myUser} {createComment} on:comment on:comment={onComment} />
+	{/if}
 
 	<!-- Children -->
 	<div class="ml-4 border-l border-muted pl-4">
 		{#each children as child (child.comment.comment.id)}
-			<svelte:self comment={child.comment} children={child.children} {site} />
+			<svelte:self
+				{allLanguages}
+				{myUser}
+				{post}
+				{site}
+				children={child.children}
+				comment={child.comment}
+				on:comment
+			/>
 		{/each}
 	</div>
 </div>

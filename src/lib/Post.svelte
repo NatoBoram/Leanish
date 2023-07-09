@@ -89,6 +89,10 @@
 		hour: 'numeric',
 		minute: '2-digit',
 	})
+
+	function onComment() {
+		replying = false
+	}
 </script>
 
 <div
@@ -200,6 +204,6 @@
 
 	<!-- Comment form -->
 	{#if replying && myUser}
-		<CommentForm {allLanguages} {myUser} {createComment} on:comment />
+		<CommentForm {allLanguages} {myUser} {createComment} on:comment={onComment} on:comment />
 	{/if}
 </div>

@@ -40,6 +40,13 @@
 
 	<!-- Comments -->
 	<PaginationBar length={comments.length} />
-	<Comments {comments} site={data.site_view.site} />
+	<Comments
+		{comments}
+		allLanguages={data.all_languages}
+		myUser={data.my_user}
+		on:comment={onComment}
+		post={data.post_view.post}
+		site={data.site_view.site}
+	/>
 	<PaginationBar length={comments.length} />
 </div>
