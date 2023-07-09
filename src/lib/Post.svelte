@@ -114,7 +114,7 @@
 		<!-- Community -->
 		<a class="flex flex-row items-center gap-2" href={communityLink(site, post.community)}>
 			<CommunityIcon community={post.community} />
-			<div>{communityUri(post.community)}</div>
+			<div class="hover:underline">{communityUri(post.community)}</div>
 		</a>
 
 		<!-- Author -->

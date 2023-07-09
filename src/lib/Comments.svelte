@@ -1,5 +1,12 @@
 <script lang="ts">
-	import type { CommentView, Language, MyUserInfo, Post, Site } from 'lemmy-js-client'
+	import type {
+		CommentView,
+		CommunityModeratorView,
+		Language,
+		MyUserInfo,
+		Post,
+		Site,
+	} from 'lemmy-js-client'
 	import type { CommentNode } from './comment_node'
 	import CommentNodeSvelte from './CommentNode.svelte'
 
@@ -11,6 +18,7 @@
 	export let myUser: MyUserInfo | undefined
 	export let post: Post
 	export let site: Site
+	export let moderators: CommunityModeratorView[]
 
 	let tree: CommentNode[]
 	$: {
@@ -39,6 +47,7 @@
 			{myUser}
 			{post}
 			{site}
+			{moderators}
 			children={node.children}
 			comment={node.comment}
 			on:comment

@@ -65,6 +65,7 @@
 	<Comments
 		{comments}
 		allLanguages={data.all_languages}
+		moderators={data.moderators}
 		myUser={data.my_user}
 		on:comment={onComment}
 		post={data.post_view.post}

@@ -5,6 +5,7 @@
 	import type {
 		CommentResponse,
 		CommentView,
+		CommunityModeratorView,
 		Language,
 		LanguageId,
 		MyUserInfo,
@@ -14,9 +15,9 @@
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { page } from '$app/stores'
 	import type { CommentNode } from '$lib/comment_node'
-	import PersonIcon from '$lib/PersonIcon.svelte'
-	import { personLink, personUri, siteHostname } from '$lib/utils/links'
+	import { personLink, siteHostname } from '$lib/utils/links'
 	import CommentForm from './CommentForm.svelte'
+	import PersonUri from './PersonUri.svelte'
 	import { getJwt } from './utils/cookies'
 	import { cors } from './utils/cors'
 	import { lemmyDate, timeAgo } from './utils/dates'
@@ -28,6 +29,7 @@
 	export let allLanguages: Language[]
 	export let children: CommentNode[]
 	export let comment: CommentView
+	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let post: Post
 	export let site: Site
@@ -122,8 +124,7 @@
 	<div class="flex flex-row flex-wrap items-center gap-4">
 		<!-- Author -->
 		<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
-			<PersonIcon person={comment.creator} />
-			<div>{personUri(comment.creator)}</div>
+			<PersonUri person={comment.creator} {site} {moderators} />
 		</a>
 
 		<!-- Published -->
@@ -198,6 +199,7 @@
 		{#each children as child (child.comment.comment.id)}
 			<svelte:self
 				{allLanguages}
+				{moderators}
 				{myUser}
 				{post}
 				{site}
