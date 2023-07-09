@@ -30,7 +30,6 @@
 	export let post: Post
 	export let site: Site
 
-	let myVote = comment.my_vote ?? 0
 	let replying = false
 	let votePending = false
 
@@ -42,16 +41,16 @@
 	}
 
 	async function like() {
-		const score = myVote <= 0 ? 1 : 0
-		return likePost(score)
+		const score = (comment.my_vote ?? 0) <= 0 ? 1 : 0
+		return likeComment(score)
 	}
 
 	async function dislike() {
-		const score = myVote >= 0 ? -1 : 0
-		return likePost(score)
+		const score = (comment.my_vote ?? 0) >= 0 ? -1 : 0
+		return likeComment(score)
 	}
 
-	async function likePost(score: number) {
+	async function likeComment(score: number) {
 		const jwt = getJwt(site)
 		if (!jwt) return
 
@@ -64,7 +63,7 @@
 			score: score,
 		})
 
-		myVote = response.comment_view.my_vote ?? 0
+		comment = response.comment_view
 		votePending = false
 	}
 
@@ -95,12 +94,10 @@
 
 <div class="flex flex-col gap-4 {className}">
 	<!-- Author -->
-	{#if site}
-		<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
-			<PersonIcon person={comment.creator} />
-			<div>{personUri(comment.creator)}</div>
-		</a>
-	{/if}
+	<a class="flex flex-row items-center gap-2" href={personLink(site, comment.creator)}>
+		<PersonIcon person={comment.creator} />
+		<div>{personUri(comment.creator)}</div>
+	</a>
 
 	<!-- Body -->
 	<div class="prose prose-invert max-w-none">
@@ -112,7 +109,7 @@
 		<div class="flex flex-row items-center gap-2">
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && myVote > 0}
+				class:text-primary={!votePending && (comment.my_vote ?? 0) > 0}
 				disabled={votePending}
 				on:click={like}
 				title="Upvote ({comment.counts.upvotes})"
@@ -122,7 +119,7 @@
 			<div>{comment.counts.score}</div>
 			<button
 				class:text-muted={votePending}
-				class:text-primary={!votePending && myVote < 0}
+				class:text-primary={!votePending && (comment.my_vote ?? 0) < 0}
 				disabled={votePending}
 				on:click={dislike}
 				title="Downvote ({comment.counts.downvotes})"

@@ -1,6 +1,16 @@
 <script lang="ts">
-	import { ArrowDown, ArrowTopRightOnSquare, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
-	import { ChatBubbleLeft, ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
+	import {
+		ArrowDown,
+		ArrowTopRightOnSquare,
+		ArrowUp,
+		LockClosed,
+		Trash,
+	} from '@natoboram/heroicons.svelte/20/solid'
+	import {
+		ChatBubbleLeft,
+		ChatBubbleLeftEllipsis,
+		Pencil,
+	} from '@natoboram/heroicons.svelte/24/outline'
 	import { Marked } from '@ts-stack/markdown'
 	import type {
 		CommunityModeratorView,
@@ -69,7 +79,7 @@
 		return likePost(score)
 	}
 
-	async function likePost(score: number) {
+	async function likePost(score: -1 | 0 | 1) {
 		const jwt = getJwt(site)
 		if (!jwt) return
 
@@ -79,6 +89,7 @@
 		const response = await client.likePost({ auth: jwt, post_id: post.post.id, score: score })
 
 		myVote = response.post_view.my_vote ?? 0
+		post = response.post_view
 		votePending = false
 	}
 
@@ -101,31 +112,61 @@
 >
 	<!-- Info bar -->
 	<div class="flex flex-col items-start gap-2 text-sm text-muted xl:flex-row xl:items-center">
+		<!-- Community -->
 		<a class="flex flex-row items-center gap-2" href={communityLink(site, post.community)}>
 			<CommunityIcon community={post.community} />
 			<div>{communityUri(post.community)}</div>
 		</a>
+
 		<div class="hidden xl:block">•</div>
+
+		<!-- Author -->
 		<div class="flex flex-row items-center gap-2">
 			Posted by
 			<PersonUri person={post.creator} {site} {moderators} />
 		</div>
+
 		<div class="hidden xl:block">•</div>
+
+		<!-- Published -->
 		<span title={new Date(post.post.published).toISOString()}>
 			{dtf.format(new Date(post.post.published))}
 		</span>
+
+		{#if post.post.updated}
+			<span title="Edited on {dtf.format(new Date(post.post.published))}">
+				<Pencil class="h-5 w-5" />
+			</span>
+		{/if}
 	</div>
 
 	<!-- Title -->
-	<div class="flex flex-row items-center gap-2">
-		<h2 class="text-xl">
+	<div class="flex flex-row flex-wrap items-center gap-2">
+		<h2 class="mx-1 inline text-xl">
 			<a href={postLink(site, post.post)}>
 				{post.post.name}
 			</a>
 		</h2>
-		{#if post.post.nsfw}
-			<div class="mx-1 w-min rounded-full bg-danger px-2 py-1 text-xs text-on-danger">NSFW</div>
-		{/if}
+
+		<div class="flex flex-row items-center gap-2">
+			{#if post.post.nsfw}
+				<div class="rounded-full bg-danger px-2 py-1 text-xs text-on-danger">NSFW</div>
+			{/if}
+
+			<!-- Locked -->
+			{#if post.post.locked}
+				<div title="Locked">
+					<LockClosed class="h-5 w-5 text-warning" />
+				</div>
+			{/if}
+
+			<!-- Removed -->
+			{#if post.post.removed}
+				<div title="Removed">
+					<Trash class="h-5 w-5 text-danger" />
+				</div>
+			{/if}
+		</div>
 	</div>
 
 	<!-- Image or link -->
