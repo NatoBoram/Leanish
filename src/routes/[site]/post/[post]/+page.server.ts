@@ -14,7 +14,7 @@ export const load = (async ({ params, fetch, cookies, url, parent, depends }) =>
 	})
 
 	const data = await parent()
-	const formComment = formGetComments(cookies, data, params.site, url, { post_id: id })
+	const formComment = formGetComments(cookies, data, params.site, url, { post_id: id, limit: 50 })
 	depends('app:paginate')
 
 	const [post, comments] = await Promise.all([

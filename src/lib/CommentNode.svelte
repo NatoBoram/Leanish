@@ -107,9 +107,17 @@
 		hour: 'numeric',
 		minute: '2-digit',
 	})
+
+	function countAllChildren(children: CommentNode[]): number {
+		let count = 0
+		for (const child of children) {
+			count += 1 + countAllChildren(child.children)
+		}
+		return count
+	}
 </script>
 
-<div class="flex flex-col gap-4 {className}">
+<div class="flex flex-col gap-4 {className}" data-comment-id={comment.comment.id}>
 	<!-- Author bar -->
 	<div class="flex flex-row flex-wrap items-center gap-4">
 		<!-- Author -->
@@ -144,7 +152,7 @@
 	</div>
 
 	<!-- Body -->
-	<div class="prose prose-invert max-w-none">
+	<div class="prose prose-invert max-w-none prose-a:break-all">
 		{@html Marked.parse(comment.comment.content)}
 	</div>
 
@@ -186,7 +194,7 @@
 	{/if}
 
 	<!-- Children -->
-	<div class="ml-4 border-l border-muted pl-4">
+	<div class="mb-4 ml-4 border-l border-muted pl-4">
 		{#each children as child (child.comment.comment.id)}
 			<svelte:self
 				{allLanguages}
@@ -198,5 +206,15 @@
 				on:comment
 			/>
 		{/each}
+
+		<!-- Amount of children -->
+		{#if Number($page.url.searchParams.get('parent_id')) !== comment.comment.id && comment.counts.child_count > countAllChildren(children)}
+			<a
+				class="max-w-fit rounded-md bg-base-container px-4 py-2 text-on-base-container"
+				href={commentLink($page.url).href}
+			>
+				Load {comment.counts.child_count} comments
+			</a>
+		{/if}
 	</div>
 </div>

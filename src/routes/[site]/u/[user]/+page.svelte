@@ -68,6 +68,7 @@
 			{#if data.posts.length}
 				<PaginationBar
 					length={data.posts.length}
+					limit={data.limit ?? 10}
 					on:next={onNext}
 					on:previous={onPrevious}
 					on:first={onNext}
@@ -83,6 +84,7 @@
 			{#if data.posts.length}
 				<PaginationBar
 					length={data.posts.length}
+					limit={data.limit ?? 10}
 					on:next={onNext}
 					on:previous={onPrevious}
 					on:first={onNext}

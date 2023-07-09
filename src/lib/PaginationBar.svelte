@@ -10,6 +10,7 @@
 	import FlatButton from './buttons/FlatButton.svelte'
 
 	export let length: number
+	export let limit: number
 
 	const dispatch = createEventDispatcher<{ previous: number; next: number; first: 1 }>()
 	let input: HTMLInputElement
@@ -76,11 +77,6 @@
 		dispatch('previous', destination)
 		await invalidate('app:paginate')
 	}
-
-	function hasNext(url: URL) {
-		const limit = Number(url.searchParams.get('limit') ?? 10)
-		return length >= limit
-	}
 </script>
 
 <div class="grid w-full grid-cols-2 items-center justify-between gap-4 sm:grid-cols-3">
@@ -136,7 +132,7 @@
 	</div>
 
 	<!-- Next -->
-	{#if hasNext($page.url)}
+	{#if length >= limit}
 		<FlatButton
 			class="w-28 justify-self-end bg-base-container text-on-base-container"
 			on:click={() => next($page.url)}
