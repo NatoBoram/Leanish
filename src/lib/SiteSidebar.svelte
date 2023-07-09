@@ -16,6 +16,6 @@
 	<br />
 
 	{#if site.sidebar}
-		<Prose class="mx-auto" markdown={site.sidebar} />
+		<Prose class="mx-auto prose-a:text-primary" markdown={site.sidebar} />
 	{/if}
 </div>

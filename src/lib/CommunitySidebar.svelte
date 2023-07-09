@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Marked } from '@ts-stack/markdown'
 	import type { CommunityView, MyUserInfo, SiteView } from 'lemmy-js-client'
 	import BlockCommunityLayout from './BlockCommunityLayout.svelte'
 	import SubscribeButtonLayout from './FollowCommunityLayout.svelte'
+	import Prose from './Prose.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -23,6 +23,6 @@
 	{/if}
 
 	{#if community.community.description}
-		{@html Marked.parse(community.community.description)}
+		<Prose markdown={community.community.description} class="prose-a:text-primary" />
 	{/if}
 </div>
