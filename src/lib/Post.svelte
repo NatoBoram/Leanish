@@ -40,12 +40,13 @@
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let postView: PostView
+	export let showCommunity: boolean
 	export let site: Site
 
-	let votePending = false
+	let errorMessage = ''
 	let replying = false
 	let savePending = false
-	let errorMessage = ''
+	let votePending = false
 
 	function newClient() {
 		return new LemmyHttp(site.actor_id, {
@@ -141,14 +142,18 @@
 	<!-- Info bar -->
 	<div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted">
 		<!-- Community -->
-		<a class="flex flex-row items-center gap-2" href={communityLink(site, postView.community)}>
-			<CommunityIcon community={postView.community} />
-			<div class="hover:underline">{communityUri(postView.community)}</div>
-		</a>
+		{#if showCommunity}
+			<a class="flex flex-row items-center gap-2" href={communityLink(site, postView.community)}>
+				<CommunityIcon community={postView.community} />
+				<div class="hover:underline">{communityUri(postView.community)}</div>
+			</a>
+		{/if}
 
 		<!-- Author -->
 		<div class="flex flex-row items-center gap-2">
-			Posted by
+			{#if showCommunity}
+				Posted by
+			{/if}
 			<PersonUri person={postView.creator} {site} {moderators} />
 		</div>
 

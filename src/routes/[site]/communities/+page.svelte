@@ -1,11 +1,11 @@
 <script lang="ts">
-	import CommunityIcon from '$lib/CommunityIcon.svelte'
+	import type { BlockCommunityResponse, CommunityResponse } from 'lemmy-js-client'
+	import CommunityList from '$lib/CommunityGrid.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import ShowNsfwSelector from '$lib/ShowNsfwSelector.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import { communityLink, communityUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -27,13 +27,33 @@
 			.querySelector(`[data-community-id="${last.community.id}"]`)
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
+
+	function onBlock(event: CustomEvent<BlockCommunityResponse>) {
+		const index = data.communities.findIndex(
+			view => view.community.id === event.detail.community_view.community.id,
+		)
+		if (index === -1) return
+
+		data.communities[index] = event.detail.community_view
+		data = data
+	}
+
+	function onFollow(event: CustomEvent<CommunityResponse>) {
+		const index = data.communities.findIndex(
+			view => view.community.id === event.detail.community_view.community.id,
+		)
+		if (index === -1) return
+
+		data.communities[index] = event.detail.community_view
+		data = data
+	}
 </script>
 
 <svelte:head>
 	<title>Communities - {data.site_view.site.name}</title>
 </svelte:head>
 
-<div class="container mx-auto flex flex-col gap-2">
+<div class="container mx-auto flex flex-col gap-4">
 	<h1 class="text-xl">List of communities</h1>
 
 	<!-- ListCommunities form -->
@@ -54,20 +74,12 @@
 		/>
 	{/if}
 
-	{#each data.communities as community (community.community.id)}
-		<a
-			class="flex flex-row items-center gap-4"
-			href={communityLink(data.site_view.site, community.community)}
-			data-community-id={community.community.id}
-		>
-			<CommunityIcon community={community.community} class="h-10 w-10" />
-
-			<div class="flex flex-col">
-				<h2 class="text-lg font-bold">{community.community.title}</h2>
-				<div>{communityUri(community.community)}</div>
-			</div>
-		</a>
-	{/each}
+	<CommunityList
+		communityViews={data.communities}
+		site={data.site_view.site}
+		on:block_community={onBlock}
+		on:follow_community={onFollow}
+	/>
 
 	{#if data.communities.length}
 		<PaginationBar

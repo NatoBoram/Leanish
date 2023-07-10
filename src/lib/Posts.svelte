@@ -13,13 +13,14 @@
 
 	export let allLanguages: Language[]
 	export let moderators: CommunityModeratorView[]
-	export let posts: PostView[]
-	export let site: Site
 	export let myUser: MyUserInfo | undefined
+	export let posts: PostView[]
+	export let showCommunity: boolean
+	export let site: Site
 </script>
 
 <div class="flex flex-col gap-4 {className}">
 	{#each posts as post (post.post.id)}
-		<Post postView={post} {site} {moderators} {allLanguages} {myUser} />
+		<Post postView={post} {site} {moderators} {allLanguages} {myUser} {showCommunity} />
 	{/each}
 </div>

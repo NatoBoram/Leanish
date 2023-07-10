@@ -75,11 +75,12 @@
 				/>
 			{/if}
 			<Posts
-				posts={data.posts}
-				site={data.site_view.site}
-				moderators={data.moderates}
 				allLanguages={data.all_languages}
+				moderators={data.moderates}
 				myUser={data.my_user}
+				posts={data.posts}
+				showCommunity={true}
+				site={data.site_view.site}
 			/>
 			{#if data.posts.length}
 				<PaginationBar

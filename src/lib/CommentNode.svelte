@@ -260,7 +260,7 @@
 	{/if}
 
 	<!-- Children -->
-	<div class="mb-4 ml-4 border-l border-muted pl-4">
+	<div class="ml-4 flex flex-col gap-2 border-l border-muted pl-4">
 		{#each children as child (child.comment.comment.id)}
 			<svelte:self
 				{allLanguages}
@@ -274,7 +274,7 @@
 			/>
 		{/each}
 
-		<!-- Amount of children -->
+		<!-- Load more -->
 		{#if Number($page.url.searchParams.get('parent_id')) !== commentView.comment.id && commentView.counts.child_count > countAllChildren(children)}
 			<a
 				class="max-w-fit rounded-md bg-base-container px-4 py-2 text-on-base-container"

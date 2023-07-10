@@ -55,6 +55,7 @@
 			myUser={data.my_user}
 			on:comment={onComment}
 			postView={data.post_view}
+			showCommunity={false}
 			site={data.site_view.site}
 		/>
 
