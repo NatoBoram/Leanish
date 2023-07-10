@@ -94,7 +94,7 @@
 			moderators={[]}
 			myUser={data.my_user}
 			posts={data.posts}
-			showCommunity={false}
+			showCommunity={true}
 			site={data.site_view.site}
 		/>
 		{#if data.posts.length}
