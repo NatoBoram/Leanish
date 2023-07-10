@@ -3,6 +3,7 @@
 	import BlockCommunityLayout from './BlockCommunityLayout.svelte'
 	import SubscribeButtonLayout from './FollowCommunityLayout.svelte'
 	import Prose from './Prose.svelte'
+	import { communityLink } from './utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -13,9 +14,11 @@
 </script>
 
 <aside class="flex flex-col gap-4 p-4 {className}">
-	<h1 class="text-xl">
-		{community.community.title}
-	</h1>
+	<a href={communityLink(site_view.site, community.community)}>
+		<h1 class="text-xl">
+			{community.community.title}
+		</h1>
+	</a>
 
 	{#if my_user}
 		<SubscribeButtonLayout {community} {site_view} />
