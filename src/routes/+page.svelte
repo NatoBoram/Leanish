@@ -32,19 +32,21 @@
 	<label for="input">Enter a Lemmy instance URL:</label>
 
 	<input
-		id="input"
-		class="rounded border-none bg-base-container p-2 text-on-base-container"
-		type="text"
 		bind:value={input}
-		on:submit={submit}
+		class="rounded border-none bg-base-container p-2 text-on-base-container"
+		id="input"
 		on:keypress={k => k.key === 'Enter' && submit()}
+		on:submit={submit}
+		type="url"
 	/>
 
 	<button
-		type="submit"
 		class="rounded bg-base-container px-4 py-2 text-on-base-container"
-		on:click={submit}>Submit</button
+		on:click={submit}
+		type="submit"
 	>
+		Submit
+	</button>
 
 	{#if message}
 		<p class="rounded-md bg-danger-container p-4 text-on-danger-container">
