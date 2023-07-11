@@ -26,7 +26,7 @@
 			),
 		})
 
-		const jwt = getJwt(site_view.site)
+		const jwt = getJwt(siteHostname(site_view.site), null)
 		if (!jwt) {
 			blockError = 'You must be logged in to block a community.'
 			return

@@ -33,7 +33,7 @@
 			headers: headers({ site: siteHostname(siteView.site) }, `/u/${personUri(personView.person)}`),
 		})
 
-		const jwt = getJwt(siteView.site)
+		const jwt = getJwt(siteHostname(siteView.site), null)
 		if (!jwt) {
 			blockError = 'You must be logged in to block a person.'
 			return

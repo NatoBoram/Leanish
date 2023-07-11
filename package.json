@@ -30,6 +30,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
+		"build:csr": "./scripts/build_csr.sh",
 		"preview": "vite preview",
 		"test": "pnpm run test:integration && pnpm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

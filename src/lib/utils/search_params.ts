@@ -1,4 +1,3 @@
-import type { Cookies } from '@sveltejs/kit'
 import { error } from '@sveltejs/kit'
 import type {
 	CommentId,
@@ -15,13 +14,12 @@ import type {
 import { isCommentSortType, isListingType, isSortType } from './guards'
 
 export function formGetPosts(
-	cookies: Cookies,
+	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
-	site: string,
 	url: URL,
 	form: GetPosts = {},
 ): GetPosts {
-	setAuth(form, cookies, site)
+	setAuth(form, cookies)
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setLimit(form, url)
@@ -34,13 +32,12 @@ export function formGetPosts(
 }
 
 export function formGetPersonDetails(
-	cookies: Cookies,
+	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
-	site: string,
 	url: URL,
 	form: GetPersonDetails = {},
 ): GetPersonDetails {
-	setAuth(form, cookies, site)
+	setAuth(form, cookies)
 	setCommunityId(form, url)
 	setLimit(form, url)
 	setPage(form, url)
@@ -51,13 +48,12 @@ export function formGetPersonDetails(
 }
 
 export function formListCommunities(
-	cookies: Cookies,
+	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
-	site: string,
 	url: URL,
 	form: ListCommunities = {},
 ): ListCommunities {
-	setAuth(form, cookies, site)
+	setAuth(form, cookies)
 	setLimit(form, url)
 	setPage(form, url)
 	setShowNsfw(form, url, data.my_user)
@@ -68,13 +64,12 @@ export function formListCommunities(
 }
 
 export function formGetComments(
-	cookies: Cookies,
+	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
-	site: string,
 	url: URL,
 	form: GetComments = {},
 ): GetComments {
-	setAuth(form, cookies, site)
+	setAuth(form, cookies)
 	setCommentSort(form, url, data.my_user)
 	setCommentType(form, url)
 	setCommunityId(form, url)
@@ -152,9 +147,12 @@ export function setMaxDepth<T extends { max_depth?: number }>(form: T, url: URL)
 	return form
 }
 
-export function setAuth<T extends { auth?: string }>(form: T, cookies: Cookies, site: string): T {
+export function setAuth<T extends { auth?: string }>(
+	form: T,
+	cookies: { jwt: string | undefined },
+): T {
 	if (form.auth) return form
-	const jwt = cookies.get(`${site}_jwt`)
+	const { jwt } = cookies
 	if (jwt) form.auth = jwt
 	return form
 }

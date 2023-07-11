@@ -26,7 +26,7 @@
 			),
 		})
 
-		const jwt = getJwt(site_view.site)
+		const jwt = getJwt(siteHostname(site_view.site), null)
 		if (!jwt) {
 			subscribeError = 'You must be logged in to subscribe to a community.'
 			return

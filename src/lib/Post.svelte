@@ -61,7 +61,7 @@
 
 	async function createComment(content: string, language_id: LanguageId) {
 		const client = newClient()
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to comment.')
 
 		const response = await client.createComment({
@@ -85,7 +85,7 @@
 	}
 
 	async function likePost(score: -1 | 0 | 1) {
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return
 
 		const client = newClient()
@@ -114,7 +114,7 @@
 	}
 
 	async function clickSave() {
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to save posts.')
 
 		const client = newClient()

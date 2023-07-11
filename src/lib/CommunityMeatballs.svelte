@@ -40,7 +40,7 @@
 	}
 
 	async function followCommunity(follow: boolean) {
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to follow a community.')
 
 		const client = newClient()
@@ -54,7 +54,7 @@
 	}
 
 	async function blockCommunity(block: boolean) {
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to block a community.')
 
 		const client = newClient()
