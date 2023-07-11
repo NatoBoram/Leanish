@@ -1,26 +1,21 @@
 <script lang="ts">
-	import { LemmyHttp, type LoginResponse } from 'lemmy-js-client'
+	import type { LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
+	import { getClientContext } from '$lib/contexts/client'
 	import { setJwt } from '$lib/utils/cookies'
-	import { cors } from '$lib/utils/cors'
-	import { siteHostname, siteLink } from '$lib/utils/links'
-	import { headers } from '$lib/utils/requests'
+	import { siteLink } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData
 
+	const client = getClientContext()
+
 	let username_or_email = ''
 	let password = ''
 	let totp_2fa_token = ''
-
 	let request: Promise<LoginResponse> | undefined = undefined
 
 	async function login() {
-		const client = new LemmyHttp(data.site_view.site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: siteHostname(data.site_view.site) }, '/login'),
-		})
-
 		request = client.login({
 			password,
 			username_or_email,

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { type CommunityView, LemmyHttp, type SiteView } from 'lemmy-js-client'
+	import type { CommunityView, SiteView } from 'lemmy-js-client'
 	import BlockCommunityButton from '$lib/BlockCommunityButton.svelte'
-	import { cors } from '$lib/utils/cors'
-	import { communityUri, siteHostname } from '$lib/utils/links'
-	import { headers } from '$lib/utils/requests'
+	import { siteHostname } from '$lib/utils/links'
+	import { getClientContext } from './contexts/client'
 	import { getJwt } from './utils/cookies'
 
 	let className: string | undefined = undefined
@@ -11,20 +10,14 @@
 
 	export let site_view: SiteView
 	export let community: CommunityView
-	let response: Promise<CommunityView> | undefined
 
+	const client = getClientContext()
+
+	let response: Promise<CommunityView> | undefined
 	let blockError = ''
 
 	async function blockCommunity(block: boolean) {
 		blockError = ''
-
-		const client = new LemmyHttp(site_view.site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers(
-				{ site: siteHostname(site_view.site) },
-				`/c/${communityUri(community.community)}`,
-			),
-		})
 
 		const jwt = getJwt(siteHostname(site_view.site), null)
 		if (!jwt) {

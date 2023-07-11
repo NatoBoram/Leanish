@@ -16,17 +16,15 @@
 		Post,
 		Site,
 	} from 'lemmy-js-client'
-	import { LemmyHttp } from 'lemmy-js-client'
 	import { page } from '$app/stores'
 	import type { CommentNode } from '$lib/comment_node'
 	import { personLink, siteHostname } from '$lib/utils/links'
 	import CommentForm from './CommentForm.svelte'
+	import { getClientContext } from './contexts/client'
 	import PersonUri from './PersonUri.svelte'
 	import Prose from './Prose.svelte'
 	import { getJwt } from './utils/cookies'
-	import { cors } from './utils/cors'
 	import { lemmyDate, timeAgo } from './utils/dates'
-	import { headers } from './utils/requests'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -39,17 +37,12 @@
 	export let post: Post
 	export let site: Site
 
+	const client = getClientContext()
+
 	let replying = false
 	let votePending = false
 	let savePending = false
 	let errorMessage = ''
-
-	function newClient() {
-		return new LemmyHttp(site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: siteHostname(site) }, `/comment/${commentView.comment.id}`),
-		})
-	}
 
 	async function like() {
 		const score = (commentView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -65,7 +58,6 @@
 		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return
 
-		const client = newClient()
 		votePending = true
 
 		const response = await client
@@ -87,7 +79,6 @@
 	}
 
 	async function createComment(content: string, language_id: LanguageId): Promise<CommentResponse> {
-		const client = newClient()
 		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to comment.')
 
@@ -133,7 +124,6 @@
 		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to save posts.')
 
-		const client = newClient()
 		savePending = true
 		const response = await client.saveComment({
 			auth: jwt,
