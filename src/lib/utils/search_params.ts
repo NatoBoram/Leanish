@@ -92,9 +92,10 @@ export function setShowNsfw<T extends { show_nsfw?: boolean }>(
 	const show_nsfw = url.searchParams.get('show_nsfw')
 	if (!show_nsfw && myUser?.local_user_view.local_user.show_nsfw !== undefined) {
 		form.show_nsfw = myUser.local_user_view.local_user.show_nsfw
-
 		return form
 	}
+
+	if (!show_nsfw) return form
 
 	if (show_nsfw === true.toString()) form.show_nsfw = true
 	else if (show_nsfw === false.toString()) form.show_nsfw = false
