@@ -39,3 +39,12 @@ export function fetchFunction(fetch: typeof globalThis.fetch): typeof globalThis
 		throw error(res.status, res.statusText)
 	}
 }
+
+export async function clientFetch(
+	input: RequestInfo | URL,
+	init?: RequestInit | undefined,
+): Promise<Response> {
+	const res = await fetch(input, init)
+	if (res.ok) return res
+	throw res
+}

@@ -1,14 +1,7 @@
 <script lang="ts">
-	import {
-		type BlockPersonResponse,
-		LemmyHttp,
-		type MyUserInfo,
-		type PersonView,
-		type SiteView,
-	} from 'lemmy-js-client'
-	import { cors } from '$lib/utils/cors'
-	import { personUri, siteHostname } from '$lib/utils/links'
-	import { headers } from '$lib/utils/requests'
+	import type { BlockPersonResponse, MyUserInfo, PersonView, SiteView } from 'lemmy-js-client'
+	import { siteHostname } from '$lib/utils/links'
+	import { getClientContext } from './contexts/client'
 	import { getJwt } from './utils/cookies'
 
 	let className: string | undefined = undefined
@@ -17,6 +10,8 @@
 	export let siteView: SiteView
 	export let personView: PersonView
 	export let myUser: MyUserInfo
+
+	const client = getClientContext()
 
 	let request: Promise<BlockPersonResponse> = Promise.resolve({
 		blocked: myUser.person_blocks.some(block => block.target.id === personView.person.id),
@@ -28,12 +23,7 @@
 	async function blockPerson(block: boolean) {
 		blockError = ''
 
-		const client = new LemmyHttp(siteView.site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: siteHostname(siteView.site) }, `/u/${personUri(personView.person)}`),
-		})
-
-		const jwt = getJwt(siteView.site)
+		const jwt = getJwt(siteHostname(siteView.site), null)
 		if (!jwt) {
 			blockError = 'You must be logged in to block a person.'
 			return

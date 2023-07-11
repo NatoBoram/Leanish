@@ -1,15 +1,21 @@
 <script lang="ts">
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
+	import { LemmyHttp } from 'lemmy-js-client'
 	import { base } from '$app/paths'
 	import { markedOptions } from '$lib/consts/marked_options'
+	import { setClientContext } from '$lib/contexts/client'
 	import PersonIcon from '$lib/PersonIcon.svelte'
 	import { personLink, personUri, siteHostname, siteLink } from '$lib/utils/links'
+	import { clientFetch } from '$lib/utils/requests'
 	import type { LayoutData } from './$types'
 
 	Marked.setOptions(markedOptions)
 
 	export let data: LayoutData
+
+	const client = new LemmyHttp(data.site_view.site.actor_id, { fetchFunction: clientFetch })
+	setClientContext(client)
 </script>
 
 <nav class="left-0 right-0 top-0 mb-4 p-4">

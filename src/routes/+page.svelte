@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import { cors } from '$lib/utils/cors'
 	import { newUrl, siteLink } from '$lib/utils/links'
-	import { headers } from '$lib/utils/requests'
+	import { clientFetch } from '$lib/utils/requests'
 
 	let input: string
-
 	let message: string | undefined
 
 	async function submit() {
@@ -19,14 +17,9 @@
 			return
 		}
 
-		const client = new LemmyHttp(input, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: url.hostname }),
-		})
-
-		let site = await client.getSite()
-
-		return goto(siteLink(site.site_view.site))
+		const client = new LemmyHttp(input, { fetchFunction: clientFetch })
+		const site = await client.getSite()
+		return goto(siteLink(site.site_view.site), { invalidateAll: true })
 	}
 </script>
 

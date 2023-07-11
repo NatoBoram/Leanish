@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { type CommunityView, LemmyHttp, type SiteView } from 'lemmy-js-client'
-	import { cors } from '$lib/utils/cors'
-	import { communityUri, siteHostname } from '$lib/utils/links'
-	import { headers } from '$lib/utils/requests'
+	import type { CommunityView, SiteView } from 'lemmy-js-client'
+	import { siteHostname } from '$lib/utils/links'
+	import { getClientContext } from './contexts/client'
 	import SubscribeButton from './FollowCommunityButton.svelte'
 	import { getJwt } from './utils/cookies'
 
@@ -11,22 +10,16 @@
 
 	export let site_view: SiteView
 	export let community: CommunityView
-	let response: Promise<CommunityView> | undefined
 
+	const client = getClientContext()
+
+	let response: Promise<CommunityView> | undefined
 	let subscribeError = ''
 
 	async function followCommunity(follow: boolean) {
 		subscribeError = ''
 
-		const client = new LemmyHttp(site_view.site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers(
-				{ site: siteHostname(site_view.site) },
-				`/c/${communityUri(community.community)}`,
-			),
-		})
-
-		const jwt = getJwt(site_view.site)
+		const jwt = getJwt(siteHostname(site_view.site), null)
 		if (!jwt) {
 			subscribeError = 'You must be logged in to subscribe to a community.'
 			return

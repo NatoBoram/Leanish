@@ -1,25 +1,25 @@
 <script lang="ts">
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import {
-		type BlockCommunityResponse,
-		type CommunityResponse,
-		type CommunityView,
-		LemmyHttp,
-		type Site,
+	import type {
+		BlockCommunityResponse,
+		CommunityResponse,
+		CommunityView,
+		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './buttons/FlatButton.svelte'
 	import ClickOutside from './ClickOutside.svelte'
+	import { getClientContext } from './contexts/client'
 	import { getJwt } from './utils/cookies'
-	import { cors } from './utils/cors'
 	import { siteHostname } from './utils/links'
-	import { headers } from './utils/requests'
 
 	let className: string | undefined = 'w-6 h-6'
 	export { className as class }
 
 	export let communityView: CommunityView
 	export let site: Site
+
+	const client = getClientContext()
 
 	const dispatch = createEventDispatcher<{
 		follow_community: CommunityResponse
@@ -32,18 +32,10 @@
 		opened = !opened
 	}
 
-	function newClient() {
-		return new LemmyHttp(site.actor_id, {
-			fetchFunction: cors(fetch, location.origin),
-			headers: headers({ site: siteHostname(site) }, `/communities`),
-		})
-	}
-
 	async function followCommunity(follow: boolean) {
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to follow a community.')
 
-		const client = newClient()
 		const response = await client.followCommunity({
 			community_id: communityView.community.id,
 			follow,
@@ -54,10 +46,9 @@
 	}
 
 	async function blockCommunity(block: boolean) {
-		const jwt = getJwt(site)
+		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to block a community.')
 
-		const client = newClient()
 		const response = await client.blockCommunity({
 			community_id: communityView.community.id,
 			block,
