@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	import { getClientContext } from '$lib/contexts/client'
 	import { setJwt } from '$lib/utils/cookies'
 	import { siteLink } from '$lib/utils/links'
@@ -28,7 +29,8 @@
 		setJwt(data.site_view.site, response.jwt)
 
 		await new Promise(resolve => requestIdleCallback(resolve))
-		return goto(siteLink(data.site_view.site))
+		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
+		return goto(redirect, { invalidateAll: true })
 	}
 </script>
 
