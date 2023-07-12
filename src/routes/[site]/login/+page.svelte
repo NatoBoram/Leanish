@@ -4,7 +4,7 @@
 	import { page } from '$app/stores'
 	import { getClientContext } from '$lib/contexts/client'
 	import { setJwt } from '$lib/utils/cookies'
-	import { siteLink } from '$lib/utils/links'
+	import { siteHostname, siteLink } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -33,6 +33,10 @@
 		return goto(redirect, { invalidateAll: true })
 	}
 </script>
+
+<svelte:head>
+	<title>Login to {siteHostname(data.site_view.site)}</title>
+</svelte:head>
 
 <div class="mx-auto flex max-w-md flex-col gap-4 p-4">
 	<form on:submit|preventDefault={login} class="flex flex-col gap-4">

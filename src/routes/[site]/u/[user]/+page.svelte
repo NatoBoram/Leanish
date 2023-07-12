@@ -29,6 +29,14 @@
 	}
 </script>
 
+<svelte:head>
+	<title
+		>{data.person_view.person.display_name ?? data.person_view.person.name} - {personUri(
+			data.person_view.person,
+		)}</title
+	>
+</svelte:head>
+
 {#if data.person_view.person.banner}
 	<img
 		alt="banner"
