@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { CommunityView, SiteView } from 'lemmy-js-client'
+	import { getClientContext } from '$lib/contexts/client'
+	import SubscribeButton from '$lib/FollowCommunityButton.svelte'
+	import { getJwt } from '$lib/utils/cookies'
 	import { siteHostname } from '$lib/utils/links'
-	import { getClientContext } from './contexts/client'
-	import SubscribeButton from './FollowCommunityButton.svelte'
-	import { getJwt } from './utils/cookies'
 
 	let className: string | undefined = undefined
 	export { className as class }

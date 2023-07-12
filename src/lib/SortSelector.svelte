@@ -3,7 +3,7 @@
 	import { createEventDispatcher } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { isSortType } from './utils/guards'
+	import { isSortType } from '$lib/utils/guards'
 
 	export let sort: SortType
 

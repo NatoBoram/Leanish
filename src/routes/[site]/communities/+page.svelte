@@ -64,7 +64,7 @@
 		<ShowNsfwSelector showNsfw={data.show_nsfw ?? false} />
 	</nav>
 
-	{#if data.communities.length}
+	{#if data.communities.length || data.page}
 		<PaginationBar
 			length={data.communities.length}
 			limit={data.limit ?? 10}
@@ -81,7 +81,7 @@
 		on:follow_community={onFollow}
 	/>
 
-	{#if data.communities.length}
+	{#if data.communities.length || data.page}
 		<PaginationBar
 			length={data.communities.length}
 			limit={data.limit ?? 10}

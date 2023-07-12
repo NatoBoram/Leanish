@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { BlockPersonResponse, MyUserInfo, PersonView, SiteView } from 'lemmy-js-client'
+	import { getClientContext } from '$lib/contexts/client'
+	import { getJwt } from '$lib/utils/cookies'
 	import { siteHostname } from '$lib/utils/links'
-	import { getClientContext } from './contexts/client'
-	import { getJwt } from './utils/cookies'
 
 	let className: string | undefined = undefined
 	export { className as class }

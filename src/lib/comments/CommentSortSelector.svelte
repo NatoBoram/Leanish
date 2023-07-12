@@ -3,7 +3,7 @@
 	import { createEventDispatcher } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { isCommentSortType } from './utils/guards'
+	import { isCommentSortType } from '$lib/utils/guards'
 
 	export let sort: CommentSortType
 

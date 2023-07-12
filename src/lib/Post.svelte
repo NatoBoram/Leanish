@@ -14,22 +14,24 @@
 	} from '@natoboram/heroicons.svelte/24/outline'
 	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type {
+		CommentResponse,
 		CommunityModeratorView,
 		Language,
-		LanguageId,
 		MyUserInfo,
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
+	import { createEventDispatcher } from 'svelte'
+	import CommentForm from '$lib/comments/CommentForm.svelte'
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import { imageExtensions } from '$lib/consts/image_extensions'
+	import { getClientContext } from '$lib/contexts/client'
+	import PersonUri from '$lib/PersonUri.svelte'
+	import Prose from '$lib/Prose.svelte'
+	import { getJwt } from '$lib/utils/cookies'
+	import { lemmyDate, timeAgo } from '$lib/utils/dates'
 	import { communityLink, communityUri, postLink, siteHostname } from '$lib/utils/links'
-	import CommentForm from './CommentForm.svelte'
-	import { getClientContext } from './contexts/client'
-	import PersonUri from './PersonUri.svelte'
-	import Prose from './Prose.svelte'
-	import { getJwt } from './utils/cookies'
-	import { lemmyDate, timeAgo } from './utils/dates'
+	import Dismissable from './Dismissable.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -42,29 +44,13 @@
 	export let site: Site
 
 	const client = getClientContext()
+	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
 
+	let commenting = false
+	let commentPending = false
 	let errorMessage = ''
-	let replying = false
 	let savePending = false
 	let votePending = false
-
-	function clickReply() {
-		replying = !replying
-	}
-
-	async function createComment(content: string, language_id: LanguageId) {
-		const jwt = getJwt(siteHostname(site), null)
-		if (!jwt) throw new Error('You must be logged in to comment.')
-
-		const response = await client.createComment({
-			auth: jwt,
-			content,
-			language_id: language_id,
-			post_id: postView.post.id,
-		})
-
-		return response
-	}
 
 	async function like() {
 		const score = (postView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -83,28 +69,40 @@
 		votePending = true
 		const response = await client
 			.likePost({ auth: jwt, post_id: postView.post.id, score: score })
-			.catch((e: unknown) => {
-				errorMessage =
-					e instanceof Error ? e.message : 'An unknown error happened while voting on the post.'
+			.catch(async (e: unknown) => {
+				if (e instanceof Response) errorMessage = await e.text()
 			})
 
 		if (response) postView = response.post_view
 		votePending = false
 	}
 
-	const dtf = Intl.DateTimeFormat('en-GB', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-		hour: 'numeric',
-		minute: '2-digit',
-	})
+	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
+		const jwt = getJwt(siteHostname(site), null)
+		if (!jwt) return (errorMessage = 'You must be logged in to comment.')
 
-	function onComment() {
-		replying = false
+		commentPending = true
+		const response = await client
+			.createComment({
+				auth: jwt,
+				content: e.detail.content,
+				language_id: e.detail.languageId,
+				post_id: postView.post.id,
+			})
+			.catch(async (e: unknown) => {
+				if (e instanceof Response) errorMessage = await e.text()
+			})
+
+		if (response) {
+			dispatch('comment', response)
+			commenting = false
+		}
+
+		commentPending = false
+		return response
 	}
 
-	async function clickSave() {
+	async function savePost() {
 		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to save posts.')
 
@@ -115,14 +113,21 @@
 				post_id: postView.post.id,
 				save: !postView.saved,
 			})
-			.catch((e: unknown) => {
-				errorMessage =
-					e instanceof Error ? e.message : 'An unknown error happened while saving the post.'
+			.catch(async (e: unknown) => {
+				if (e instanceof Response) errorMessage = await e.text()
 			})
 
 		if (response) postView = response.post_view
 		savePending = false
 	}
+
+	const dtf = Intl.DateTimeFormat('en-GB', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: '2-digit',
+	})
 </script>
 
 <article
@@ -263,12 +268,12 @@
 		</a>
 
 		{#if myUser}
-			<button class="flex flex-row items-center gap-2" on:click={clickReply}>
+			<button class="flex flex-row items-center gap-2" on:click={() => (commenting = !commenting)}>
 				<ChatBubbleLeftEllipsis class="h-5 w-5" />
 				Reply
 			</button>
 
-			<button class="flex flex-row items-center gap-2" on:click={clickSave} disabled={savePending}>
+			<button class="flex flex-row items-center gap-2" on:click={savePost} disabled={savePending}>
 				{#if postView.saved}
 					<StarSolid class="h-5 w-5 text-warning" />
 					Saved
@@ -281,20 +286,23 @@
 	</div>
 
 	{#if errorMessage}
-		<p
-			class="rounded-md bg-danger-container p-4 text-on-danger-container"
-			on:click={() => (errorMessage = '')}
-			on:keypress={e => {
-				if (e.key === 'Enter') errorMessage = ''
-			}}
-			role="presentation"
+		<Dismissable
+			class="bg-danger-container text-on-danger-container"
+			on:dismiss={() => (errorMessage = '')}
 		>
 			{errorMessage}
-		</p>
+		</Dismissable>
 	{/if}
 
 	<!-- Comment form -->
-	{#if replying && myUser}
-		<CommentForm {allLanguages} {myUser} {createComment} on:comment={onComment} on:comment />
+	{#if commenting && myUser}
+		<CommentForm
+			{allLanguages}
+			{myUser}
+			content=""
+			disabled={commentPending}
+			on:cancel={() => (commenting = !commenting)}
+			on:submit={createComment}
+		/>
 	{/if}
 </article>

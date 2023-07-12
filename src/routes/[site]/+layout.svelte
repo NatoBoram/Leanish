@@ -3,6 +3,7 @@
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { base } from '$app/paths'
+	import { page } from '$app/stores'
 	import { markedOptions } from '$lib/consts/marked_options'
 	import { setClientContext } from '$lib/contexts/client'
 	import PersonIcon from '$lib/PersonIcon.svelte'
@@ -48,7 +49,9 @@
 			{:else}
 				<a
 					class="rounded-md bg-base-container px-4 py-2 text-on-base-container"
-					href="{siteLink(data.site_view.site)}/login"
+					href="{siteLink(data.site_view.site)}/login?goto={encodeURIComponent(
+						`${$page.url.pathname}${$page.url.search}`,
+					)}"
 				>
 					Login
 				</a>

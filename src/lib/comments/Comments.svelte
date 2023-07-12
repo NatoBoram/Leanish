@@ -7,8 +7,8 @@
 		Post,
 		Site,
 	} from 'lemmy-js-client'
-	import type { CommentNode } from './comment_node'
-	import CommentNodeSvelte from './CommentNode.svelte'
+	import type { CommentNode } from '$lib/comments/comment_node'
+	import CommentNodeSvelte from '$lib/comments/CommentNode.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }

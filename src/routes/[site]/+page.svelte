@@ -51,7 +51,11 @@
 </script>
 
 <svelte:head>
-	<title>{data.site_view.site.name} - {data.site_view.site.description}</title>
+	<title
+		>{data.site_view.site.name}{data.site_view.site.description
+			? ` - ${data.site_view.site.description}`
+			: ''}</title
+	>
 </svelte:head>
 
 <div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
@@ -80,7 +84,7 @@
 		</nav>
 
 		<!-- Posts -->
-		{#if data.posts.length}
+		{#if data.posts.length || data.page}
 			<PaginationBar
 				length={data.posts.length}
 				limit={data.limit ?? 10}
@@ -97,7 +101,7 @@
 			showCommunity={true}
 			site={data.site_view.site}
 		/>
-		{#if data.posts.length}
+		{#if data.posts.length || data.page}
 			<PaginationBar
 				length={data.posts.length}
 				limit={data.limit ?? 10}
