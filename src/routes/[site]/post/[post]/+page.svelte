@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CommentResponse } from 'lemmy-js-client'
-	import Comments from '$lib/Comments.svelte'
-	import CommentSortSelector from '$lib/CommentSortSelector.svelte'
+	import Comments from '$lib/comments/Comments.svelte'
+	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
 	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
@@ -65,7 +65,7 @@
 			<CommentSortSelector sort={data.sort ?? 'Hot'} />
 		</nav>
 
-		{#if data.comments.length}
+		{#if data.comments.length || data.page}
 			<!-- Comments -->
 			<PaginationBar
 				length={comments.length}
@@ -86,7 +86,7 @@
 			site={data.site_view.site}
 		/>
 
-		{#if data.comments.length}
+		{#if data.comments.length || data.page}
 			<PaginationBar
 				length={comments.length}
 				limit={data.limit ?? 50}

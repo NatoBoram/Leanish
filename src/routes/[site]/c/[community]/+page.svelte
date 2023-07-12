@@ -70,7 +70,7 @@
 				<LimitSelector limit={data.limit ?? 10} />
 			</nav>
 
-			{#if data.posts.length}
+			{#if data.posts.length || data.page}
 				<PaginationBar
 					length={data.posts.length}
 					limit={data.limit ?? 10}
@@ -87,7 +87,7 @@
 				showCommunity={false}
 				site={data.site_view.site}
 			/>
-			{#if data.posts.length}
+			{#if data.posts.length || data.page}
 				<PaginationBar
 					length={data.posts.length}
 					limit={data.limit ?? 10}

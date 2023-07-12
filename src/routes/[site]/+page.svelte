@@ -84,7 +84,7 @@
 		</nav>
 
 		<!-- Posts -->
-		{#if data.posts.length}
+		{#if data.posts.length || data.page}
 			<PaginationBar
 				length={data.posts.length}
 				limit={data.limit ?? 10}
@@ -101,7 +101,7 @@
 			showCommunity={true}
 			site={data.site_view.site}
 		/>
-		{#if data.posts.length}
+		{#if data.posts.length || data.page}
 			<PaginationBar
 				length={data.posts.length}
 				limit={data.limit ?? 10}

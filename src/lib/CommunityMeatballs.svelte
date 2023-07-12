@@ -7,11 +7,11 @@
 		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import FlatButton from './buttons/FlatButton.svelte'
-	import ClickOutside from './ClickOutside.svelte'
-	import { getClientContext } from './contexts/client'
-	import { getJwt } from './utils/cookies'
-	import { siteHostname } from './utils/links'
+	import FlatButton from '$lib/buttons/FlatButton.svelte'
+	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { getClientContext } from '$lib/contexts/client'
+	import { getJwt } from '$lib/utils/cookies'
+	import { siteHostname } from '$lib/utils/links'
 
 	let className: string | undefined = 'w-6 h-6'
 	export { className as class }
