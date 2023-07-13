@@ -31,6 +31,8 @@
 	import { getJwt } from '$lib/utils/cookies'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
 	import { communityLink, communityUri, postLink, siteHostname } from '$lib/utils/links'
+	import { audioTypes } from './consts/audio_types'
+	import { videoTypes } from './consts/video_types'
 	import Dismissable from './Dismissable.svelte'
 
 	let className: string | undefined = undefined
@@ -51,6 +53,22 @@
 	let errorMessage = ''
 	let savePending = false
 	let votePending = false
+
+	function getVideoType(url: URL) {
+		const found = Object.entries(videoTypes).find(([, extensions]) =>
+			extensions.find(e => url.pathname.endsWith(e)),
+		)
+		if (!found) return
+		return found[0]
+	}
+
+	function getAudioType(url: URL) {
+		const found = Object.entries(audioTypes).find(([, extensions]) =>
+			extensions.find(e => url.pathname.endsWith(e)),
+		)
+		if (!found) return
+		return found[0]
+	}
 
 	async function like() {
 		const score = (postView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -208,8 +226,19 @@
 	<!-- Image or link -->
 	{#if postView.post.url}
 		{@const url = new URL(postView.post.url)}
+		{@const videoType = getVideoType(url)}
+		{@const audioType = getAudioType(url)}
 
-		{#if imageExtensions.some(e => url.pathname.endsWith(e))}
+		{#if videoType}
+			<!-- svelte-ignore a11y-media-has-caption -->
+			<video controls={true} class="max-h-screen w-full object-contain">
+				<source type={videoType} src={url.href} />
+			</video>
+		{:else if audioType}
+			<audio controls={true} class="max-h-screen w-full object-contain">
+				<source type={audioType} src={url.href} />
+			</audio>
+		{:else if imageExtensions.some(e => url.pathname.endsWith(e))}
 			<img
 				class="max-h-screen w-full object-contain"
 				src={postView.post.url}
