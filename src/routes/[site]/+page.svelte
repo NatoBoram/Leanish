@@ -61,7 +61,7 @@
 <div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
 	<!-- Sidebar -->
 	<SiteSidebar
-		class="h-fit w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
+		class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-xs"
 		site={data.site_view.site}
 	/>
 
@@ -71,7 +71,7 @@
 		<div class="flex flex-col gap-4">
 			{#if data.taglines}
 				{#each data.taglines as tagline (tagline.id)}
-					<Tagline {tagline} class="rounded-md bg-base-container text-on-base-container" />
+					<Tagline {tagline} class="base-container rounded-md" />
 				{/each}
 			{/if}
 		</div>

@@ -56,7 +56,7 @@
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<CommunitySidebar
-			class="w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-sm"
+			class="base-container w-full rounded-lg lg:order-1 lg:max-w-sm"
 			community={data.community_view}
 			my_user={data.my_user}
 			site_view={data.site_view}

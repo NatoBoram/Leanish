@@ -60,7 +60,7 @@
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<PersonSidebar
-			class="w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
+			class="base-container w-full rounded-lg lg:order-1 lg:max-w-xs"
 			personView={data.person_view}
 			myUser={data.my_user}
 			siteView={data.site_view}

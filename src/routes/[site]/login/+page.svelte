@@ -93,21 +93,14 @@
 			{/if}
 		{:catch error}
 			{#await errorToResponse(error)?.text()}
-				<div class="relative rounded-md bg-danger-container p-4 text-on-danger-container">
-					Loading error message...
-				</div>
+				<div class="danger-container relative rounded-md p-4">Loading error message...</div>
 			{:then text}
 				{#if text}
-					<Dismissable
-						on:dismiss={() => (request = undefined)}
-						class="bg-danger-container text-on-danger-container"
-					>
+					<Dismissable on:dismiss={() => (request = undefined)} class="danger-container">
 						{@html text}
 					</Dismissable>
 				{:else}
-					<div class="relative rounded-md bg-danger-container p-4 text-on-danger-container">
-						An unexpected error happened.
-					</div>
+					<div class="danger-container relative rounded-md p-4">An unexpected error happened.</div>
 				{/if}
 			{/await}
 		{/await}

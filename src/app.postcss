@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+	.base {
+		@apply bg-base text-on-base;
+	}
+	.base-container {
+		@apply bg-base-container text-on-base-container;
+	}
+	.danger {
+		@apply bg-danger text-on-danger;
+	}
+	.danger-container {
+		@apply bg-danger-container text-on-danger-container;
+	}
+	.muted {
+		@apply bg-muted text-on-muted;
+	}
+	/* .muted-container {
+		@apply bg-muted-container text-on-muted-container;
+	} */
+	.primary {
+		@apply bg-primary text-on-primary;
+	}
+	.primary-container {
+		@apply bg-primary-container text-on-primary-container;
+	}
+	.success {
+		@apply bg-success text-on-success;
+	}
+	.success-container {
+		@apply bg-success-container text-on-success-container;
+	}
+	.surface {
+		@apply bg-surface text-on-surface;
+	}
+	.surface-container {
+		@apply bg-surface-container text-on-surface-container;
+	}
+	.warning {
+		@apply bg-warning text-on-warning;
+	}
+	.warning-container {
+		@apply bg-warning-container text-on-warning-container;
+	}
+}

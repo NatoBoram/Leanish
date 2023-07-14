@@ -154,10 +154,7 @@
 	/>
 
 	{#if errorMessage}
-		<Dismissable
-			on:dismiss={() => (errorMessage = '')}
-			class="bg-danger-container text-on-danger-container"
-		>
+		<Dismissable on:dismiss={() => (errorMessage = '')} class="danger-container">
 			{errorMessage}
 		</Dismissable>
 	{/if}

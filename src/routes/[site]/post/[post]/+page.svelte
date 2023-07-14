@@ -45,7 +45,7 @@
 		site_view={data.site_view}
 		community={data.community_view}
 		my_user={data.my_user}
-		class="h-fit w-full rounded-lg bg-base-container text-on-base-container lg:order-1 lg:max-w-xs"
+		class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-xs"
 	/>
 
 	<main class="flex flex-col gap-4">
