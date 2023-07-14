@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { getClientContext } from '$lib/contexts/client'
+	import Dismissable from '$lib/Dismissable.svelte'
 	import { setJwt } from '$lib/utils/cookies'
 	import { siteHostname, siteLink } from '$lib/utils/links'
 	import type { PageData } from './$types'
@@ -31,6 +32,11 @@
 		await new Promise(resolve => requestIdleCallback(resolve))
 		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
 		return goto(redirect, { invalidateAll: true })
+	}
+
+	function errorToResponse(error: unknown) {
+		if (error instanceof Response) return error
+		else return null
 	}
 </script>
 
@@ -85,15 +91,25 @@
 					<pre>{JSON.stringify(response, undefined, '\t')}</pre>
 				</div>
 			{/if}
-		{:catch request}
-			<div class="rounded bg-danger-container p-4 text-on-danger-container">
-				An error occured while logging in.
-			</div>
-			{#if request}
-				<div class="prose">
-					<pre>{JSON.stringify(request, undefined, '\t')}</pre>
+		{:catch error}
+			{#await errorToResponse(error)?.text()}
+				<div class="relative rounded-md bg-danger-container p-4 text-on-danger-container">
+					Loading error message...
 				</div>
-			{/if}
+			{:then text}
+				{#if text}
+					<Dismissable
+						on:dismiss={() => (request = undefined)}
+						class="bg-danger-container text-on-danger-container"
+					>
+						{@html text}
+					</Dismissable>
+				{:else}
+					<div class="relative rounded-md bg-danger-container p-4 text-on-danger-container">
+						An unexpected error happened.
+					</div>
+				{/if}
+			{/await}
 		{/await}
 	{/if}
 </div>
