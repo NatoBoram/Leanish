@@ -5,7 +5,7 @@
 	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Post from '$lib/Post.svelte'
+	import Post from '$lib/posts/Post.svelte'
 	import type { PageData } from './$types'
 
 	export let data: PageData

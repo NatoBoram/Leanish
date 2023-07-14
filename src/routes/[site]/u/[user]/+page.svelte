@@ -3,7 +3,7 @@
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import PersonIcon from '$lib/PersonIcon.svelte'
 	import PersonSidebar from '$lib/PersonSidebar.svelte'
-	import Posts from '$lib/Posts.svelte'
+	import Posts from '$lib/posts/Posts.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import { personUri } from '$lib/utils/links'
 	import type { PageData } from './$types'

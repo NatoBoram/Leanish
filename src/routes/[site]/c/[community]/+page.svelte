@@ -4,7 +4,7 @@
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Posts from '$lib/Posts.svelte'
+	import Posts from '$lib/posts/Posts.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import { communityUri } from '$lib/utils/links'
 	import type { PageData } from './$types'

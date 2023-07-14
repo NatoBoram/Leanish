@@ -6,7 +6,7 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import Post from '$lib/Post.svelte'
+	import Post from '$lib/posts/Post.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
