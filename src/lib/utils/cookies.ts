@@ -22,3 +22,15 @@ export function setJwt(site: Site, jwt: string) {
 		sameSite: true,
 	})
 }
+
+export function unsetJwt(site: Site) {
+	if (!browser) throw new Error('`unsetJwt()` is only available in the browser')
+	const hostname = siteHostname(site)
+
+	document.cookie = cookie.serialize(`${hostname}_jwt`, '', {
+		domain: location.hostname,
+		maxAge: 1,
+		path: `${base}/${hostname}`,
+		sameSite: true,
+	})
+}
