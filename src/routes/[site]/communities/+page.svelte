@@ -76,9 +76,10 @@
 
 	<CommunityList
 		communityViews={data.communities}
-		site={data.site_view.site}
+		jwt={data.jwt}
 		on:block_community={onBlock}
 		on:follow_community={onFollow}
+		site={data.site_view.site}
 	/>
 
 	{#if data.communities.length || data.page}

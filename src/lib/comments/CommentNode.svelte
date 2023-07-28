@@ -16,8 +16,6 @@
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
 	import Prose from '$lib/Prose.svelte'
-	import { getJwt } from '$lib/utils/cookies'
-	import { siteHostname } from '$lib/utils/links'
 	import CommentTopBar from './CommentTopBar.svelte'
 
 	let className: string | undefined = undefined
@@ -26,6 +24,7 @@
 	export let allLanguages: Language[]
 	export let children: CommentNode[]
 	export let commentView: CommentView
+	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let post: Post
@@ -41,7 +40,6 @@
 	let replyPending = false
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return (errorMessage = 'You must be logged in to comment.')
 
 		replyPending = true
@@ -81,7 +79,6 @@
 	}
 
 	async function editComment(e: CustomEvent<{ content: string; languageId: number }>) {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return (errorMessage = 'You must be logged in to edit your comment.')
 
 		editPending = true
@@ -144,9 +141,9 @@
 
 	<CommentBottomBar
 		{commentView}
+		{jwt}
 		{myUser}
 		{post}
-		{site}
 		on:edit={toggleEditing}
 		on:error={onError}
 		on:reply={toggleReplying}

@@ -12,15 +12,16 @@
 	export { className as class }
 
 	export let allLanguages: Language[]
+	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
-	export let posts: PostView[]
+	export let postViews: PostView[]
 	export let showCommunity: boolean
 	export let site: Site
 </script>
 
 <div class="flex flex-col gap-4 {className}">
-	{#each posts as post (post.post.id)}
-		<Post postView={post} {site} {moderators} {allLanguages} {myUser} {showCommunity} />
+	{#each postViews as postView (postView.post.id)}
+		<Post {allLanguages} {jwt} {moderators} {myUser} {postView} {showCommunity} {site} />
 	{/each}
 </div>

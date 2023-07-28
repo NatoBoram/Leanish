@@ -9,6 +9,7 @@
 	export { className as class }
 
 	export let communityViews: CommunityView[]
+	export let jwt: string | undefined
 	export let site: Site
 </script>
 
@@ -102,7 +103,7 @@
 					</td>
 
 					<td class="text-center">
-						<CommunityMeatballs {site} {communityView} on:block_community on:follow_community />
+						<CommunityMeatballs {jwt} {communityView} on:block_community on:follow_community />
 					</td>
 				</tr>
 			{/each}

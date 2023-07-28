@@ -13,8 +13,7 @@
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
 	import Prose from '$lib/Prose.svelte'
-	import { getJwt } from '$lib/utils/cookies'
-	import { postLink, siteHostname } from '$lib/utils/links'
+	import { postLink } from '$lib/utils/links'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
 	import PostUrl from './PostUrl.svelte'
@@ -23,6 +22,7 @@
 	export { className as class }
 
 	export let allLanguages: Language[]
+	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let postView: PostView
@@ -37,7 +37,6 @@
 	let errorMessage = ''
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return (errorMessage = 'You must be logged in to comment.')
 
 		commentPending = true
@@ -70,7 +69,7 @@
 	data-post-id={postView.post.id}
 	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
 >
-	<PostTopBar {moderators} {postView} {showCommunity} {site} />
+	<PostTopBar {moderators} {postView} {showCommunity} {site} {jwt} {myUser} />
 
 	<!-- Title -->
 	<header class="flex flex-row flex-wrap items-center gap-2">
@@ -113,6 +112,7 @@
 
 	<!-- Action bar -->
 	<PostBottomBar
+		{jwt}
 		{myUser}
 		{postView}
 		{site}

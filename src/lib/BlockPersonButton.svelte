@@ -1,15 +1,13 @@
 <script lang="ts">
-	import type { BlockPersonResponse, MyUserInfo, PersonView, SiteView } from 'lemmy-js-client'
+	import type { BlockPersonResponse, MyUserInfo, PersonView } from 'lemmy-js-client'
 	import { getClientContext } from '$lib/contexts/client'
-	import { getJwt } from '$lib/utils/cookies'
-	import { siteHostname } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let siteView: SiteView
-	export let personView: PersonView
+	export let jwt: string | undefined
 	export let myUser: MyUserInfo
+	export let personView: PersonView
 
 	const client = getClientContext()
 
@@ -23,7 +21,6 @@
 	async function blockPerson(block: boolean) {
 		blockError = ''
 
-		const jwt = getJwt(siteHostname(siteView.site), null)
 		if (!jwt) {
 			blockError = 'You must be logged in to block a person.'
 			return

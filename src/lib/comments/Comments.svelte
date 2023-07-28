@@ -15,10 +15,11 @@
 
 	export let allLanguages: Language[]
 	export let comments: CommentView[]
+	export let jwt: string | undefined
+	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let post: Post
 	export let site: Site
-	export let moderators: CommunityModeratorView[]
 
 	let tree: CommentNode[]
 	$: {
@@ -44,10 +45,11 @@
 	{#each tree as node (node.comment.comment.id)}
 		<CommentNodeSvelte
 			{allLanguages}
+			{jwt}
+			{moderators}
 			{myUser}
 			{post}
 			{site}
-			{moderators}
 			children={node.children}
 			commentView={node.comment}
 			on:comment

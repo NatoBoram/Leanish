@@ -42,15 +42,17 @@
 
 <div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
 	<CommunitySidebar
-		site_view={data.site_view}
-		community={data.community_view}
-		my_user={data.my_user}
 		class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-xs"
+		community={data.community_view}
+		jwt={data.jwt}
+		myUser={data.my_user}
+		siteView={data.site_view}
 	/>
 
 	<main class="flex flex-col gap-4">
 		<Post
 			allLanguages={data.all_languages}
+			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}
 			on:comment={onComment}
@@ -79,6 +81,7 @@
 		<Comments
 			{comments}
 			allLanguages={data.all_languages}
+			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}
 			on:comment={onComment}
