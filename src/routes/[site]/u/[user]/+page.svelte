@@ -84,6 +84,7 @@
 			{/if}
 			<Posts
 				allLanguages={data.all_languages}
+				communityView={undefined}
 				jwt={data.jwt}
 				moderators={data.moderates}
 				myUser={data.my_user}

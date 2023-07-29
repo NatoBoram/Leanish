@@ -18,10 +18,12 @@
 
 	const client = getClientContext()
 
+	export let communityView: CommunityView | undefined
 	export let jwt: string | undefined
 	export let post: Post
 
-	let communityView: Promise<CommunityView> | undefined = undefined
+	let communityViewPromise: Promise<CommunityView> | undefined =
+		communityView && Promise.resolve(communityView)
 
 	const dispatch = createEventDispatcher<{
 		follow_community: CommunityResponse
@@ -31,8 +33,8 @@
 	let opened = false
 
 	function onclick() {
-		if (!opened && !communityView && jwt)
-			communityView = client
+		if (!opened && !communityViewPromise && jwt)
+			communityViewPromise = client
 				.getCommunity({ id: post.community_id, auth: jwt })
 				.then(r => r.community_view)
 
@@ -65,10 +67,10 @@
 </script>
 
 <div class="relative flex flex-col items-center {className}">
-	{#if opened && communityView}
+	{#if opened && communityViewPromise}
 		<div class="surface-container absolute bottom-8 z-10 rounded px-2 py-1">
 			<ClickOutside on:clickoutside={() => (opened = false)} class="flex flex-col">
-				{#await communityView}
+				{#await communityViewPromise}
 					Loading...
 				{:then view}
 					{#if view.subscribed === 'Subscribed'}

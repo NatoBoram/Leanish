@@ -3,6 +3,7 @@
 	import type {
 		CommentResponse,
 		CommunityModeratorView,
+		CommunityView,
 		Language,
 		MyUserInfo,
 		PostView,
@@ -22,6 +23,7 @@
 	export { className as class }
 
 	export let allLanguages: Language[]
+	export let communityView: CommunityView | undefined
 	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
@@ -69,7 +71,7 @@
 	data-post-id={postView.post.id}
 	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
 >
-	<PostTopBar {moderators} {postView} {showCommunity} {site} {jwt} {myUser} />
+	<PostTopBar {moderators} {postView} {showCommunity} {site} {jwt} {myUser} {communityView} />
 
 	<!-- Title -->
 	<header class="flex flex-row flex-wrap items-center gap-2">

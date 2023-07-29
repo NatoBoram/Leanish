@@ -52,6 +52,7 @@
 	<main class="flex flex-col gap-4">
 		<Post
 			allLanguages={data.all_languages}
+			communityView={data.community_view}
 			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type {
 		CommunityModeratorView,
+		CommunityView,
 		Language,
 		MyUserInfo,
 		PostView,
@@ -12,6 +13,7 @@
 	export { className as class }
 
 	export let allLanguages: Language[]
+	export let communityView: CommunityView | undefined
 	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
@@ -22,6 +24,15 @@
 
 <div class="flex flex-col gap-4 {className}">
 	{#each postViews as postView (postView.post.id)}
-		<Post {allLanguages} {jwt} {moderators} {myUser} {postView} {showCommunity} {site} />
+		<Post
+			{allLanguages}
+			{communityView}
+			{jwt}
+			{moderators}
+			{myUser}
+			{postView}
+			{showCommunity}
+			{site}
+		/>
 	{/each}
 </div>
