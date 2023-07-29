@@ -172,6 +172,7 @@
 		{#each children as child (child.comment.comment.id)}
 			<svelte:self
 				{allLanguages}
+				{jwt}
 				{moderators}
 				{myUser}
 				{post}
