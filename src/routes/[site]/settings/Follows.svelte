@@ -31,7 +31,7 @@
 			logs.push(`Searching for ${uri}...`)
 			logs = logs
 
-			const searched = await client
+			const found = await client
 				.search({
 					auth: jwt,
 					community_name: uri,
@@ -41,10 +41,10 @@
 				})
 				.then(searched => searched.communities.find(c => uri === communityUri(c.community)))
 				.catch(() => undefined)
-				.then(r => r ?? client.getCommunity({ auth: jwt, name: uri }).then(r => r.community_view))
+				.then(v => v ?? client.getCommunity({ auth: jwt, name: uri }).then(r => r.community_view))
 				.catch((e: Response) => e)
 
-			if (searched instanceof Response) {
+			if (found instanceof Response) {
 				logs.push(`Couldn't find ${uri}.`)
 				logs = logs
 				continue
@@ -55,7 +55,7 @@
 
 			await client.followCommunity({
 				auth: jwt,
-				community_id: searched.community.id,
+				community_id: found.community.id,
 				follow: true,
 			})
 
