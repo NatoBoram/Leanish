@@ -1,18 +1,21 @@
 <script lang="ts">
 	import type { MyUserInfo } from 'lemmy-js-client'
+	import { personUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
 	import Follows from './Follows.svelte'
 
 	export let data: PageData
 
 	function exportUser() {
+		if (!data.my_user) return
+
 		const href =
 			'data:text/json;charset=utf-8,' +
 			encodeURIComponent(JSON.stringify(data.my_user, undefined, '\t'))
 
 		const a = document.createElement('a')
 		a.setAttribute('href', href)
-		a.setAttribute('download', `${data.my_user?.local_user_view.person.name}.json`)
+		a.setAttribute('download', `${personUri(data.my_user.local_user_view.person)}.json`)
 		a.click()
 	}
 
