@@ -51,11 +51,11 @@
 </script>
 
 <svelte:head>
-	<title
-		>{data.site_view.site.name}{data.site_view.site.description
+	<title>
+		{data.site_view.site.name}{data.site_view.site.description
 			? ` - ${data.site_view.site.description}`
-			: ''}</title
-	>
+			: ''}
+	</title>
 </svelte:head>
 
 <div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
