@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CommunityFollowerView, MyUserInfo, Site } from 'lemmy-js-client'
-	import CommunityUri from '$lib/CommunityUri.svelte'
+	import CommunityUri from '$lib/community/CommunityUri.svelte'
 	import { getClientContext } from '$lib/contexts/client'
 	import { communityUri } from '$lib/utils/links'
 

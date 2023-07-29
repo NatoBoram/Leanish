@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Language, LanguageId, MyUserInfo } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import FlatButton from '../buttons/FlatButton.svelte'
-	import Prose from '../Prose.svelte'
+	import FlatButton from '$lib/buttons/FlatButton.svelte'
+	import Prose from '$lib/Prose.svelte'
 
 	const dispatch = createEventDispatcher<{
 		submit: { content: string; languageId: LanguageId }

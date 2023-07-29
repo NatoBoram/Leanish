@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CommunityView } from 'lemmy-js-client'
-	import BlockCommunityButton from '$lib/BlockCommunityButton.svelte'
+	import BlockCommunityButton from '$lib/community/BlockCommunityButton.svelte'
 	import { getClientContext } from '$lib/contexts/client'
 
 	let className: string | undefined = undefined

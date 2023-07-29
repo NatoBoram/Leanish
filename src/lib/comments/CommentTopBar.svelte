@@ -3,7 +3,7 @@
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import type { CommentView, CommunityModeratorView, Site } from 'lemmy-js-client'
 	import { page } from '$app/stores'
-	import PersonUri from '$lib/PersonUri.svelte'
+	import PersonUri from '$lib/person/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
 	import { personLink } from '$lib/utils/links'
 

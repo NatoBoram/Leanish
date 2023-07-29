@@ -10,13 +10,11 @@
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import { page } from '$app/stores'
-	import type { CommentNode } from '$lib/comments/comment_node'
-	import CommentBottomBar from '$lib/comments/CommentBottomBar.svelte'
-	import CommentForm from '$lib/comments/CommentForm.svelte'
+	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments'
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
 	import Prose from '$lib/Prose.svelte'
-	import CommentTopBar from './CommentTopBar.svelte'
+	import type { CommentNode } from './comment_node'
 
 	let className: string | undefined = undefined
 	export { className as class }

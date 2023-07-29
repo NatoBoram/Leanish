@@ -10,7 +10,7 @@
 	import ClickOutside from '$lib/ClickOutside.svelte'
 	import { markedOptions } from '$lib/consts/marked_options'
 	import { setClientContext } from '$lib/contexts/client'
-	import PersonIcon from '$lib/PersonIcon.svelte'
+	import { PersonIcon } from '$lib/person'
 	import { unsetJwt } from '$lib/utils/cookies'
 	import { personLink, personUri, siteHostname, siteLink } from '$lib/utils/links'
 	import { clientFetch } from '$lib/utils/requests'

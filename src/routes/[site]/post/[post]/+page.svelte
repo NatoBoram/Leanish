@@ -2,7 +2,7 @@
 	import type { CommentResponse } from 'lemmy-js-client'
 	import Comments from '$lib/comments/Comments.svelte'
 	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
-	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
+	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Post from '$lib/posts/Post.svelte'

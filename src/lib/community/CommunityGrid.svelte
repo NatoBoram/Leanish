@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { EyeSlash, NoSymbol, ShieldCheck, Trash } from '@natoboram/heroicons.svelte/24/solid'
 	import type { CommunityView, Site } from 'lemmy-js-client'
+	import { communityLink, communityUri } from '$lib/utils/links'
 	import CommunityIcon from './CommunityIcon.svelte'
 	import CommunityMeatballs from './CommunityMeatballs.svelte'
-	import { communityLink, communityUri } from './utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }

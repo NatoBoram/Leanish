@@ -1,9 +1,8 @@
 <script lang="ts">
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import PersonIcon from '$lib/PersonIcon.svelte'
-	import PersonSidebar from '$lib/PersonSidebar.svelte'
-	import Posts from '$lib/posts/Posts.svelte'
+	import { PersonIcon, PersonSidebar } from '$lib/person'
+	import { Posts } from '$lib/posts'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import { personUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
@@ -30,11 +29,11 @@
 </script>
 
 <svelte:head>
-	<title
-		>{data.person_view.person.display_name ?? data.person_view.person.name} - {personUri(
+	<title>
+		{data.person_view.person.display_name ?? data.person_view.person.name} - {personUri(
 			data.person_view.person,
-		)}</title
-	>
+		)}
+	</title>
 </svelte:head>
 
 {#if data.person_view.person.banner}

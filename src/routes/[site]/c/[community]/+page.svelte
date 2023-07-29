@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CommunityIcon from '$lib/CommunityIcon.svelte'
-	import CommunitySidebar from '$lib/CommunitySidebar.svelte'
+	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
+	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
