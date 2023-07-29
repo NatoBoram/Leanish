@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { Check, EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
+	import { Check } from '@natoboram/heroicons.svelte/20/solid'
+	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
 	import type {
 		BlockCommunityResponse,
 		CommunityId,
 		CommunityResponse,
+		CommunityView,
 		Post,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
@@ -19,6 +21,8 @@
 	export let jwt: string | undefined
 	export let post: Post
 
+	let communityView: Promise<CommunityView> | undefined = undefined
+
 	const dispatch = createEventDispatcher<{
 		follow_community: CommunityResponse
 		block_community: BlockCommunityResponse
@@ -27,6 +31,11 @@
 	let opened = false
 
 	function onclick() {
+		if (!opened && !communityView && jwt)
+			communityView = client
+				.getCommunity({ id: post.community_id, auth: jwt })
+				.then(r => r.community_view)
+
 		opened = !opened
 	}
 
@@ -56,20 +65,16 @@
 </script>
 
 <div class="relative flex flex-col items-center {className}">
-	{#if opened}
-		{@const communityView = client
-			.getCommunity({ id: post.community_id, ...(jwt ? { auth: jwt } : {}) })
-			.then(r => r.community_view)}
-
+	{#if opened && communityView}
 		<div class="surface-container absolute bottom-8 z-10 rounded px-2 py-1">
-			<ClickOutside on:clickoutside={() => (opened = false)} class=" flex flex-col">
+			<ClickOutside on:clickoutside={() => (opened = false)} class="flex flex-col">
 				{#await communityView}
 					Loading...
 				{:then view}
 					{#if view.subscribed === 'Subscribed'}
 						<FlatButton on:click={() => followCommunity(false, view.community.id)}>
 							Subscribed
-							<Check class="h-6 w-6 text-success" />
+							<Check class="h-5 w-5 text-success" />
 						</FlatButton>
 					{:else if view.subscribed === 'NotSubscribed'}
 						<FlatButton on:click={() => followCommunity(true, view.community.id)}>
