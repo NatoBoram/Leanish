@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ShieldCheck, ShieldExclamation } from '@natoboram/heroicons.svelte/24/solid'
 	import type { CommunityModeratorView, Person, Site } from 'lemmy-js-client'
-	import PersonIcon from '$lib/PersonIcon.svelte'
+	import { PersonIcon } from '$lib/person'
 	import { personLink, personUri } from '$lib/utils/links'
 
 	let className: string | undefined = undefined

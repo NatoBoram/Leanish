@@ -1,0 +1,6 @@
+export { default as CommentBottomBar } from './CommentBottomBar.svelte'
+export { default as CommentForm } from './CommentForm.svelte'
+export { default as CommentNode } from './CommentNode.svelte'
+export { default as CommentSortSelector } from './CommentSortSelector.svelte'
+export { default as CommentTopBar } from './CommentTopBar.svelte'
+export { default as Comments } from './Comments.svelte'

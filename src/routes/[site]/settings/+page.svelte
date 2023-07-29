@@ -26,6 +26,10 @@
 	let importUserFiles: FileList | undefined
 </script>
 
+<svelte:head>
+	<title>Settings - {data.site_view.site.name}</title>
+</svelte:head>
+
 <div class="container mx-auto">
 	<div class="base-container grid grid-cols-1 gap-4 rounded p-4 sm:grid-cols-2">
 		{#if data.my_user && data.jwt}

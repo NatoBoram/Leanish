@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { BlockCommunityResponse, CommunityResponse } from 'lemmy-js-client'
-	import CommunityList from '$lib/CommunityGrid.svelte'
+	import CommunityList from '$lib/community/CommunityGrid.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'

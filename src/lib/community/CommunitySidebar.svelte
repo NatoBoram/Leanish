@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { CommunityView, MyUserInfo, SiteView } from 'lemmy-js-client'
+	import Prose from '$lib/Prose.svelte'
+	import { communityLink } from '$lib/utils/links'
 	import BlockCommunityLayout from './BlockCommunityLayout.svelte'
 	import SubscribeButtonLayout from './FollowCommunityLayout.svelte'
-	import Prose from './Prose.svelte'
-	import { communityLink } from './utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }

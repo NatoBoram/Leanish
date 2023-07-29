@@ -7,8 +7,8 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import CommunityIcon from '$lib/CommunityIcon.svelte'
-	import PersonUri from '$lib/PersonUri.svelte'
+	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
+	import PersonUri from '$lib/person/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
 	import { communityLink, communityUri, postLink } from '$lib/utils/links'
 	import PostMeatballs from './PostMeatballs.svelte'

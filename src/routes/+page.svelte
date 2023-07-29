@@ -23,6 +23,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Leanish</title>
+</svelte:head>
+
 <div class="flex flex-col items-center gap-4">
 	<h1 class="text-7xl">Leanish</h1>
 	<p class="italic">A lean-ish Lemmy web client.</p>
