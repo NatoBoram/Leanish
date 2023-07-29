@@ -95,9 +95,11 @@
 		{/if}
 		<Posts
 			allLanguages={data.all_languages}
+			communityView={undefined}
+			jwt={data.jwt}
 			moderators={[]}
 			myUser={data.my_user}
-			posts={data.posts}
+			postViews={data.posts}
 			showCommunity={true}
 			site={data.site_view.site}
 		/>

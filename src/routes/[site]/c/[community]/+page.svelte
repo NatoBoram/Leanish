@@ -58,8 +58,9 @@
 		<CommunitySidebar
 			class="base-container w-full rounded-lg lg:order-1 lg:max-w-sm"
 			community={data.community_view}
-			my_user={data.my_user}
-			site_view={data.site_view}
+			jwt={data.jwt}
+			myUser={data.my_user}
+			siteView={data.site_view}
 		/>
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
@@ -81,9 +82,11 @@
 			{/if}
 			<Posts
 				allLanguages={data.all_languages}
+				communityView={data.community_view}
+				jwt={data.jwt}
 				moderators={data.moderators}
 				myUser={data.my_user}
-				posts={data.posts}
+				postViews={data.posts}
 				showCommunity={false}
 				site={data.site_view.site}
 			/>

@@ -9,12 +9,12 @@
 	import type { MyUserInfo, PostView, Site } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import { getClientContext } from '$lib/contexts/client'
-	import { getJwt } from '$lib/utils/cookies'
-	import { postLink, siteHostname } from '$lib/utils/links'
+	import { postLink } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
+	export let jwt: string | undefined
 	export let myUser: MyUserInfo | undefined
 	export let postView: PostView
 	export let site: Site
@@ -36,7 +36,6 @@
 	}
 
 	async function likePost(score: -1 | 0 | 1) {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return dispatch('error', new Error('You must be logged in to vote on posts.'))
 
 		votePending = true
@@ -52,7 +51,6 @@
 	}
 
 	async function savePost() {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) return dispatch('error', new Error('You must be logged in to save posts.'))
 
 		savePending = true

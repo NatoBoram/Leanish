@@ -1,15 +1,25 @@
 <script lang="ts">
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import type { CommunityModeratorView, PostView, Site } from 'lemmy-js-client'
+	import type {
+		CommunityModeratorView,
+		CommunityView,
+		MyUserInfo,
+		PostView,
+		Site,
+	} from 'lemmy-js-client'
 	import CommunityIcon from '$lib/CommunityIcon.svelte'
 	import PersonUri from '$lib/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
 	import { communityLink, communityUri, postLink } from '$lib/utils/links'
+	import PostMeatballs from './PostMeatballs.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
+	export let communityView: CommunityView | undefined
+	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
+	export let myUser: MyUserInfo | undefined
 	export let postView: PostView
 	export let showCommunity: boolean
 	export let site: Site
@@ -61,5 +71,10 @@
 
 			Edited {timeAgo(updated)}
 		</a>
+	{/if}
+
+	<!-- Meatballs -->
+	{#if myUser}
+		<PostMeatballs post={postView.post} {jwt} {communityView} />
 	{/if}
 </div>

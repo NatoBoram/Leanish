@@ -61,9 +61,9 @@
 		<!-- Sidebar -->
 		<PersonSidebar
 			class="base-container w-full rounded-lg lg:order-1 lg:max-w-xs"
-			personView={data.person_view}
+			jwt={data.jwt}
 			myUser={data.my_user}
-			siteView={data.site_view}
+			personView={data.person_view}
 		/>
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
@@ -84,9 +84,11 @@
 			{/if}
 			<Posts
 				allLanguages={data.all_languages}
+				communityView={undefined}
+				jwt={data.jwt}
 				moderators={data.moderates}
 				myUser={data.my_user}
-				posts={data.posts}
+				postViews={data.posts}
 				showCommunity={true}
 				site={data.site_view.site}
 			/>

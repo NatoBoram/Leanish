@@ -1,23 +1,16 @@
 <script lang="ts">
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type {
-		BlockCommunityResponse,
-		CommunityResponse,
-		CommunityView,
-		Site,
-	} from 'lemmy-js-client'
+	import type { BlockCommunityResponse, CommunityResponse, CommunityView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import ClickOutside from '$lib/ClickOutside.svelte'
 	import { getClientContext } from '$lib/contexts/client'
-	import { getJwt } from '$lib/utils/cookies'
-	import { siteHostname } from '$lib/utils/links'
 
 	let className: string | undefined = 'w-6 h-6'
 	export { className as class }
 
 	export let communityView: CommunityView
-	export let site: Site
+	export let jwt: string | undefined
 
 	const client = getClientContext()
 
@@ -33,7 +26,6 @@
 	}
 
 	async function followCommunity(follow: boolean) {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to follow a community.')
 
 		const response = await client.followCommunity({
@@ -46,7 +38,6 @@
 	}
 
 	async function blockCommunity(block: boolean) {
-		const jwt = getJwt(siteHostname(site), null)
 		if (!jwt) throw new Error('You must be logged in to block a community.')
 
 		const response = await client.blockCommunity({

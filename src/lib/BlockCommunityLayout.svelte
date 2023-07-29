@@ -1,15 +1,13 @@
 <script lang="ts">
-	import type { CommunityView, SiteView } from 'lemmy-js-client'
+	import type { CommunityView } from 'lemmy-js-client'
 	import BlockCommunityButton from '$lib/BlockCommunityButton.svelte'
 	import { getClientContext } from '$lib/contexts/client'
-	import { getJwt } from '$lib/utils/cookies'
-	import { siteHostname } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let site_view: SiteView
 	export let community: CommunityView
+	export let jwt: string | undefined
 
 	const client = getClientContext()
 
@@ -19,7 +17,6 @@
 	async function blockCommunity(block: boolean) {
 		blockError = ''
 
-		const jwt = getJwt(siteHostname(site_view.site), null)
 		if (!jwt) {
 			blockError = 'You must be logged in to block a community.'
 			return
