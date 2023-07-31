@@ -93,6 +93,7 @@
 				on:first={onNext}
 			/>
 		{/if}
+
 		<Posts
 			allLanguages={data.all_languages}
 			communityView={undefined}
@@ -101,9 +102,9 @@
 			myUser={data.my_user}
 			personView={undefined}
 			postViews={data.posts}
-			showCommunity={true}
 			site={data.site_view.site}
 		/>
+
 		{#if data.posts.length || data.page}
 			<PaginationBar
 				length={data.posts.length}

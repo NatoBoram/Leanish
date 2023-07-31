@@ -43,7 +43,13 @@
 <div class="flex flex-row flex-wrap items-center gap-4 {className}">
 	<!-- Author -->
 	<div class="flex flex-row items-center gap-2">
-		<PersonUri person={commentView.creator} {site} {moderators} {myUser} />
+		<PersonUri
+			{moderators}
+			{myUser}
+			{site}
+			community={commentView.community}
+			person={commentView.creator}
+		/>
 
 		{#if jwt && myUser}
 			<PersonMeatballs

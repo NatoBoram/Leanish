@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CommunityUri } from '$lib/community'
 	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
 	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
@@ -6,7 +7,6 @@
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Posts from '$lib/posts/Posts.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import { communityUri } from '$lib/utils/links'
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -48,8 +48,13 @@
 		<CommunityIcon community={data.community_view.community} class="h-16 w-16" />
 
 		<div class="flex flex-col gap-2">
-			<h1 class="text-xl">{data.community_view.community.title}</h1>
-			<div>{communityUri(data.community_view.community)}</div>
+			<h1 class="text-xl font-semibold">{data.community_view.community.title}</h1>
+
+			<CommunityUri
+				showIcon={false}
+				community={data.community_view.community}
+				site={data.site_view.site}
+			/>
 		</div>
 	</header>
 
@@ -57,7 +62,7 @@
 		<!-- Sidebar -->
 		<CommunitySidebar
 			class="base-container w-full rounded-lg lg:order-1 lg:max-w-sm"
-			community={data.community_view}
+			communityView={data.community_view}
 			jwt={data.jwt}
 			myUser={data.my_user}
 			siteView={data.site_view}
@@ -80,6 +85,7 @@
 					on:first={onNext}
 				/>
 			{/if}
+
 			<Posts
 				allLanguages={data.all_languages}
 				communityView={data.community_view}
@@ -88,9 +94,9 @@
 				myUser={data.my_user}
 				personView={undefined}
 				postViews={data.posts}
-				showCommunity={false}
 				site={data.site_view.site}
 			/>
+
 			{#if data.posts.length || data.page}
 				<PaginationBar
 					length={data.posts.length}

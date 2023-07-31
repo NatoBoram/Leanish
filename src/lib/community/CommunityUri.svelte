@@ -6,11 +6,15 @@
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let site: Site
 	export let community: Community
+	export let showIcon = true
+	export let site: Site
 </script>
 
 <a class="flex flex-row items-center gap-2 {className}" href={communityLink(site, community)}>
-	<CommunityIcon {community} />
+	{#if showIcon}
+		<CommunityIcon {community} />
+	{/if}
+
 	<div class="hover:underline">{communityUri(community)}</div>
 </a>

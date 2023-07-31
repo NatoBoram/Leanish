@@ -85,20 +85,24 @@
 
 		<div class="flex flex-row items-center gap-4">
 			<FlatButton
-				class="bg-surface-container px-4 py-2 text-on-surface-container"
+				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
 				on:click={() => dispatch('cancel')}
 			>
 				Cancel
 			</FlatButton>
 
 			<FlatButton
-				class="bg-surface-container px-4 py-2 text-on-surface-container"
+				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
 				on:click={() => (previewing = !previewing)}
 			>
 				Preview
 			</FlatButton>
 
-			<FlatButton class="bg-surface px-4 py-2 text-on-surface" {disabled} on:click={clickSubmit}>
+			<FlatButton
+				class="rounded-lg bg-surface px-4 py-2 text-on-surface"
+				{disabled}
+				on:click={clickSubmit}
+			>
 				Submit
 			</FlatButton>
 		</div>

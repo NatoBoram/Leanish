@@ -40,15 +40,15 @@
 	<title>{data.post_view.post.name}</title>
 </svelte:head>
 
-<div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
-	<CommunitySidebar
-		class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-xs"
-		community={data.community_view}
-		jwt={data.jwt}
-		myUser={data.my_user}
-		siteView={data.site_view}
+{#if data.community_view.community.banner}
+	<img
+		src={data.community_view.community.banner}
+		class="mb-4 hidden max-h-96 w-full object-cover lg:block"
+		alt="banner"
 	/>
+{/if}
 
+<div class="container mx-auto mb-4 flex flex-row gap-4">
 	<main class="flex flex-col gap-4">
 		<Post
 			allLanguages={data.all_languages}
@@ -59,7 +59,6 @@
 			on:comment={onComment}
 			personView={undefined}
 			postView={data.post_view}
-			showCommunity={false}
 			site={data.site_view.site}
 		/>
 
@@ -101,4 +100,12 @@
 			/>
 		{/if}
 	</main>
+
+	<CommunitySidebar
+		class="base-container hidden h-fit w-full rounded-lg lg:flex"
+		communityView={data.community_view}
+		jwt={data.jwt}
+		myUser={data.my_user}
+		siteView={data.site_view}
+	/>
 </div>

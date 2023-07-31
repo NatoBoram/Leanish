@@ -29,7 +29,6 @@
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let postView: PostView
-	export let showCommunity: boolean
 	export let site: Site
 	export let personView: PersonView | undefined
 
@@ -89,7 +88,6 @@
 		{myUser}
 		{personView}
 		{postView}
-		{showCommunity}
 		{site}
 		on:block_community
 		on:block_person
@@ -121,6 +119,13 @@
 			{#if postView.post.locked}
 				<div title="Locked">
 					<LockClosed class="h-5 w-5 text-warning" />
+				</div>
+			{/if}
+
+			<!-- Deleted -->
+			{#if postView.post.deleted}
+				<div title="Deleted">
+					<Trash class="h-5 w-5" />
 				</div>
 			{/if}
 
