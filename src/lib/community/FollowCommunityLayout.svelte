@@ -39,7 +39,7 @@
 </script>
 
 <div class="flex flex-col gap-4 {className}">
-	<SubscribeButton {followCommunity} community={response ?? Promise.resolve(community)} />
+	<SubscribeButton {followCommunity} communityView={response ?? Promise.resolve(community)} />
 
 	{#if subscribeError}
 		<p

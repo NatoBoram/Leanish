@@ -103,7 +103,18 @@
 					</td>
 
 					<td class="text-center">
-						<CommunityMeatballs {jwt} {communityView} on:block_community on:follow_community />
+						{#if jwt}
+							<CommunityMeatballs
+								{communityView}
+								{jwt}
+								position="right-8 -top-4"
+								communityId={communityView.community.id}
+								on:block_community
+								on:error
+								on:follow_community
+								on:response
+							/>
+						{/if}
 					</td>
 				</tr>
 			{/each}

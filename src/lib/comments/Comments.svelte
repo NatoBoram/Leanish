@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type {
+		BlockPersonResponse,
 		CommentView,
 		CommunityModeratorView,
 		Language,
@@ -39,6 +40,12 @@
 
 		tree = nodes.filter(f => f.comment.comment.path === `0.${f.comment.comment.id}`)
 	}
+
+	function onBlockPerson(event: CustomEvent<BlockPersonResponse>) {
+		if (!event.detail.blocked) return
+
+		comments = comments.filter(comment => comment.creator.id !== event.detail.person_view.person.id)
+	}
 </script>
 
 <div class="flex flex-col gap-4 {className}">
@@ -52,7 +59,9 @@
 			{site}
 			children={node.children}
 			commentView={node.comment}
+			on:block_person={onBlockPerson}
 			on:comment
+			personView={undefined}
 		/>
 	{/each}
 </div>

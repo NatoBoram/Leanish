@@ -6,6 +6,7 @@
 		CommunityView,
 		Language,
 		MyUserInfo,
+		PersonView,
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
@@ -30,16 +31,18 @@
 	export let postView: PostView
 	export let showCommunity: boolean
 	export let site: Site
+	export let personView: PersonView | undefined
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
 
 	let commenting = false
 	let commentPending = false
-	let errorMessage = ''
+	let botErrorMessage = ''
+	let topErrorMessage = ''
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
-		if (!jwt) return (errorMessage = 'You must be logged in to comment.')
+		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')
 
 		commentPending = true
 		const response = await client
@@ -50,7 +53,7 @@
 				post_id: postView.post.id,
 			})
 			.catch(async (e: unknown) => {
-				if (e instanceof Response) errorMessage = await e.text()
+				if (e instanceof Response) botErrorMessage = await e.text()
 			})
 
 		if (response) {
@@ -62,8 +65,16 @@
 		return response
 	}
 
-	function onError(event: CustomEvent<Error>) {
-		errorMessage = event.detail.message
+	function onBotError(event: CustomEvent<Error>) {
+		botErrorMessage = event.detail.message
+	}
+
+	function onTopError(event: CustomEvent<Error>) {
+		topErrorMessage = event.detail.message
+	}
+
+	async function onTopResponse(event: CustomEvent<Response>) {
+		topErrorMessage = await event.detail.text()
 	}
 </script>
 
@@ -71,7 +82,27 @@
 	data-post-id={postView.post.id}
 	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
 >
-	<PostTopBar {moderators} {postView} {showCommunity} {site} {jwt} {myUser} {communityView} />
+	<PostTopBar
+		{communityView}
+		{jwt}
+		{moderators}
+		{myUser}
+		{personView}
+		{postView}
+		{showCommunity}
+		{site}
+		on:block_community
+		on:block_person
+		on:error={onTopError}
+		on:follow_community
+		on:response={onTopResponse}
+	/>
+
+	{#if topErrorMessage}
+		<Dismissable class="danger-container" on:dismiss={() => (topErrorMessage = '')}>
+			{topErrorMessage}
+		</Dismissable>
+	{/if}
 
 	<!-- Title -->
 	<header class="flex flex-row flex-wrap items-center gap-2">
@@ -119,12 +150,12 @@
 		{postView}
 		{site}
 		on:comment={() => (commenting = !commenting)}
-		on:error={onError}
+		on:error={onBotError}
 	/>
 
-	{#if errorMessage}
-		<Dismissable class="danger-container" on:dismiss={() => (errorMessage = '')}>
-			{errorMessage}
+	{#if botErrorMessage}
+		<Dismissable class="danger-container" on:dismiss={() => (botErrorMessage = '')}>
+			{botErrorMessage}
 		</Dismissable>
 	{/if}
 

@@ -86,6 +86,7 @@
 				jwt={data.jwt}
 				moderators={data.moderators}
 				myUser={data.my_user}
+				personView={undefined}
 				postViews={data.posts}
 				showCommunity={false}
 				site={data.site_view.site}

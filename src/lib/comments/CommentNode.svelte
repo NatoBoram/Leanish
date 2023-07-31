@@ -5,6 +5,7 @@
 		CommunityModeratorView,
 		Language,
 		MyUserInfo,
+		PersonView,
 		Post,
 		Site,
 	} from 'lemmy-js-client'
@@ -25,20 +26,22 @@
 	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
+	export let personView: PersonView | undefined
 	export let post: Post
 	export let site: Site
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
 
+	let botErrorMessage = ''
 	let editing = false
 	let editPending = false
-	let errorMessage = ''
 	let replying = false
 	let replyPending = false
+	let topErrorMessage = ''
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
-		if (!jwt) return (errorMessage = 'You must be logged in to comment.')
+		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')
 
 		replyPending = true
 		const response = await client
@@ -50,7 +53,7 @@
 				post_id: post.id,
 			})
 			.catch(async (e: unknown) => {
-				if (e instanceof Response) errorMessage = await e.text()
+				if (e instanceof Response) botErrorMessage = await e.text()
 			})
 
 		if (response) {
@@ -77,7 +80,7 @@
 	}
 
 	async function editComment(e: CustomEvent<{ content: string; languageId: number }>) {
-		if (!jwt) return (errorMessage = 'You must be logged in to edit your comment.')
+		if (!jwt) return (botErrorMessage = 'You must be logged in to edit your comment.')
 
 		editPending = true
 		const response = await client
@@ -87,20 +90,25 @@
 				content: e.detail.content,
 				language_id: e.detail.languageId,
 			})
-			.catch(async (e: unknown) => {
-				if (e instanceof Response) errorMessage = await e.text()
+			.catch(async (e: Response) => {
+				botErrorMessage = await e.text()
 			})
 
 		if (response) {
 			commentView = response.comment_view
 			editing = false
 		}
+
 		editPending = false
 		return response
 	}
 
-	function onError(e: CustomEvent<Error>) {
-		return (errorMessage = e.detail.message)
+	function onBotError(e: CustomEvent<Error>) {
+		return (botErrorMessage = e.detail.message)
+	}
+
+	function onTopError(e: CustomEvent<Error>) {
+		return (topErrorMessage = e.detail.message)
 	}
 
 	function toggleEditing() {
@@ -111,13 +119,33 @@
 		return (replying = !replying)
 	}
 
-	async function onResponse(e: CustomEvent<Response>) {
-		return (errorMessage = await e.detail.text())
+	async function onBotResponse(e: CustomEvent<Response>) {
+		return (botErrorMessage = await e.detail.text())
+	}
+
+	async function onTopResponse(e: CustomEvent<Response>) {
+		return (topErrorMessage = await e.detail.text())
 	}
 </script>
 
 <div class="flex flex-col gap-4 {className}" data-comment-id={commentView.comment.id}>
-	<CommentTopBar {commentView} {moderators} {site} />
+	<CommentTopBar
+		{commentView}
+		{jwt}
+		{moderators}
+		{myUser}
+		{personView}
+		{site}
+		on:block_person
+		on:error={onTopError}
+		on:response={onTopResponse}
+	/>
+
+	{#if topErrorMessage}
+		<Dismissable on:dismiss={() => (topErrorMessage = '')} class="danger-container">
+			{topErrorMessage}
+		</Dismissable>
+	{/if}
 
 	<!-- Body -->
 	{#if myUser && editing}
@@ -143,14 +171,14 @@
 		{myUser}
 		{post}
 		on:edit={toggleEditing}
-		on:error={onError}
+		on:error={onBotError}
 		on:reply={toggleReplying}
-		on:response={onResponse}
+		on:response={onBotResponse}
 	/>
 
-	{#if errorMessage}
-		<Dismissable on:dismiss={() => (errorMessage = '')} class="danger-container">
-			{errorMessage}
+	{#if botErrorMessage}
+		<Dismissable on:dismiss={() => (botErrorMessage = '')} class="danger-container">
+			{botErrorMessage}
 		</Dismissable>
 	{/if}
 

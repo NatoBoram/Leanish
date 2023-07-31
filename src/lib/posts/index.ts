@@ -1,6 +1,5 @@
 export { default as Post } from './Post.svelte'
 export { default as PostBottomBar } from './PostBottomBar.svelte'
-export { default as PostMeatballs } from './PostMeatballs.svelte'
 export { default as PostTopBar } from './PostTopBar.svelte'
 export { default as PostUrl } from './PostUrl.svelte'
 export { default as Posts } from './Posts.svelte'
