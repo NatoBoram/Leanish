@@ -8,25 +8,25 @@
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let community: CommunityView
+	export let communityView: CommunityView
 	export let jwt: string | undefined
 	export let myUser: MyUserInfo | null | undefined
 	export let siteView: SiteView
 </script>
 
 <aside class="flex flex-col gap-4 p-4 {className}">
-	<a href={communityLink(siteView.site, community.community)}>
+	<a href={communityLink(siteView.site, communityView.community)}>
 		<h1 class="text-xl">
-			{community.community.title}
+			{communityView.community.title}
 		</h1>
 	</a>
 
 	{#if myUser}
-		<SubscribeButtonLayout {community} {jwt} />
-		<BlockCommunityLayout {community} {jwt} />
+		<SubscribeButtonLayout community={communityView} {jwt} />
+		<BlockCommunityLayout community={communityView} {jwt} />
 	{/if}
 
-	{#if community.community.description}
-		<Prose markdown={community.community.description} class="prose-a:text-primary" />
+	{#if communityView.community.description}
+		<Prose markdown={communityView.community.description} class="prose-a:text-primary" />
 	{/if}
 </aside>

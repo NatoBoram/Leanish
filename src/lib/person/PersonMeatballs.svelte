@@ -12,8 +12,9 @@
 
 	export let jwt: string
 	export let myUser: MyUserInfo
-	export let personView: PersonView | undefined
 	export let personId: PersonId
+	export let personView: PersonView | undefined
+	export let position: string = 'bottom-8'
 
 	let personViewPromise: Promise<PersonView> | undefined = personView && Promise.resolve(personView)
 
@@ -31,7 +32,7 @@
 
 <div class="relative flex flex-col items-center {className}">
 	{#if opened && personViewPromise}
-		<div class="surface-container absolute bottom-8 z-10 rounded px-2 py-1">
+		<div class="surface-container absolute z-10 rounded px-2 py-1 {position}">
 			<ClickOutside on:clickoutside={() => (opened = false)} class="flex flex-col">
 				{#await personViewPromise}
 					Loading...

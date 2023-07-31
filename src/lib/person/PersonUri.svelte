@@ -1,23 +1,30 @@
 <script lang="ts">
 	import { ShieldCheck, ShieldExclamation, User } from '@natoboram/heroicons.svelte/20/solid'
-	import type { CommunityModeratorView, MyUserInfo, Person, Site } from 'lemmy-js-client'
+	import type { Community, CommunityModeratorView, MyUserInfo, Person, Site } from 'lemmy-js-client'
 	import { PersonIcon } from '$lib/person'
 	import { personLink, personUri } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
 
+	export let community: Community | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let person: Person
 	export let site: Site
+
+	export let showIcon = true
 </script>
 
 <div class="flex flex-row items-center gap-2 {className}">
 	<a class="flex flex-row items-center gap-2" href={personLink(site, person)}>
-		<PersonIcon {person} />
+		{#if showIcon}
+			<PersonIcon {person} />
+		{/if}
 
-		<div class="hover:underline">{personUri(person)}</div>
+		<div class="truncate hover:underline">
+			{personUri(person)}
+		</div>
 	</a>
 
 	<!-- It's me! -->
@@ -35,7 +42,7 @@
 	{/if}
 
 	<!-- Moderator -->
-	{#if moderators.some(m => m.moderator.id === person.id)}
+	{#if community && moderators.some(m => m.moderator.id === person.id && m.community.id === community?.id)}
 		<div class="text-success" title="Moderator">
 			<ShieldCheck />
 		</div>

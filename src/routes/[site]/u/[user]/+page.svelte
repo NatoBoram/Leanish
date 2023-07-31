@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import { PersonIcon, PersonSidebar } from '$lib/person'
+	import { PersonIcon, PersonSidebar, PersonUri } from '$lib/person'
 	import { Posts } from '$lib/posts'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import { personUri } from '$lib/utils/links'
@@ -52,7 +52,15 @@
 			<h1 class="text-xl">
 				{data.person_view.person.display_name ?? data.person_view.person.name}
 			</h1>
-			<div>{personUri(data.person_view.person)}</div>
+
+			<PersonUri
+				community={undefined}
+				moderators={[]}
+				myUser={data.my_user}
+				person={data.person_view.person}
+				showIcon={false}
+				site={data.site_view.site}
+			/>
 		</div>
 	</div>
 
@@ -89,7 +97,6 @@
 				myUser={data.my_user}
 				personView={data.person_view}
 				postViews={data.posts}
-				showCommunity={true}
 				site={data.site_view.site}
 			/>
 			{#if data.posts.length || data.page}

@@ -7,7 +7,7 @@
 
 <button
 	{disabled}
-	class="flex flex-row items-center justify-center gap-2 rounded-lg px-2 py-4 {className}"
+	class="flex flex-row items-center justify-center gap-2 px-2 py-4 {className}"
 	on:click
 >
 	<slot />

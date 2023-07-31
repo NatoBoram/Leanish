@@ -83,12 +83,12 @@
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
 		{#if canFirst($page.url)}
-			<FlatButton on:click={() => firstPage($page.url)} class="base-container w-28">
+			<FlatButton on:click={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
 				<ChevronDoubleLeft />
 				First
 			</FlatButton>
 		{:else}
-			<FlatButton disabled={true} class="muted w-28">
+			<FlatButton disabled={true} class="muted w-28 rounded-lg">
 				<ChevronDoubleLeft />
 				First
 			</FlatButton>
@@ -96,12 +96,12 @@
 
 		<!-- Previous -->
 		{#if hasPrevious($page.url)}
-			<FlatButton class="base-container w-28" on:click={() => previous($page.url)}>
+			<FlatButton class="base-container w-28 rounded-lg" on:click={() => previous($page.url)}>
 				<ChevronLeft />
 				Previous
 			</FlatButton>
 		{:else}
-			<FlatButton disabled={true} class="muted w-28">
+			<FlatButton disabled={true} class="muted w-28 rounded-lg">
 				<ChevronLeft />
 				Previous
 			</FlatButton>
@@ -127,12 +127,15 @@
 
 	<!-- Next -->
 	{#if length >= limit}
-		<FlatButton class="base-container w-28 justify-self-end" on:click={() => next($page.url)}>
+		<FlatButton
+			class="base-container w-28 justify-self-end rounded-lg"
+			on:click={() => next($page.url)}
+		>
 			Next
 			<ChevronRight />
 		</FlatButton>
 	{:else}
-		<FlatButton disabled={true} class="muted w-28 justify-self-end">
+		<FlatButton disabled={true} class="muted w-28 justify-self-end rounded-lg">
 			Next
 			<ChevronRight />
 		</FlatButton>

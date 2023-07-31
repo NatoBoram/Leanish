@@ -8,10 +8,10 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import { CommunityMeatballs, CommunityUri } from '$lib/community'
+	import { CommunityIcon, CommunityMeatballs, CommunityUri } from '$lib/community'
 	import PersonUri from '$lib/person/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
-	import { postLink } from '$lib/utils/links'
+	import { communityLink, postLink } from '$lib/utils/links'
 	import PersonMeatballs from '../person/PersonMeatballs.svelte'
 
 	let className: string | undefined = undefined
@@ -23,7 +23,6 @@
 	export let myUser: MyUserInfo | undefined
 	export let personView: PersonView | undefined
 	export let postView: PostView
-	export let showCommunity: boolean
 	export let site: Site
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
@@ -35,11 +34,16 @@
 	})
 </script>
 
-<div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted {className}">
-	<!-- Community -->
-	{#if showCommunity}
+<div class="flex flex-row items-center gap-4 text-sm text-muted {className}">
+	<!-- Community icon -->
+	<a href={communityLink(site, postView.community)}>
+		<CommunityIcon class="h-12 w-12" community={postView.community} />
+	</a>
+
+	<div class="flex flex-col items-start gap-2">
+		<!-- Community -->
 		<div class="flex flex-row items-center gap-2">
-			<CommunityUri community={postView.community} {site} />
+			<CommunityUri showIcon={false} community={postView.community} {site} />
 
 			{#if myUser && jwt}
 				<CommunityMeatballs
@@ -48,52 +52,58 @@
 					communityId={postView.community.id}
 					on:block_community
 					on:follow_community
+					position="top-8"
 				/>
 			{/if}
 		</div>
-	{/if}
 
-	<!-- Author -->
-	<div class="flex flex-row items-center gap-2">
-		{#if showCommunity}
-			Posted by
-		{/if}
+		<!-- Author -->
+		<div class="flex flex-row flex-wrap items-center gap-2">
+			<div class="max-lg:sr-only">Posted by</div>
 
-		<PersonUri person={postView.creator} {site} {moderators} {myUser} />
-
-		{#if myUser && jwt}
-			<PersonMeatballs
-				{jwt}
+			<PersonUri
+				{moderators}
 				{myUser}
-				{personView}
-				on:block_person
-				on:error
-				on:response
-				personId={postView.creator.id}
+				{site}
+				community={postView.community}
+				person={postView.creator}
+				showIcon={false}
 			/>
-		{/if}
+
+			{#if myUser && jwt}
+				<PersonMeatballs
+					{jwt}
+					{myUser}
+					{personView}
+					on:block_person
+					on:error
+					on:response
+					personId={postView.creator.id}
+					position="top-8"
+				/>
+			{/if}
+
+			<!-- Published -->
+			<a
+				href={postLink(site, postView.post)}
+				title={dtf.format(lemmyDate(postView.post.published))}
+			>
+				{timeAgo(lemmyDate(postView.post.published))}
+			</a>
+
+			<!-- Updated -->
+			{#if postView.post.updated}
+				{@const updated = lemmyDate(postView.post.updated)}
+				<a
+					href={postLink(site, postView.post)}
+					class="flex flex-row items-center gap-2"
+					title={dtf.format(updated)}
+				>
+					<Pencil class="h-5 w-5" />
+
+					Edited {timeAgo(updated)}
+				</a>
+			{/if}
+		</div>
 	</div>
-
-	<!-- Published -->
-	<a
-		href={postLink(site, postView.post)}
-		class="flex flex-row items-center gap-2"
-		title={dtf.format(lemmyDate(postView.post.published))}
-	>
-		{timeAgo(lemmyDate(postView.post.published))}
-	</a>
-
-	<!-- Updated -->
-	{#if postView.post.updated}
-		{@const updated = lemmyDate(postView.post.updated)}
-		<a
-			href={postLink(site, postView.post)}
-			class="flex flex-row items-center gap-2"
-			title={dtf.format(updated)}
-		>
-			<Pencil class="h-5 w-5" />
-
-			Edited {timeAgo(updated)}
-		</a>
-	{/if}
 </div>

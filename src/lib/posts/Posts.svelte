@@ -23,7 +23,6 @@
 	export let myUser: MyUserInfo | undefined
 	export let personView: PersonView | undefined
 	export let postViews: PostView[]
-	export let showCommunity: boolean
 	export let site: Site
 
 	function onBlockCommunity(event: CustomEvent<BlockCommunityResponse>) {
@@ -75,7 +74,6 @@
 			{myUser}
 			{personView}
 			{postView}
-			{showCommunity}
 			{site}
 			on:block_community={onBlockCommunity}
 			on:block_person={onBlockPerson}
