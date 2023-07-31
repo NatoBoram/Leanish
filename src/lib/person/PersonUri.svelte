@@ -22,7 +22,9 @@
 			<PersonIcon {person} />
 		{/if}
 
-		<div class="hover:underline">{personUri(person)}</div>
+		<div class="truncate hover:underline">
+			{personUri(person)}
+		</div>
 	</a>
 
 	<!-- It's me! -->

@@ -59,7 +59,7 @@
 
 		<!-- Author -->
 		<div class="flex flex-row flex-wrap items-center gap-2">
-			Posted by
+			<div class="max-lg:sr-only">Posted by</div>
 
 			<PersonUri
 				{moderators}

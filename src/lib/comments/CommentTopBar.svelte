@@ -67,7 +67,7 @@
 	<!-- Published -->
 	<a
 		href={commentLink($page.url).toString()}
-		class="flex text-sm text-muted"
+		class="text-sm text-muted"
 		title={dtf.format(lemmyDate(commentView.comment.published))}
 	>
 		{timeAgo(lemmyDate(commentView.comment.published))}
