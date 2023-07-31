@@ -57,6 +57,7 @@
 			moderators={data.moderators}
 			myUser={data.my_user}
 			on:comment={onComment}
+			personView={undefined}
 			postView={data.post_view}
 			showCommunity={false}
 			site={data.site_view.site}

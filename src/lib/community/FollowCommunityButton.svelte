@@ -4,11 +4,11 @@
 	let className: string | undefined = undefined
 	export { className as class }
 
-	export let community: Promise<CommunityView>
+	export let communityView: Promise<CommunityView>
 	export let followCommunity: (follow: boolean) => Promise<void>
 </script>
 
-{#await community}
+{#await communityView}
 	<button class="rounded-full bg-surface px-4 py-2 text-on-surface {className}">Loading...</button>
 {:then response}
 	{#if response.subscribed === 'NotSubscribed'}

@@ -4,14 +4,15 @@
 		CommunityModeratorView,
 		CommunityView,
 		MyUserInfo,
+		PersonView,
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
+	import { CommunityMeatballs, CommunityUri } from '$lib/community'
 	import PersonUri from '$lib/person/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
-	import { communityLink, communityUri, postLink } from '$lib/utils/links'
-	import PostMeatballs from './PostMeatballs.svelte'
+	import { postLink } from '$lib/utils/links'
+	import PersonMeatballs from '../person/PersonMeatballs.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -20,6 +21,7 @@
 	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
+	export let personView: PersonView | undefined
 	export let postView: PostView
 	export let showCommunity: boolean
 	export let site: Site
@@ -36,10 +38,19 @@
 <div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted {className}">
 	<!-- Community -->
 	{#if showCommunity}
-		<a class="flex flex-row items-center gap-2" href={communityLink(site, postView.community)}>
-			<CommunityIcon community={postView.community} />
-			<div class="hover:underline">{communityUri(postView.community)}</div>
-		</a>
+		<div class="flex flex-row items-center gap-2">
+			<CommunityUri community={postView.community} {site} />
+
+			{#if myUser && jwt}
+				<CommunityMeatballs
+					{communityView}
+					{jwt}
+					communityId={postView.community.id}
+					on:block_community
+					on:follow_community
+				/>
+			{/if}
+		</div>
 	{/if}
 
 	<!-- Author -->
@@ -47,7 +58,20 @@
 		{#if showCommunity}
 			Posted by
 		{/if}
-		<PersonUri person={postView.creator} {site} {moderators} />
+
+		<PersonUri person={postView.creator} {site} {moderators} {myUser} />
+
+		{#if myUser && jwt}
+			<PersonMeatballs
+				{jwt}
+				{myUser}
+				{personView}
+				on:block_person
+				on:error
+				on:response
+				personId={postView.creator.id}
+			/>
+		{/if}
 	</div>
 
 	<!-- Published -->
@@ -71,10 +95,5 @@
 
 			Edited {timeAgo(updated)}
 		</a>
-	{/if}
-
-	<!-- Meatballs -->
-	{#if myUser}
-		<PostMeatballs post={postView.post} {jwt} {communityView} />
 	{/if}
 </div>

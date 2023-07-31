@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import type { CommentView, CommunityModeratorView, Site } from 'lemmy-js-client'
+	import type {
+		CommentView,
+		CommunityModeratorView,
+		MyUserInfo,
+		PersonView,
+		Site,
+	} from 'lemmy-js-client'
 	import { page } from '$app/stores'
+	import { PersonMeatballs } from '$lib/person'
 	import PersonUri from '$lib/person/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
-	import { personLink } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -13,6 +19,9 @@
 	export let commentView: CommentView
 	export let moderators: CommunityModeratorView[]
 	export let site: Site
+	export let jwt: string | undefined
+	export let myUser: MyUserInfo | undefined
+	export let personView: PersonView | undefined
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
@@ -33,9 +42,21 @@
 <!-- Author bar -->
 <div class="flex flex-row flex-wrap items-center gap-4 {className}">
 	<!-- Author -->
-	<a class="flex flex-row items-center gap-2" href={personLink(site, commentView.creator)}>
-		<PersonUri person={commentView.creator} {site} {moderators} />
-	</a>
+	<div class="flex flex-row items-center gap-2">
+		<PersonUri person={commentView.creator} {site} {moderators} {myUser} />
+
+		{#if jwt && myUser}
+			<PersonMeatballs
+				{jwt}
+				{myUser}
+				{personView}
+				on:block_person
+				on:error
+				on:response
+				personId={commentView.creator.id}
+			/>
+		{/if}
+	</div>
 
 	<!-- Published -->
 	<a
