@@ -61,14 +61,14 @@
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<CommunitySidebar
-			class="base-container w-full rounded-lg lg:order-1 lg:max-w-sm"
+			class="base-container w-full rounded-lg lg:order-1 lg:max-w-sm 2xl:max-w-md"
 			communityView={data.community_view}
 			jwt={data.jwt}
 			myUser={data.my_user}
 			siteView={data.site_view}
 		/>
 
-		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
+		<div class="flex w-full flex-col gap-4 justify-self-stretch">
 			<!-- Post form -->
 			<nav class="flex flex-row flex-wrap items-center gap-4">
 				<ListingTypeSelector type_={data.type_ ?? 'Local'} />

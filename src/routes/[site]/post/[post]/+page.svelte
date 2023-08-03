@@ -49,7 +49,7 @@
 {/if}
 
 <div class="container mx-auto mb-4 flex flex-row gap-4">
-	<main class="flex flex-col gap-4">
+	<main class="flex w-full flex-col gap-4">
 		<Post
 			allLanguages={data.all_languages}
 			communityView={data.community_view}
@@ -102,7 +102,7 @@
 	</main>
 
 	<CommunitySidebar
-		class="base-container hidden h-fit w-full rounded-lg lg:flex"
+		class="base-container hidden w-full rounded-lg lg:flex lg:max-w-sm 2xl:max-w-md"
 		communityView={data.community_view}
 		jwt={data.jwt}
 		myUser={data.my_user}
