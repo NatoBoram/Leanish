@@ -1,15 +1,11 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
-	import {
-		ChatBubbleLeft,
-		ChatBubbleLeftEllipsis,
-		Star as StarOutline,
-	} from '@natoboram/heroicons.svelte/24/outline'
-	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
+	import { ChatBubbleLeft, ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, PostView, Site } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import { getClientContext } from '$lib/contexts/client'
 	import { postLink } from '$lib/utils/links'
+	import PostMeatballs from './PostMeatballs.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -22,7 +18,6 @@
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{ comment: undefined; response: Response; error: Error }>()
 
-	let savePending = false
 	let votePending = false
 
 	async function like() {
@@ -47,25 +42,6 @@
 
 		if (response) postView = response.post_view
 		votePending = false
-		return response
-	}
-
-	async function savePost() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to save posts.'))
-
-		savePending = true
-		const response = await client
-			.savePost({
-				auth: jwt,
-				post_id: postView.post.id,
-				save: !postView.saved,
-			})
-			.catch((e: unknown) => {
-				if (e instanceof Response) dispatch('response', e)
-			})
-
-		if (response) postView = response.post_view
-		savePending = false
 		return response
 	}
 </script>
@@ -105,14 +81,23 @@
 			Reply
 		</button>
 
-		<button class="flex flex-row items-center gap-2" on:click={savePost} disabled={savePending}>
-			{#if postView.saved}
-				<StarSolid class="h-5 w-5 text-warning" />
-				Saved
-			{:else}
-				<StarOutline class="h-5 w-5" />
-				Save
-			{/if}
-		</button>
+		{#if myUser && jwt}
+			<PostMeatballs
+				{jwt}
+				{myUser}
+				{postView}
+				on:delete
+				on:edit
+				on:error
+				on:feature
+				on:lock
+				on:purge
+				on:read
+				on:remove
+				on:report
+				on:response
+				on:save
+			/>
+		{/if}
 	{/if}
 </div>

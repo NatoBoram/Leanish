@@ -25,7 +25,8 @@
 	{name}
 	{type}
 	{value}
-	class="flex flex-row items-center justify-center gap-2 px-4 py-2 {className}"
+	class:muted={disabled}
+	class="flex flex-row items-center justify-start gap-2 whitespace-nowrap px-4 py-2 {className}"
 	on:click
 >
 	<slot />

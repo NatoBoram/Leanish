@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { LockClosed, Trash } from '@natoboram/heroicons.svelte/20/solid'
+	import { LockClosed, Sparkles, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		CommentResponse,
 		CommunityModeratorView,
@@ -7,18 +7,22 @@
 		Language,
 		MyUserInfo,
 		PersonView,
+		PostResponse,
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
+	import { goto } from '$app/navigation'
 	import CommentForm from '$lib/comments/CommentForm.svelte'
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
 	import Prose from '$lib/Prose.svelte'
-	import { postLink } from '$lib/utils/links'
+	import { communityLink, postLink } from '$lib/utils/links'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
 	import PostUrl from './PostUrl.svelte'
+	import PurgePostForm from './PurgePostForm.svelte'
+	import ReportPostForm from './ReportPostForm.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -37,6 +41,11 @@
 
 	let commenting = false
 	let commentPending = false
+	let purgePending = false
+	let purging = false
+	let reporting = false
+	let reportPending = false
+
 	let botErrorMessage = ''
 	let topErrorMessage = ''
 
@@ -51,8 +60,8 @@
 				language_id: e.detail.languageId,
 				post_id: postView.post.id,
 			})
-			.catch(async (e: unknown) => {
-				if (e instanceof Response) botErrorMessage = await e.text()
+			.catch(async (e: Response) => {
+				botErrorMessage = await e.text()
 			})
 
 		if (response) {
@@ -68,12 +77,65 @@
 		botErrorMessage = event.detail.message
 	}
 
+	async function onBotResponse(event: CustomEvent<Response>) {
+		botErrorMessage = await event.detail.text()
+	}
+
 	function onTopError(event: CustomEvent<Error>) {
 		topErrorMessage = event.detail.message
 	}
 
 	async function onTopResponse(event: CustomEvent<Response>) {
 		topErrorMessage = await event.detail.text()
+	}
+
+	async function createPostReport(e: CustomEvent<string>) {
+		if (!jwt) return (botErrorMessage = 'You must be logged in to report posts.')
+		if (!e.detail) return
+
+		reportPending = true
+		const response = await client
+			.createPostReport({
+				auth: jwt,
+				post_id: postView.post.id,
+				reason: e.detail,
+			})
+			.catch(async (e: Response) => {
+				botErrorMessage = await e.text()
+			})
+
+		if (response) reporting = false
+
+		reportPending = false
+		return response
+	}
+
+	function onPostReponse(event: CustomEvent<PostResponse>) {
+		postView = event.detail.post_view
+	}
+
+	async function purgePost(event: CustomEvent<string>) {
+		if (!jwt) return (botErrorMessage = 'You must be logged in to purge posts.')
+		if (!event.detail) return
+
+		purgePending = true
+		const purged = await client
+			.purgePost({
+				auth: jwt,
+				post_id: postView.post.id,
+				reason: event.detail,
+			})
+			.catch(async (e: Response) => {
+				botErrorMessage = await e.text()
+			})
+
+		if (purged && purged.success) {
+			purging = false
+			return goto(communityLink(site, postView.community))
+		}
+
+		purgePending = false
+		return purged
 	}
 </script>
 
@@ -113,6 +175,27 @@
 		<div class="flex flex-row items-center gap-2">
 			{#if postView.post.nsfw}
 				<div class="rounded-full bg-danger px-2 py-1 text-xs text-on-danger">NSFW</div>
+			{/if}
+
+			<!-- Saved -->
+			{#if postView.saved}
+				<div title="Saved">
+					<Star class="h-5 w-5 text-warning" />
+				</div>
+			{/if}
+
+			<!-- Featured by mods -->
+			{#if postView.post.featured_community}
+				<div title="Featured">
+					<Sparkles class="h-5 w-5 text-success" />
+				</div>
+			{/if}
+
+			<!-- Featured by admins -->
+			{#if postView.post.featured_local}
+				<div title="Featured">
+					<Sparkles class="h-5 w-5 text-danger" />
+				</div>
 			{/if}
 
 			<!-- Locked -->
@@ -155,13 +238,40 @@
 		{postView}
 		{site}
 		on:comment={() => (commenting = !commenting)}
+		on:delete={onPostReponse}
 		on:error={onBotError}
+		on:feature={onPostReponse}
+		on:lock={onPostReponse}
+		on:purge={() => (purging = !purging)}
+		on:read={onPostReponse}
+		on:remove={onPostReponse}
+		on:report={() => (reporting = !reporting)}
+		on:response={onBotResponse}
+		on:save={onPostReponse}
 	/>
 
 	{#if botErrorMessage}
 		<Dismissable class="danger-container" on:dismiss={() => (botErrorMessage = '')}>
 			{botErrorMessage}
 		</Dismissable>
+	{/if}
+
+	<!-- Purge post form -->
+	{#if purging}
+		<PurgePostForm
+			disabled={purgePending}
+			on:cancel={() => (purging = !purging)}
+			on:purge={purgePost}
+		/>
+	{/if}
+
+	<!-- Report post form -->
+	{#if reporting}
+		<ReportPostForm
+			disabled={reportPending}
+			on:cancel={() => (reporting = !reporting)}
+			on:report={createPostReport}
+		/>
 	{/if}
 
 	<!-- Comment form -->

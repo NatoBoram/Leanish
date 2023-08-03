@@ -55,6 +55,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
+	<!-- Preview -->
 	{#if previewing}
 		<div class="rounded-xl bg-surface-container p-4 text-on-surface-container">
 			{#if content}
