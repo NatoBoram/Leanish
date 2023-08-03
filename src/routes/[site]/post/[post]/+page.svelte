@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CommentResponse } from 'lemmy-js-client'
+	import type { CommentNode } from '$lib/comments/comment_node'
 	import Comments from '$lib/comments/Comments.svelte'
 	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
 	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
@@ -18,22 +19,25 @@
 	}
 
 	function onNext() {
-		const first = data.comments[0]
+		const first = getFirst()
 		if (!first) return
 
 		document
-			.querySelector(`[data-comment-id="${first.comment.id}"]`)
+			.querySelector(`[data-comment-id="${first.comment.comment.id}"]`)
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
 	function onPrevious() {
-		const last = data.comments[data.comments.length - 1]
+		const last = getLast()
 		if (!last) return
 
 		document
-			.querySelector(`[data-comment-id="${last.comment.id}"]`)
+			.querySelector(`[data-comment-id="${last.comment.comment.id}"]`)
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
+
+	let getFirst: () => CommentNode | undefined
+	let getLast: () => CommentNode | undefined
 </script>
 
 <svelte:head>
@@ -82,6 +86,8 @@
 		<Comments
 			{comments}
 			allLanguages={data.all_languages}
+			bind:getFirst
+			bind:getLast
 			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}
