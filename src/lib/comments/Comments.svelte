@@ -46,6 +46,14 @@
 
 		comments = comments.filter(comment => comment.creator.id !== event.detail.person_view.person.id)
 	}
+
+	export function getFirst() {
+		return tree[0]
+	}
+
+	export function getLast() {
+		return tree[tree.length - 1]
+	}
 </script>
 
 <div class="flex flex-col gap-4 {className}">
