@@ -7,6 +7,7 @@
 		MyUserInfo,
 		PersonView,
 		Post,
+		PurgeItemResponse,
 		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
@@ -34,7 +35,10 @@
 	export let site: Site
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
+	const dispatch = createEventDispatcher<{
+		comment: CommentResponse
+		purge: { commentView: CommentView; response: PurgeItemResponse }
+	}>()
 
 	let botErrorMessage = ''
 	let editing = false
@@ -111,6 +115,7 @@
 				reported.comment_report_view.creator_banned_from_community
 			commentView.post = reported.comment_report_view.post
 
+			commentView = commentView
 			reporting = false
 			botErrorMessage = 'This comment was reported.'
 		}
@@ -191,9 +196,12 @@
 			})
 			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
 
-		if (purged && purged.success) purging = false
-		purgePending = false
+		if (purged && purged.success) {
+			purging = false
+			dispatch('purge', { commentView, response: purged })
+		}
 
+		purgePending = false
 		return purged
 	}
 
@@ -326,6 +334,7 @@
 				children={child.children}
 				commentView={child.comment}
 				on:comment
+				on:purge
 			/>
 		{/each}
 

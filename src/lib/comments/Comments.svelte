@@ -6,6 +6,7 @@
 		Language,
 		MyUserInfo,
 		Post,
+		PurgeItemResponse,
 		Site,
 	} from 'lemmy-js-client'
 	import { CommentNode as CommentNodeSvelte } from '$lib/comments'
@@ -15,7 +16,7 @@
 	export { className as class }
 
 	export let allLanguages: Language[]
-	export let comments: CommentView[]
+	export let commentViews: CommentView[]
 	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
@@ -24,7 +25,7 @@
 
 	let tree: CommentNode[]
 	$: {
-		const nodes: CommentNode[] = comments.map(c => ({ comment: c, children: [] }))
+		const nodes: CommentNode[] = commentViews.map(c => ({ comment: c, children: [] }))
 
 		// flat_path = "0.123.456"
 		// node_path = "0.123"
@@ -44,7 +45,9 @@
 	function onBlockPerson(event: CustomEvent<BlockPersonResponse>) {
 		if (!event.detail.blocked) return
 
-		comments = comments.filter(comment => comment.creator.id !== event.detail.person_view.person.id)
+		commentViews = commentViews.filter(
+			comment => comment.creator.id !== event.detail.person_view.person.id,
+		)
 	}
 
 	export function getFirst() {
@@ -53,6 +56,16 @@
 
 	export function getLast() {
 		return tree[tree.length - 1]
+	}
+
+	export function onPurge(
+		event: CustomEvent<{ commentView: CommentView; response: PurgeItemResponse }>,
+	) {
+		if (!event.detail.response.success) return
+
+		commentViews = commentViews.filter(
+			view => view.comment.id !== event.detail.commentView.comment.id,
+		)
 	}
 </script>
 
@@ -69,6 +82,7 @@
 			commentView={node.comment}
 			on:block_person={onBlockPerson}
 			on:comment
+			on:purge={onPurge}
 			personView={undefined}
 		/>
 	{/each}

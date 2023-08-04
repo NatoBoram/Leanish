@@ -45,11 +45,11 @@
 		return removed
 	}
 
-	function onClick(comment: Comment) {
+	async function onClick(comment: Comment) {
 		if (comment.removed) {
-			removeComment()
+			return removeComment()
 		} else {
-			dispatch('remove')
+			return dispatch('remove')
 		}
 	}
 </script>

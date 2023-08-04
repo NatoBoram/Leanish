@@ -43,8 +43,8 @@
 		opened = false
 	}
 
-	function clickCopy() {
-		navigator.clipboard.writeText(commentView.comment.content)
+	async function clickCopy() {
+		await navigator.clipboard.writeText(commentView.comment.content)
 		opened = false
 	}
 </script>
