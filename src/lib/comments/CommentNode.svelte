@@ -14,8 +14,11 @@
 	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments'
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
+	import ReportForm from '$lib/posts/ReportPostForm.svelte'
 	import Prose from '$lib/Prose.svelte'
 	import type { CommentNode } from './comment_node'
+	import PurgeCommentForm from './PurgeCommentForm.svelte'
+	import RemoveCommentForm from './RemoveCommentForm.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -36,8 +39,14 @@
 	let botErrorMessage = ''
 	let editing = false
 	let editPending = false
+	let purgePending = false
+	let purging = false
+	let removePending = false
+	let removing = false
 	let replying = false
 	let replyPending = false
+	let reporting = false
+	let reportPending = false
 	let topErrorMessage = ''
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
@@ -77,6 +86,37 @@
 			count += 1 + countAllChildren(child.children)
 		}
 		return count
+	}
+
+	async function createCommentReport(e: CustomEvent<string>) {
+		if (!jwt) return (botErrorMessage = 'You must be logged in to report comments.')
+
+		reportPending = true
+		const reported = await client
+			.createCommentReport({
+				auth: jwt,
+				comment_id: commentView.comment.id,
+				reason: e.detail,
+			})
+			.catch(async (e: Response) => {
+				botErrorMessage = await e.text()
+			})
+
+		if (reported) {
+			commentView.comment = reported.comment_report_view.comment
+			commentView.community = reported.comment_report_view.community
+			commentView.counts = reported.comment_report_view.counts
+			commentView.creator = reported.comment_report_view.creator
+			commentView.creator_banned_from_community =
+				reported.comment_report_view.creator_banned_from_community
+			commentView.post = reported.comment_report_view.post
+
+			reporting = false
+			botErrorMessage = 'This comment was reported.'
+		}
+
+		reportPending = false
+		return reported
 	}
 
 	async function editComment(e: CustomEvent<{ content: string; languageId: number }>) {
@@ -126,6 +166,59 @@
 	async function onTopResponse(e: CustomEvent<Response>) {
 		return (topErrorMessage = await e.detail.text())
 	}
+
+	function onCommentResponse(e: CustomEvent<CommentResponse>) {
+		commentView = e.detail.comment_view
+	}
+
+	function toggleReport() {
+		return (reporting = !reporting)
+	}
+
+	function togglePurge() {
+		return (purging = !purging)
+	}
+
+	async function purgeComment(e: CustomEvent<string>) {
+		if (!jwt) return (botErrorMessage = 'You must be logged in to purge comments.')
+
+		purgePending = true
+		const purged = await client
+			.purgeComment({
+				auth: jwt,
+				comment_id: commentView.comment.id,
+				reason: e.detail,
+			})
+			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
+
+		if (purged && purged.success) purging = false
+		purgePending = false
+
+		return purged
+	}
+
+	function toggleRemove() {
+		return (removing = !removing)
+	}
+
+	async function removeComment(e: CustomEvent<string>) {
+		if (!jwt) return (botErrorMessage = 'You must be logged in to remove comments.')
+
+		removePending = true
+		const removed = await client
+			.removeComment({
+				auth: jwt,
+				comment_id: commentView.comment.id,
+				reason: e.detail,
+				removed: !commentView.comment.removed,
+			})
+			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
+
+		if (removed) commentView = removed.comment_view
+		removePending = false
+
+		return removed
+	}
 </script>
 
 <div class="flex flex-col gap-4 {className}" data-comment-id={commentView.comment.id}>
@@ -170,10 +263,17 @@
 		{jwt}
 		{myUser}
 		{post}
+		on:delete={onCommentResponse}
+		on:distinguish={onCommentResponse}
 		on:edit={toggleEditing}
 		on:error={onBotError}
+		on:purge={togglePurge}
+		on:remove={toggleRemove}
 		on:reply={toggleReplying}
+		on:report={toggleReport}
 		on:response={onBotResponse}
+		on:restore={onCommentResponse}
+		on:save={onCommentResponse}
 	/>
 
 	{#if botErrorMessage}
@@ -182,6 +282,26 @@
 		</Dismissable>
 	{/if}
 
+	<!-- Purging -->
+	{#if purging && myUser}
+		<PurgeCommentForm on:cancel={togglePurge} on:purge={purgeComment} disabled={purgePending} />
+	{/if}
+
+	<!-- Removing -->
+	{#if removing && myUser}
+		<RemoveCommentForm
+			on:cancel={toggleRemove}
+			on:remove={removeComment}
+			disabled={removePending}
+		/>
+	{/if}
+
+	<!-- Reporting -->
+	{#if reporting && myUser}
+		<ReportForm on:cancel={toggleReport} on:report={createCommentReport} disabled={reportPending} />
+	{/if}
+
+	<!-- Replying -->
 	{#if replying && myUser}
 		<CommentForm
 			{allLanguages}
