@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { Sparkles as SparklesOutline } from '@natoboram/heroicons.svelte/24/outline'
-	import { Sparkles as SparklesSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { PostFeatureType, PostResponse, PostView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import { getClientContext } from '$lib/contexts/client'
 	import Spinner from '$lib/Spinner.svelte'
+	import { PushPin, PushPinFill } from '$lib/svg'
 	import MeatballButton from './MeatballButton.svelte'
 
 	let className: string | undefined = undefined
@@ -76,11 +75,11 @@
 		Featuring to {type}...
 	{:else if featuredValue(postView, type)}
 		<div class:text-success={type === 'Community'} class:text-danger={type === 'Local'}>
-			<SparklesSolid class="h-5 w-5" />
+			<PushPinFill class="h-5 w-5" />
 		</div>
 		Featured ({type})
 	{:else}
-		<SparklesOutline class="h-5 w-5" />
+		<PushPin class="h-5 w-5" />
 		Feature ({type})
 	{/if}
 </MeatballButton>
