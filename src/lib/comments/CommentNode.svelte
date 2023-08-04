@@ -335,6 +335,7 @@
 				commentView={child.comment}
 				on:comment
 				on:purge
+				personView={undefined}
 			/>
 		{/each}
 
