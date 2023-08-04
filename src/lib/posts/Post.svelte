@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { LockClosed, Sparkles, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
+	import { LockClosed, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		CommentResponse,
 		CommunityModeratorView,
@@ -17,6 +17,7 @@
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
 	import Prose from '$lib/Prose.svelte'
+	import { PushPinFill } from '$lib/svg'
 	import { communityLink, postLink } from '$lib/utils/links'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
@@ -187,14 +188,14 @@
 			<!-- Featured by mods -->
 			{#if postView.post.featured_community}
 				<div title="Featured">
-					<Sparkles class="h-5 w-5 text-success" />
+					<PushPinFill class="h-5 w-5 text-success" />
 				</div>
 			{/if}
 
 			<!-- Featured by admins -->
 			{#if postView.post.featured_local}
 				<div title="Featured">
-					<Sparkles class="h-5 w-5 text-danger" />
+					<PushPinFill class="h-5 w-5 text-danger" />
 				</div>
 			{/if}
 
