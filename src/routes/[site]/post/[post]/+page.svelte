@@ -84,7 +84,7 @@
 		{/if}
 
 		<Comments
-			{comments}
+			commentViews={comments}
 			allLanguages={data.all_languages}
 			bind:getFirst
 			bind:getLast

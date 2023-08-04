@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
-	import {
-		ChatBubbleLeftEllipsis,
-		Pencil,
-		Star as StarOutline,
-		Trash as TrashOutline,
-	} from '@natoboram/heroicons.svelte/24/outline'
-	import { Star as StarSolid, Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
+	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import type { CommentView, MyUserInfo, Post } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import { getClientContext } from '$lib/contexts/client'
+	import CommentMeatballs from './CommentMeatballs.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -20,7 +15,6 @@
 	export let post: Post
 
 	const dispatch = createEventDispatcher<{
-		edit: undefined
 		error: Error
 		reply: undefined
 		response: Response
@@ -29,7 +23,6 @@
 	const client = getClientContext()
 
 	let votePending = false
-	let savePending = false
 
 	async function like() {
 		const score = (commentView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -58,42 +51,6 @@
 
 		if (response) commentView = response.comment_view
 		votePending = false
-		return response
-	}
-
-	async function clickSave() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to save comments.'))
-
-		savePending = true
-		const response = await client
-			.saveComment({
-				auth: jwt,
-				comment_id: commentView.comment.id,
-				save: !commentView.saved,
-			})
-			.catch((e: unknown) => {
-				if (e instanceof Response) dispatch('response', e)
-			})
-
-		if (response) commentView = response.comment_view
-		savePending = false
-		return commentView
-	}
-
-	async function deleteComment() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to delete comments.'))
-
-		const response = await client
-			.deleteComment({
-				auth: jwt,
-				comment_id: commentView.comment.id,
-				deleted: !commentView.comment.deleted,
-			})
-			.catch((e: unknown) => {
-				if (e instanceof Response) dispatch('response', e)
-			})
-
-		if (response) commentView = response.comment_view
 		return response
 	}
 </script>
@@ -129,33 +86,25 @@
 		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('reply')}>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" /> Reply
 		</button>
-
-		<button class="flex flex-row items-center gap-2" on:click={clickSave} disabled={savePending}>
-			{#if commentView.saved}
-				<StarSolid class="h-5 w-5 text-warning" /> Saved
-			{:else}
-				<StarOutline class="h-5 w-5" /> Save
-			{/if}
-		</button>
 	{/if}
 
-	<!-- Edit button -->
-	{#if myUser?.local_user_view.person.id === commentView.creator.id}
-		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('edit')}>
-			<Pencil class="h-5 w-5" /> Edit
-		</button>
-	{/if}
-
-	<!-- Delete button -->
-	{#if myUser?.local_user_view.person.id === commentView.creator.id}
-		{#if commentView.comment.deleted}
-			<button class="flex flex-row items-center gap-2" on:click={deleteComment}>
-				<TrashSolid class="h-5 w-5" /> Deleted
-			</button>
-		{:else}
-			<button class="flex flex-row items-center gap-2" on:click={deleteComment}>
-				<TrashOutline class="h-5 w-5" /> Delete
-			</button>
-		{/if}
+	<!-- Meatballs -->
+	{#if myUser && jwt}
+		<CommentMeatballs
+			{commentView}
+			{jwt}
+			{myUser}
+			{post}
+			on:delete
+			on:distinguish
+			on:edit
+			on:error
+			on:purge
+			on:remove
+			on:report
+			on:response
+			on:restore
+			on:save
+		/>
 	{/if}
 </div>
