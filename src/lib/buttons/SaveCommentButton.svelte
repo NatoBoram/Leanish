@@ -23,7 +23,7 @@
 	let savePending = false
 
 	async function saveComment() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to save posts.'))
+		if (!jwt) return dispatch('error', new Error('You must be logged in to save comments.'))
 		if (savePending) return
 
 		savePending = true

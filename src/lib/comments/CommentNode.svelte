@@ -291,12 +291,12 @@
 	{/if}
 
 	<!-- Purging -->
-	{#if purging && myUser}
+	{#if purging}
 		<PurgeCommentForm on:cancel={togglePurge} on:purge={purgeComment} disabled={purgePending} />
 	{/if}
 
 	<!-- Removing -->
-	{#if removing && myUser}
+	{#if removing}
 		<RemoveCommentForm
 			on:cancel={toggleRemove}
 			on:remove={removeComment}
@@ -305,7 +305,7 @@
 	{/if}
 
 	<!-- Reporting -->
-	{#if reporting && myUser}
+	{#if reporting}
 		<ReportForm on:cancel={toggleReport} on:report={createCommentReport} disabled={reportPending} />
 	{/if}
 
