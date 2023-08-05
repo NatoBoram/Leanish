@@ -6,7 +6,6 @@
 		Language,
 		MyUserInfo,
 		PersonView,
-		Post,
 		PurgeItemResponse,
 		Site,
 	} from 'lemmy-js-client'
@@ -31,7 +30,6 @@
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
 	export let personView: PersonView | undefined
-	export let post: Post
 	export let site: Site
 
 	const client = getClientContext()
@@ -63,7 +61,7 @@
 				content: e.detail.content,
 				language_id: e.detail.languageId,
 				parent_id: commentView.comment.id,
-				post_id: post.id,
+				post_id: commentView.post.id,
 			})
 			.catch(async (e: unknown) => {
 				if (e instanceof Response) botErrorMessage = await e.text()
@@ -270,7 +268,6 @@
 		{commentView}
 		{jwt}
 		{myUser}
-		{post}
 		on:delete={onCommentResponse}
 		on:distinguish={onCommentResponse}
 		on:edit={toggleEditing}
@@ -329,7 +326,6 @@
 				{jwt}
 				{moderators}
 				{myUser}
-				{post}
 				{site}
 				children={child.children}
 				commentView={child.comment}

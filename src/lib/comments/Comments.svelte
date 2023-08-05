@@ -5,7 +5,6 @@
 		CommunityModeratorView,
 		Language,
 		MyUserInfo,
-		Post,
 		PurgeItemResponse,
 		Site,
 	} from 'lemmy-js-client'
@@ -20,7 +19,6 @@
 	export let jwt: string | undefined
 	export let moderators: CommunityModeratorView[]
 	export let myUser: MyUserInfo | undefined
-	export let post: Post
 	export let site: Site
 
 	let tree: CommentNode[]
@@ -76,7 +74,6 @@
 			{jwt}
 			{moderators}
 			{myUser}
-			{post}
 			{site}
 			children={node.children}
 			commentView={node.comment}

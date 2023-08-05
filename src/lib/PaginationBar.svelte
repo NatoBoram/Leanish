@@ -96,12 +96,12 @@
 
 		<!-- Previous -->
 		{#if hasPrevious($page.url)}
-			<FlatButton class="base-container w-28 rounded-lg" on:click={() => previous($page.url)}>
+			<FlatButton class="base-container w-32 rounded-lg" on:click={() => previous($page.url)}>
 				<ChevronLeft />
 				Previous
 			</FlatButton>
 		{:else}
-			<FlatButton disabled={true} class="muted w-28 rounded-lg">
+			<FlatButton disabled={true} class="muted w-32 rounded-lg">
 				<ChevronLeft />
 				Previous
 			</FlatButton>

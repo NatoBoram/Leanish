@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
-	import type { CommentView, MyUserInfo, Post } from 'lemmy-js-client'
+	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import { getClientContext } from '$lib/contexts/client'
 	import CommentMeatballs from './CommentMeatballs.svelte'
@@ -12,7 +12,6 @@
 	export let commentView: CommentView
 	export let jwt: string | undefined
 	export let myUser: MyUserInfo | undefined
-	export let post: Post
 
 	const dispatch = createEventDispatcher<{
 		error: Error
@@ -82,7 +81,7 @@
 	</div>
 
 	<!-- Reply button -->
-	{#if myUser && !post.locked}
+	{#if myUser && !commentView.post.locked}
 		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('reply')}>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" /> Reply
 		</button>
@@ -94,7 +93,6 @@
 			{commentView}
 			{jwt}
 			{myUser}
-			{post}
 			on:delete
 			on:distinguish
 			on:edit

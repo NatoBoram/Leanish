@@ -49,6 +49,9 @@
 
 			<!-- Communities -->
 			<a href="{base}/{siteHostname(data.site_view.site)}/communities"> Communities </a>
+
+			<!-- Search -->
+			<a href="{base}/{siteHostname(data.site_view.site)}/search"> Search </a>
 		</div>
 
 		<div class="flex flex-col items-center gap-4 text-base text-on-base sm:flex-row">
