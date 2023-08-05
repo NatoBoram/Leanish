@@ -9,8 +9,12 @@
 	import { page } from '$app/stores'
 	import FlatButton from './buttons/FlatButton.svelte'
 
+	let className: string | undefined = undefined
+	export { className as class }
+
 	export let length: number
 	export let limit: number
+	export let nav: HTMLElement | undefined = undefined
 
 	const dispatch = createEventDispatcher<{ previous: number; next: number; first: 1 }>()
 	let input: HTMLInputElement
@@ -79,7 +83,10 @@
 	}
 </script>
 
-<nav class="grid w-full grid-cols-2 items-center justify-between gap-4 sm:grid-cols-3">
+<nav
+	bind:this={nav}
+	class="grid w-full grid-cols-2 items-center justify-between gap-4 sm:grid-cols-3 {className}"
+>
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
 		{#if canFirst($page.url)}

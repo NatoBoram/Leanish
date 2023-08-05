@@ -13,7 +13,23 @@
 
 	export let data: PageData
 
-	$: length = data.comments.length + data.communities.length + data.posts.length + data.users.length
+	$: length = Math.max(
+		data.comments.length,
+		data.communities.length,
+		data.posts.length,
+		data.users.length,
+	)
+
+	let paginationBarTop: HTMLElement
+	let paginationBarBot: HTMLElement
+
+	function onNext() {
+		paginationBarTop?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+	}
+
+	function onPrevious() {
+		paginationBarBot?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+	}
 
 	function onBlock(event: CustomEvent<BlockCommunityResponse>) {
 		const index = data.communities.findIndex(
@@ -43,7 +59,6 @@
 
 <div class="container mx-auto mb-4">
 	<div class="flex flex-col gap-4">
-		<!-- Post form -->
 		<nav class="flex flex-row flex-wrap items-center gap-4">
 			<SearchTypeSelector type_={data.type_} name="type_" />
 			<ListingTypeSelector type_={data.listing_type ?? 'Local'} name="listing_type" />
@@ -56,10 +71,11 @@
 		{#if length || data.page}
 			<PaginationBar
 				{length}
+				bind:nav={paginationBarTop}
 				limit={data.limit ?? 10}
-				on:next={() => {}}
-				on:previous={() => {}}
-				on:first={() => {}}
+				on:first={onNext}
+				on:next={onNext}
+				on:previous={onPrevious}
 			/>
 		{/if}
 
@@ -114,10 +130,11 @@
 		{#if length || data.page}
 			<PaginationBar
 				{length}
+				bind:nav={paginationBarBot}
 				limit={data.limit ?? 10}
-				on:next={() => {}}
-				on:previous={() => {}}
-				on:first={() => {}}
+				on:first={onNext}
+				on:next={onNext}
+				on:previous={onPrevious}
 			/>
 		{/if}
 	</div>
