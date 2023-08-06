@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { BlockCommunityResponse, CommentResponse, CommunityResponse } from 'lemmy-js-client'
 	import { Comments } from '$lib/comments'
+	import { buildCommentTree } from '$lib/comments/comment_tree'
 	import { CommunityGrid } from '$lib/community'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
@@ -13,6 +14,8 @@
 	import type { PageData } from './$types'
 
 	export let data: PageData
+
+	$: tree = buildCommentTree(data.comments)
 
 	$: length = Math.max(
 		data.comments.length,
@@ -122,8 +125,8 @@
 			<h2 class="text-xl font-semibold">Comments</h2>
 
 			<Comments
+				{tree}
 				allLanguages={data.all_languages}
-				commentViews={data.comments}
 				jwt={data.jwt}
 				moderators={[]}
 				myUser={data.my_user}
