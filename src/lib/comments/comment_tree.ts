@@ -1,7 +1,7 @@
-import type { CommentView } from 'lemmy-js-client'
+import type { CommentId, CommentView } from 'lemmy-js-client'
 import type { CommentNode } from './comment_node'
 
-export function buildCommentTree(commentViews: CommentView[]) {
+export function buildCommentTree(commentViews: CommentView[], parentId: CommentId | undefined) {
 	const nodes: CommentNode[] = commentViews.map(c => ({ comment: c, children: [] }))
 	const tree = []
 
@@ -15,7 +15,12 @@ export function buildCommentTree(commentViews: CommentView[]) {
 		)
 
 		if (node) node.children.push(flat)
-		else tree.push(flat)
+		else if (
+			parentId === undefined ||
+			flat.comment.comment.path === `0.${flat.comment.comment.id}` ||
+			flat.comment.comment.path.endsWith(`.${parentId}`)
+		)
+			tree.push(flat)
 	}
 
 	return tree

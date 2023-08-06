@@ -18,7 +18,7 @@
 
 	export let data: PageData
 
-	$: tree = buildCommentTree(data.comments)
+	$: tree = buildCommentTree(data.comments, data.parent_id ?? 0)
 
 	function onComment(e: CustomEvent<CommentResponse>) {
 		data.comments.unshift(e.detail.comment_view)
