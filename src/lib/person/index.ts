@@ -1,4 +1,6 @@
 export { default as BlockPersonButton } from './BlockPersonButton.svelte'
+export { default as PersonCard } from './PersonCard.svelte'
+export { default as PersonGrid } from './PersonGrid.svelte'
 export { default as PersonIcon } from './PersonIcon.svelte'
 export { default as PersonMeatballs } from './PersonMeatballs.svelte'
 export { default as PersonSidebar } from './PersonSidebar.svelte'

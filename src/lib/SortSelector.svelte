@@ -36,23 +36,23 @@
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
 	on:change={() => debounceChangeSort($page.url)}
 >
-	<option disabled={true} aria-hidden="true" value={undefined}>Sort type</option>
+	<option disabled={true} aria-hidden={true} value={undefined}>Sort type</option>
 	<option value="Active">Active</option>
 	<option value="Hot">Hot</option>
 	<option value="New">New</option>
 	<option value="Old">Old</option>
-	<option value="MostComments">MostComments</option>
-	<option value="NewComments">NewComments</option>
-	<option disabled={true} aria-hidden="true" value={undefined}>─────</option>
-	<option value="TopHour">TopHour</option>
-	<option value="TopSixHour">TopSixHour</option>
-	<option value="TopTwelveHour">TopTwelveHour</option>
-	<option value="TopDay">TopDay</option>
-	<option value="TopWeek">TopWeek</option>
-	<option value="TopMonth">TopMonth</option>
-	<option value="TopThreeMonths">TopThreeMonths</option>
-	<option value="TopSixMonths">TopSixMonths</option>
-	<option value="TopNineMonths">TopNineMonths</option>
-	<option value="TopYear">TopYear</option>
-	<option value="TopAll">TopAll</option>
+	<option value="MostComments">Most Comments</option>
+	<option value="NewComments">New Comments</option>
+	<option disabled={true} aria-hidden={true} value={undefined}>─────</option>
+	<option value="TopHour">Top Hour</option>
+	<option value="TopSixHour">Top Six Hour</option>
+	<option value="TopTwelveHour">Top Twelve Hour</option>
+	<option value="TopDay">Top Day</option>
+	<option value="TopWeek">Top Week</option>
+	<option value="TopMonth">Top Month</option>
+	<option value="TopThreeMonths">Top Three Months</option>
+	<option value="TopSixMonths">Top Six Months</option>
+	<option value="TopNineMonths">Top Nine Months</option>
+	<option value="TopYear">Top Year</option>
+	<option value="TopAll">Top All</option>
 </select>

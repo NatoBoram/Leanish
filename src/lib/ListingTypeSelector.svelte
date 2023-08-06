@@ -4,12 +4,13 @@
 	import { page } from '$app/stores'
 
 	async function clickListingType(url: URL, type_: ListingType) {
-		url.searchParams.set('type_', type_)
+		url.searchParams.set(name, type_)
 		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
 	}
 
 	export let type_: ListingType = 'Local'
+	export let name = 'type_'
 </script>
 
 <div class="flex flex-row">

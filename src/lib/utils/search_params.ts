@@ -9,9 +9,12 @@ import type {
 	ListCommunities,
 	ListingType,
 	MyUserInfo,
+	PersonId,
+	Search,
+	SearchType,
 	SortType,
 } from 'lemmy-js-client'
-import { isCommentSortType, isListingType, isSortType } from './guards'
+import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards'
 
 export function formGetComments(
 	cookies: { jwt: string | undefined },
@@ -79,6 +82,25 @@ export function formListCommunities(
 	setShowNsfw(form, url, data.my_user)
 	setSort(form, url, data.my_user)
 	setType(form, url, data.my_user)
+
+	return form
+}
+
+export function formSearch(
+	cookies: { jwt: string | undefined },
+	data: { my_user?: MyUserInfo | undefined },
+	url: URL,
+	form: Search,
+): Search {
+	setAuth(form, cookies)
+	setCommunityId(form, url)
+	setCommunityName(form, url)
+	setCreatorId(form, url)
+	setLimit(form, url)
+	setListingType(form, url, data.my_user)
+	setPage(form, url)
+	setSearchType(form, url)
+	setSort(form, url, data.my_user)
 
 	return form
 }
@@ -255,6 +277,46 @@ export function setType<T extends { type_?: ListingType }>(
 
 	if (!type_) return form
 	if (!isListingType(type_)) throw error(400, `Invalid type_: ${type_}`)
+
+	form.type_ = type_
+	return form
+}
+
+export function setListingType<T extends { listing_type?: ListingType }>(
+	form: T,
+	url: URL,
+	my_user?: MyUserInfo | undefined,
+): T {
+	if (form.listing_type) return form
+	const listing_type =
+		url.searchParams.get('listing_type') ??
+		my_user?.local_user_view.local_user.default_listing_type ??
+		('Local' satisfies ListingType)
+
+	if (!listing_type) return form
+	if (!isListingType(listing_type)) throw error(400, `Invalid listing_type: ${listing_type}`)
+
+	form.listing_type = listing_type
+	return form
+}
+
+export function setCreatorId<T extends { creator_id?: PersonId }>(form: T, url: URL): T {
+	if (form.creator_id) return form
+	const creator_id = url.searchParams.get('creator_id')
+	if (!creator_id) return form
+
+	const number = Number(creator_id)
+	if (isNaN(number)) throw error(400, 'Invalid creator_id')
+	form.creator_id = number
+	return form
+}
+
+export function setSearchType<T extends { type_?: SearchType }>(form: T, url: URL): T {
+	if (form.type_) return form
+	const type_ = url.searchParams.get('type_')
+	if (!type_) return form
+
+	if (!isSearchType(type_)) throw error(400, `Invalid type_: ${type_}`)
 
 	form.type_ = type_
 	return form

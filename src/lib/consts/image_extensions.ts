@@ -15,4 +15,4 @@ export const imageExtensions = [
 	'.tif',
 	'.tiff',
 	'.webp',
-]
+] as const

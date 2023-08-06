@@ -1,4 +1,4 @@
-import type { CommentSortType, ListingType, SortType } from 'lemmy-js-client'
+import type { CommentSortType, ListingType, SearchType, SortType } from 'lemmy-js-client'
 
 export function isListingType(type: unknown): type is ListingType {
 	switch (type) {
@@ -42,6 +42,20 @@ export function isCommentSortType(sort: unknown): sort is CommentSortType {
 		case 'New' satisfies CommentSortType:
 		case 'Old' satisfies CommentSortType:
 		case 'Top' satisfies CommentSortType:
+			return true
+		default:
+			return false
+	}
+}
+
+export function isSearchType(type: unknown): type is SearchType {
+	switch (type) {
+		case 'All' satisfies SearchType:
+		case 'Comments' satisfies SearchType:
+		case 'Communities' satisfies SearchType:
+		case 'Posts' satisfies SearchType:
+		case 'Url' satisfies SearchType:
+		case 'Users' satisfies SearchType:
 			return true
 		default:
 			return false

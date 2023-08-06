@@ -13,4 +13,4 @@ export const markedOptions = {
 	smartypants: false,
 	xhtml: true,
 	highlight: (code, lang) => (lang && hljs.highlight(code, { language: lang }).value) || code,
-} satisfies MarkedOptions
+} as const satisfies MarkedOptions

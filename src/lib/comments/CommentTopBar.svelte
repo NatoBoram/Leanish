@@ -8,10 +8,12 @@
 		PersonView,
 		Site,
 	} from 'lemmy-js-client'
+	import { base } from '$app/paths'
 	import { page } from '$app/stores'
 	import { PersonMeatballs } from '$lib/person'
 	import PersonUri from '$lib/person/PersonUri.svelte'
 	import { lemmyDate, timeAgo } from '$lib/utils/dates'
+	import { siteHostname } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -25,6 +27,13 @@
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
+
+		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
+		if (clone.pathname !== pathname) {
+			clone.pathname = pathname
+			clone.search = ''
+		}
+
 		clone.searchParams.set('parent_id', commentView.comment.id.toString())
 		clone.searchParams.delete('page')
 		return clone

@@ -92,7 +92,6 @@
 			moderators={data.moderators}
 			myUser={data.my_user}
 			on:comment={onComment}
-			post={data.post_view.post}
 			site={data.site_view.site}
 		/>
 

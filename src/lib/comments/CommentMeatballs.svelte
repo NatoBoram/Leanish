@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { DocumentDuplicate, Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { CommentView, MyUserInfo, Post } from 'lemmy-js-client'
+	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import DeleteCommentButton from '$lib/buttons/DeleteCommentButton.svelte'
 	import DistinguishButton from '$lib/buttons/DistinguishButton.svelte'
@@ -16,7 +16,6 @@
 	export let jwt: string
 	export let myUser: MyUserInfo
 	export let position: string = 'left-8 -top-4'
-	export let post: Post
 	export let commentView: CommentView
 
 	const dispatch = createEventDispatcher<{
@@ -31,7 +30,7 @@
 		opened = !opened
 	}
 
-	$: moderator = myUser.moderates.some(m => m.community.id === post.community_id)
+	$: moderator = myUser.moderates.some(m => m.community.id === commentView.post.community_id)
 
 	function clickReport() {
 		dispatch('report')
