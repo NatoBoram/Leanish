@@ -1,6 +1,13 @@
 <script lang="ts">
-	import type { CommentResponse } from 'lemmy-js-client'
-	import type { CommentNode } from '$lib/comments/comment_node'
+	import { ArrowLongRight } from '@natoboram/heroicons.svelte/20/solid'
+	import type {
+		BlockPersonResponse,
+		CommentResponse,
+		CommentView,
+		PurgeItemResponse,
+	} from 'lemmy-js-client'
+	import { page } from '$app/stores'
+	import { buildCommentTree } from '$lib/comments/comment_tree'
 	import Comments from '$lib/comments/Comments.svelte'
 	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
 	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
@@ -11,15 +18,15 @@
 
 	export let data: PageData
 
-	$: comments = data.comments
+	$: tree = buildCommentTree(data.comments)
 
 	function onComment(e: CustomEvent<CommentResponse>) {
 		data.comments.unshift(e.detail.comment_view)
-		comments = data.comments
+		data = data
 	}
 
 	function onNext() {
-		const first = getFirst()
+		const first = tree[0]
 		if (!first) return
 
 		document
@@ -28,7 +35,7 @@
 	}
 
 	function onPrevious() {
-		const last = getLast()
+		const last = tree[tree.length - 1]
 		if (!last) return
 
 		document
@@ -36,8 +43,61 @@
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
-	let getFirst: () => CommentNode | undefined
-	let getLast: () => CommentNode | undefined
+	function onBlockPerson(event: CustomEvent<BlockPersonResponse>) {
+		if (!event.detail.blocked) return
+
+		data.comments = data.comments.filter(
+			comment => comment.creator.id !== event.detail.person_view.person.id,
+		)
+		data = data
+	}
+
+	export function onPurge(
+		event: CustomEvent<{ commentView: CommentView; response: PurgeItemResponse }>,
+	) {
+		if (!event.detail.response.success) return
+
+		data.comments = data.comments.filter(
+			view => view.comment.id !== event.detail.commentView.comment.id,
+		)
+		data = data
+	}
+
+	function hasContext(parentId: number | undefined) {
+		if (!parentId) return false
+
+		const first = tree[0]
+		if (!first) return false
+
+		return first.comment.comment.path !== `0.${first.comment.comment.id}`
+	}
+
+	function parentLink(url: URL) {
+		const first = tree[0]
+		if (!first) return
+
+		const paths = first.comment.comment.path.split('.')
+		if (paths.length < 3) return
+
+		// Remove 0 and itself
+		paths.shift()
+		paths.pop()
+
+		const id = paths.pop()
+		if (!id) return
+
+		const clone = new URL(url.href)
+		clone.searchParams.set('parent_id', id)
+		clone.searchParams.delete('page')
+		return clone.toString()
+	}
+
+	function postLink(url: URL) {
+		const clone = new URL(url.href)
+		clone.searchParams.delete('parent_id')
+		clone.searchParams.delete('page')
+		return clone.toString()
+	}
 </script>
 
 <svelte:head>
@@ -72,10 +132,33 @@
 			<CommentSortSelector sort={data.sort ?? 'Hot'} />
 		</nav>
 
+		<!-- View context button -->
+		{#if data.parent_id}
+			You are viewing a single comment thread.
+
+			<a
+				class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
+				href={postLink($page.url)}
+			>
+				View all comments
+				<ArrowLongRight />
+			</a>
+
+			{#if hasContext(data.parent_id)}
+				<a
+					class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
+					href={parentLink($page.url)}
+				>
+					Show context
+					<ArrowLongRight />
+				</a>
+			{/if}
+		{/if}
+
 		{#if data.comments.length || data.page}
 			<!-- Comments -->
 			<PaginationBar
-				length={comments.length}
+				length={data.comments.length}
 				limit={data.limit ?? 50}
 				on:next={onNext}
 				on:previous={onPrevious}
@@ -84,20 +167,20 @@
 		{/if}
 
 		<Comments
-			commentViews={comments}
+			{tree}
 			allLanguages={data.all_languages}
-			bind:getFirst
-			bind:getLast
 			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}
+			on:block_person={onBlockPerson}
 			on:comment={onComment}
+			on:purge={onPurge}
 			site={data.site_view.site}
 		/>
 
 		{#if data.comments.length || data.page}
 			<PaginationBar
-				length={comments.length}
+				length={data.comments.length}
 				limit={data.limit ?? 50}
 				on:next={onNext}
 				on:previous={onPrevious}
