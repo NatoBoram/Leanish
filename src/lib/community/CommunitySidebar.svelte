@@ -10,7 +10,7 @@
 
 	export let communityView: CommunityView
 	export let jwt: string | undefined
-	export let myUser: MyUserInfo | null | undefined
+	export let myUser: MyUserInfo | undefined
 	export let siteView: SiteView
 </script>
 

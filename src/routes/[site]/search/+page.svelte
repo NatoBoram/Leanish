@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { BlockCommunityResponse, CommentResponse, CommunityResponse } from 'lemmy-js-client'
-	import Comments from '$lib/comments/Comments.svelte'
-	import CommunityGrid from '$lib/community/CommunityGrid.svelte'
+	import { Comments } from '$lib/comments'
+	import { CommunityGrid } from '$lib/community'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
+	import { PersonGrid } from '$lib/person'
 	import { Posts } from '$lib/posts'
 	import QSelector from '$lib/QSelector.svelte'
 	import SearchTypeSelector from '$lib/SearchTypeSelector.svelte'
@@ -56,6 +57,12 @@
 		data = data
 	}
 </script>
+
+<svelte:head>
+	<title>
+		{data.q ? `Searching for "${data.q}"` : 'Search'} - {data.site_view.site.name}
+	</title>
+</svelte:head>
 
 <div class="container mx-auto mb-4">
 	<div class="flex flex-col gap-4">
@@ -126,6 +133,15 @@
 		{/if}
 
 		<!-- Users -->
+		{#if data.users.length}
+			<h2 class="text-xl font-semibold">Users</h2>
+			<PersonGrid
+				personViews={data.users}
+				myUser={data.my_user}
+				site={data.site_view.site}
+				jwt={data.jwt}
+			/>
+		{/if}
 
 		{#if length || data.page}
 			<PaginationBar

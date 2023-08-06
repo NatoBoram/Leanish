@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import { PersonIcon, PersonSidebar, PersonUri } from '$lib/person'
+	import { PersonSidebar } from '$lib/person'
 	import { Posts } from '$lib/posts'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import { personUri } from '$lib/utils/links'
@@ -36,41 +36,15 @@
 	</title>
 </svelte:head>
 
-{#if data.person_view.person.banner}
-	<img
-		alt="banner"
-		class="mb-4 max-h-96 w-full object-cover"
-		src={data.person_view.person.banner}
-	/>
-{/if}
-
 <div class="container mx-auto flex flex-col gap-4">
-	<div class="flex flex-row items-start gap-4">
-		<PersonIcon person={data.person_view.person} class="h-16 w-16" />
-
-		<div class="flex flex-col gap-2">
-			<h1 class="text-xl">
-				{data.person_view.person.display_name ?? data.person_view.person.name}
-			</h1>
-
-			<PersonUri
-				community={undefined}
-				moderators={[]}
-				myUser={data.my_user}
-				person={data.person_view.person}
-				showIcon={false}
-				site={data.site_view.site}
-			/>
-		</div>
-	</div>
-
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<PersonSidebar
-			class="base-container w-full rounded-lg lg:order-1 lg:max-w-xs"
+			class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-sm"
 			jwt={data.jwt}
 			myUser={data.my_user}
 			personView={data.person_view}
+			site={data.site_view.site}
 		/>
 
 		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">

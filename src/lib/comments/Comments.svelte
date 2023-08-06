@@ -21,23 +21,25 @@
 	export let myUser: MyUserInfo | undefined
 	export let site: Site
 
-	let tree: CommentNode[]
+	let tree: CommentNode[] = []
 	$: {
 		const nodes: CommentNode[] = commentViews.map(c => ({ comment: c, children: [] }))
+		const newTree = []
 
 		// flat_path = "0.123.456"
 		// node_path = "0.123"
 		// if (flat_path = "node_path.flat_id") node.push(flat)
 		for (const flat of nodes) {
-			nodes
-				.find(
-					node =>
-						`${node.comment.comment.path}.${flat.comment.comment.id}` === flat.comment.comment.path,
-				)
-				?.children.push(flat)
+			const node = nodes.find(
+				node =>
+					`${node.comment.comment.path}.${flat.comment.comment.id}` === flat.comment.comment.path,
+			)
+
+			if (node) node.children.push(flat)
+			else newTree.push(flat)
 		}
 
-		tree = nodes.filter(f => f.comment.comment.path === `0.${f.comment.comment.id}`)
+		tree = newTree
 	}
 
 	function onBlockPerson(event: CustomEvent<BlockPersonResponse>) {
