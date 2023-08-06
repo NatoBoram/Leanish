@@ -10,12 +10,14 @@
 		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
+	import { base } from '$app/paths'
 	import { page } from '$app/stores'
 	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments'
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
 	import ReportForm from '$lib/posts/ReportPostForm.svelte'
 	import Prose from '$lib/Prose.svelte'
+	import { siteHostname } from '$lib/utils/links'
 	import type { CommentNode } from './comment_node'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
 	import RemoveCommentForm from './RemoveCommentForm.svelte'
@@ -77,6 +79,13 @@
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
+
+		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
+		if (clone.pathname !== pathname) {
+			clone.pathname = pathname
+			clone.search = ''
+		}
+
 		clone.searchParams.set('parent_id', commentView.comment.id.toString())
 		clone.searchParams.delete('page')
 		return clone
