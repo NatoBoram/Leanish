@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": [
 		".eslintrc.cjs",
+		"capacitor.config.ts",
 		"playwright.config.ts",
 		"postcss.config.js",
 		"src",
