@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"include": [
 		".eslintrc.cjs",
+		"capacitor.config.ts",
 		"playwright.config.ts",
 		"postcss.config.js",
 		"src",
@@ -9,5 +10,6 @@
 		"tailwind.config.cjs",
 		"tests",
 		"vite.config.ts"
-	]
+	],
+	"files": ["src/service-worker.ts"]
 }

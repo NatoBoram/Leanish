@@ -13,3 +13,21 @@ vite.config.ts.timestamp-*
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+.pnpm-store
+
+# android/.gitignore
+
+# Cordova plugins for Capacitor
+capacitor-cordova-android-plugins
+
+# Copied web assets
+android/app/src/main/assets/public
+
+# Generated Config files
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/src/main/res/xml/config.xml
+
+# android/app/.gitignore
+/android/app/build/*
+!/android/app/build/.npmkeep

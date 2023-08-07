@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { sveltekit } from '@sveltejs/kit/vite'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 import { loadEnv } from 'vite'
 import { defineConfig } from 'vitest/config'
 import pkg from './package.json'
@@ -10,7 +11,7 @@ const env = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BU
 }
 
 export default defineConfig({
-	plugins: [sveltekit()],
+	plugins: [basicSsl(), sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 	},
