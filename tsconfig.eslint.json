@@ -10,5 +10,6 @@
 		"tailwind.config.cjs",
 		"tests",
 		"vite.config.ts"
-	]
+	],
+	"files": ["src/service-worker.ts"]
 }

@@ -41,7 +41,8 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"generate:android": "capacitor-assets generate --android --iconBackgroundColor '#0284c7' --iconBackgroundColorDark '#0284c7' --splashBackgroundColor '#0A0A0A' --splashBackgroundColorDark '#0A0A0A'  --logoSplashScale 0.5"
+		"generate:android": "capacitor-assets generate --android --iconBackgroundColor '#0284C7' --iconBackgroundColorDark '#0284C7' --logoSplashScale 0.5 --splashBackgroundColor '#0A0A0A' --splashBackgroundColorDark '#0A0A0A'",
+		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest"
 	},
 	"dependencies": {
 		"@capacitor/android": "^5.2.2",
