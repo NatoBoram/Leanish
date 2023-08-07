@@ -12,12 +12,45 @@ There is an alpha build at <https://natoboram.github.io/Leanish>.
 
 ## Build from source
 
+### Web
+
 ```sh
 git clone https://github.com/NatoBoram/Leanish.git
 cd Leanish
-pnpm i
-BUILD_ADAPTER=node pnpm build
+pnpm install
+BUILD_ADAPTER=node pnpm run build
 node ./build/index.js
 ```
 
 This gives you access to a local server at <http://localhost:3000> that you can even access from your mobile device.
+
+### Android
+
+You need a signing key to make a release build. You can generate it with `keytool`:
+
+```sh
+keytool -alias key -genkey -keyalg RSA -keysize 7680 -keystore keystore.pkcs12 -v -validity 36525
+```
+
+Move the keystore somewhere safe and create a file `android/key.properties` with the following content:
+
+```properties
+keyAlias=key
+keyPassword=
+storeFile=keystore.pkcs12
+storePassword=
+```
+
+Don't forget to put the full path and actual passwords in the file. You can find more information about signing keys in <https://docs.flutter.dev/deployment/android#signing-the-app>.
+
+To make a release build:
+
+```sh
+git clone https://github.com/NatoBoram/Leanish.git
+cd Leanish
+pnpm install
+pnpm run build:android
+pnpm run install:android
+```
+
+This will create a release build at `android/app/build/outputs/apk/release/app-release.apk` and install it on your phone.
