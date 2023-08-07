@@ -32,6 +32,7 @@
 		"build": "vite build",
 		"build:csr": "./scripts/build_csr.sh",
 		"build:android": "pnpm build:csr && cap sync android && cap build android",
+		"install:android": "adb install -d -r ./android/app/build/outputs/apk/release/app-release-signed.apk",
 		"preview": "vite preview",
 		"preview:android": "pnpm build:csr && cap sync android && cap run android",
 		"test": "pnpm run test:integration && pnpm run test:unit",
@@ -42,7 +43,9 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"generate:android": "capacitor-assets generate --android --iconBackgroundColor '#0284C7' --iconBackgroundColorDark '#0284C7' --logoSplashScale 0.5 --splashBackgroundColor '#0A0A0A' --splashBackgroundColorDark '#0A0A0A'",
-		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest"
+		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest",
+		"ionic:build": "pnpm build:csr",
+		"ionic:serve": "vite dev --host=0.0.0.0 --port=8100"
 	},
 	"dependencies": {
 		"@capacitor/android": "^5.2.2",

@@ -1,0 +1,8 @@
+{
+	"name": "Leanish",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "custom",
+	"npmClient": "pnpm"
+}
