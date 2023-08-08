@@ -66,8 +66,8 @@
 		"@trivago/prettier-plugin-sort-imports": "^4.2.0",
 		"@ts-stack/markdown": "^1.4.0",
 		"@types/cookie": "^0.5.1",
-		"@typescript-eslint/eslint-plugin": "^6.2.1",
-		"@typescript-eslint/parser": "^6.2.1",
+		"@typescript-eslint/eslint-plugin": "^6.3.0",
+		"@typescript-eslint/parser": "^6.3.0",
 		"@vitejs/plugin-basic-ssl": "^1.0.1",
 		"autoprefixer": "^10.4.14",
 		"cookie": "^0.5.0",
@@ -85,7 +85,7 @@
 		"tailwindcss": "^3.3.3",
 		"tslib": "^2.6.1",
 		"typescript": "^5.1.6",
-		"vite": "^4.4.8",
+		"vite": "^4.4.9",
 		"vitest": "^0.34.1"
 	},
 	"type": "module"
