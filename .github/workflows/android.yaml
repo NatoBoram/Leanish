@@ -40,19 +40,10 @@ jobs:
 
       # Android SDK
       - run: |
-          wget --continue https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-          unzip -o commandlinetools-linux-9477386_latest.zip
-
-          mkdir -p android_sdk/cmdline-tools
-          mv cmdline-tools android_sdk/cmdline-tools/latest
-
-          export ANDROID_HOME="$PWD/android_sdk"
-          export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
-
-          yes | sdkmanager --sdk_root="$ANDROID_HOME" --install "build-tools;33.0.2" "platforms;android-33"
+          yes | sdkmanager --install "build-tools;33.0.2" "platforms;android-33"
 
       # Build
-      - run: ANDROID_HOME="$PWD/android_sdk" pnpm run build:android
+      - run: pnpm run build:android
       - uses: actions/upload-artifact@v3
         with:
           name: app-release
