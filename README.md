@@ -46,11 +46,12 @@ Don't forget to put the full path and actual passwords in the file. You can find
 To make a release build:
 
 ```sh
+yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "build-tools;33.0.2" "platforms;android-33"
 git clone https://github.com/NatoBoram/Leanish.git
 cd Leanish
 pnpm install
-pnpm run build:android
-pnpm run install:android
+pnpm run build:apk
+pnpm run install:apk
 ```
 
 This will create a release build at `android/app/build/outputs/apk/release/app-release.apk` and install it on your phone.
