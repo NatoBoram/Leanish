@@ -10,8 +10,10 @@ const env = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BU
 	BUILD_BASE: string | undefined
 }
 
+const https = process.argv.includes('--https')
+
 export default defineConfig({
-	plugins: [basicSsl(), sveltekit()],
+	plugins: [...(https ? [basicSsl()] : []), sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 	},
