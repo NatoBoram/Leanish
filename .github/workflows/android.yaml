@@ -1,0 +1,60 @@
+name: Android CI
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Java
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      # Node
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Secrets
+      - run: |
+          echo 'keyAlias=${{ secrets.KEY_ALIAS }}' >> android/key.properties
+          echo 'keyPassword=${{ secrets.KEY_PASSWORD }}' >> android/key.properties
+          echo 'storePassword=${{ secrets.STORE_PASSWORD }}' >> android/key.properties
+          echo 'storeFile=../keystore.pkcs12' >> android/key.properties
+          echo '${{ secrets.KEY_STORE }}' | base64 --decode > android/keystore.pkcs12
+
+      # Android SDK
+      - run: |
+          wget --continue https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip -o commandlinetools-linux-9477386_latest.zip
+
+          mkdir -p android_sdk/cmdline-tools
+          mv cmdline-tools android_sdk/cmdline-tools/latest
+
+          export ANDROID_HOME="$PWD/android_sdk"
+          export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+
+          yes | sdkmanager --sdk_root="$ANDROID_HOME" --install "build-tools;33.0.2" "platforms;android-33"
+
+      # Build
+      - run: ANDROID_HOME="$PWD/android_sdk" pnpm run build:android
+      - uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
