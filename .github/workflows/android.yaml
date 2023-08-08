@@ -40,7 +40,7 @@ jobs:
 
       # Android SDK
       - run: |
-          yes | sdkmanager --install "build-tools;33.0.2" "platforms;android-33"
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "build-tools;33.0.2" "platforms;android-33"
 
       # Build
       - run: pnpm run build:android
