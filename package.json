@@ -29,6 +29,7 @@
 	"repository": "github:NatoBoram/Leanish",
 	"scripts": {
 		"dev": "vite dev",
+		"dev:android": "pnpm run build:csr && cap run android",
 		"build": "vite build",
 		"build:csr": "./scripts/build_csr.sh",
 		"build:apk": "pnpm run build:csr && cap sync android && ./android/gradlew -p android assembleRelease",
