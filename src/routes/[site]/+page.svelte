@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
@@ -7,29 +6,9 @@
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import Tagline from '$lib/Tagline.svelte'
-	import { LocalStorage } from '$lib/utils/local_storage'
 	import type { PageData } from './$types'
 
 	export let data: PageData
-
-	onMount(() => {
-		const sites = LocalStorage.sites.filter(
-			site => site.site_view.site.id !== data.site_view.site.id,
-		)
-
-		sites.push({
-			...(data.my_user ? { my_user: data.my_user } : {}),
-			admins: data.admins,
-			all_languages: data.all_languages,
-			custom_emojis: data.custom_emojis,
-			discussion_languages: data.discussion_languages,
-			site_view: data.site_view,
-			taglines: data.taglines,
-			version: data.version,
-		})
-
-		LocalStorage.sites = sites
-	})
 
 	function onNext() {
 		const first = data.posts[0]
