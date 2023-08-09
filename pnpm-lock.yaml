@@ -8,6 +8,9 @@ dependencies:
   '@capacitor/android':
     specifier: ^5.2.2
     version: 5.2.2(@capacitor/core@5.2.2)
+  '@capacitor/clipboard':
+    specifier: ^5.0.6
+    version: 5.0.6(@capacitor/core@5.2.2)
   '@capacitor/core':
     specifier: ^5.2.2
     version: 5.2.2
@@ -338,6 +341,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@capacitor/clipboard@5.0.6(@capacitor/core@5.2.2):
+    resolution: {integrity: sha512-VsokRAn+0HVWj6riSRdspczEfqFoHbrhS/XRhGoEPsj0uvYPSufy0Kb2dpnSqkeeElhh2Jvn8jmVAzII2XeR9w==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.2.2
+    dev: false
 
   /@capacitor/core@5.2.2:
     resolution: {integrity: sha512-3jKECZC5+YD2rljMZm1e/K3AYyoxUmLDZCyofTPbRYPBSI0wJh5ZCkX+XIGzNM0o/Wokl3Voa1JB8xsLC0MPxA==}
