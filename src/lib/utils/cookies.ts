@@ -1,8 +1,8 @@
-import { browser } from '$app/environment'
-import { base } from '$app/paths'
 import { CapacitorCookies } from '@capacitor/core'
 import cookie from 'cookie'
 import type { Site } from 'lemmy-js-client'
+import { browser } from '$app/environment'
+import { base } from '$app/paths'
 import { siteHostname } from './links'
 
 export function getJwt(hostname: string, data: { jwt: string | undefined } | null) {
