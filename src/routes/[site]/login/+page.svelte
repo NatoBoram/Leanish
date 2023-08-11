@@ -27,7 +27,7 @@
 		const response = await request
 		if (!response.jwt) return
 
-		setJwt(data.site_view.site, response.jwt)
+		await setJwt(data.site_view.site, response.jwt)
 
 		await new Promise(resolve => requestIdleCallback(resolve))
 		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)

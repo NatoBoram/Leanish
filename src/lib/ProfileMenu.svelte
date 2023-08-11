@@ -21,7 +21,7 @@
 	}
 
 	async function logout() {
-		unsetJwt(site)
+		await unsetJwt(site)
 		return invalidateAll()
 	}
 </script>
