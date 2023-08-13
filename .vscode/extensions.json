@@ -4,6 +4,7 @@
 		"dbaeumer.vscode-eslint",
 		"editorconfig.editorconfig",
 		"esbenp.prettier-vscode",
+		"ms-azuretools.vscode-docker",
 		"svelte.svelte-vscode",
 		"vscjava.vscode-gradle"
 	]
