@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { App } from '@capacitor/app'
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
@@ -48,6 +49,11 @@
 			)
 				return goto(`${base}/login?goto=${encodeURIComponent($page.url.pathname)}`)
 		})()
+
+		App.addListener('backButton', ({ canGoBack }) => {
+			if (canGoBack && $page.url.pathname !== `${siteLink(data.site_view.site)}`)
+				window.history.back()
+		})
 	})
 
 	const client = new LemmyHttp(data.site_view.site.actor_id, { fetchFunction: clientFetch })
