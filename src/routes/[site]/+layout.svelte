@@ -50,7 +50,8 @@
 				return goto(`${base}/login?goto=${encodeURIComponent($page.url.pathname)}`)
 		})()
 
-		App.addListener('backButton', ({ canGoBack }) => {
+		void App.addListener('backButton', ({ canGoBack }) => {
+			// Don't go to the site selector
 			if (canGoBack && $page.url.pathname !== `${siteLink(data.site_view.site)}`)
 				window.history.back()
 		})
