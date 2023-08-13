@@ -12,6 +12,15 @@ There is an alpha build at <https://natoboram.github.io/Leanish>.
 
 ## Build from source
 
+### Docker
+
+```sh
+git clone https://github.com/NatoBoram/Leanish.git
+cd Leanish
+pnpm run docker:build
+pnpm run docker:run
+```
+
 ### Web
 
 ```sh

@@ -48,7 +48,9 @@
 		"generate:android": "capacitor-assets generate --android --iconBackgroundColor '#171717' --iconBackgroundColorDark '#171717' --logoSplashScale 0.5 --splashBackgroundColor '#0A0A0A' --splashBackgroundColorDark '#0A0A0A'",
 		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest",
 		"ionic:build": "pnpm run build:csr",
-		"ionic:serve": "vite dev --host=0.0.0.0 --port=8100"
+		"ionic:serve": "vite dev --host=0.0.0.0 --port=8100",
+		"docker:build": "./scripts/docker_build.sh",
+		"docker:run": "docker run --publish 3000:3000 leanish"
 	},
 	"dependencies": {
 		"@capacitor/android": "^5.2.2",
