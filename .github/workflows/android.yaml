@@ -33,8 +33,8 @@ jobs:
           echo 'keyAlias=${{ secrets.KEY_ALIAS }}' >> android/key.properties
           echo 'keyPassword=${{ secrets.KEY_PASSWORD }}' >> android/key.properties
           echo 'storePassword=${{ secrets.STORE_PASSWORD }}' >> android/key.properties
-          echo 'storeFile=${{ secrets.STORE_FILE }}' >> android/key.properties
-          echo '${{ secrets.KEY_STORE }}' | base64 --decode > android/app/${{ secrets.STORE_FILE }}
+          echo 'storeFile=${{ vars.STORE_FILE }}' >> android/key.properties
+          echo '${{ secrets.KEY_STORE }}' | base64 --decode > android/app/${{ vars.STORE_FILE }}
 
       # Android SDK
       - run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "build-tools;33.0.2" "platforms;android-33"
