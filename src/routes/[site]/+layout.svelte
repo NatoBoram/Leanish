@@ -2,10 +2,13 @@
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
+	import { goto } from '$app/navigation'
 	import { base } from '$app/paths'
 	import { page } from '$app/stores'
 	import { markedOptions } from '$lib/consts/marked_options'
 	import { setClientContext } from '$lib/contexts/client'
+	import { getCurrentHomeSite, pushHomeSite } from '$lib/preferences/home_sites'
 	import ProfileMenu from '$lib/ProfileMenu.svelte'
 	import { siteHostname, siteLink } from '$lib/utils/links'
 	import { clientFetch } from '$lib/utils/requests'
@@ -14,6 +17,38 @@
 	Marked.setOptions(markedOptions)
 
 	export let data: LayoutData
+
+	onMount(() => {
+		void (async () => {
+			const hostname = siteHostname(data.site_view.site)
+			const currentSite = await getCurrentHomeSite(hostname)
+
+			// Followed a link, first time here
+			if (!currentSite)
+				return pushHomeSite({
+					current: true,
+					default: false,
+					jwt: data.jwt,
+					siteResponse: data,
+				})
+
+			// Newly-logged-in or returning user
+			if (data.my_user)
+				return pushHomeSite({
+					...currentSite,
+					jwt: data.jwt,
+					siteResponse: data,
+				})
+
+			// JWT expired, redirect to login
+			if (
+				!data.my_user &&
+				currentSite.siteResponse.my_user &&
+				$page.url.pathname !== `${base}/login`
+			)
+				return goto(`${base}/login?goto=${encodeURIComponent($page.url.pathname)}`)
+		})()
+	})
 
 	const client = new LemmyHttp(data.site_view.site.actor_id, { fetchFunction: clientFetch })
 	setClientContext(client)
