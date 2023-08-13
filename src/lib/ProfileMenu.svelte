@@ -6,6 +6,7 @@
 	import ClickOutside from '$lib/ClickOutside.svelte'
 	import { FlatButton } from './buttons'
 	import PersonIcon from './person/PersonIcon.svelte'
+	import { removeHomeSite } from './preferences/home_sites'
 	import { unsetJwt } from './utils/cookies'
 	import { personLink, personUri, siteLink } from './utils/links'
 
@@ -21,7 +22,7 @@
 	}
 
 	async function logout() {
-		unsetJwt(site)
+		await Promise.all([removeHomeSite(site, myUser), unsetJwt(site)])
 		return invalidateAll()
 	}
 </script>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Clipboard } from '@capacitor/clipboard'
 	import { DocumentDuplicate, Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
 	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
@@ -43,7 +44,7 @@
 	}
 
 	async function clickCopy() {
-		await navigator.clipboard.writeText(commentView.comment.content)
+		await Clipboard.write({ string: commentView.comment.content })
 		opened = false
 	}
 </script>

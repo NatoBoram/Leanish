@@ -8,9 +8,18 @@ dependencies:
   '@capacitor/android':
     specifier: ^5.2.2
     version: 5.2.2(@capacitor/core@5.2.2)
+  '@capacitor/app':
+    specifier: ^5.0.6
+    version: 5.0.6(@capacitor/core@5.2.2)
+  '@capacitor/clipboard':
+    specifier: ^5.0.6
+    version: 5.0.6(@capacitor/core@5.2.2)
   '@capacitor/core':
     specifier: ^5.2.2
     version: 5.2.2
+  '@capacitor/preferences':
+    specifier: ^5.0.6
+    version: 5.0.6(@capacitor/core@5.2.2)
 
 devDependencies:
   '@capacitor/assets':
@@ -262,6 +271,14 @@ packages:
       '@capacitor/core': 5.2.2
     dev: false
 
+  /@capacitor/app@5.0.6(@capacitor/core@5.2.2):
+    resolution: {integrity: sha512-6ZXVdnNmaYILasC/RjQw+yfTmq2ZO7Q3v5lFcDVfq3PFGnybyYQh+RstBrYri+376OmXOXxBD7E6UxBhrMzXGA==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.2.2
+    dev: false
+
   /@capacitor/assets@2.0.4(@types/node@20.4.8)(typescript@5.1.6):
     resolution: {integrity: sha512-1zYuwJujihsCLavojpZQQEjQjxG8BgD2/QWaX1Je2TQgN8UVbmnQG7gO+6gaHqP+hgZu7SOcJ+BlMG+tarBXLA==}
     engines: {node: '>=10.3.0'}
@@ -339,10 +356,26 @@ packages:
       - supports-color
     dev: true
 
+  /@capacitor/clipboard@5.0.6(@capacitor/core@5.2.2):
+    resolution: {integrity: sha512-VsokRAn+0HVWj6riSRdspczEfqFoHbrhS/XRhGoEPsj0uvYPSufy0Kb2dpnSqkeeElhh2Jvn8jmVAzII2XeR9w==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.2.2
+    dev: false
+
   /@capacitor/core@5.2.2:
     resolution: {integrity: sha512-3jKECZC5+YD2rljMZm1e/K3AYyoxUmLDZCyofTPbRYPBSI0wJh5ZCkX+XIGzNM0o/Wokl3Voa1JB8xsLC0MPxA==}
     dependencies:
       tslib: 2.6.1
+    dev: false
+
+  /@capacitor/preferences@5.0.6(@capacitor/core@5.2.2):
+    resolution: {integrity: sha512-aDe4wGTVSAIue6XXdUFgyz7SGszxK/Ptt/iWTydMpzc1PlZXw1XTTnciM+S+SLLNZFzXlkpXT3wMnh9t0DojUA==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.2.2
     dev: false
 
   /@cspotcode/source-map-support@0.8.1:

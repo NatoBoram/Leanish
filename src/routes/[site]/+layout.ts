@@ -11,7 +11,7 @@ export const load = (async ({ params, fetch, data }) => {
 		headers: headers(params, '/'),
 	})
 
-	const jwt = getJwt(params.site, data)
+	const jwt = await getJwt(params.site, data)
 	const site = await client.getSite(setAuth({}, { jwt })).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load site')

@@ -4,6 +4,7 @@
 	import { page } from '$app/stores'
 	import { getClientContext } from '$lib/contexts/client'
 	import Dismissable from '$lib/Dismissable.svelte'
+	import { pushHomeSite } from '$lib/preferences/home_sites'
 	import { setJwt } from '$lib/utils/cookies'
 	import { siteHostname, siteLink } from '$lib/utils/links'
 	import type { PageData } from './$types'
@@ -24,12 +25,18 @@
 			...(totp_2fa_token ? { totp_2fa_token } : {}),
 		})
 
-		const response = await request
-		if (!response.jwt) return
+		const loginResponse = await request
+		if (!loginResponse.jwt) return
 
-		setJwt(data.site_view.site, response.jwt)
+		await setJwt(data.site_view.site, loginResponse.jwt)
+		const siteResponse = await client.getSite({ auth: loginResponse.jwt })
+		await pushHomeSite({
+			current: true,
+			default: false,
+			jwt: loginResponse.jwt,
+			siteResponse: siteResponse,
+		})
 
-		await new Promise(resolve => requestIdleCallback(resolve))
 		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
 		return goto(redirect, { invalidateAll: true })
 	}
