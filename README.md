@@ -8,9 +8,18 @@ A lean-ish web client for Lemmy.
 
 ## Usage
 
-There is an alpha build at <https://natoboram.github.io/Leanish>.
+There is an alpha build at [natoboram.github.io/Leanish](https://natoboram.github.io/Leanish). The roadmap for the first beta release is in [this milestone](https://github.com/NatoBoram/Leanish/milestone/1).
 
 ## Build from source
+
+### Docker
+
+```sh
+git clone https://github.com/NatoBoram/Leanish.git
+cd Leanish
+pnpm run docker:build
+pnpm run docker:run
+```
 
 ### Web
 
