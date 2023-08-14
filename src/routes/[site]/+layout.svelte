@@ -29,6 +29,7 @@
 				return pushHomeSite({
 					current: true,
 					default: false,
+					hidden: false,
 					jwt: data.jwt,
 					siteResponse: data,
 				})

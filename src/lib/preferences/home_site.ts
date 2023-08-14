@@ -10,4 +10,7 @@ export interface HomeSite {
 
 	/** The currently used home site for this particular site. */
 	readonly current: boolean
+
+	/** Hidden homesites will never show up in the home page. */
+	readonly hidden: boolean
 }

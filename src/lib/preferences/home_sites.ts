@@ -14,10 +14,23 @@ export async function pushHomeSite(homeSite: HomeSite): Promise<HomeSite[]> {
 	)
 	const withCurrent = homeSite.current ? mapCurrentHomeSite(deduplicated, homeSite) : deduplicated
 	const withDefault = homeSite.default ? mapDefaultHomeSite(withCurrent, homeSite) : withCurrent
-	withDefault.push(homeSite)
+	withDefault.unshift(homeSite)
 
 	await Preferences.set({ key: homeSitesKey, value: JSON.stringify(withDefault) })
 	return withDefault
+}
+
+export async function editHomeSite(homeSite: HomeSite): Promise<HomeSite> {
+	const homeSites = await getHomeSites()
+	const index = homeSites.findIndex(hs => matchHomeSite(hs, homeSite))
+	if (index === -1) return homeSite
+
+	const withCurrent = homeSite.current ? mapCurrentHomeSite(homeSites, homeSite) : homeSites
+	const withDefault = homeSite.default ? mapDefaultHomeSite(withCurrent, homeSite) : withCurrent
+	withDefault[index] = homeSite
+
+	await Preferences.set({ key: homeSitesKey, value: JSON.stringify(withDefault) })
+	return homeSite
 }
 
 export async function getHomeSites(): Promise<HomeSite[]> {
@@ -41,21 +54,26 @@ export async function removeHomeSite(site: Site, myUser?: MyUserInfo): Promise<H
 function filterHomeSites(homeSites: HomeSite[], site: Site, myUser?: MyUserInfo): HomeSite[] {
 	return homeSites.filter(
 		hs =>
-			hs.siteResponse.site_view.site.actor_id !== site.actor_id &&
+			hs.siteResponse.site_view.site.actor_id !== site.actor_id ||
 			hs.siteResponse.my_user?.local_user_view.person.id !== myUser?.local_user_view.person.id,
 	)
 }
 
-export async function findHomeSite(site: Site, myUser: MyUserInfo) {
+export async function findHomeSite(site: Site, myUser: MyUserInfo | undefined) {
 	const homeSites = await getHomeSites()
 	return homeSites.find(
 		hs =>
 			hs.siteResponse.site_view.site.actor_id === site.actor_id &&
-			hs.siteResponse.my_user?.local_user_view.person.id === myUser.local_user_view.person.id,
+			hs.siteResponse.my_user?.local_user_view.person.id === myUser?.local_user_view.person.id,
 	)
 }
 
-export function mapCurrentHomeSite(homeSites: HomeSite[], homeSite: HomeSite) {
+export async function findDefaultHomeSite() {
+	const homeSites = await getHomeSites()
+	return homeSites.find(hs => hs.default)
+}
+
+function mapCurrentHomeSite(homeSites: HomeSite[], homeSite: HomeSite) {
 	return homeSites.map(hs => {
 		if (hs.siteResponse.site_view.site.actor_id === homeSite.siteResponse.site_view.site.actor_id)
 			return {
@@ -70,7 +88,7 @@ export function mapCurrentHomeSite(homeSites: HomeSite[], homeSite: HomeSite) {
 	})
 }
 
-export function mapDefaultHomeSite(homeSites: HomeSite[], homeSite: HomeSite) {
+function mapDefaultHomeSite(homeSites: HomeSite[], homeSite: HomeSite) {
 	return homeSites.map(hs => ({
 		...hs,
 
@@ -78,7 +96,7 @@ export function mapDefaultHomeSite(homeSites: HomeSite[], homeSite: HomeSite) {
 	}))
 }
 
-export function matchHomeSite(first: HomeSite, second: HomeSite) {
+function matchHomeSite(first: HomeSite, second: HomeSite) {
 	return (
 		first.siteResponse.site_view.site.actor_id === second.siteResponse.site_view.site.actor_id &&
 		first.siteResponse.my_user?.local_user_view.person.id ===

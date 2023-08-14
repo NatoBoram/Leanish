@@ -14,6 +14,7 @@
 	export let site: Site
 
 	export let showIcon = true
+	export let showBadges = true
 </script>
 
 <div class="flex flex-row items-center gap-2 {className}">
@@ -27,24 +28,26 @@
 		</div>
 	</a>
 
-	<!-- It's me! -->
-	{#if myUser && person.id === myUser.local_user_view.person.id}
-		<div class="text-primary" title="Me">
-			<User />
-		</div>
-	{/if}
+	{#if showBadges}
+		<!-- It's me! -->
+		{#if myUser && person.id === myUser.local_user_view.person.id}
+			<div class="text-primary" title="Me">
+				<User />
+			</div>
+		{/if}
 
-	<!-- Admin -->
-	{#if person.admin}
-		<div class="text-danger" title="Administrator">
-			<ShieldExclamation />
-		</div>
-	{/if}
+		<!-- Admin -->
+		{#if person.admin}
+			<div class="text-danger" title="Administrator">
+				<ShieldExclamation />
+			</div>
+		{/if}
 
-	<!-- Moderator -->
-	{#if community && moderators.some(m => m.moderator.id === person.id && m.community.id === community?.id)}
-		<div class="text-success" title="Moderator">
-			<ShieldCheck />
-		</div>
+		<!-- Moderator -->
+		{#if community && moderators.some(m => m.moderator.id === person.id && m.community.id === community?.id)}
+			<div class="text-success" title="Moderator">
+				<ShieldCheck />
+			</div>
+		{/if}
 	{/if}
 </div>

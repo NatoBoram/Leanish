@@ -2,11 +2,12 @@
 	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
 	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
-	import { invalidateAll } from '$app/navigation'
+	import { goto, invalidateAll } from '$app/navigation'
+	import { base } from '$app/paths'
 	import ClickOutside from '$lib/ClickOutside.svelte'
 	import { FlatButton } from './buttons'
 	import PersonIcon from './person/PersonIcon.svelte'
-	import { removeHomeSite } from './preferences/home_sites'
+	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/home_sites'
 	import { unsetJwt } from './utils/cookies'
 	import { personLink, personUri, siteLink } from './utils/links'
 
@@ -24,6 +25,13 @@
 	async function logout() {
 		await Promise.all([removeHomeSite(site, myUser), unsetJwt(site)])
 		return invalidateAll()
+	}
+
+	async function resetDefault() {
+		const homeSite = await findHomeSite(site, myUser)
+		if (homeSite) await pushHomeSite({ ...homeSite, default: false })
+		else await removeHomeSite(site, myUser)
+		return goto(`${base}/`)
 	}
 </script>
 
@@ -48,16 +56,27 @@
 					Profile
 				</FlatButton>
 			</a>
+
 			<a href="{siteLink(site)}/settings" class="hover:surface" on:click={onClick}>
 				<FlatButton class="p-4">
 					<Cog8Tooth />
 					Settings
 				</FlatButton>
 			</a>
-			<FlatButton class="hover:surface rounded-none rounded-b p-4" on:click={logout}>
-				<ArrowRightOnRectangle />
-				Logout
-			</FlatButton>
+
+			<button class="hover:surface" on:click={logout}>
+				<FlatButton>
+					<ArrowRightOnRectangle />
+					Logout
+				</FlatButton>
+			</button>
+
+			<button class="hover:surface rounded-b" on:click={resetDefault}>
+				<FlatButton>
+					<ArrowRightOnRectangle />
+					Change instance
+				</FlatButton>
+			</button>
 		</ClickOutside>
 	{/if}
 </div>
