@@ -33,6 +33,7 @@
 		await pushHomeSite({
 			current: true,
 			default: false,
+			hidden: false,
 			jwt: loginResponse.jwt,
 			siteResponse: siteResponse,
 		})
