@@ -17,7 +17,7 @@ There is an alpha build at [natoboram.github.io/Leanish](https://natoboram.githu
 ```sh
 git clone https://github.com/NatoBoram/Leanish.git
 cd Leanish
-pnpm run docker:build
+BUILD_BASE= pnpm run docker:build
 pnpm run docker:run
 ```
 
@@ -31,7 +31,7 @@ BUILD_ADAPTER=node pnpm run build
 node ./build/index.js
 ```
 
-This gives you access to a local server at <http://localhost:3000> that you can even access from your mobile device.
+This gives you access to a local server at <http://localhost:3000> that you can access from your mobile device.
 
 ### Android
 
