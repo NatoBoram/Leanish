@@ -1,6 +1,6 @@
-import { error } from '@sveltejs/kit'
+import { error, type HttpError } from '@sveltejs/kit'
 import { type GetPost, LemmyHttp } from 'lemmy-js-client'
-import { fetchFunction, headers } from '$lib/utils/requests'
+import { headers, serverFetch } from '$lib/utils/requests'
 import { formGetComments, setAuth } from '$lib/utils/search_params'
 import type { PageLoad } from './$types'
 
@@ -9,7 +9,7 @@ export const load = (async ({ params, fetch, url, parent, depends }) => {
 	if (isNaN(id)) throw error(400, 'Invalid post ID')
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: fetchFunction(fetch),
+		fetchFunction: serverFetch(fetch),
 		headers: headers(params, `/post/${id}`),
 	})
 
@@ -21,11 +21,17 @@ export const load = (async ({ params, fetch, url, parent, depends }) => {
 	depends('app:paginate')
 
 	const [post, comments] = await Promise.all([
-		client.getPost(setAuth<GetPost>({ id }, { jwt: pageParentData.jwt })).catch(e => {
-			console.error(e)
-			throw error(500, 'Failed to load post')
+		client.getPost(setAuth<GetPost>({ id }, { jwt: pageParentData.jwt })).catch((e: HttpError) => {
+			switch (e.status) {
+				case 404:
+					throw error(e.status, 'This post could not be found.')
+
+				default:
+					console.error(e)
+					throw error(e.status, 'Failed to load post.')
+			}
 		}),
-		client.getComments(formComment).catch(e => {
+		client.getComments(formComment).catch((e: Response) => {
 			console.error(e)
 			throw error(500, 'Failed to load comments')
 		}),

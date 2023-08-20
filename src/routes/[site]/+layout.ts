@@ -1,13 +1,13 @@
 import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
 import { getJwt } from '$lib/utils/cookies'
-import { fetchFunction, headers } from '$lib/utils/requests'
+import { headers, serverFetch } from '$lib/utils/requests'
 import { setAuth } from '$lib/utils/search_params'
 import type { LayoutLoad } from './$types'
 
 export const load = (async ({ params, fetch, data }) => {
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: fetchFunction(fetch),
+		fetchFunction: serverFetch(fetch),
 		headers: headers(params, '/'),
 	})
 
