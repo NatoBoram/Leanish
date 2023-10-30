@@ -1,4 +1,4 @@
 gradle 8.0.2
 java openjdk-17.0.2
-nodejs 20.5.1
-pnpm 8.7.0-1
+nodejs 21.1.0
+pnpm 8.10.0
