@@ -10,8 +10,6 @@ overrides:
   - files: '*.svelte'
     options:
       parser: svelte
-pluginSearchDirs:
-  - '.'
 plugins:
   - '@prettier/plugin-xml'
   - '@trivago/prettier-plugin-sort-imports'

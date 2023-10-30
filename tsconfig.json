@@ -31,7 +31,8 @@
 		"useUnknownInCatchVariables": true,
 
 		// SvelteKit issues
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"noErrorTruncation": false
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

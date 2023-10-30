@@ -1,6 +1,6 @@
 import type { CommentView } from 'lemmy-js-client'
 
 export interface CommentNode {
-	comment: CommentView
-	children: CommentNode[]
+	readonly comment: CommentView
+	readonly children: CommentNode[]
 }
