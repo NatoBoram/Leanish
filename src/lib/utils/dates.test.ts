@@ -16,8 +16,22 @@ describe('timeAgo', () => {
 })
 
 describe('fullTime', () => {
-	test('max date', ({ expect }) => {
+	test('min date', ({ expect }) => {
 		const date = new Date(-8640000000000000)
 		expect(fullTimeAgo(date)).toBeTypeOf('string')
+	})
+
+	test('in the future', ({ expect }) => {
+		const date = new Date(8640000000000000)
+		expect(fullTimeAgo(date)).toBe('in the future')
+	})
+
+	test('1h 2m 3s ago', ({ expect }) => {
+		const date = new Date()
+		date.setHours(date.getHours() - 1)
+		date.setMinutes(date.getMinutes() - 2)
+		date.setSeconds(date.getSeconds() - 3)
+
+		expect(fullTimeAgo(date)).toBe('1 hour 2 minutes 3 seconds ago')
 	})
 })
