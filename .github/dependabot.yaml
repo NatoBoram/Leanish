@@ -6,34 +6,34 @@ updates:
       interval: monthly
       timezone: America/Toronto
     commit-message:
-      prefix: "⬆️ "
+      prefix: '⬆️ '
     groups:
       patch:
         update-types:
           - patch
       eslint:
         patterns:
-          - "*eslint*"
+          - '*eslint*'
       tailwindcss:
         patterns:
-          - "*heroicons*"
-          - "*tailwindcss*"
+          - '*heroicons*'
+          - '*tailwindcss*'
           - autoprefixer
           - postcss
       prettier:
         patterns:
-          - "*prettier*"
+          - '*prettier*'
       svelte:
         patterns:
-          - "*svelte*"
+          - '*svelte*'
       vite:
         patterns:
-          - "*vitejs*"
+          - '*vitejs*'
           - vite
       typescript:
         patterns:
-          - "*typescript*"
+          - '*typescript*'
           - tslib
       capacitor:
         patterns:
-          - "*capacitor*"
+          - '*capacitor*'
