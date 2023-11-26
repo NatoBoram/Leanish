@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Spinner from '$lib/Spinner.svelte'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import { PushPin, PushPinFill } from '$lib/svg'
 	import type { PostFeatureType, PostResponse, PostView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import { getClientContext } from '$lib/contexts/client'
-	import Spinner from '$lib/Spinner.svelte'
-	import { PushPin, PushPinFill } from '$lib/svg'
 	import MeatballButton from './MeatballButton.svelte'
 
 	let className: string | undefined = undefined

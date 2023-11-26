@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { getClientContext } from '$lib/contexts/index.js'
 	import type { BlockPersonResponse, MyUserInfo, PersonView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/client'
 
 	let className: string | undefined = undefined
 	export { className as class }

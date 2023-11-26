@@ -1,11 +1,11 @@
 <script lang="ts">
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import { PersonSidebar } from '$lib/person'
-	import { Posts } from '$lib/posts'
+	import { PersonSidebar } from '$lib/person/index.js'
+	import { Posts } from '$lib/posts/index.js'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import { personUri } from '$lib/utils/links'
-	import type { PageData } from './$types'
+	import { personUri } from '$lib/utils/index.js'
+	import type { PageData } from './$types.js'
 
 	export let data: PageData
 

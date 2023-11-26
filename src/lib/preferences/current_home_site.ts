@@ -1,5 +1,5 @@
 import { Preferences } from '@capacitor/preferences'
-import type { HomeSite } from './home_site'
+import type { HomeSite } from './home_site.js'
 
 const currentHomeSiteKey = 'currentHomeSite'
 

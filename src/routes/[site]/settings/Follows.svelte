@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { CommunityFollowerView, MyUserInfo, Site } from 'lemmy-js-client'
 	import CommunityUri from '$lib/community/CommunityUri.svelte'
-	import { getClientContext } from '$lib/contexts/client'
-	import { communityUri } from '$lib/utils/links'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import { communityUri } from '$lib/utils/index.js'
+	import type { CommunityFollowerView, MyUserInfo, Site } from 'lemmy-js-client'
 
 	export let follows: CommunityFollowerView[]
 	export let jwt: string

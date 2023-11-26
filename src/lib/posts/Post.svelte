@@ -1,4 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'
+	import Dismissable from '$lib/Dismissable.svelte'
+	import Prose from '$lib/Prose.svelte'
+	import CommentForm from '$lib/comments/CommentForm.svelte'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import { PushPinFill } from '$lib/svg/index.js'
+	import { communityLink, postLink } from '$lib/utils/index.js'
 	import { LockClosed, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		CommentResponse,
@@ -12,13 +19,6 @@
 		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import { goto } from '$app/navigation'
-	import CommentForm from '$lib/comments/CommentForm.svelte'
-	import { getClientContext } from '$lib/contexts/client'
-	import Dismissable from '$lib/Dismissable.svelte'
-	import Prose from '$lib/Prose.svelte'
-	import { PushPinFill } from '$lib/svg'
-	import { communityLink, postLink } from '$lib/utils/links'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
 	import PostUrl from './PostUrl.svelte'

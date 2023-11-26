@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { MyUserInfo, PostView } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
+	import ClickOutside from '$lib/ClickOutside.svelte'
 	import DeletePostButton from '$lib/buttons/DeletePostButton.svelte'
 	import FeatureButton from '$lib/buttons/FeatureButton.svelte'
 	import LockPostButton from '$lib/buttons/LockPostButton.svelte'
@@ -10,7 +7,10 @@
 	import MeatballButton from '$lib/buttons/MeatballButton.svelte'
 	import RemovePostButton from '$lib/buttons/RemovePostButton.svelte'
 	import SavePostButton from '$lib/buttons/SavePostButton.svelte'
-	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
+	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
+	import type { MyUserInfo, PostView } from 'lemmy-js-client'
+	import { createEventDispatcher } from 'svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }

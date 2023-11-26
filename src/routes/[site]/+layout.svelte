@@ -1,19 +1,18 @@
 <script lang="ts">
+	import { goto } from '$app/navigation'
+	import { base } from '$app/paths'
+	import { page } from '$app/stores'
+	import ProfileMenu from '$lib/ProfileMenu.svelte'
+	import { markedOptions } from '$lib/consts/index.js'
+	import { setClientContext } from '$lib/contexts/index.js'
+	import { parseCurrentHomeSite, pushHomeSite } from '$lib/preferences/index.js'
+	import { clientFetch, siteHostname, siteLink } from '$lib/utils/index.js'
 	import { App } from '@capacitor/app'
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { onMount } from 'svelte'
-	import { goto } from '$app/navigation'
-	import { base } from '$app/paths'
-	import { page } from '$app/stores'
-	import { markedOptions } from '$lib/consts/marked_options'
-	import { setClientContext } from '$lib/contexts/client'
-	import { getCurrentHomeSite, pushHomeSite } from '$lib/preferences/home_sites'
-	import ProfileMenu from '$lib/ProfileMenu.svelte'
-	import { siteHostname, siteLink } from '$lib/utils/links'
-	import { clientFetch } from '$lib/utils/requests'
-	import type { LayoutData } from './$types'
+	import type { LayoutData } from './$types.js'
 
 	Marked.setOptions(markedOptions)
 
@@ -22,7 +21,7 @@
 	onMount(() => {
 		void (async () => {
 			const hostname = siteHostname(data.site_view.site)
-			const currentSite = await getCurrentHomeSite(hostname)
+			const currentSite = await parseCurrentHomeSite(hostname)
 
 			// Followed a link, first time here
 			if (!currentSite)

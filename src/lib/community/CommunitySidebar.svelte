@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { CommunityView, MyUserInfo, SiteView } from 'lemmy-js-client'
 	import Prose from '$lib/Prose.svelte'
-	import { communityLink } from '$lib/utils/links'
+	import { communityLink } from '$lib/utils/index.js'
+	import type { CommunityView, MyUserInfo, SiteView } from 'lemmy-js-client'
 	import BlockCommunityLayout from './BlockCommunityLayout.svelte'
 	import SubscribeButtonLayout from './FollowCommunityLayout.svelte'
 

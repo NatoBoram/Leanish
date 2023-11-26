@@ -14,7 +14,7 @@ import type {
 	SearchType,
 	SortType,
 } from 'lemmy-js-client'
-import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards'
+import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards.js'
 
 export function formGetComments(
 	cookies: { jwt: string | undefined },

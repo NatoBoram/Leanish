@@ -1,4 +1,9 @@
 <script lang="ts">
+	import { base } from '$app/paths'
+	import { page } from '$app/stores'
+	import PersonUri from '$lib/person/PersonUri.svelte'
+	import { PersonMeatballs } from '$lib/person/index.js'
+	import { lemmyDate, siteHostname, timeAgo } from '$lib/utils/index.js'
 	import { Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import type {
@@ -8,12 +13,6 @@
 		PersonView,
 		Site,
 	} from 'lemmy-js-client'
-	import { base } from '$app/paths'
-	import { page } from '$app/stores'
-	import { PersonMeatballs } from '$lib/person'
-	import PersonUri from '$lib/person/PersonUri.svelte'
-	import { lemmyDate, timeAgo } from '$lib/utils/dates'
-	import { siteHostname } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }

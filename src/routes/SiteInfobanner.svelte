@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { HomeSite } from '$lib/preferences/index.js'
+	import { editHomeSite, removeHomeSite } from '$lib/preferences/index.js'
+	import { siteLink } from '$lib/utils/index.js'
 	import { createEventDispatcher } from 'svelte'
-	import type { HomeSite } from '$lib/preferences/home_site'
-	import { editHomeSite, removeHomeSite } from '$lib/preferences/home_sites'
-	import { siteLink } from '$lib/utils/links'
 
 	let className: string | undefined = undefined
 	export { className as class }

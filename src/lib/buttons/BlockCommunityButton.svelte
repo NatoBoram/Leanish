@@ -1,9 +1,9 @@
 <script lang="ts">
+	import FlatButton from '$lib/buttons/FlatButton.svelte'
+	import { getClientContext } from '$lib/contexts/index.js'
 	import { NoSymbol } from '@natoboram/heroicons.svelte/20/solid'
 	import type { BlockCommunityResponse, CommunityId, CommunityView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import FlatButton from '$lib/buttons/FlatButton.svelte'
-	import { getClientContext } from '$lib/contexts/client'
 
 	let className: string | undefined = undefined
 	export { className as class }

@@ -7,7 +7,7 @@
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import Posts from '$lib/posts/Posts.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import type { PageData } from './$types'
+	import type { PageData } from './$types.js'
 
 	export let data: PageData
 

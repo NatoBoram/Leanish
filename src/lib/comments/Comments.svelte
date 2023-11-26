@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { CommentNode as CommentNodeSvelte } from '$lib/comments/index.js'
 	import type { CommunityModeratorView, Language, MyUserInfo, Site } from 'lemmy-js-client'
-	import { CommentNode as CommentNodeSvelte } from '$lib/comments'
-	import type { CommentNode } from './comment_node'
+	import type { CommentNode } from './comment_node.js'
 
 	let className: string | undefined = undefined
 	export { className as class }

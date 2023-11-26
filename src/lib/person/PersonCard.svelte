@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { toSuffixNumber } from '$lib/utils/index.js'
 	import type { MyUserInfo, PersonView, Site } from 'lemmy-js-client'
-	import { toSuffixNumber } from '$lib/utils/numbers'
 	import PersonIcon from './PersonIcon.svelte'
 	import PersonMeatballs from './PersonMeatballs.svelte'
 	import PersonUri from './PersonUri.svelte'

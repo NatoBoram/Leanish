@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Post from '$lib/posts/Post.svelte'
 	import type {
 		BlockCommunityResponse,
 		BlockPersonResponse,
@@ -11,7 +12,6 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import Post from '$lib/posts/Post.svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }

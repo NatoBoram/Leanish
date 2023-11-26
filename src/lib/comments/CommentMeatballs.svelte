@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Clipboard } from '@capacitor/clipboard'
-	import { DocumentDuplicate, Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
+	import ClickOutside from '$lib/ClickOutside.svelte'
 	import DeleteCommentButton from '$lib/buttons/DeleteCommentButton.svelte'
 	import DistinguishButton from '$lib/buttons/DistinguishButton.svelte'
 	import MeatballButton from '$lib/buttons/MeatballButton.svelte'
 	import RemoveCommentButton from '$lib/buttons/RemoveCommentButton.svelte'
 	import SaveCommentButton from '$lib/buttons/SaveCommentButton.svelte'
-	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { Clipboard } from '@capacitor/clipboard'
+	import { DocumentDuplicate, Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
+	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
+	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
+	import { createEventDispatcher } from 'svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte'
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
+	import { createEventDispatcher } from 'svelte'
 
 	export let disabled = false
 

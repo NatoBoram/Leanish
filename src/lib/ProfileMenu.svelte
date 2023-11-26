@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
-	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
-	import type { MyUserInfo, Site } from 'lemmy-js-client'
 	import { goto, invalidateAll } from '$app/navigation'
 	import { base } from '$app/paths'
 	import ClickOutside from '$lib/ClickOutside.svelte'
-	import { FlatButton } from './buttons'
+	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
+	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
+	import type { MyUserInfo, Site } from 'lemmy-js-client'
+	import { FlatButton } from './buttons/index.js'
 	import PersonIcon from './person/PersonIcon.svelte'
-	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/home_sites'
-	import { unsetJwt } from './utils/cookies'
-	import { personLink, personUri, siteLink } from './utils/links'
+	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.js'
+	import { personLink, personUri, siteLink, unsetJwt } from './utils/index.js'
 
 	let className: string | undefined = undefined
 	export { className as class }

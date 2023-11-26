@@ -1,8 +1,8 @@
 import { error, type HttpError } from '@sveltejs/kit'
 import { type GetPost, LemmyHttp } from 'lemmy-js-client'
-import { headers, serverFetch } from '$lib/utils/requests'
+import { headers, serverFetch } from '$lib/utils/index.js'
 import { formGetComments, setAuth } from '$lib/utils/search_params'
-import type { PageLoad } from './$types'
+import type { PageLoad } from './$types.js'
 
 export const load = (async ({ params, fetch, url, parent, depends }) => {
 	const id = parseInt(params.post)

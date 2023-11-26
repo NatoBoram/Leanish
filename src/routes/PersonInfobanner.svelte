@@ -1,8 +1,7 @@
 <script lang="ts">
-	import type { MyUserInfo, Site } from 'lemmy-js-client'
 	import PersonUri from '$lib/person/PersonUri.svelte'
-	import { lemmyDate, timeAgo } from '$lib/utils/dates'
-	import { personLink } from '$lib/utils/links'
+	import { lemmyDate, personLink, timeAgo } from '$lib/utils/index.js'
+	import type { MyUserInfo, Site } from 'lemmy-js-client'
 
 	let className: string | undefined = undefined
 	export { className as class }

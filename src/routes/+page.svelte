@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { LemmyHttp } from 'lemmy-js-client'
-	import { onMount } from 'svelte'
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
+	import Spinner from '$lib/Spinner.svelte'
 	import {
 		findDefaultHomeSite,
 		findHomeSite,
 		getHomeSites,
 		pushHomeSite,
-	} from '$lib/preferences/home_sites'
-	import Spinner from '$lib/Spinner.svelte'
-	import { newUrl, siteLink } from '$lib/utils/links'
-	import { clientFetch } from '$lib/utils/requests'
+	} from '$lib/preferences/index.js'
+	import { clientFetch, newUrl, siteLink } from '$lib/utils/index.js'
+	import { LemmyHttp } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
 	import HomeSiteCard from './HomeSiteCard.svelte'
 
 	let input: string

@@ -49,6 +49,9 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.27.6
     version: 1.27.6(svelte@4.2.7)(vite@4.4.9)
+  '@sveltejs/package':
+    specifier: ^2.2.3
+    version: 2.2.3(svelte@4.2.7)(typescript@5.3.2)
   '@tailwindcss/forms':
     specifier: ^0.5.7
     version: 0.5.7(tailwindcss@3.3.5)
@@ -106,6 +109,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: ^0.5.7
     version: 0.5.7(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier-plugin-svelte@3.1.2)(prettier@3.1.0)
+  publint:
+    specifier: ^0.2.5
+    version: 0.2.5
   svelte:
     specifier: ^4.2.7
     version: 4.2.7
@@ -1001,6 +1007,23 @@ packages:
       vite: 4.4.9(@types/node@20.10.0)
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@sveltejs/package@2.2.3(svelte@4.2.7)(typescript@5.3.2):
+    resolution: {integrity: sha512-iZEC5qw+2RIjfIAHR3O+IeokJIjVM/ieoxPxj6YmZCwu5JKFADtC4jzjSUJ7GkCMUQ4HqE7u4/3cCxXBocxi8A==}
+    engines: {node: ^16.14 || >=18}
+    hasBin: true
+    peerDependencies:
+      svelte: ^3.44.0 || ^4.0.0
+    dependencies:
+      chokidar: 3.5.3
+      kleur: 4.1.5
+      sade: 1.8.1
+      semver: 7.5.4
+      svelte: 4.2.7
+      svelte2tsx: 0.6.27(svelte@4.2.7)(typescript@5.3.2)
+    transitivePeerDependencies:
+      - typescript
     dev: true
 
   /@sveltejs/vite-plugin-svelte-inspector@1.0.4(@sveltejs/vite-plugin-svelte@2.5.3)(svelte@4.2.7)(vite@4.4.9):
@@ -2150,6 +2173,10 @@ packages:
       mimic-response: 3.1.0
     dev: true
 
+  /dedent-js@1.0.1:
+    resolution: {integrity: sha512-OUepMozQULMLUmhxS95Vudo0jb0UchLimi3+pQ2plj61Fcy8axbP9hbiD4Sz6DPqn6XG3kfmziVfQ1rSys5AJQ==}
+    dev: true
+
   /deep-eql@4.1.3:
     resolution: {integrity: sha512-WaEtAOpRA1MQ0eohqZjpGD8zdI0Ovsm8mmFhaDN8dvDZzyoUMcYDnf5Y6iu7HTXxf8JDS23qWa4a+hKCDyOPzw==}
     engines: {node: '>=6'}
@@ -2933,6 +2960,13 @@ packages:
     resolution: {integrity: sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==}
     dev: true
 
+  /ignore-walk@5.0.1:
+    resolution: {integrity: sha512-yemi4pMf51WKT7khInJqAvsIGzoqYXblnsz0ql8tM+yi1EKYTY1evX4NAbJrLL/Aanr2HyZeluqU+Oi7MGHokw==}
+    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    dependencies:
+      minimatch: 5.1.6
+    dev: true
+
   /ignore@5.3.0:
     resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
     engines: {node: '>= 4'}
@@ -3294,6 +3328,12 @@ packages:
       get-func-name: 2.0.0
     dev: true
 
+  /lower-case@2.0.2:
+    resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
+    dependencies:
+      tslib: 2.6.2
+    dev: true
+
   /lru-cache@10.1.0:
     resolution: {integrity: sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==}
     engines: {node: 14 || >=16.14}
@@ -3574,6 +3614,13 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
+  /no-case@3.0.4:
+    resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
+    dependencies:
+      lower-case: 2.0.2
+      tslib: 2.6.2
+    dev: true
+
   /node-abi@3.51.0:
     resolution: {integrity: sha512-SQkEP4hmNWjlniS5zdnfIXTk1x7Ome85RDzHlTbBtzE97Gfwz/Ipw4v/Ryk20DWIy3yCNVLVlGKApCnmvYoJbA==}
     engines: {node: '>=10'}
@@ -3671,6 +3718,29 @@ packages:
   /normalize-range@0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /npm-bundled@2.0.1:
+    resolution: {integrity: sha512-gZLxXdjEzE/+mOstGDqR6b0EkhJ+kM6fxM6vUuckuctuVPh80Q6pw/rSZj9s4Gex9GxWtIicO1pc8DB9KZWudw==}
+    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    dependencies:
+      npm-normalize-package-bin: 2.0.0
+    dev: true
+
+  /npm-normalize-package-bin@2.0.0:
+    resolution: {integrity: sha512-awzfKUO7v0FscrSpRoogyNm0sajikhBWpU0QMrW09AMi9n1PoKU6WaIqUzuJSQnpciZZmJ/jMZ2Egfmb/9LiWQ==}
+    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    dev: true
+
+  /npm-packlist@5.1.3:
+    resolution: {integrity: sha512-263/0NGrn32YFYi4J533qzrQ/krmmrWwhKkzwTuM4f/07ug51odoaNjUexxO4vxlzURHcmYMH1QjvHjsNDKLVg==}
+    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
+    hasBin: true
+    dependencies:
+      glob: 8.1.0
+      ignore-walk: 5.0.1
+      npm-bundled: 2.0.1
+      npm-normalize-package-bin: 2.0.0
     dev: true
 
   /npm-watch@0.9.0:
@@ -3813,6 +3883,13 @@ packages:
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
+    dev: true
+
+  /pascal-case@3.1.2:
+    resolution: {integrity: sha512-uWlGT3YSnK9x3BQJaOdcZwrnV6hPpd8jFH1/ucpiLRPh/2zCVJKS19E4GvYHvaCcACn3foXZ0cLB9Wrx1KGe5g==}
+    dependencies:
+      no-case: 3.0.4
+      tslib: 2.6.2
     dev: true
 
   /path-exists@3.0.0:
@@ -4165,6 +4242,16 @@ packages:
 
   /pstree.remy@1.1.8:
     resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
+    dev: true
+
+  /publint@0.2.5:
+    resolution: {integrity: sha512-eoQiP0WXkxkpth1fMLoS1I/6BQoxKNZxTAAnFjPgURFrJulC5D5Uifk49a9kfNCYmcza9E/ZkbFhQQdjkmKAbg==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      npm-packlist: 5.1.3
+      picocolors: 1.0.0
+      sade: 1.8.1
     dev: true
 
   /pump@3.0.0:
@@ -4795,6 +4882,18 @@ packages:
       postcss: 8.4.31
       sorcery: 0.11.0
       strip-indent: 3.0.0
+      svelte: 4.2.7
+      typescript: 5.3.2
+    dev: true
+
+  /svelte2tsx@0.6.27(svelte@4.2.7)(typescript@5.3.2):
+    resolution: {integrity: sha512-E1uPW1o6VsbRz+nUk3fznZ2lSmCITAJoNu8AYefWSvIwE2pSB01i5sId4RMbWNzfcwCQl1DcgGShCPcldl4rvg==}
+    peerDependencies:
+      svelte: ^3.55 || ^4.0.0-next.0 || ^4.0 || ^5.0.0-next.0
+      typescript: ^4.9.4 || ^5.0.0
+    dependencies:
+      dedent-js: 1.0.1
+      pascal-case: 3.1.2
       svelte: 4.2.7
       typescript: 5.3.2
     dev: true

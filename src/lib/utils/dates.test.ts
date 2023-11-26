@@ -1,5 +1,5 @@
 import { describe, test } from 'vitest'
-import { fullTimeAgo, timeAgo } from './dates'
+import { fullTimeAgo, timeAgo } from './dates.js'
 
 describe('timeAgo', () => {
 	test('just now', ({ expect }) => expect(timeAgo(new Date())).toBe('just now'))

@@ -1,7 +1,7 @@
 import { Preferences } from '@capacitor/preferences'
 import type { MyUserInfo, Site } from 'lemmy-js-client'
-import { siteHostname } from '$lib/utils/links'
-import type { HomeSite } from './home_site'
+import { siteHostname } from '$lib/utils/index.js'
+import type { HomeSite } from './home_site.js'
 
 const homeSitesKey = 'homeSites'
 
@@ -104,7 +104,7 @@ function matchHomeSite(first: HomeSite, second: HomeSite) {
 	)
 }
 
-export async function getCurrentHomeSite(hostname: string) {
+export async function parseCurrentHomeSite(hostname: string) {
 	const homeSites = await getHomeSites()
 	return homeSites.find(
 		hs => hs.current && siteHostname(hs.siteResponse.site_view.site) === hostname,

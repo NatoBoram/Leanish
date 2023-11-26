@@ -1,8 +1,8 @@
 arrowParens: avoid
 importOrder:
-  - '<THIRD_PARTY_MODULES>'
-  - '^\$'
-  - '^[./]'
+  - <THIRD_PARTY_MODULES>
+  - ^\$
+  - ^[./]
 importOrderCaseInsensitive: true
 importOrderGroupNamespaceSpecifiers: true
 importOrderSortSpecifiers: true
@@ -20,4 +20,4 @@ semi: false
 singleQuote: true
 trailingComma: all
 useTabs: true
-xmlWhitespaceSensitivity: 'ignore'
+xmlWhitespaceSensitivity: ignore
