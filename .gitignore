@@ -11,3 +11,6 @@ vite.config.ts.timestamp-*
 
 # Example data
 /examples/my_user.json
+
+# Bun
+bun.lockb
