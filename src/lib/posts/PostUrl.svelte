@@ -1,9 +1,7 @@
 <script lang="ts">
+	import { audioTypes, imageExtensions, videoTypes } from '$lib/consts/index.js'
 	import { ArrowTopRightOnSquare } from '@natoboram/heroicons.svelte/20/solid'
 	import type { PostView } from 'lemmy-js-client'
-	import { audioTypes } from '$lib/consts/audio_types'
-	import { imageExtensions } from '$lib/consts/image_extensions'
-	import { videoTypes } from '$lib/consts/video_types'
 
 	let className: string | undefined = undefined
 	export { className as class }

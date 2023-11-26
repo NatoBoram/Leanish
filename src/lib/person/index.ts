@@ -1,4 +1,4 @@
-export { default as BlockPersonButton } from './BlockPersonButton.svelte'
+export { default as PersonBlockButton } from './PersonBlockButton.svelte'
 export { default as PersonCard } from './PersonCard.svelte'
 export { default as PersonGrid } from './PersonGrid.svelte'
 export { default as PersonIcon } from './PersonIcon.svelte'

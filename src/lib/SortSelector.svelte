@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { SortType } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { isSortType } from '$lib/utils/guards'
+	import { isSortType } from '$lib/utils/index.js'
+	import type { SortType } from 'lemmy-js-client'
+	import { createEventDispatcher } from 'svelte'
 
 	export let sort: SortType
 

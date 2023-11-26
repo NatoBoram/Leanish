@@ -25,7 +25,17 @@
 			"url": "https://paypal.me/NatoBoram/5"
 		}
 	],
-	"private": true,
+	"files": [
+		"dist",
+		"!dist/**/*.test.*"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
 	"repository": "github:NatoBoram/Leanish",
 	"scripts": {
 		"dev": "vite dev",
@@ -38,6 +48,9 @@
 		"install:aab": "export env $(cat android/key.properties | xargs) && bundletool build-apks --bundle=android/app/build/outputs/bundle/release/app-release.aab --key-pass=\"pass:$keyPassword\" --ks-key-alias=\"$keyAlias\" --ks-pass=\"pass:$storePassword\" --ks=\"$storeFile\" --output=android/app/build/outputs/bundle/release/app-release.apks --overwrite && bundletool install-apks --apks=android/app/build/outputs/bundle/release/app-release.apks",
 		"preview": "vite preview",
 		"preview:android": "pnpm run build:csr && cap sync android && cap run android",
+		"package": "svelte-kit sync && svelte-package && publint",
+		"package:watch": "svelte-kit sync && svelte-package -w",
+		"prepublishOnly": "pnpm run package",
 		"test": "pnpm run test:integration && pnpm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -69,6 +82,7 @@
 		"@sveltejs/adapter-node": "^1.3.1",
 		"@sveltejs/adapter-static": "^2.0.3",
 		"@sveltejs/kit": "^1.27.6",
+		"@sveltejs/package": "^2.2.3",
 		"@tailwindcss/forms": "^0.5.7",
 		"@tailwindcss/typography": "^0.5.10",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -88,6 +102,7 @@
 		"prettier": "^3.1.0",
 		"prettier-plugin-svelte": "^3.1.2",
 		"prettier-plugin-tailwindcss": "^0.5.7",
+		"publint": "^0.2.5",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.2",
 		"tailwindcss": "^3.3.5",
@@ -96,5 +111,12 @@
 		"vite": "^4.4.9",
 		"vitest": "^0.32.4"
 	},
+	"peerDependencies": {
+		"@sveltejs/kit": "^1.27.6",
+		"svelte": "^4.2.7"
+	},
+	"private": true,
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"type": "module"
 }

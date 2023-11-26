@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { CommunityId, CommunityView } from 'lemmy-js-client'
+	import ClickOutside from '$lib/ClickOutside.svelte'
 	import BlockCommunityButton from '$lib/buttons/BlockCommunityButton.svelte'
 	import FollowCommunityButton from '$lib/buttons/FollowCommunityButton.svelte'
-	import ClickOutside from '$lib/ClickOutside.svelte'
-	import { getClientContext } from '$lib/contexts/client'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
+	import type { CommunityId, CommunityView } from 'lemmy-js-client'
 
 	let className: string | undefined = 'w-6 h-6'
 	export { className as class }

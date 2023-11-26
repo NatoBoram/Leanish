@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
+	import { createEventDispatcher } from 'svelte'
 
 	let className: string | undefined = undefined
 	export { className as class }

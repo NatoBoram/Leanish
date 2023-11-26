@@ -1,4 +1,12 @@
 <script lang="ts">
+	import { base } from '$app/paths'
+	import { page } from '$app/stores'
+	import Dismissable from '$lib/Dismissable.svelte'
+	import Prose from '$lib/Prose.svelte'
+	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments/index.js'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import ReportForm from '$lib/posts/ReportPostForm.svelte'
+	import { siteHostname } from '$lib/utils/index.js'
 	import type {
 		CommentResponse,
 		CommentView,
@@ -10,17 +18,9 @@
 		Site,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import { base } from '$app/paths'
-	import { page } from '$app/stores'
-	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments'
-	import { getClientContext } from '$lib/contexts/client'
-	import Dismissable from '$lib/Dismissable.svelte'
-	import ReportForm from '$lib/posts/ReportPostForm.svelte'
-	import Prose from '$lib/Prose.svelte'
-	import { siteHostname } from '$lib/utils/links'
-	import type { CommentNode } from './comment_node'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
 	import RemoveCommentForm from './RemoveCommentForm.svelte'
+	import type { CommentNode } from './comment_node.js'
 
 	let className: string | undefined = undefined
 	export { className as class }

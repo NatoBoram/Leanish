@@ -2,14 +2,14 @@ import { CapacitorCookies } from '@capacitor/core'
 import type { Site } from 'lemmy-js-client'
 import { browser } from '$app/environment'
 import { base } from '$app/paths'
-import { getCurrentHomeSite } from '$lib/preferences/home_sites'
-import { siteHostname } from './links'
+import { parseCurrentHomeSite } from '$lib/preferences/index.js'
+import { siteHostname } from './links.js'
 
 export async function getJwt(
 	hostname: string,
 	data: { jwt: string | undefined } | null,
 ): Promise<string | undefined> {
-	if (browser) return getCurrentHomeSite(hostname).then(hs => hs?.jwt)
+	if (browser) return parseCurrentHomeSite(hostname).then(hs => hs?.jwt)
 	else if (data) return data.jwt
 	else throw new Error("`getJwt` wasn't run in the browser nor in the server.")
 }

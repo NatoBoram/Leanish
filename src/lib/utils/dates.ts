@@ -1,4 +1,4 @@
-import { Duration, durationUnit } from './duration'
+import { Duration, durationUnit } from './duration.js'
 
 export function lemmyDate(date: string) {
 	return new Date(`${date}Z`)

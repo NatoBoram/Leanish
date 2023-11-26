@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { BlockCommunityResponse, CommunityResponse } from 'lemmy-js-client'
-	import CommunityGrid from '$lib/community/CommunityGrid.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import ShowNsfwSelector from '$lib/ShowNsfwSelector.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import type { PageData } from './$types'
+	import CommunityGrid from '$lib/community/CommunityGrid.svelte'
+	import type { BlockCommunityResponse, CommunityResponse } from 'lemmy-js-client'
+	import type { PageData } from './$types.js'
 
 	export let data: PageData
 

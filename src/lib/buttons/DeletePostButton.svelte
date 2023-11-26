@@ -1,10 +1,10 @@
 <script lang="ts">
+	import Spinner from '$lib/Spinner.svelte'
+	import { getClientContext } from '$lib/contexts/index.js'
 	import { Trash as TrashOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Post, PostResponse } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import { getClientContext } from '$lib/contexts/client'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	let className: string | undefined = undefined

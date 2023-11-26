@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getClientContext } from '$lib/contexts/index.js'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import { getClientContext } from '$lib/contexts/client'
 	import CommentMeatballs from './CommentMeatballs.svelte'
 
 	let className: string | undefined = undefined

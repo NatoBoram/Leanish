@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { SearchType } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { isSearchType } from './utils/guards'
+	import type { SearchType } from 'lemmy-js-client'
+	import { createEventDispatcher } from 'svelte'
+	import { isSearchType } from './utils/index.js'
 
 	export let name = 'type_'
 	export let type_: SearchType

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { MyUserInfo, PersonView, Site } from 'lemmy-js-client'
 	import Prose from '$lib/Prose.svelte'
+	import type { MyUserInfo, PersonView, Site } from 'lemmy-js-client'
 	import PersonCard from './PersonCard.svelte'
 
 	let className: string | undefined = undefined

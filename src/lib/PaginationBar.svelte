@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { goto, invalidate } from '$app/navigation'
+	import { page } from '$app/stores'
 	import {
 		ChevronDoubleLeft,
 		ChevronLeft,
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
 	import { createEventDispatcher } from 'svelte'
-	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
 	import FlatButton from './buttons/FlatButton.svelte'
 
 	let className: string | undefined = undefined

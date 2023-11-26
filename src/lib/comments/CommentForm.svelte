@@ -1,12 +1,12 @@
 <script lang="ts">
+	import Prose from '$lib/Prose.svelte'
+	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import type { Language, LanguageId, MyUserInfo } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import FlatButton from '$lib/buttons/FlatButton.svelte'
-	import Prose from '$lib/Prose.svelte'
 
 	const dispatch = createEventDispatcher<{
-		submit: { content: string; languageId: LanguageId }
-		cancel: undefined
+		readonly submit: { readonly content: string; readonly languageId: LanguageId }
+		readonly cancel: undefined
 	}>()
 
 	export let allLanguages: Language[]

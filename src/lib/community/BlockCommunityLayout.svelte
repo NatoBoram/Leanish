@@ -1,7 +1,7 @@
 <script lang="ts">
+	import CommunityBlockButton from '$lib/community/CommunityBlockButton.svelte'
+	import { getClientContext } from '$lib/contexts/index.js'
 	import type { CommunityView } from 'lemmy-js-client'
-	import BlockCommunityButton from '$lib/community/BlockCommunityButton.svelte'
-	import { getClientContext } from '$lib/contexts/client'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -39,7 +39,7 @@
 </script>
 
 <div class="flex flex-col gap-4 {className}">
-	<BlockCommunityButton {blockCommunity} community={response ?? Promise.resolve(community)} />
+	<CommunityBlockButton {blockCommunity} community={response ?? Promise.resolve(community)} />
 
 	{#if blockError}
 		<p

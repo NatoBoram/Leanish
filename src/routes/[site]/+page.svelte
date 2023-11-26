@@ -6,7 +6,7 @@
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import Tagline from '$lib/Tagline.svelte'
-	import type { PageData } from './$types'
+	import type { PageData } from './$types.js'
 
 	export let data: PageData
 

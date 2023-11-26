@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { getClientContext } from '$lib/contexts/index.js'
 	import { NoSymbol } from '@natoboram/heroicons.svelte/20/solid'
 	import type { BlockPersonResponse, MyUserInfo, PersonId, PersonView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
-	import { getClientContext } from '$lib/contexts/client'
 	import FlatButton from './FlatButton.svelte'
 
 	let className: string | undefined = undefined
