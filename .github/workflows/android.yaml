@@ -37,7 +37,7 @@ jobs:
           echo '${{ secrets.KEY_STORE }}' | base64 --decode > android/app/${{ vars.STORE_FILE }}
 
       - name: Android SDK
-        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "build-tools;33.0.2" "platforms;android-33"
+        run: (yes || true) | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "build-tools;33.0.2" "platforms;android-33"
 
       - run: pnpm run build:apk
       - uses: actions/upload-artifact@v3
