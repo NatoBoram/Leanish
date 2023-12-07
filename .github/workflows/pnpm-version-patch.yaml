@@ -1,0 +1,45 @@
+name: Node.js Patch
+
+on: workflow_dispatch
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+
+    if: ${{ github.actor != 'nektos/act' }}
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Configure Git, patch, release and push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git config commit.gpgsign true
+          git config gpg.format ssh
+          git config user.signingkey 'key::${{ secrets.SIGNING_KEY_PUBLIC }}'
+
+          eval `ssh-agent -s`
+          ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'
+
+          VERSION=$(pnpm version patch --no-git-tag-version)
+
+          VERSION_NAME=$(echo $VERSION | sed 's/v//')
+          sed -i "s/versionName = '.*'/versionName = '$VERSION_NAME'/" android/variables.gradle
+
+          VERSION_CODE=$(awk '/versionCode/ { $NF = $NF + 1; print $NF }' android/variables.gradle)
+          sed -i "s/versionCode = .*/versionCode = $VERSION_CODE/" android/variables.gradle
+
+          git commit --all --message "🔖 $VERSION"
+          git push
+          git push --tags
+
+          gh release create $VERSION --generate-notes --title $VERSION --verify-tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
