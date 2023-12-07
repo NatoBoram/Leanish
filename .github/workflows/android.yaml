@@ -41,7 +41,7 @@ jobs:
 
       - run: pnpm run build:apk
       - uses: actions/upload-artifact@v3
-        if: ${{ github.ref_name == 'main' }}
+        if: ${{ github.ref_name == 'main' && github.actor != 'nektos/act' }}
         with:
           name: app-release
           path: android/app/build/outputs/apk/release/app-release.apk

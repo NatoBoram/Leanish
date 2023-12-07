@@ -55,7 +55,7 @@ Don't forget to put the full path and actual passwords in the file. You can find
 To make a release build:
 
 ```sh
-yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "build-tools;33.0.2" "platforms;android-33"
+(yes || true) | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "build-tools;33.0.2" "platforms;android-33"
 git clone https://github.com/NatoBoram/Leanish.git
 cd Leanish
 pnpm install

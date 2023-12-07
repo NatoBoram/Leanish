@@ -15,6 +15,7 @@
 *.md
 /android
 /build
+/coverage
 /dist
 /examples
 /node_modules
