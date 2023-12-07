@@ -1,2 +1,3 @@
 #!/bin/sh
-act --secret-file .env.local --var-file .env.local
+clear
+act --secret-file .env.local --var-file .env.vars.local
