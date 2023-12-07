@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^4.3.0
     version: 4.3.0(prettier@3.1.0)
   '@ts-stack/markdown':
-    specifier: ^1.4.0
-    version: 1.4.0
+    specifier: ^1.5.0
+    version: 1.5.0
   '@types/cookie':
     specifier: ^0.5.1
     version: 0.5.1
@@ -1146,8 +1146,8 @@ packages:
       - supports-color
     dev: true
 
-  /@ts-stack/markdown@1.4.0:
-    resolution: {integrity: sha512-z3fkD8wGSyqTCp+axZVlr9hFKyM18XKPHEyC8vmohyTcqf5sRRy9Sd0omYBJ85IDW57DLEcfvVatXfUt1unEew==}
+  /@ts-stack/markdown@1.5.0:
+    resolution: {integrity: sha512-ntVX2Kmb2jyTdH94plJohokvDVPvp6CwXHqsa9NVZTK8cOmHDCYNW0j6thIadUVRTStJhxhfdeovLd0owqDxLw==}
     dependencies:
       tslib: 2.6.2
     dev: true
