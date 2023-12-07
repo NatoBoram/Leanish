@@ -14,6 +14,6 @@ ext {
 	androidxEspressoCoreVersion = '3.5.1'
 	cordovaAndroidVersion = '10.1.1'
 
-	versionName = '0.0.0'
-	versionCode = 1
+	versionName = '0.0.1'
+	versionCode = 2
 }
