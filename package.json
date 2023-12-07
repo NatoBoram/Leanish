@@ -76,7 +76,7 @@
 		"@capacitor/assets": "^3.0.1",
 		"@capacitor/cli": "^5.5.1",
 		"@natoboram/heroicons.svelte": "^1.0.4",
-		"@playwright/test": "^1.36.2",
+		"@playwright/test": "^1.40.1",
 		"@prettier/plugin-xml": "^3.2.2",
 		"@sveltejs/adapter-auto": "^2.1.1",
 		"@sveltejs/adapter-node": "^1.3.1",
