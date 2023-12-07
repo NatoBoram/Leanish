@@ -8,7 +8,18 @@ export function timeAgo(date: Date) {
 	const now = new Date()
 	const milliseconds = now.getTime() - date.getTime()
 	const duration = new Duration(milliseconds, durationUnit.millisecond)
+	return durationAgo(duration)
+}
 
+/**
+ * @param duration the positive duration to convert to a human-readable string. Negative durations
+ * are treated being in the future.
+ *
+ * @returns a human-readable string representation of how much time ago was this duration.
+ * @example "2 hours ago"
+ */
+export function durationAgo(duration: Duration) {
+	duration = duration.to(durationUnit.millisecond)
 	if (duration.value < 0) return 'in the future'
 
 	if (duration.value < durationUnit.second) return 'just now'
