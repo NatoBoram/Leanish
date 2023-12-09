@@ -57,7 +57,10 @@
 		})
 	})
 
-	const client = new LemmyHttp(data.site_view.site.actor_id, { fetchFunction: clientFetch })
+	const client = new LemmyHttp(data.site_view.site.actor_id, {
+		fetchFunction: clientFetch,
+		...(data.jwt ? { headers: { Authorization: `Bearer ${data.jwt}` } } : {}),
+	})
 	setClientContext(client)
 </script>
 

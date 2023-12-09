@@ -12,7 +12,7 @@
 		BlockPersonResponse,
 		CommentResponse,
 		CommentView,
-		PurgeItemResponse,
+		SuccessResponse,
 	} from 'lemmy-js-client'
 	import type { PageData } from './$types.js'
 
@@ -53,7 +53,7 @@
 	}
 
 	export function onPurge(
-		event: CustomEvent<{ commentView: CommentView; response: PurgeItemResponse }>,
+		event: CustomEvent<{ commentView: CommentView; response: SuccessResponse }>,
 	) {
 		if (!event.detail.response.success) return
 

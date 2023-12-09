@@ -2,11 +2,13 @@
  * don't announce it. */
 const bypass: string[] = []
 
-export function headers(params: { site: string }, referer: `/${string}` = '/') {
+export function headers(jwt: string | undefined, params: { site: string }, referer: `/${string}`) {
 	const name = __NAME__
 	const version = __VERSION__
 
 	return {
+		...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+
 		...(bypass.includes(params.site)
 			? {
 					Host: params.site,

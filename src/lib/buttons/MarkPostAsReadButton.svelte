@@ -28,7 +28,6 @@
 		markPending = true
 		const marked = await client
 			.markPostAsRead({
-				auth: jwt,
 				post_id: postView.post.id,
 				read: !postView.read,
 			})

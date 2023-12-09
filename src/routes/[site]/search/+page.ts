@@ -25,7 +25,7 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 
 	const client = new LemmyHttp(`https://${params.site}`, {
 		fetchFunction: serverFetch(fetch),
-		headers: headers(params, `/search`),
+		headers: headers(pageParentData.jwt, params, `/search`),
 	})
 
 	depends('app:paginate')
