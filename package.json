@@ -26,9 +26,16 @@
 		}
 	],
 	"files": [
+		"build",
+		"!build/**/*.test.*",
 		"dist",
 		"!dist/**/*.test.*"
 	],
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"bin": {
+		"leanish": "build/index.js"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -50,7 +57,7 @@
 		"preview:android": "pnpm run build:csr && cap sync android && cap run android",
 		"package": "svelte-kit sync && svelte-package && publint",
 		"package:watch": "svelte-kit sync && svelte-package -w",
-		"prepublishOnly": "pnpm run package",
+		"prepublishOnly": "BUILD_ADAPTER=node pnpm run build && pnpm run package",
 		"test": "pnpm run test:integration && pnpm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
