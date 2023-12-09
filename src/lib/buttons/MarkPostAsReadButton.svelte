@@ -2,7 +2,7 @@
 	import Spinner from '$lib/Spinner.svelte'
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { Check } from '@natoboram/heroicons.svelte/20/solid'
-	import type { PostResponse, PostView } from 'lemmy-js-client'
+	import type { PostView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
@@ -14,7 +14,7 @@
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
-		read: PostResponse
+		read: PostView
 		error: Error
 		response: Response
 	}>()
@@ -33,9 +33,9 @@
 			})
 			.catch((e: Response) => void dispatch('response', e))
 
-		if (marked) {
-			postView = marked.post_view
-			dispatch('read', marked)
+		if (marked?.success) {
+			postView.read = !postView.read
+			dispatch('read', postView)
 		}
 
 		markPending = false

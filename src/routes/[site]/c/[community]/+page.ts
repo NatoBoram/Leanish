@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit'
-import { type GetCommunity, LemmyHttp } from 'lemmy-js-client'
+import { LemmyHttp } from 'lemmy-js-client'
 import { headers, serverFetch } from '$lib/utils/index.js'
-import { formGetPosts, setAuth } from '$lib/utils/search_params'
+import { formGetPosts } from '$lib/utils/search_params'
 import type { PageLoad } from './$types.js'
 
 export const load = (async ({ params, fetch, parent, url, depends }) => {
@@ -14,17 +14,15 @@ export const load = (async ({ params, fetch, parent, url, depends }) => {
 
 	depends('app:paginate')
 
-	const getPosts = formGetPosts({ jwt: pageParentData.jwt }, pageParentData, url, {
+	const getPosts = formGetPosts(pageParentData, url, {
 		community_name: params.community,
 	})
 
 	const [community, posts] = await Promise.all([
-		client
-			.getCommunity(setAuth<GetCommunity>({ name: params.community }, { jwt: pageParentData.jwt }))
-			.catch(e => {
-				console.error(e)
-				throw error(500, 'Failed to load community')
-			}),
+		client.getCommunity({ name: params.community }).catch(e => {
+			console.error(e)
+			throw error(500, 'Failed to load community')
+		}),
 		client.getPosts(getPosts).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load posts')

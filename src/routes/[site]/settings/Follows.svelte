@@ -5,7 +5,6 @@
 	import type { CommunityFollowerView, MyUserInfo, Site } from 'lemmy-js-client'
 
 	export let follows: CommunityFollowerView[]
-	export let jwt: string
 	export let myUser: MyUserInfo
 	export let site: Site
 
@@ -33,7 +32,6 @@
 
 			const found = await client
 				.search({
-					auth: jwt,
 					community_name: uri,
 					listing_type: 'All',
 					q: follow.community.name,
@@ -41,7 +39,7 @@
 				})
 				.then(searched => searched.communities.find(c => uri === communityUri(c.community)))
 				.catch(() => undefined)
-				.then(v => v ?? client.getCommunity({ auth: jwt, name: uri }).then(r => r.community_view))
+				.then(v => v ?? client.getCommunity({ name: uri }).then(r => r.community_view))
 				.catch((e: Response) => e)
 
 			if (found instanceof Response) {
@@ -54,7 +52,6 @@
 			logs = logs
 
 			await client.followCommunity({
-				auth: jwt,
 				community_id: found.community.id,
 				follow: true,
 			})

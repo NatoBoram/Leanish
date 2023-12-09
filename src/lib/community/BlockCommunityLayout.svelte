@@ -24,7 +24,6 @@
 
 		const response = await client
 			.blockCommunity({
-				auth: jwt,
 				block,
 				community_id: community.community.id,
 			})

@@ -14,7 +14,7 @@ export const load = (async ({ params, fetch, parent, url, depends }) => {
 
 	depends('app:paginate')
 
-	const getPosts = formGetPosts({ jwt: pageParentData.jwt }, pageParentData, url)
+	const getPosts = formGetPosts(pageParentData, url)
 	const posts = await client.getPosts(getPosts).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load posts')

@@ -30,7 +30,6 @@
 
 		const distinguished = await client
 			.distinguishComment({
-				auth: jwt,
 				comment_id: comment.id,
 				distinguished: !comment.distinguished,
 			})

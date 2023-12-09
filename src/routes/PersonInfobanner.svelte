@@ -46,28 +46,22 @@
 
 			<div class="flex flex-row flex-wrap items-center gap-2">
 				<PersonUri
+					{myUser}
+					{site}
 					class="text-muted"
 					community={undefined}
+					localUser={myUser.local_user_view.local_user}
 					moderators={[]}
-					{myUser}
 					person={myUser.local_user_view.person}
 					showBadges={false}
 					showIcon={false}
-					{site}
+					view={undefined}
 				/>
 
 				<div class="text-muted max-sm:hidden">•</div>
 
 				<div class="text-muted">
 					{timeAgo(lemmyDate(myUser.local_user_view.person.published))}
-				</div>
-
-				<div class="text-muted max-sm:hidden">•</div>
-
-				<div class="whitespace-nowrap">
-					{myUser.local_user_view.counts.post_score + myUser.local_user_view.counts.comment_score}
-
-					<span class="text-muted">total karma</span>
 				</div>
 			</div>
 
@@ -84,20 +78,6 @@
 					{myUser.local_user_view.counts.comment_count}
 
 					<span class="text-muted">Comments</span>
-				</div>
-
-				<!-- Post Karma -->
-				<div>
-					{myUser.local_user_view.counts.post_score}
-
-					<span class="text-muted">Post Karma</span>
-				</div>
-
-				<!-- Comment Karma -->
-				<div>
-					{myUser.local_user_view.counts.comment_score}
-
-					<span class="text-muted">Comment Karma</span>
 				</div>
 			</div>
 		</div>

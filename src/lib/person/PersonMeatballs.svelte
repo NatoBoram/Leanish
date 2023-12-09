@@ -22,9 +22,7 @@
 
 	function onclick() {
 		if (!opened && !personViewPromise && jwt)
-			personViewPromise = client
-				.getPersonDetails({ person_id: personId, auth: jwt })
-				.then(r => r.person_view)
+			personViewPromise = client.getPersonDetails({ person_id: personId }).then(r => r.person_view)
 
 		opened = !opened
 	}

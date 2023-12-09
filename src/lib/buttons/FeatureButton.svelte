@@ -45,7 +45,6 @@
 
 		const featured = await client
 			.featurePost({
-				auth: jwt,
 				feature_type: type,
 				featured: !featuredValue(postView, type),
 				post_id: postView.post.id,

@@ -65,8 +65,10 @@
 				{myUser}
 				{site}
 				community={postView.community}
+				localUser={undefined}
 				person={postView.creator}
 				showIcon={false}
+				view={postView}
 			/>
 
 			{#if myUser && jwt}

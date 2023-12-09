@@ -64,12 +64,7 @@
 						{#await importUserFile.text() then text}
 							{@const user = parseUser(text)}
 
-							<Follows
-								follows={user.follows}
-								site={data.site_view.site}
-								jwt={data.jwt}
-								myUser={data.my_user}
-							/>
+							<Follows follows={user.follows} site={data.site_view.site} myUser={data.my_user} />
 						{/await}
 					{/each}
 				{/if}

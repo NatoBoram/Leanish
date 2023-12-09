@@ -28,7 +28,6 @@
 
 		request = client
 			.blockPerson({
-				auth: jwt,
 				block,
 				person_id: personView.person.id,
 			})

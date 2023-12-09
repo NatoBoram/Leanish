@@ -35,7 +35,7 @@
 
 		votePending = true
 		const response = await client
-			.likePost({ auth: jwt, post_id: postView.post.id, score: score })
+			.likePost({ post_id: postView.post.id, score: score })
 			.catch((e: unknown) => {
 				if (e instanceof Response) dispatch('response', e)
 			})

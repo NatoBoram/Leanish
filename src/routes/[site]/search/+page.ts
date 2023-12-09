@@ -11,7 +11,7 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 	const q = url.searchParams.get('q')
 
 	const pageParentData = await parent()
-	const form = formSearch({ jwt: pageParentData.jwt }, pageParentData, url, { q: q ?? '' })
+	const form = formSearch(pageParentData, url, { q: q ?? '' })
 
 	if (!q)
 		return {

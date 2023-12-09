@@ -1,7 +1,7 @@
 import { error, type HttpError } from '@sveltejs/kit'
-import { type GetPost, LemmyHttp } from 'lemmy-js-client'
+import { LemmyHttp } from 'lemmy-js-client'
 import { headers, serverFetch } from '$lib/utils/index.js'
-import { formGetComments, setAuth } from '$lib/utils/search_params'
+import { formGetComments } from '$lib/utils/search_params'
 import type { PageLoad } from './$types.js'
 
 export const load = (async ({ params, fetch, url, parent, depends }) => {
@@ -15,14 +15,14 @@ export const load = (async ({ params, fetch, url, parent, depends }) => {
 		headers: headers(pageParentData.jwt, params, `/post/${id}`),
 	})
 
-	const formComment = formGetComments({ jwt: pageParentData.jwt }, pageParentData, url, {
+	const formComment = formGetComments(pageParentData, url, {
 		post_id: id,
 		limit: 50,
 	})
 	depends('app:paginate')
 
 	const [post, comments] = await Promise.all([
-		client.getPost(setAuth<GetPost>({ id }, { jwt: pageParentData.jwt })).catch((e: HttpError) => {
+		client.getPost({ id }).catch((e: HttpError) => {
 			switch (e.status) {
 				case 404:
 					throw error(e.status, 'This post could not be found.')

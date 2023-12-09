@@ -29,7 +29,6 @@
 		savePending = true
 		const saved = await client
 			.saveComment({
-				auth: jwt,
 				comment_id: commentView.comment.id,
 				save: !commentView.saved,
 			})

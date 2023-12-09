@@ -13,7 +13,7 @@ export const load = (async ({ params, url, fetch, depends, parent }) => {
 
 	depends('app:paginate')
 
-	const form = formGetPersonDetails({ jwt: pageParentData.jwt }, pageParentData, url)
+	const form = formGetPersonDetails(pageParentData, url)
 	const person = await client.getPersonDetails({ ...form, username: params.user })
 
 	return { ...form, ...person }

@@ -56,7 +56,9 @@
 			{myUser}
 			{site}
 			community={commentView.community}
+			localUser={undefined}
 			person={commentView.creator}
+			view={commentView}
 		/>
 
 		{#if jwt && myUser}

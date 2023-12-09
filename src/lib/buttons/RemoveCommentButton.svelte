@@ -30,7 +30,6 @@
 		removePending = true
 		const removed = await client
 			.removeComment({
-				auth: jwt,
 				comment_id: comment.id,
 				removed: !comment.removed,
 			})

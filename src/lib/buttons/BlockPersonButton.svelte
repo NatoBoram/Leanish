@@ -29,7 +29,6 @@
 		if (!jwt) return dispatch('error', new Error('You must be logged in to block a person.'))
 
 		request = client.blockPerson({
-			auth: jwt,
 			block,
 			person_id,
 		})
