@@ -29,7 +29,6 @@
 		lockPending = true
 		const locked = await client
 			.lockPost({
-				auth: jwt,
 				locked: !post.locked,
 				post_id: post.id,
 			})

@@ -29,7 +29,6 @@
 		deletePending = true
 		const deleted = await client
 			.deleteComment({
-				auth: jwt,
 				comment_id: comment.id,
 				deleted: !comment.deleted,
 			})

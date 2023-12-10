@@ -5,7 +5,9 @@
 		"editorconfig.editorconfig",
 		"esbenp.prettier-vscode",
 		"ms-azuretools.vscode-docker",
+		"ms-playwright.playwright",
 		"svelte.svelte-vscode",
-		"vscjava.vscode-gradle"
+		"vscjava.vscode-gradle",
+		"zixuanchen.vitest-explorer"
 	]
 }

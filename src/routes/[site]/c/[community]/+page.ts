@@ -1,29 +1,27 @@
 import { error } from '@sveltejs/kit'
-import { type GetCommunity, LemmyHttp } from 'lemmy-js-client'
-import { headers, serverFetch } from '$lib/utils/index.js'
-import { formGetPosts, setAuth } from '$lib/utils/search_params'
+import { LemmyHttp } from 'lemmy-js-client'
+import { formGetPosts, headers, serverFetch } from '$lib/utils/index.js'
 import type { PageLoad } from './$types.js'
 
 export const load = (async ({ params, fetch, parent, url, depends }) => {
+	const loaded = await parent()
+
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
-		headers: headers(params, `/c/${params.community}`),
+		fetchFunction: serverFetch(fetch, loaded.jwt),
+		headers: headers(loaded.jwt, params, `/c/${params.community}`),
 	})
 
 	depends('app:paginate')
 
-	const pageParentData = await parent()
-	const getPosts = formGetPosts({ jwt: pageParentData.jwt }, pageParentData, url, {
+	const getPosts = formGetPosts(loaded, url, {
 		community_name: params.community,
 	})
 
 	const [community, posts] = await Promise.all([
-		client
-			.getCommunity(setAuth<GetCommunity>({ name: params.community }, { jwt: pageParentData.jwt }))
-			.catch(e => {
-				console.error(e)
-				throw error(500, 'Failed to load community')
-			}),
+		client.getCommunity({ name: params.community }).catch(e => {
+			console.error(e)
+			throw error(500, 'Failed to load community')
+		}),
 		client.getPosts(getPosts).catch(e => {
 			console.error(e)
 			throw error(500, 'Failed to load posts')

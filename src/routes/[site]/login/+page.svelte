@@ -4,7 +4,7 @@
 	import Dismissable from '$lib/Dismissable.svelte'
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { pushHomeSite } from '$lib/preferences/home_sites.js'
-	import { setJwt, siteHostname, siteLink } from '$lib/utils/index.js'
+	import { headers, setJwt, siteHostname, siteLink } from '$lib/utils/index.js'
 	import type { LoginResponse } from 'lemmy-js-client'
 	import type { PageData } from './$types.js'
 
@@ -28,7 +28,10 @@
 		if (!loginResponse.jwt) return
 
 		await setJwt(data.site_view.site, loginResponse.jwt)
-		const siteResponse = await client.getSite({ auth: loginResponse.jwt })
+		const site = siteHostname(data.site_view.site)
+		client.setHeaders(headers(loginResponse.jwt, { site }, '/'))
+		const siteResponse = await client.getSite()
+
 		await pushHomeSite({
 			current: true,
 			default: false,

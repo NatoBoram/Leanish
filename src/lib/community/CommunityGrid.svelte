@@ -18,9 +18,8 @@
 		<!-- Titles -->
 		<thead>
 			<tr>
-				<th class="w-20 text-start">Hot Rank</th>
 				<th class="text-start">Name</th>
-				<th class="max-sm:hidden"> Subscribers </th>
+				<th class="max-sm:hidden">Subscribers</th>
 				<th class="max-md:hidden">Posts</th>
 				<th class="max-lg:hidden">Comments</th>
 				<th class="" />
@@ -30,10 +29,6 @@
 		<tbody>
 			{#each communityViews as communityView (communityView.community.id)}
 				<tr>
-					<td class="">
-						#{communityView.counts.hot_rank}
-					</td>
-
 					<td>
 						<a
 							class="flex flex-row items-center gap-4"

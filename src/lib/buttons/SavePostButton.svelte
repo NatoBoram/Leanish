@@ -29,7 +29,6 @@
 		savePending = true
 		const save = await client
 			.savePost({
-				auth: jwt,
 				post_id: postView.post.id,
 				save: !postView.saved,
 			})

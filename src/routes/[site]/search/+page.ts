@@ -1,7 +1,6 @@
 import { error } from '@sveltejs/kit'
 import { LemmyHttp, type Search, type SearchResponse, type SearchType } from 'lemmy-js-client'
-import { headers, isSearchType, serverFetch } from '$lib/utils/index.js'
-import { formSearch } from '$lib/utils/search_params'
+import { formSearch, headers, isSearchType, serverFetch } from '$lib/utils/index.js'
 import type { PageLoad } from './$types.js'
 
 export const load = (async ({ depends, fetch, params, parent, url }) => {
@@ -10,8 +9,8 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 
 	const q = url.searchParams.get('q')
 
-	const pageParentData = await parent()
-	const form = formSearch({ jwt: pageParentData.jwt }, pageParentData, url, { q: q ?? '' })
+	const loaded = await parent()
+	const form = formSearch(loaded, url, { q: q ?? '' })
 
 	if (!q)
 		return {
@@ -24,8 +23,8 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 		} satisfies Search & SearchResponse
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
-		headers: headers(params, `/search`),
+		fetchFunction: serverFetch(fetch, loaded.jwt),
+		headers: headers(loaded.jwt, params, `/search`),
 	})
 
 	depends('app:paginate')

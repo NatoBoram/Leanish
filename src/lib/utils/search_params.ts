@@ -17,12 +17,10 @@ import type {
 import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards.js'
 
 export function formGetComments(
-	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
 	url: URL,
 	form: GetComments = {},
 ): GetComments {
-	setAuth(form, cookies)
 	setCommentSort(form, url, data.my_user)
 	setCommentType(form, url)
 	setCommunityId(form, url)
@@ -37,12 +35,10 @@ export function formGetComments(
 }
 
 export function formGetPersonDetails(
-	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
 	url: URL,
 	form: GetPersonDetails = {},
 ): GetPersonDetails {
-	setAuth(form, cookies)
 	setCommunityId(form, url)
 	setLimit(form, url)
 	setPage(form, url)
@@ -53,12 +49,10 @@ export function formGetPersonDetails(
 }
 
 export function formGetPosts(
-	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
 	url: URL,
 	form: GetPosts = {},
 ): GetPosts {
-	setAuth(form, cookies)
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setLimit(form, url)
@@ -71,12 +65,10 @@ export function formGetPosts(
 }
 
 export function formListCommunities(
-	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
 	url: URL,
 	form: ListCommunities = {},
 ): ListCommunities {
-	setAuth(form, cookies)
 	setLimit(form, url)
 	setPage(form, url)
 	setShowNsfw(form, url, data.my_user)
@@ -87,12 +79,10 @@ export function formListCommunities(
 }
 
 export function formSearch(
-	cookies: { jwt: string | undefined },
 	data: { my_user?: MyUserInfo | undefined },
 	url: URL,
 	form: Search,
 ): Search {
-	setAuth(form, cookies)
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setCreatorId(form, url)
@@ -102,16 +92,6 @@ export function formSearch(
 	setSearchType(form, url)
 	setSort(form, url, data.my_user)
 
-	return form
-}
-
-export function setAuth<T extends { auth?: string }>(
-	form: T,
-	cookies: { jwt: string | undefined },
-): T {
-	if (form.auth) return form
-	const { jwt } = cookies
-	if (jwt) form.auth = jwt
 	return form
 }
 

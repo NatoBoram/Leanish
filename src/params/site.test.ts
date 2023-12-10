@@ -1,5 +1,5 @@
 import { describe, test } from 'vitest'
-import { match } from './site'
+import { match } from './site.js'
 
 describe.concurrent('site', () => {
 	test('match', ({ expect }) => {

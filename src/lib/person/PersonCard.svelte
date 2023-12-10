@@ -42,13 +42,15 @@
 
 		<div class="flex w-full flex-row justify-center">
 			<PersonUri
-				class="text-muted"
 				{myUser}
 				{site}
+				class="text-muted"
 				community={undefined}
+				localUser={myUser?.local_user_view.local_user}
 				moderators={[]}
 				person={personView.person}
 				showIcon={false}
+				view={undefined}
 			/>
 
 			{#if myUser && jwt}
@@ -70,20 +72,6 @@
 			<div>
 				<strong class="font-semibold">{toSuffixNumber(personView.counts.comment_count)}</strong>
 				<span class="text-muted">Comments</span>
-			</div>
-			<div>
-				<strong class="font-semibold">{toSuffixNumber(personView.counts.post_score)}</strong>
-				<span class="text-muted">post karma</span>
-			</div>
-			<div>
-				<strong class="font-semibold">{toSuffixNumber(personView.counts.comment_score)}</strong>
-				<span class="text-muted">comment karma</span>
-			</div>
-			<div class="col-span-2 mx-auto pt-2">
-				<strong class="font-semibold">
-					{toSuffixNumber(personView.counts.post_score + personView.counts.comment_score)}
-				</strong>
-				<span class="text-muted">total karma</span>
 			</div>
 		</div>
 	</div>

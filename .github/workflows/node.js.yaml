@@ -24,7 +24,16 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
-      - run: pnpm exec playwright install
+      - run: pnpm exec playwright install --with-deps
       - run: pnpm run test
       - run: pnpm run check
       - run: pnpm run lint
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: playwright
+          path: |
+            playwright-report
+            test-results
+          retention-days: 7

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Spinner from '$lib/Spinner.svelte'
 	import { getClientContext } from '$lib/contexts/index.js'
-	import { PushPin, PushPinFill } from '$lib/svg'
+	import { PushPin, PushPinFill } from '$lib/svg/index.js'
 	import type { PostFeatureType, PostResponse, PostView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
@@ -45,7 +45,6 @@
 
 		const featured = await client
 			.featurePost({
-				auth: jwt,
 				feature_type: type,
 				featured: !featuredValue(postView, type),
 				post_id: postView.post.id,

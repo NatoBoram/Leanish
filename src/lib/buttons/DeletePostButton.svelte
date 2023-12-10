@@ -29,7 +29,6 @@
 		deletePending = true
 		const deleted = await client
 			.deletePost({
-				auth: jwt,
 				post_id: post.id,
 				deleted: !post.deleted,
 			})

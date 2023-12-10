@@ -34,7 +34,7 @@
 			return
 		}
 
-		const client = new LemmyHttp(input, { fetchFunction: clientFetch })
+		const client = new LemmyHttp(input, { fetchFunction: clientFetch(undefined) })
 		const siteResponse = await client.getSite()
 
 		// Hidden sites need a way to connect to them

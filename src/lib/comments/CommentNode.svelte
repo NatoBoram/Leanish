@@ -14,8 +14,8 @@
 		Language,
 		MyUserInfo,
 		PersonView,
-		PurgeItemResponse,
 		Site,
+		SuccessResponse,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
@@ -37,7 +37,7 @@
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
 		comment: CommentResponse
-		purge: { commentView: CommentView; response: PurgeItemResponse }
+		purge: { commentView: CommentView; response: SuccessResponse }
 	}>()
 
 	let botErrorMessage = ''
@@ -59,7 +59,6 @@
 		replyPending = true
 		const response = await client
 			.createComment({
-				auth: jwt,
 				content: e.detail.content,
 				language_id: e.detail.languageId,
 				parent_id: commentView.comment.id,
@@ -105,7 +104,6 @@
 		reportPending = true
 		const reported = await client
 			.createCommentReport({
-				auth: jwt,
 				comment_id: commentView.comment.id,
 				reason: e.detail,
 			})
@@ -137,7 +135,6 @@
 		editPending = true
 		const response = await client
 			.editComment({
-				auth: jwt,
 				comment_id: commentView.comment.id,
 				content: e.detail.content,
 				language_id: e.detail.languageId,
@@ -197,7 +194,6 @@
 		purgePending = true
 		const purged = await client
 			.purgeComment({
-				auth: jwt,
 				comment_id: commentView.comment.id,
 				reason: e.detail,
 			})
@@ -222,7 +218,6 @@
 		removePending = true
 		const removed = await client
 			.removeComment({
-				auth: jwt,
 				comment_id: commentView.comment.id,
 				reason: e.detail,
 				removed: !commentView.comment.removed,

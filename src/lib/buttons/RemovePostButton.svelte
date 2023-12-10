@@ -29,7 +29,6 @@
 		removePending = true
 		const removed = await client
 			.removePost({
-				auth: jwt,
 				post_id: post.id,
 				removed: !post.removed,
 			})

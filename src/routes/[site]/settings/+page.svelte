@@ -52,8 +52,8 @@
 			<strong class="font-bold sm:col-span-2">Import</strong>
 
 			<label for="import-user">
-				Allows you to synchronise your the user you've blocked, the communities you follow and the
-				communities you've blocked from an account on another instance.
+				Allows you to synchronise the communities you follow, the communities you've blocked and the
+				user you've blocked from an account on another instance.
 			</label>
 
 			<input id="import-user" type="file" accept=".json" bind:files={importUserFiles} />
@@ -64,12 +64,7 @@
 						{#await importUserFile.text() then text}
 							{@const user = parseUser(text)}
 
-							<Follows
-								follows={user.follows}
-								site={data.site_view.site}
-								jwt={data.jwt}
-								myUser={data.my_user}
-							/>
+							<Follows follows={user.follows} site={data.site_view.site} myUser={data.my_user} />
 						{/await}
 					{/each}
 				{/if}

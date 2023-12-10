@@ -24,7 +24,6 @@
 
 		const response = await client
 			.followCommunity({
-				auth: jwt,
 				community_id,
 				follow,
 			})

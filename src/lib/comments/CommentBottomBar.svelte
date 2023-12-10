@@ -40,7 +40,6 @@
 
 		const response = await client
 			.likeComment({
-				auth: jwt,
 				comment_id: commentView.comment.id,
 				score: score,
 			})

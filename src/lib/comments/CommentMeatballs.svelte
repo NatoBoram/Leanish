@@ -81,7 +81,7 @@
 				{/if}
 
 				<!-- Moderator -->
-				{#if moderator || myUser.local_user_view.person.admin}
+				{#if moderator || myUser.local_user_view.local_user.admin}
 					<hr class="my-2 border-muted" />
 
 					<DistinguishButton
@@ -106,7 +106,7 @@
 				{/if}
 
 				<!-- Administrator -->
-				{#if myUser.local_user_view.person.admin}
+				{#if myUser.local_user_view.local_user.admin}
 					<hr class="my-2 border-muted" />
 
 					<MeatballButton class="hover:surface surface-container" on:click={clickPurge}>

@@ -26,7 +26,6 @@
 			.followCommunity({
 				community_id: community.community.id,
 				follow: follow,
-				auth: jwt,
 			})
 			.catch(e => {
 				console.error(e)

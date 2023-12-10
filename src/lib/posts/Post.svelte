@@ -56,7 +56,6 @@
 		commentPending = true
 		const response = await client
 			.createComment({
-				auth: jwt,
 				content: e.detail.content,
 				language_id: e.detail.languageId,
 				post_id: postView.post.id,
@@ -97,7 +96,6 @@
 		reportPending = true
 		const response = await client
 			.createPostReport({
-				auth: jwt,
 				post_id: postView.post.id,
 				reason: e.detail,
 			})
@@ -115,6 +113,10 @@
 		postView = event.detail.post_view
 	}
 
+	function onPostView(event: CustomEvent<PostView>) {
+		postView = event.detail
+	}
+
 	async function purgePost(event: CustomEvent<string>) {
 		if (!jwt) return (botErrorMessage = 'You must be logged in to purge posts.')
 		if (!event.detail) return
@@ -122,7 +124,6 @@
 		purgePending = true
 		const purged = await client
 			.purgePost({
-				auth: jwt,
 				post_id: postView.post.id,
 				reason: event.detail,
 			})
@@ -244,7 +245,7 @@
 		on:feature={onPostReponse}
 		on:lock={onPostReponse}
 		on:purge={() => (purging = !purging)}
-		on:read={onPostReponse}
+		on:read={onPostView}
 		on:remove={onPostReponse}
 		on:report={() => (reporting = !reporting)}
 		on:response={onBotResponse}

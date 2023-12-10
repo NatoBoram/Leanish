@@ -45,9 +45,9 @@
 			if (
 				!data.my_user &&
 				currentSite.siteResponse.my_user &&
-				$page.url.pathname !== `${base}/login`
+				$page.url.pathname !== `${base}/${hostname}/login`
 			)
-				return goto(`${base}/login?goto=${encodeURIComponent($page.url.pathname)}`)
+				return goto(`${base}/${hostname}/login?goto=${encodeURIComponent($page.url.pathname)}`)
 		})()
 
 		void App.addListener('backButton', ({ canGoBack }) => {
@@ -57,7 +57,10 @@
 		})
 	})
 
-	const client = new LemmyHttp(data.site_view.site.actor_id, { fetchFunction: clientFetch })
+	const client = new LemmyHttp(data.site_view.site.actor_id, {
+		fetchFunction: clientFetch(data.jwt),
+		...(data.jwt ? { headers: { Authorization: `Bearer ${data.jwt}` } } : {}),
+	})
 	setClientContext(client)
 </script>
 
