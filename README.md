@@ -16,6 +16,8 @@ Android builds are available in the [Releases](https://github.com/NatoBoram/Lean
 
 For a more cutting-edge experience, the CI builds are available in [the Actions tab](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml).
 
+[![Get it on Obtainium](https://github.com/NatoBoram/Leanish/assets/10495562/928ae711-a01c-4496-97f2-50dc1740f370)](https://github.com/ImranR98/Obtainium)
+
 ## Build from source
 
 ### Docker
