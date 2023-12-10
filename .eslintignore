@@ -11,6 +11,8 @@ vite.config.ts.timestamp-*
 /dist
 /coverage
 *.tsbuildinfo
+/test-results
+/playwright-report
 
 # Ignore files for PNPM, NPM and YARN
 pnpm-lock.yaml

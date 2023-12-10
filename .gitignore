@@ -11,6 +11,8 @@ vite.config.ts.timestamp-*
 /dist
 /coverage
 *.tsbuildinfo
+/test-results
+/playwright-report
 
 # Example data
 /examples/my_user.json

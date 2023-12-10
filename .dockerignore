@@ -13,6 +13,7 @@
 .svelte-kit
 .vscode
 *.md
+*.tsbuildinfo
 /android
 /build
 /coverage
@@ -20,8 +21,10 @@
 /examples
 /node_modules
 /package
+/playwright-report
 /resources
 /svg
+/test-results
 /tests
 capacitor.config.json
 ionic.config.json
