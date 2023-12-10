@@ -8,7 +8,13 @@ A lean-ish web client for Lemmy.
 
 ## Usage
 
-There is an alpha build at [natoboram.github.io/Leanish](https://natoboram.github.io/Leanish). The roadmap for the first beta release is in [this milestone](https://github.com/NatoBoram/Leanish/milestone/1).
+Leanish is currently in alpha. The roadmap to beta is in [the Beta milestone](https://github.com/NatoBoram/Leanish/milestone/1).
+
+There is a CSR deployment at [natoboram.github.io/Leanish](https://natoboram.github.io/Leanish). It can be installed as a Progressive Web App.
+
+Android builds are available in the [Releases](https://github.com/NatoBoram/Leanish/releases) tab.
+
+For a more cutting-edge experience, the CI builds are available in [the Actions tab](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml).
 
 ## Build from source
 
