@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { CommunityUri } from '$lib/community'
-	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
-	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Posts from '$lib/posts/Posts.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
+	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
+	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
+	import { CommunityUri } from '$lib/community/index.js'
+	import Posts from '$lib/posts/Posts.svelte'
 	import type { PageData } from './$types.js'
 
 	export let data: PageData

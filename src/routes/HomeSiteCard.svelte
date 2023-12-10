@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { HomeSite } from '$lib/preferences/home_site'
+	import type { HomeSite } from '$lib/preferences/index.js'
 	import PersonInfobanner from './PersonInfobanner.svelte'
 	import SiteInfobanner from './SiteInfobanner.svelte'
 

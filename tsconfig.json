@@ -10,7 +10,8 @@
 		"moduleDetection": "force",
 
 		// Modules
-		"moduleResolution": "Bundler",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"resolvePackageJsonExports": true,
 		"resolvePackageJsonImports": true,
 		"resolveJsonModule": true,

@@ -4,7 +4,7 @@
 	import PaginationBar from '$lib/PaginationBar.svelte'
 	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
 	import Comments from '$lib/comments/Comments.svelte'
-	import { buildCommentTree } from '$lib/comments/comment_tree'
+	import { buildCommentTree } from '$lib/comments/index.js'
 	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import Post from '$lib/posts/Post.svelte'
 	import { ArrowLongRight } from '@natoboram/heroicons.svelte/20/solid'

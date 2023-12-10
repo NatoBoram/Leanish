@@ -13,6 +13,7 @@ const env = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BU
 const https = process.argv.includes('--https')
 
 export default defineConfig({
+	// @ts-expect-error Type 'viteBasicSslPlugin' has no call signatures.
 	plugins: [...(https ? [basicSsl()] : []), sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
