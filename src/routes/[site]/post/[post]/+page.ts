@@ -8,14 +8,14 @@ export const load = (async ({ params, fetch, url, parent, depends }) => {
 	const id = parseInt(params.post)
 	if (isNaN(id)) throw error(400, 'Invalid post ID')
 
-	const pageParentData = await parent()
+	const loaded = await parent()
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
-		headers: headers(pageParentData.jwt, params, `/post/${id}`),
+		fetchFunction: serverFetch(fetch, loaded.jwt),
+		headers: headers(loaded.jwt, params, `/post/${id}`),
 	})
 
-	const formComment = formGetComments(pageParentData, url, {
+	const formComment = formGetComments(loaded, url, {
 		post_id: id,
 		limit: 50,
 	})

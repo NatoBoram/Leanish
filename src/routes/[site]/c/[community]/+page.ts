@@ -5,16 +5,16 @@ import { formGetPosts } from '$lib/utils/search_params'
 import type { PageLoad } from './$types.js'
 
 export const load = (async ({ params, fetch, parent, url, depends }) => {
-	const pageParentData = await parent()
+	const loaded = await parent()
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
-		headers: headers(pageParentData.jwt, params, `/c/${params.community}`),
+		fetchFunction: serverFetch(fetch, loaded.jwt),
+		headers: headers(loaded.jwt, params, `/c/${params.community}`),
 	})
 
 	depends('app:paginate')
 
-	const getPosts = formGetPosts(pageParentData, url, {
+	const getPosts = formGetPosts(loaded, url, {
 		community_name: params.community,
 	})
 

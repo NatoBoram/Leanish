@@ -22,8 +22,16 @@ export function headers(jwt: string | undefined, params: { site: string }, refer
 	}
 }
 
-export function serverFetch(fetch: typeof globalThis.fetch): typeof globalThis.fetch {
+export function serverFetch(
+	fetch: typeof globalThis.fetch,
+	jwt: string | undefined,
+): typeof globalThis.fetch {
 	return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
+		if (jwt) {
+			input = addAuthParam(input, jwt)
+			init = addAuthBody(init, jwt)
+		}
+
 		const res = await fetch(input, init)
 		if (res.ok) return res
 		const error = res.clone()
@@ -41,15 +49,19 @@ export function serverFetch(fetch: typeof globalThis.fetch): typeof globalThis.f
 	}
 }
 
-export async function clientFetch(
-	input: RequestInfo | URL,
-	init?: RequestInit | undefined,
-): Promise<Response> {
-	const res = await fetch(input, init)
-	if (res.ok) return res
-	throw res
+export function clientFetch(jwt: string | undefined): typeof globalThis.fetch {
+	return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
+		if (jwt) {
+			input = addAuthParam(input, jwt)
+			init = addAuthBody(init, jwt)
+		}
+
+		const res = await fetch(input, init)
+
+		if (res.ok) return res
+		throw res
+	}
 }
-clientFetch satisfies typeof globalThis.fetch
 
 /** Change the `auth` parameter, if there's one, to a random UUID to protect JWT. */
 function removeAuth(input: RequestInfo | URL): string {
@@ -69,5 +81,33 @@ function removeAuth(input: RequestInfo | URL): string {
 		return url.toString()
 	}
 
-	throw new TypeError('Input must be a URL or a string')
+	throw new TypeError('Input must be a URL or a string', { cause: input })
+}
+
+/** Add the `auth` parameter to make it compatible with old Lemmy versions. */
+function addAuthParam(input: RequestInfo | URL, jwt: string) {
+	if (input instanceof URL) {
+		input.searchParams.set('auth', jwt)
+		return input.toString()
+	} else if (typeof input === 'string') {
+		const url = new URL(input)
+		url.searchParams.set('auth', jwt)
+		return url.toString()
+	} else if (input instanceof Request) {
+		const url = new URL(input.url)
+		url.searchParams.set('auth', jwt)
+		return url.toString()
+	}
+
+	throw new TypeError('Input must be a URL or a string', { cause: input })
+}
+
+/** Add the `auth` property to make it compatible with old Lemmy versions. */
+function addAuthBody(init: RequestInit | undefined, jwt: string) {
+	if (!init?.body) return init
+
+	const body: unknown = JSON.parse(String(init?.body))
+	if (typeof body !== 'object') return init
+	init.body = JSON.stringify({ ...body, auth: jwt })
+	return init
 }

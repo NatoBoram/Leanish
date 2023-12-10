@@ -7,7 +7,7 @@ export const load = (async ({ params, fetch, data }) => {
 	const jwt = await getJwt(params.site, data)
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
+		fetchFunction: serverFetch(fetch, jwt),
 		headers: headers(jwt, params, '/'),
 	})
 

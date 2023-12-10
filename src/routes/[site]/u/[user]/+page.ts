@@ -4,16 +4,16 @@ import { formGetPersonDetails } from '$lib/utils/search_params'
 import type { PageLoad } from './$types.js'
 
 export const load = (async ({ params, url, fetch, depends, parent }) => {
-	const pageParentData = await parent()
+	const loaded = await parent()
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
-		headers: headers(pageParentData.jwt, params, `/u/${params.user}`),
+		fetchFunction: serverFetch(fetch, loaded.jwt),
+		headers: headers(loaded.jwt, params, `/u/${params.user}`),
 	})
 
 	depends('app:paginate')
 
-	const form = formGetPersonDetails(pageParentData, url)
+	const form = formGetPersonDetails(loaded, url)
 	const person = await client.getPersonDetails({ ...form, username: params.user })
 
 	return { ...form, ...person }

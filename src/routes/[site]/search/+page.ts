@@ -10,8 +10,8 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 
 	const q = url.searchParams.get('q')
 
-	const pageParentData = await parent()
-	const form = formSearch(pageParentData, url, { q: q ?? '' })
+	const loaded = await parent()
+	const form = formSearch(loaded, url, { q: q ?? '' })
 
 	if (!q)
 		return {
@@ -24,8 +24,8 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 		} satisfies Search & SearchResponse
 
 	const client = new LemmyHttp(`https://${params.site}`, {
-		fetchFunction: serverFetch(fetch),
-		headers: headers(pageParentData.jwt, params, `/search`),
+		fetchFunction: serverFetch(fetch, loaded.jwt),
+		headers: headers(loaded.jwt, params, `/search`),
 	})
 
 	depends('app:paginate')
