@@ -13,7 +13,7 @@ const config: PlaywrightTestConfig = {
 	testDir: 'tests',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 	reporter,
-	use: { browserName: 'firefox' },
+	use: { browserName: 'firefox', trace: 'retry-with-trace' },
 }
 
 export default config
