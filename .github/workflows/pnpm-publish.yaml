@@ -48,6 +48,7 @@ jobs:
           ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'
           echo '${{ vars.SIGNING_KEY_PUBLIC }}' > "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub"
           ssh-keygen -Y sign -f "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub" -n file natoboram-leanish-*.tgz
+          ssh-keygen -Y verify -f ./.github/allowed_signers.txt -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s natoboram-leanish-*.tgz.sig < natoboram-leanish-*.tgz
       - run: gh release upload ${{ github.ref_name }} natoboram-leanish-*.tgz natoboram-leanish-*.tgz.sig
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
