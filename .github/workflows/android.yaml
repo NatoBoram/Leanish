@@ -50,8 +50,8 @@ jobs:
         run: |
           eval `ssh-agent -s`
           ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'
-          echo '${{ vars.SIGNING_KEY_PUBLIC }}' > "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub"
-          ssh-keygen -Y sign -f "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub" -n file android/app/build/outputs/apk/release/app-release.apk
+          echo '${{ vars.SIGNING_KEY_PUBLIC }}' > '${{ runner.temp }}/SIGNING_KEY_PUBLIC.pub'
+          ssh-keygen -Y sign -f '${{ runner.temp }}/SIGNING_KEY_PUBLIC.pub' -n file android/app/build/outputs/apk/release/app-release.apk
           ssh-keygen -Y verify -f ./.github/allowed_signers.txt -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s android/app/build/outputs/apk/release/app-release.apk.sig < android/app/build/outputs/apk/release/app-release.apk
 
       - uses: actions/upload-artifact@v3
