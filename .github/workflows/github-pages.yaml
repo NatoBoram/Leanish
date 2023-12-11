@@ -20,7 +20,9 @@ jobs:
           node-version: 21
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build:csr
+      - run: pnpm run build:csr
+        env:
+          BUILD_BASE: /Leanish
       - uses: actions/upload-pages-artifact@v1
         with:
           path: build

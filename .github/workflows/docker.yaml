@@ -2,8 +2,7 @@ name: Docker
 
 on:
   push:
-    tags:
-      - v*
+    tags: v*
 
 jobs:
   docker_push:
@@ -35,6 +34,12 @@ jobs:
           images: |
             natoboram/leanish
             ghcr.io/${{ github.repository }}
+          tags: |
+            type=ref,event=tag
+            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
+            type=semver,pattern={{version}}
 
       - uses: docker/build-push-action@v4
         with:
