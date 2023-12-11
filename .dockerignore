@@ -13,6 +13,8 @@
 .svelte-kit
 .vscode
 *.md
+*.sig
+*.tgz
 *.tsbuildinfo
 /android
 /build
