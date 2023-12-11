@@ -46,7 +46,7 @@ jobs:
         run: |
           eval `ssh-agent -s`
           ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'
-          echo '${{ secrets.SIGNING_KEY_PUBLIC }}' > "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub"
+          echo '${{ vars.SIGNING_KEY_PUBLIC }}' > "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub"
           ssh-keygen -Y sign -f "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub" -n file natoboram-leanish-*.tgz
       - run: gh release upload ${{ github.ref_name }} natoboram-leanish-*.tgz natoboram-leanish-*.tgz.sig
         env:

@@ -38,5 +38,3 @@ jobs:
             playwright-report
             test-results
           retention-days: 7
-
-      - run: echo ${{ secrets.SIGNING_KEY_PUBLIC }} | sed 's/./& /g'
