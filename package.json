@@ -1,6 +1,6 @@
 {
 	"name": "@natoboram/leanish",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A lean-ish web client for Lemmy.",
 	"keywords": [
 		"Lemmy",
