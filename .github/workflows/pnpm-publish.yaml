@@ -42,6 +42,12 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
       - run: pnpm pack --pack-gzip-level 9
-      - run: gh release upload ${{ github.ref_name }} natoboram-leanish-*.tgz
+      - name: Sign
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'
+          echo '${{ secrets.SIGNING_KEY_PUBLIC }}' > "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub"
+          ssh-keygen -Y sign -f "$HOME/.ssh/SIGNING_KEY_PUBLIC.pub" -n file natoboram-leanish-*.tgz
+      - run: gh release upload ${{ github.ref_name }} natoboram-leanish-*.tgz natoboram-leanish-*.tgz.sig
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
