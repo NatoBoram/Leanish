@@ -69,7 +69,7 @@
 		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest",
 		"ionic:build": "pnpm run build:csr",
 		"ionic:serve": "vite dev --host=0.0.0.0 --port=8100",
-		"docker:build": "./scripts/docker_build.sh",
+		"docker:build": "DOCKER_BUILDKIT=1 docker build --secret id=BUILD_BASE --tag leanish .",
 		"docker:run": "docker run --publish 3000:3000 leanish"
 	},
 	"dependencies": {
