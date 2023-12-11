@@ -25,7 +25,7 @@ jobs:
 
           git config commit.gpgsign true
           git config gpg.format ssh
-          git config user.signingkey 'key::${{ secrets.SIGNING_KEY_PUBLIC }}'
+          git config user.signingkey 'key::${{ vars.SIGNING_KEY_PUBLIC }}'
 
           eval `ssh-agent -s`
           ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'

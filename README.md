@@ -72,3 +72,14 @@ pnpm run install:apk
 ```
 
 This will create a release build at `android/app/build/outputs/apk/release/app-release.apk` and install it on your phone.
+
+### Signatures
+
+Files in the [Releases](https://github.com/NatoBoram/Leanish/releases) tab are signed with a SSH key. You can verify the files' signature with the following commands:
+
+```sh
+ssh-keygen -Y verify -f ./.github/allowed_signers.txt -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s app-release.apk.sig < app-release.apk
+ssh-keygen -Y verify -f ./.github/allowed_signers.txt -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s natoboram-leanish-*.tgz.sig < natoboram-leanish-*.tgz
+```
+
+These signatures are only there to indicate that the files were built by GitHub Actions.

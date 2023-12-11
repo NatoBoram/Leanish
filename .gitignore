@@ -22,3 +22,4 @@ bun.lockb
 
 # pnpm pack
 natoboram-leanish-*.tgz
+*.sig
