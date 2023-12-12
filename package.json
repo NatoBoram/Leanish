@@ -49,6 +49,7 @@
 		"dev:android": "pnpm run build:csr && cap run android",
 		"build": "vite build",
 		"build:csr": "./scripts/build_csr.sh",
+		"build:ipfs": "BUILD_IPFS=true pnpm run build:csr && ipfs add --chunker=buzhash --cid-version=1 --pin=false --recursive build",
 		"build:apk": "pnpm run build:csr && cap sync android && ./android/gradlew -p android assembleRelease",
 		"build:aab": "pnpm run build:csr && cap sync android && ./android/gradlew -p android bundleRelease",
 		"install:apk": "adb install -d -r android/app/build/outputs/apk/release/app-release.apk",
@@ -69,8 +70,9 @@
 		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest",
 		"ionic:build": "pnpm run build:csr",
 		"ionic:serve": "vite dev --host=0.0.0.0 --port=8100",
-		"docker:build": "./scripts/docker_build.sh",
-		"docker:run": "docker run --publish 3000:3000 leanish"
+		"docker:build": "DOCKER_BUILDKIT=1 docker build --secret id=BUILD_BASE --tag leanish .",
+		"docker:run": "docker run --publish 127.0.0.1:3000:3000 leanish",
+		"docker:kill": "docker ps --format '{{.Image}} {{.ID}}' | grep leanish | awk '{print $2}' | xargs docker kill"
 	},
 	"dependencies": {
 		"@capacitor/android": "^5.5.1",
