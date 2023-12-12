@@ -16,7 +16,24 @@ Android builds are available in the [Releases](https://github.com/NatoBoram/Lean
 
 For a more cutting-edge experience, the CI builds are available in [the Actions tab](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml).
 
-[![Get it on Obtainium](https://github.com/NatoBoram/Leanish/assets/10495562/928ae711-a01c-4496-97f2-50dc1740f370)](https://github.com/ImranR98/Obtainium)
+<div style="text-align: center">
+	<a href="https://github.com/ImranR98/Obtainium">
+		<img
+			align="center"
+			alt="Get it on Obtainium"
+			height="80"
+			src="https://github.com/NatoBoram/Leanish/assets/10495562/928ae711-a01c-4496-97f2-50dc1740f370"
+		/>
+	</a>
+	<a href="https://play.google.com/store/apps/details?id=com.natoboram.leanish">
+		<img
+			align="center"
+			alt="Get it on Google Play"
+			height="125"
+			src="https://github.com/NatoBoram/Leanish/assets/10495562/946b1991-b08d-4051-91d0-eac31417ec94"
+		/>
+	</a>
+</div>
 
 ## Build from source
 
@@ -83,3 +100,7 @@ ssh-keygen -Y verify -f ./.github/allowed_signers.txt -I '41898282+github-action
 ```
 
 These signatures are only there to indicate that the files were built by GitHub Actions.
+
+## Legal
+
+_Google Play and the Google Play logo are trademarks of Google LLC._
