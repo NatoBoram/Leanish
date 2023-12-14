@@ -14,7 +14,7 @@ export const load = (async ({ params, fetch, url, parent, depends }) => {
 		headers: headers(loaded.jwt, params, `/post/${id}`),
 	})
 
-	const formComment = formGetComments(loaded, url, {
+	const formComment = formGetComments(url, {
 		post_id: id,
 		limit: 50,
 	})

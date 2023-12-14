@@ -9,8 +9,7 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 
 	const q = url.searchParams.get('q')
 
-	const loaded = await parent()
-	const form = formSearch(loaded, url, { q: q ?? '' })
+	const form = formSearch(url, { q: q ?? '' })
 
 	if (!q)
 		return {
@@ -22,6 +21,7 @@ export const load = (async ({ depends, fetch, params, parent, url }) => {
 			users: [],
 		} satisfies Search & SearchResponse
 
+	const loaded = await parent()
 	const client = new LemmyHttp(`https://${params.site}`, {
 		fetchFunction: serverFetch(fetch, loaded.jwt),
 		headers: headers(loaded.jwt, params, `/search`),
