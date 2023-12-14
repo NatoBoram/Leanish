@@ -8,11 +8,11 @@ export interface BuildEnv {
 	readonly BUILD_IPFS: BuildIpfs
 }
 
-export function toBuildEnv(object: Record<string, string>): BuildEnv {
+export function toBuildEnv(env: Record<string, string>): BuildEnv {
 	return {
-		BUILD_ADAPTER: toBuildAdapter(object['BUILD_ADAPTER']),
-		BUILD_BASE: toBuildBase(object['BUILD_BASE']),
-		BUILD_IPFS: toBuildIpfs(object['BUILD_IPFS']),
+		BUILD_ADAPTER: toBuildAdapter(env['BUILD_ADAPTER']),
+		BUILD_BASE: toBuildBase(env['BUILD_BASE']),
+		BUILD_IPFS: toBuildIpfs(env['BUILD_IPFS']),
 	}
 }
 
@@ -27,8 +27,12 @@ function toBuildAdapter(adapter: unknown): BuildAdapter {
 }
 
 function toBuildBase(base: unknown): BuildBase {
-	if (typeof base !== 'string' || !base) return undefined
-	return isBuildBase(base) ? base : `/${base}`
+	if (typeof base !== 'string') return undefined
+
+	const trimmed = base.trim()
+	if (trimmed === '') return trimmed
+
+	return isBuildBase(trimmed) ? trimmed : `/${trimmed}`
 }
 
 function isBuildBase(base: unknown): base is BuildBase {
