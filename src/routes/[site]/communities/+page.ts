@@ -11,7 +11,7 @@ export const load = (async ({ params, fetch, parent, url, depends }) => {
 		headers: headers(loaded.jwt, params, '/communities'),
 	})
 
-	const listCommunities = formListCommunities(loaded, url)
+	const listCommunities = formListCommunities(url)
 	const communities = await client.listCommunities(listCommunities).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load communities')

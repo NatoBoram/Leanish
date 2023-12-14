@@ -13,7 +13,7 @@ export const load = (async ({ params, fetch, parent, url, depends }) => {
 
 	depends('app:paginate')
 
-	const getPosts = formGetPosts(loaded, url, {
+	const getPosts = formGetPosts(url, {
 		community_name: params.community,
 	})
 

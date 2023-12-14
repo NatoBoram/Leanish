@@ -8,7 +8,6 @@ import type {
 	GetPosts,
 	ListCommunities,
 	ListingType,
-	MyUserInfo,
 	PersonId,
 	Search,
 	SearchType,
@@ -16,12 +15,8 @@ import type {
 } from 'lemmy-js-client'
 import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards.js'
 
-export function formGetComments(
-	data: { my_user?: MyUserInfo | undefined },
-	url: URL,
-	form: GetComments = {},
-): GetComments {
-	setCommentSort(form, url, data.my_user)
+export function formGetComments(url: URL, form: GetComments = {}): GetComments {
+	setCommentSort(form, url)
 	setCommentType(form, url)
 	setCommunityId(form, url)
 	setCommunityName(form, url)
@@ -34,81 +29,57 @@ export function formGetComments(
 	return form
 }
 
-export function formGetPersonDetails(
-	data: { my_user?: MyUserInfo | undefined },
-	url: URL,
-	form: GetPersonDetails = {},
-): GetPersonDetails {
+export function formGetPersonDetails(url: URL, form: GetPersonDetails = {}): GetPersonDetails {
 	setCommunityId(form, url)
 	setLimit(form, url)
 	setPage(form, url)
 	setSavedOnly(form, url)
-	setSort(form, url, data.my_user)
+	setSort(form, url)
 
 	return form
 }
 
-export function formGetPosts(
-	data: { my_user?: MyUserInfo | undefined },
-	url: URL,
-	form: GetPosts = {},
-): GetPosts {
+export function formGetPosts(url: URL, form: GetPosts = {}): GetPosts {
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setLimit(form, url)
 	setPage(form, url)
 	setSavedOnly(form, url)
-	setSort(form, url, data.my_user)
-	setType(form, url, data.my_user)
+	setSort(form, url)
+	setType(form, url)
 
 	return form
 }
 
-export function formListCommunities(
-	data: { my_user?: MyUserInfo | undefined },
-	url: URL,
-	form: ListCommunities = {},
-): ListCommunities {
+export function formListCommunities(url: URL, form: ListCommunities = {}): ListCommunities {
 	setLimit(form, url)
 	setPage(form, url)
-	setShowNsfw(form, url, data.my_user)
-	setSort(form, url, data.my_user)
-	setType(form, url, data.my_user)
+	setShowNsfw(form, url)
+	setSort(form, url)
+	setType(form, url)
 
 	return form
 }
 
-export function formSearch(
-	data: { my_user?: MyUserInfo | undefined },
-	url: URL,
-	form: Search,
-): Search {
+export function formSearch(url: URL, form: Search): Search {
 	setCommunityId(form, url)
 	setCommunityName(form, url)
 	setCreatorId(form, url)
 	setLimit(form, url)
-	setListingType(form, url, data.my_user)
+	setListingType(form, url)
 	setPage(form, url)
 	setSearchType(form, url)
-	setSort(form, url, data.my_user)
+	setSort(form, url)
 
 	return form
 }
 
-export function setCommentSort<T extends { sort?: CommentSortType }>(
-	form: T,
-	url: URL,
-	my_user: MyUserInfo | undefined,
-): T {
+export function setCommentSort<T extends { sort?: CommentSortType }>(form: T, url: URL): T {
 	if (form.sort) return form
 
-	const sort =
-		url.searchParams.get('sort') ||
-		my_user?.local_user_view.local_user.default_sort_type ||
-		('Hot' satisfies CommentSortType)
-
+	const sort = url.searchParams.get('sort')
 	if (!sort) return form
-	if (!isCommentSortType(sort)) throw error(400, 'Invalid sort type')
+	if (!isCommentSortType(sort)) throw error(400, `Invalid sort type: ${sort}`)
 
 	form.sort = sort
 	return form
@@ -116,8 +87,8 @@ export function setCommentSort<T extends { sort?: CommentSortType }>(
 
 export function setCommentType<T extends { type_?: ListingType }>(form: T, url: URL): T {
 	if (form.type_) return form
-	const type_ = url.searchParams.get('type_') ?? 'All'
 
+	const type_ = url.searchParams.get('type_')
 	if (!type_) return form
 	if (!isListingType(type_)) throw error(400, `Invalid type_: ${type_}`)
 
@@ -127,17 +98,19 @@ export function setCommentType<T extends { type_?: ListingType }>(form: T, url: 
 
 export function setCommunityId<T extends { community_id?: CommunityId }>(form: T, url: URL): T {
 	if (form.community_id) return form
+
 	const community_id = url.searchParams.get('community_id')
 	if (!community_id) return form
 
 	const number = Number(community_id)
-	if (isNaN(number)) throw error(400, 'Invalid community_id')
+	if (isNaN(number)) throw error(400, `Invalid community_id: ${community_id}`)
 	form.community_id = number
 	return form
 }
 
 export function setCommunityName<T extends { community_name?: string }>(form: T, url: URL): T {
 	if (form.community_name) return form
+
 	const community_name = url.searchParams.get('community_name')
 	if (!community_name) return form
 
@@ -147,11 +120,12 @@ export function setCommunityName<T extends { community_name?: string }>(form: T,
 
 export function setLimit<T extends { limit?: number }>(form: T, url: URL): T {
 	if (form.limit) return form
+
 	const limit = url.searchParams.get('limit')
 	if (!limit) return form
 
 	const number = Number(limit)
-	if (isNaN(number)) throw error(400, 'Invalid limit')
+	if (isNaN(number)) throw error(400, `Invalid limit: ${limit}`)
 	if (number <= 0) throw error(400, 'Limit must be greater than 0')
 
 	form.limit = number
@@ -164,7 +138,7 @@ export function setMaxDepth<T extends { max_depth?: number }>(form: T, url: URL)
 	if (!max_depth) return form
 
 	const number = Number(max_depth)
-	if (isNaN(number)) throw error(400, 'Invalid max_depth')
+	if (isNaN(number)) throw error(400, `Invalid max_depth: ${max_depth}`)
 	if (number <= 0) throw error(400, 'max_depth must be greater than 0')
 
 	form.max_depth = number
@@ -177,7 +151,7 @@ export function setPage<T extends { page?: number }>(form: T, url: URL): T {
 	if (!page) return form
 
 	const number = Number(page)
-	if (isNaN(number)) throw error(400, 'Invalid page')
+	if (isNaN(number)) throw error(400, `Invalid page: ${page}`)
 	if (number <= 0) throw error(400, 'Page must be greater than 0')
 
 	form.page = number
@@ -190,7 +164,7 @@ export function setParentId<T extends { parent_id?: CommentId }>(form: T, url: U
 	if (!parent_id) return form
 
 	const number = Number(parent_id)
-	if (isNaN(number)) throw error(400, 'Invalid parent_id')
+	if (isNaN(number)) throw error(400, `Invalid parent_id: ${parent_id}`)
 	form.parent_id = number
 	return form
 }
@@ -204,56 +178,34 @@ export function setSavedOnly<T extends { saved_only?: boolean }>(form: T, url: U
 	return form
 }
 
-export function setShowNsfw<T extends { show_nsfw?: boolean }>(
-	form: T,
-	url: URL,
-	myUser?: MyUserInfo | undefined,
-): T {
+export function setShowNsfw<T extends { show_nsfw?: boolean }>(form: T, url: URL): T {
 	if (form.show_nsfw) return form
-	const show_nsfw = url.searchParams.get('show_nsfw')
-	if (!show_nsfw && myUser?.local_user_view.local_user.show_nsfw !== undefined) {
-		form.show_nsfw = myUser.local_user_view.local_user.show_nsfw
-		return form
-	}
 
+	const show_nsfw = url.searchParams.get('show_nsfw')
 	if (!show_nsfw) return form
 
 	if (show_nsfw === true.toString()) form.show_nsfw = true
 	else if (show_nsfw === false.toString()) form.show_nsfw = false
-	else throw error(400, 'Invalid show_nsfw')
+	else throw error(400, `Invalid show_nsfw: ${show_nsfw}`)
 
 	return form
 }
 
-export function setSort<T extends { sort?: string }>(
-	form: T,
-	url: URL,
-	my_user: MyUserInfo | undefined,
-): T {
+export function setSort<T extends { sort?: SortType }>(form: T, url: URL): T {
 	if (form.sort) return form
-	const sort =
-		url.searchParams.get('sort') ??
-		my_user?.local_user_view.local_user.default_sort_type ??
-		('Active' satisfies SortType)
-	if (!sort) return form
+	const sort = url.searchParams.get('sort')
 
-	if (!isSortType(sort)) throw error(400, 'Invalid sort')
+	if (!sort) return form
+	if (!isSortType(sort)) throw error(400, `Invalid sort: ${sort}`)
 
 	form.sort = sort
 	return form
 }
 
-export function setType<T extends { type_?: ListingType }>(
-	form: T,
-	url: URL,
-	my_user?: MyUserInfo | undefined,
-): T {
+export function setType<T extends { type_?: ListingType }>(form: T, url: URL): T {
 	if (form.type_) return form
-	const type_ =
-		url.searchParams.get('type_') ??
-		my_user?.local_user_view.local_user.default_listing_type ??
-		('Local' satisfies ListingType)
 
+	const type_ = url.searchParams.get('type_')
 	if (!type_) return form
 	if (!isListingType(type_)) throw error(400, `Invalid type_: ${type_}`)
 
@@ -261,17 +213,10 @@ export function setType<T extends { type_?: ListingType }>(
 	return form
 }
 
-export function setListingType<T extends { listing_type?: ListingType }>(
-	form: T,
-	url: URL,
-	my_user?: MyUserInfo | undefined,
-): T {
+export function setListingType<T extends { listing_type?: ListingType }>(form: T, url: URL): T {
 	if (form.listing_type) return form
-	const listing_type =
-		url.searchParams.get('listing_type') ??
-		my_user?.local_user_view.local_user.default_listing_type ??
-		('Local' satisfies ListingType)
 
+	const listing_type = url.searchParams.get('listing_type')
 	if (!listing_type) return form
 	if (!isListingType(listing_type)) throw error(400, `Invalid listing_type: ${listing_type}`)
 
@@ -281,20 +226,22 @@ export function setListingType<T extends { listing_type?: ListingType }>(
 
 export function setCreatorId<T extends { creator_id?: PersonId }>(form: T, url: URL): T {
 	if (form.creator_id) return form
+
 	const creator_id = url.searchParams.get('creator_id')
 	if (!creator_id) return form
 
 	const number = Number(creator_id)
-	if (isNaN(number)) throw error(400, 'Invalid creator_id')
+	if (isNaN(number)) throw error(400, `Invalid creator_id: ${creator_id}`)
+
 	form.creator_id = number
 	return form
 }
 
 export function setSearchType<T extends { type_?: SearchType }>(form: T, url: URL): T {
 	if (form.type_) return form
+
 	const type_ = url.searchParams.get('type_')
 	if (!type_) return form
-
 	if (!isSearchType(type_)) throw error(400, `Invalid type_: ${type_}`)
 
 	form.type_ = type_

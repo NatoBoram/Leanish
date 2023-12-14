@@ -1,4 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
+import type { BuildAdapter } from '$lib/utils/env.ts'
+
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -8,8 +10,9 @@ declare global {
 		// interface Platform {}
 	}
 
-	declare const __NAME__: string
-	declare const __VERSION__: string
+	const __NAME__: string
+	const __VERSION__: string
+	const __ADAPTER__: BuildAdapter
 }
 
 export {}
