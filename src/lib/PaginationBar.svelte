@@ -125,8 +125,12 @@
 			class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
 			min={1}
-			on:change={() => debounceChangePage($page.url)}
-			on:keypress={e => e.key === 'Enter' && debounceChangePage($page.url)}
+			on:change={() => {
+				debounceChangePage($page.url)
+			}}
+			on:keypress={e => {
+				if (e.key === 'Enter') debounceChangePage($page.url)
+			}}
 			type="number"
 			value={initialIndex($page.url)}
 		/>

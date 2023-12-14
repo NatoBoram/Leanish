@@ -1,3 +1,3 @@
 declare module 'undici-types' {
-	interface Request extends globalThis.Request {}
+	type Request = globalThis.Request
 }

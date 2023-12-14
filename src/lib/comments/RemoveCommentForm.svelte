@@ -9,7 +9,7 @@
 
 	const dispatch = createEventDispatcher<{ cancel: undefined; remove: string }>()
 
-	let value: string = ''
+	let value = ''
 
 	function onSubmit() {
 		dispatch('remove', value)

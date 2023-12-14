@@ -43,8 +43,12 @@
 		id="limit"
 		max={50}
 		min={1}
-		on:change={() => debounceChangeLimit($page.url)}
-		on:keypress={e => e.key === 'Enter' && debounceChangeLimit($page.url)}
+		on:change={() => {
+			debounceChangeLimit($page.url)
+		}}
+		on:keypress={e => {
+			if (e.key === 'Enter') debounceChangeLimit($page.url)
+		}}
 		type="number"
 		value={limit}
 	/>

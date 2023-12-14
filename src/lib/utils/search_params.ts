@@ -104,8 +104,7 @@ export function setCommentSort<T extends { sort?: CommentSortType }>(
 
 	const sort =
 		url.searchParams.get('sort') ||
-		(isCommentSortType(my_user?.local_user_view.local_user.default_sort_type) &&
-			my_user?.local_user_view.local_user.default_sort_type) ||
+		my_user?.local_user_view.local_user.default_sort_type ||
 		('Hot' satisfies CommentSortType)
 
 	if (!sort) return form

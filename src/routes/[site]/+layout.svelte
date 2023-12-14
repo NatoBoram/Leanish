@@ -42,11 +42,7 @@
 				})
 
 			// JWT expired, redirect to login
-			if (
-				!data.my_user &&
-				currentSite.siteResponse.my_user &&
-				$page.url.pathname !== `${base}/${hostname}/login`
-			)
+			if (currentSite.siteResponse.my_user && $page.url.pathname !== `${base}/${hostname}/login`)
 				return goto(`${base}/${hostname}/login?goto=${encodeURIComponent($page.url.pathname)}`)
 		})()
 

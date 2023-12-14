@@ -106,7 +106,7 @@ function addAuthParam(input: RequestInfo | URL, jwt: string) {
 function addAuthBody(init: RequestInit | undefined, jwt: string) {
 	if (!init?.body) return init
 
-	const body: unknown = JSON.parse(String(init?.body))
+	const body: unknown = JSON.parse(String(init.body))
 	if (typeof body !== 'object') return init
 	init.body = JSON.stringify({ ...body, auth: jwt })
 	return init

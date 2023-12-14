@@ -35,7 +35,9 @@
 	bind:this={select}
 	value={type_}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => debounceChangeSearch($page.url)}
+	on:change={() => {
+		debounceChangeSearch($page.url)
+	}}
 >
 	<option disabled={true} aria-hidden={true} value={undefined}>Search Type</option>
 	<option value="All">All</option>

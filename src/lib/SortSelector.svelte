@@ -34,7 +34,9 @@
 	bind:this={select}
 	value={sort}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => debounceChangeSort($page.url)}
+	on:change={() => {
+		debounceChangeSort($page.url)
+	}}
 >
 	<option disabled={true} aria-hidden={true} value={undefined}>Sort type</option>
 	<option value="Active">Active</option>
