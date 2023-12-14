@@ -1,7 +1,6 @@
-// See https://kit.svelte.dev/docs/types#app
 import type { BuildAdapter } from '$lib/utils/env.ts'
 
-// for information about these interfaces
+/** @see https://kit.svelte.dev/docs/types#app for information about these interfaces */
 declare global {
 	namespace App {
 		// interface Error {}
