@@ -27,11 +27,11 @@
 	let paginationBarBot: HTMLElement
 
 	function onNext() {
-		paginationBarTop?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+		paginationBarTop.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
 	function onPrevious() {
-		paginationBarBot?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+		paginationBarBot.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
 	function onBlock(event: CustomEvent<BlockCommunityResponse>) {

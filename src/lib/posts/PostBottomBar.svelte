@@ -81,7 +81,7 @@
 			Reply
 		</button>
 
-		{#if myUser && jwt}
+		{#if jwt}
 			<PostMeatballs
 				{jwt}
 				{myUser}

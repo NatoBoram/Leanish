@@ -34,7 +34,9 @@
 	bind:this={select}
 	value={sort}
 	class="w-20 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => debounceChangeSort($page.url)}
+	on:change={() => {
+		debounceChangeSort($page.url)
+	}}
 >
 	<option value="Hot">Hot</option>
 	<option value="New">New</option>

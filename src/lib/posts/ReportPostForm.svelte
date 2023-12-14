@@ -29,7 +29,7 @@
 
 	const dispatch = createEventDispatcher<{ cancel: undefined; report: string }>()
 
-	let value: string = ''
+	let value = ''
 
 	function onSubmit() {
 		dispatch('report', value)

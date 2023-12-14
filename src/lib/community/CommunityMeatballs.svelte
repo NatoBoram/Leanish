@@ -14,7 +14,7 @@
 	export let communityView: CommunityView | undefined
 	export let jwt: string
 	export let communityId: CommunityId
-	export let position: string = 'bottom-8'
+	export let position = 'bottom-8'
 
 	let communityViewPromise: Promise<CommunityView> | undefined =
 		communityView && Promise.resolve(communityView)

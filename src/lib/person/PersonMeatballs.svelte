@@ -14,7 +14,7 @@
 	export let myUser: MyUserInfo
 	export let personId: PersonId
 	export let personView: PersonView | undefined
-	export let position: string = 'bottom-8'
+	export let position = 'bottom-8'
 
 	let personViewPromise: Promise<PersonView> | undefined = personView && Promise.resolve(personView)
 

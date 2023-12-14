@@ -45,8 +45,8 @@ export type DurationUnit = (typeof durationUnit)[keyof typeof durationUnit]
 
 export class Duration {
 	constructor(
-		public readonly value: number,
-		public readonly unit: DurationUnit,
+		readonly value: number,
+		readonly unit: DurationUnit,
 	) {}
 
 	divide(duration: Duration): Duration {

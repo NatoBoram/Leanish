@@ -31,7 +31,9 @@
 		checked={showNsfw}
 		class="border-on-base-container/25 bg-base-container text-primary focus:ring-1 focus:ring-offset-0"
 		id="show_nsfw"
-		on:change={() => debounceChangeShowNsfw($page.url)}
+		on:change={() => {
+			debounceChangeShowNsfw($page.url)
+		}}
 		type="checkbox"
 	/>
 </div>

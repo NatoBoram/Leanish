@@ -29,7 +29,9 @@
 	bind:this={input}
 	bind:value={q}
 	class="base-container rounded-md border-none px-4 py-2"
-	on:change={() => debounceChangeQ($page.url)}
+	on:change={() => {
+		debounceChangeQ($page.url)
+	}}
 	placeholder="Search"
 	type="text"
 />

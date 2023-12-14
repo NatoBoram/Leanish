@@ -5,7 +5,7 @@ import { Duration, durationUnit } from './duration.js'
 describe.concurrent('timeAgo', () => {
 	test('just now', ({ expect }) => {
 		const now = new Date()
-		return expect(timeAgo(now)).toBe('just now')
+		expect(timeAgo(now)).toBe('just now')
 	})
 
 	test('in the future', ({ expect }) => {
@@ -22,17 +22,17 @@ describe.concurrent('timeAgo', () => {
 describe.concurrent('durationAgo', () => {
 	test('MAX_SAFE_INTEGER', ({ expect }) => {
 		const duration = new Duration(Number.MAX_SAFE_INTEGER, durationUnit.millisecond)
-		return expect(durationAgo(duration)).toBe('2 subepochs ago')
+		expect(durationAgo(duration)).toBe('2 subepochs ago')
 	})
 
 	test('1 month ago', ({ expect }) => {
 		const duration = new Duration(1.1, durationUnit.month)
-		return expect(durationAgo(duration)).toBe('1 month ago')
+		expect(durationAgo(duration)).toBe('1 month ago')
 	})
 
 	test('2 months ago', ({ expect }) => {
 		const duration = new Duration(2.2, durationUnit.month)
-		return expect(durationAgo(duration)).toBe('2 months ago')
+		expect(durationAgo(duration)).toBe('2 months ago')
 	})
 })
 

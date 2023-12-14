@@ -23,7 +23,7 @@
 
 	export let jwt: string
 	export let myUser: MyUserInfo
-	export let position: string = 'left-8 -top-4'
+	export let position = 'left-8 -top-4'
 	export let postView: PostView
 
 	let opened = false
@@ -45,7 +45,7 @@
 		<div class="surface-container absolute z-10 rounded py-1 {position}">
 			<ClickOutside on:clickoutside={() => (opened = false)} class="flex flex-col">
 				<!-- Authenticated -->
-				{#if myUser && jwt}
+				{#if jwt}
 					<MarkPostAsReadButton {jwt} {postView} on:error on:read on:response />
 					<SavePostButton {jwt} {postView} on:error on:response on:save />
 					<MeatballButton class="hover:surface surface-container" on:click={clickReport}>

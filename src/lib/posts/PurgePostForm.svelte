@@ -9,7 +9,7 @@
 
 	const dispatch = createEventDispatcher<{ cancel: undefined; purge: string }>()
 
-	let value: string = ''
+	let value = ''
 
 	function onSubmit() {
 		dispatch('purge', value)

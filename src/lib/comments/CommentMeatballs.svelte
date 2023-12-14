@@ -16,7 +16,7 @@
 
 	export let jwt: string
 	export let myUser: MyUserInfo
-	export let position: string = 'left-8 -top-4'
+	export let position = 'left-8 -top-4'
 	export let commentView: CommentView
 
 	const dispatch = createEventDispatcher<{
@@ -59,7 +59,7 @@
 				</MeatballButton>
 
 				<!-- Authenticated -->
-				{#if myUser && jwt}
+				{#if jwt}
 					<SaveCommentButton {jwt} {commentView} on:error on:response on:save />
 
 					<MeatballButton class="hover:surface surface-container" on:click={clickReport}>

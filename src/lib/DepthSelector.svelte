@@ -31,8 +31,12 @@
 		id="max_depth"
 		max={50}
 		min={1}
-		on:change={() => debounceChangeDepth($page.url)}
-		on:keypress={e => e.key === 'Enter' && debounceChangeDepth($page.url)}
+		on:change={() => {
+			debounceChangeDepth($page.url)
+		}}
+		on:keypress={e => {
+			if (e.key === 'Enter') debounceChangeDepth($page.url)
+		}}
 		type="number"
 		value={maxDepth}
 	/>
