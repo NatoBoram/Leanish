@@ -7,7 +7,8 @@ import pkg from './package.json'
 
 const env = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_') as {
 	BUILD_ADAPTER: 'auto' | 'node' | 'static' | undefined
-	BUILD_BASE: string | undefined
+	BUILD_BASE: '' | `/${string}` | undefined
+	BUILD_IPFS: 'false' | 'true'
 }
 
 const https = process.argv.includes('--https')

@@ -1,6 +1,6 @@
 # Leanish
 
-[![Android CI](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml) [![GitHub Pages](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml) [![Node.js CI](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml)
+[![Android CI](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml) [![Docker](https://github.com/NatoBoram/Leanish/actions/workflows/docker.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/docker.yaml) [![GitHub Pages](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml) [![Node.js CI](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml)
 
 A lean-ish web client for Lemmy.
 

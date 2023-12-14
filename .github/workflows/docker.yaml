@@ -2,17 +2,20 @@ name: Docker
 
 on:
   push:
+    branches: main
     tags: v*
+  pull_request:
+    branches: main
 
 jobs:
-  docker_push:
+  docker:
     runs-on: ubuntu-latest
+
+    if: ${{ github.actor != 'nektos/act' }}
 
     permissions:
       packages: write
       contents: read
-
-    if: ${{ github.actor != 'nektos/act' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -44,7 +47,7 @@ jobs:
       - uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          push: ${{ github.ref_type == 'tag' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |

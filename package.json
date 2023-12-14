@@ -45,6 +45,7 @@
 	},
 	"repository": "github:NatoBoram/Leanish",
 	"scripts": {
+		"act": "act --secret-file .env.local --var-file .env.vars.local",
 		"dev": "vite dev",
 		"dev:android": "pnpm run build:csr && cap run android",
 		"build": "vite build",
@@ -71,7 +72,7 @@
 		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest",
 		"ionic:build": "pnpm run build:csr",
 		"ionic:serve": "vite dev --host=0.0.0.0 --port=8100",
-		"docker:build": "DOCKER_BUILDKIT=1 docker build --secret id=BUILD_BASE --tag leanish .",
+		"docker:build": "docker build --secret id=BUILD_BASE --tag leanish .",
 		"docker:run": "docker run --publish 127.0.0.1:3000:3000 leanish",
 		"docker:kill": "docker ps --format '{{.Image}} {{.ID}}' | grep leanish | awk '{print $2}' | xargs docker kill"
 	},
