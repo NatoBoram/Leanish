@@ -6,7 +6,7 @@ interface TestCommentView {
 	readonly comment: Pick<Comment, 'content' | 'id' | 'path'>
 }
 
-describe('buildCommentTree', () => {
+describe.concurrent('buildCommentTree', () => {
 	test('in a post', ({ expect }) => {
 		const commentViews = [
 			{ comment: { id: 2, path: '0.1.2', content: 'This comment is under #1.' } },

@@ -67,7 +67,7 @@
 		"lint:fix": "eslint --fix .; pnpm run format --list-different",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest",
+		"test:unit": "vitest --sequence.concurrent",
 		"generate:android": "capacitor-assets generate --android --iconBackgroundColor '#171717' --iconBackgroundColorDark '#171717' --logoSplashScale 0.5 --splashBackgroundColor '#0A0A0A' --splashBackgroundColorDark '#0A0A0A'",
 		"generate:pwa": "capacitor-assets generate --pwa --pwaManifestPath static/manifest.webmanifest",
 		"ionic:build": "pnpm run build:csr",

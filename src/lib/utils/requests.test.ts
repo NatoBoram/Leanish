@@ -2,7 +2,7 @@ import { describe, test } from 'vitest'
 import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
 import { headers } from './requests.js'
 
-describe('headers', () => {
+describe.concurrent('headers', () => {
 	test('jwt + user agent', ({ expect }) => {
 		const jwt = 'f8bfe7cc-d301-4151-a1da-d6f2c872370f'
 		const params = { site: 'lemm.ee' }

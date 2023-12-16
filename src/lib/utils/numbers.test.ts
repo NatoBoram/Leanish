@@ -1,7 +1,7 @@
 import { describe, test } from 'vitest'
 import { toSuffixNumber } from './numbers.js'
 
-describe('toSuffixNumber', () => {
+describe.concurrent('toSuffixNumber', () => {
 	test('large numbers', ({ expect }) => {
 		expect(toSuffixNumber(9324.86)).toBe('9.32 K')
 		expect(toSuffixNumber(6814206.88)).toBe('6.81 M')
