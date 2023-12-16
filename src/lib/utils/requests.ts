@@ -4,11 +4,16 @@ import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
  * don't announce it. */
 const bypass: string[] = []
 
-export function headers(jwt: string | undefined, params: { site: string }, referer: `/${string}`) {
+export function headers(
+	jwt: string | undefined,
+	params: { site: string },
+	referer: `/${string}`,
+	force = false,
+) {
 	return {
 		...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
 
-		...(bypass.includes(params.site)
+		...(bypass.includes(params.site) || force
 			? {
 					Host: params.site,
 					Origin: `https://${params.site}`,
