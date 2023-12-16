@@ -1,11 +1,10 @@
+import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
+
 /** If a Lemmy instance is blocking clients that have the goodwill to announce themselves, then
  * don't announce it. */
 const bypass: string[] = []
 
 export function headers(jwt: string | undefined, params: { site: string }, referer: `/${string}`) {
-	const name = __NAME__
-	const version = __VERSION__
-
 	return {
 		...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
 
@@ -17,7 +16,7 @@ export function headers(jwt: string | undefined, params: { site: string }, refer
 			  }
 			: {
 					// https://github.com/LemmyNet/lemmy/issues/3537
-					'User-Agent': `${name}@${version}`,
+					'User-Agent': `${PACKAGE_NAME}@${PACKAGE_VERSION}`,
 			  }),
 	}
 }
