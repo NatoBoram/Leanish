@@ -1,6 +1,6 @@
-import type { CommentView } from 'lemmy-js-client'
+import type { Comment, CommentView } from 'lemmy-js-client'
 
-export interface CommentNode {
-	readonly children: CommentNode[]
-	readonly comment: CommentView
+export interface CommentNode<T extends { comment: Pick<Comment, 'id' | 'path'> } = CommentView> {
+	readonly children: CommentNode<T>[]
+	readonly view: T
 }
