@@ -4,7 +4,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 import { loadEnv } from 'vite'
 import { defineConfig } from 'vitest/config'
 import pkg from './package.json'
-import { toBuildEnv } from './src/lib/utils/env.js'
+import { toBuildEnv } from './src/lib/utils/vite.js'
 
 const env = toBuildEnv(loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_'))
 
@@ -17,8 +17,8 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 	},
 	define: {
-		__ADAPTER__: `"${env.BUILD_ADAPTER}"`,
-		__NAME__: `"${pkg.name}"`,
-		__VERSION__: `"${pkg.version}"`,
+		uqy0n95etct89421lezlac5g: `"${env.BUILD_ADAPTER}"`,
+		cme6vzwu9s01cba3r3bmvo62b: `"${pkg.name}"`,
+		bzxhkm3f325gyo00sb2xdioh5: `"${pkg.version}"`,
 	},
 })

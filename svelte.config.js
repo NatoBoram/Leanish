@@ -4,8 +4,8 @@ import adapterStatic from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/kit/vite'
 import { loadEnv } from 'vite'
 
-/** @type {import('./src/lib/utils/env.js').BuildEnv} */
-const env = loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), 'BUILD_')
+/** @type {import('./src/lib/utils/vite.js').BuildEnv} */
+const env = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_')
 
 /** @returns {import('@sveltejs/kit').Adapter} */
 function adapter() {

@@ -1,4 +1,4 @@
-import type { BuildAdapter } from '$lib/utils/env.js'
+import type { BuildAdapter } from '$lib/utils/vite.js'
 
 /** @see https://kit.svelte.dev/docs/types#app for information about these interfaces */
 declare global {
@@ -9,9 +9,14 @@ declare global {
 		// interface Platform {}
 	}
 
-	const __NAME__: string
-	const __VERSION__: string
-	const __ADAPTER__: BuildAdapter
+	/** BUILD_ADAPTER */
+	const uqy0n95etct89421lezlac5g: BuildAdapter
+
+	/** PACKAGE_NAME */
+	const cme6vzwu9s01cba3r3bmvo62b: string
+
+	/** PACKAGE_VERSION */
+	const bzxhkm3f325gyo00sb2xdioh5: string
 }
 
 export {}
