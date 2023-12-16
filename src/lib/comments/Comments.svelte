@@ -15,7 +15,7 @@
 </script>
 
 <div class="flex flex-col gap-4 {className}">
-	{#each tree as node (node.comment.comment.id)}
+	{#each tree as node (node.view.comment.id)}
 		<CommentNodeSvelte
 			{allLanguages}
 			{jwt}
@@ -23,7 +23,7 @@
 			{myUser}
 			{site}
 			children={node.children}
-			commentView={node.comment}
+			commentView={node.view}
 			on:block_person
 			on:comment
 			on:purge

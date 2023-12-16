@@ -324,7 +324,7 @@
 
 	<!-- Children -->
 	<div class="ml-4 flex flex-col gap-2 border-l border-muted pl-4">
-		{#each children as child (child.comment.comment.id)}
+		{#each children as child (child.view.comment.id)}
 			<svelte:self
 				{allLanguages}
 				{jwt}
@@ -332,7 +332,7 @@
 				{myUser}
 				{site}
 				children={child.children}
-				commentView={child.comment}
+				commentView={child.view}
 				on:comment
 				on:purge
 				personView={undefined}

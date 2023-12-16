@@ -4,11 +4,16 @@ import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
  * don't announce it. */
 const bypass: string[] = []
 
-export function headers(jwt: string | undefined, params: { site: string }, referer: `/${string}`) {
+export function headers(
+	jwt: string | undefined,
+	params: { site: string },
+	referer: `/${string}`,
+	force = false,
+) {
 	return {
 		...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
 
-		...(bypass.includes(params.site)
+		...(bypass.includes(params.site) || force
 			? {
 					Host: params.site,
 					Origin: `https://${params.site}`,
@@ -63,7 +68,7 @@ export function clientFetch(jwt: string | undefined): typeof globalThis.fetch {
 }
 
 /** Change the `auth` parameter, if there's one, to a random UUID to protect JWT. */
-function removeAuth(input: RequestInfo | URL): string {
+export function removeAuth(input: RequestInfo | URL): string {
 	if (input instanceof URL) {
 		const auth = input.searchParams.get('auth')
 		if (auth) input.searchParams.set('auth', crypto.randomUUID())
@@ -84,7 +89,7 @@ function removeAuth(input: RequestInfo | URL): string {
 }
 
 /** Add the `auth` parameter to make it compatible with old Lemmy versions. */
-function addAuthParam(input: RequestInfo | URL, jwt: string) {
+export function addAuthParam(input: RequestInfo | URL, jwt: string) {
 	if (input instanceof URL) {
 		input.searchParams.set('auth', jwt)
 		return input.toString()
@@ -102,7 +107,7 @@ function addAuthParam(input: RequestInfo | URL, jwt: string) {
 }
 
 /** Add the `auth` property to make it compatible with old Lemmy versions. */
-function addAuthBody(init: RequestInit | undefined, jwt: string) {
+export function addAuthBody(init: RequestInit | undefined, jwt: string) {
 	if (!init?.body) return init
 
 	const body: unknown = JSON.parse(String(init.body))

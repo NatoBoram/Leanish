@@ -30,7 +30,7 @@
 		if (!first) return
 
 		document
-			.querySelector(`[data-comment-id="${first.comment.comment.id}"]`)
+			.querySelector(`[data-comment-id="${first.view.comment.id}"]`)
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
@@ -39,7 +39,7 @@
 		if (!last) return
 
 		document
-			.querySelector(`[data-comment-id="${last.comment.comment.id}"]`)
+			.querySelector(`[data-comment-id="${last.view.comment.id}"]`)
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
@@ -69,14 +69,14 @@
 		const first = tree[0]
 		if (!first) return false
 
-		return first.comment.comment.path !== `0.${first.comment.comment.id}`
+		return first.view.comment.path !== `0.${first.view.comment.id}`
 	}
 
 	function parentLink(url: URL) {
 		const first = tree[0]
 		if (!first) return
 
-		const paths = first.comment.comment.path.split('.')
+		const paths = first.view.comment.path.split('.')
 		if (paths.length < 3) return
 
 		// Remove 0 and itself

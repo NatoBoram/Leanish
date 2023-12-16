@@ -15,6 +15,10 @@ export default defineConfig({
 	plugins: [...(https ? [basicSsl()] : []), sveltekit()],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
+		browser: {
+			name: 'firefox',
+			provider: 'playwright',
+		},
 	},
 	define: {
 		uqy0n95etct89421lezlac5g: `"${env.BUILD_ADAPTER}"`,
