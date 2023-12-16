@@ -1,4 +1,4 @@
-import type { Comment } from 'lemmy-js-client'
+import type { Comment, CommentView } from 'lemmy-js-client'
 import { describe, test } from 'vitest'
 import { buildCommentTree } from './comment_tree.js'
 
@@ -8,13 +8,13 @@ interface TestCommentView {
 
 describe('buildCommentTree', () => {
 	test('in a post', ({ expect }) => {
-		const commentViews: TestCommentView[] = [
+		const commentViews = [
 			{ comment: { id: 2, path: '0.1.2', content: 'This comment is under #1.' } },
 			{ comment: { id: 1, path: '0.1', content: 'This is a top-level comment.' } },
 			{ comment: { id: 3, path: '0.1.3', content: 'This comment is also under #1.' } },
 			{ comment: { id: 4, path: '0.4', content: "This comment is outside of #1's hierarchy." } },
 			{ comment: { id: 5, path: '0.6.5', content: 'This comment will not appear.' } },
-		]
+		] satisfies TestCommentView[] as CommentView[]
 
 		const tree = buildCommentTree(commentViews, 0)
 
@@ -31,12 +31,12 @@ describe('buildCommentTree', () => {
 	})
 
 	test('under a parent comment', ({ expect }) => {
-		const commentViews: TestCommentView[] = [
+		const commentViews = [
 			{ comment: { id: 1, path: '0.1', content: 'This is the parent comment.' } },
 			{ comment: { id: 2, path: '0.1.2', content: 'This comment is under #1.' } },
 			{ comment: { id: 3, path: '0.1.2.3', content: 'This comment is under #2.' } },
 			{ comment: { id: 4, path: '0.5.4', content: 'This comment will not appear.' } },
-		]
+		] satisfies TestCommentView[] as CommentView[]
 
 		const tree = buildCommentTree(commentViews, 1)
 
@@ -54,11 +54,11 @@ describe('buildCommentTree', () => {
 	})
 
 	test('in a search result', ({ expect }) => {
-		const commentViews: TestCommentView[] = [
+		const commentViews = [
 			{ comment: { id: 2, path: '0.1.2', content: 'This comment is under #1.' } },
 			{ comment: { id: 1, path: '0.1', content: 'This is a top-level comment.' } },
 			{ comment: { id: 3, path: '0.4.3', content: "This comment doesn't have a parent." } },
-		]
+		] satisfies TestCommentView[] as CommentView[]
 
 		const tree = buildCommentTree(commentViews, undefined)
 
@@ -80,7 +80,7 @@ describe('buildCommentTree', () => {
 	})
 
 	test('with no comments', ({ expect }) => {
-		const commentViews: TestCommentView[] = []
+		const commentViews: CommentView[] = []
 		const tree = buildCommentTree(commentViews, 0)
 		expect(tree).toEqual([])
 	})
