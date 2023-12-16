@@ -89,7 +89,7 @@ function removeAuth(input: RequestInfo | URL): string {
 }
 
 /** Add the `auth` parameter to make it compatible with old Lemmy versions. */
-function addAuthParam(input: RequestInfo | URL, jwt: string) {
+export function addAuthParam(input: RequestInfo | URL, jwt: string) {
 	if (input instanceof URL) {
 		input.searchParams.set('auth', jwt)
 		return input.toString()
@@ -107,7 +107,7 @@ function addAuthParam(input: RequestInfo | URL, jwt: string) {
 }
 
 /** Add the `auth` property to make it compatible with old Lemmy versions. */
-function addAuthBody(init: RequestInit | undefined, jwt: string) {
+export function addAuthBody(init: RequestInit | undefined, jwt: string) {
 	if (!init?.body) return init
 
 	const body: unknown = JSON.parse(String(init.body))
