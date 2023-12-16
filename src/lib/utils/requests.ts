@@ -68,7 +68,7 @@ export function clientFetch(jwt: string | undefined): typeof globalThis.fetch {
 }
 
 /** Change the `auth` parameter, if there's one, to a random UUID to protect JWT. */
-function removeAuth(input: RequestInfo | URL): string {
+export function removeAuth(input: RequestInfo | URL): string {
 	if (input instanceof URL) {
 		const auth = input.searchParams.get('auth')
 		if (auth) input.searchParams.set('auth', crypto.randomUUID())

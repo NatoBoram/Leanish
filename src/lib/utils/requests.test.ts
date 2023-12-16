@@ -1,6 +1,8 @@
 import { describe, test, vitest } from 'vitest'
 import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
-import { addAuthBody, addAuthParam, headers, serverFetch } from './requests.js'
+import { addAuthBody, addAuthParam, headers, removeAuth, serverFetch } from './requests.js'
+
+type TestResponse = Pick<Response, 'clone' | 'headers' | 'ok' | 'status' | 'statusText' | 'text'>
 
 describe.concurrent('headers', () => {
 	test('jwt + user agent', ({ expect }) => {
@@ -45,7 +47,7 @@ describe.concurrent('headers', () => {
 })
 
 describe.concurrent('serverFetch', () => {
-	test('adds auth to param and body when jwt is provided', async ({ expect }) => {
+	test('adds auth to params and body when jwt is provided', async ({ expect }) => {
 		const jwt = '7149c5c8-bf40-48ff-920e-317149873607'
 		const mockedFetch = vitest.fn().mockResolvedValue({ ok: true })
 		const wrappedFetch = serverFetch(mockedFetch, jwt)
@@ -94,4 +96,31 @@ describe.concurrent('serverFetch', () => {
 	})
 })
 
-type TestResponse = Pick<Response, 'clone' | 'headers' | 'ok' | 'status' | 'statusText' | 'text'>
+describe.concurrent('removeAuth', () => {
+	test('URL', ({ expect }) => {
+		const jwt = '33eba3ea-69fe-4efc-aa5e-89a73e21fe8c'
+		const url = new URL(`https://lemm.ee/api/v3/site?auth=${jwt}`)
+		const result = removeAuth(url)
+
+		expect(result).not.toContain(jwt)
+		expect(new URL(result).searchParams.has('auth')).toBe(true)
+	})
+
+	test('string', ({ expect }) => {
+		const jwt = 'e9c97d6a-db09-47f8-8ca1-94f85feedaf0'
+		const string = `https://lemm.ee/api/v3/site?auth=${jwt}`
+		const result = removeAuth(string)
+
+		expect(result).not.toContain(jwt)
+		expect(new URL(result).searchParams.has('auth')).toBe(true)
+	})
+
+	test('Request', ({ expect }) => {
+		const jwt = '575c91e8-d948-4af8-89f4-a2db86a95c26'
+		const request = new Request(`https://lemm.ee/api/v3/site?auth=${jwt}`)
+		const result = removeAuth(request)
+
+		expect(result).not.toContain(jwt)
+		expect(new URL(result).searchParams.has('auth')).toBe(true)
+	})
+})
