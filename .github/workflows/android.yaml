@@ -63,7 +63,10 @@ jobs:
             android/app/build/outputs/apk/release/app-release.apk.sig
           if-no-files-found: error
 
-      - run: gh release upload ${{ github.ref_name }} android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/app-release.apk.sig
+      - run: |
+          gh release upload ${{ github.ref_name }} \
+            'android/app/build/outputs/apk/release/app-release.apk#leanish-${{ github.ref_name }}.apk' \
+            'android/app/build/outputs/apk/release/app-release.apk.sig#leanish-${{ github.ref_name }}.apk.sig'
         if: ${{ github.ref_type == 'tag' && github.actor != 'nektos/act' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
