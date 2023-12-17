@@ -23,8 +23,8 @@ dependencies:
 
 devDependencies:
   '@capacitor/assets':
-    specifier: ^3.0.1
-    version: 3.0.1(@types/node@20.10.3)(typescript@5.3.3)
+    specifier: ^3.0.4
+    version: 3.0.4(@types/node@20.10.3)(typescript@5.3.3)
   '@capacitor/cli':
     specifier: ^5.5.1
     version: 5.5.1
@@ -322,8 +322,8 @@ packages:
       '@capacitor/core': 5.5.1
     dev: false
 
-  /@capacitor/assets@3.0.1(@types/node@20.10.3)(typescript@5.3.3):
-    resolution: {integrity: sha512-VTJ3ICFuw1IoR3w6bLjpc7VC9slkNBNO4eCVFN0BAltzH04q52J//JUJ4h0F/gEd0cAKtvIcPJXH5aW6uM9JXA==}
+  /@capacitor/assets@3.0.4(@types/node@20.10.3)(typescript@5.3.3):
+    resolution: {integrity: sha512-9t/u2i9vSEWDfarzDJmQEgi07Tozyw2mKZYTkybb2Zkc8ufqR0S6ZzDBmWbsTtOTVwRr0uU9Rx3c8AVbA1xDtA==}
     engines: {node: '>=10.3.0'}
     hasBin: true
     dependencies:
@@ -336,7 +336,7 @@ packages:
       fs-extra: 10.1.0
       node-fetch: 2.7.0
       node-html-parser: 5.4.2
-      sharp: 0.32.5
+      sharp: 0.32.6
       tslib: 2.6.2
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -4529,8 +4529,8 @@ packages:
     resolution: {integrity: sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==}
     dev: true
 
-  /sharp@0.32.5:
-    resolution: {integrity: sha512-0dap3iysgDkNaPOaOL4X/0akdu0ma62GcdC2NBQ+93eqpePdDdr2/LM0sFdDSMmN7yS+odyZtPsb7tx/cYBKnQ==}
+  /sharp@0.32.6:
+    resolution: {integrity: sha512-KyLTWwgcR9Oe4d9HwCwNM2l7+J0dUQwn/yf7S0EnTtb0eVS4RxO0eUSvxPtzT4F3SY+C4K6fqdv/DO27sJ/v/w==}
     engines: {node: '>=14.15.0'}
     requiresBuild: true
     dependencies:
