@@ -21,16 +21,18 @@ For a more cutting-edge experience, the CI builds are available in [the Actions 
 		<img
 			align="center"
 			alt="Get it on Obtainium"
-			height="80"
-			src="https://github.com/NatoBoram/Leanish/assets/10495562/928ae711-a01c-4496-97f2-50dc1740f370"
+			height="50"
+			hspace="6"
+			src="https://github.com/NatoBoram/Leanish/assets/10495562/ff726d91-8065-483b-a277-57b3c237f9a9"
 		/>
 	</a>
 	<a href="https://play.google.com/store/apps/details?id=com.natoboram.leanish">
 		<img
 			align="center"
 			alt="Get it on Google Play"
-			height="125"
-			src="https://github.com/NatoBoram/Leanish/assets/10495562/946b1991-b08d-4051-91d0-eac31417ec94"
+			height="50"
+			hspace="6"
+			src="https://github.com/NatoBoram/Leanish/assets/10495562/f2139ad0-397f-4259-86e5-f24f86ea7e63"
 		/>
 	</a>
 </div>
