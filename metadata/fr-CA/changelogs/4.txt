@@ -1,0 +1,9 @@
+## Ce qui a changé
+* 🔧 Ajouter quelques tests unitaires et ignorer *.tsbuildinfo par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/125
+* ⬆️ `lemmy-js-client@0.19.0-rc.19` par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/127
+* 📝 Ajouter quelques informations d'installation par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/128
+* 👷 Node.js publié par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/129
+* 🔧 Signer avec SSH par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/130
+
+
+**Journal complet des modifications** : https://github.com/NatoBoram/Leanish/compare/v0.0.2...v0.0.3
