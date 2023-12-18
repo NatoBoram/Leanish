@@ -1,0 +1,60 @@
+## What's Changed
+* ✨ Static build by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/30
+* ✨ Edit and delete comments by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/43
+* ✨ Meatballs for posts by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/48
+* ✨ Follow all communities from a user by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/49
+* 🐛 Fix commenting in comment sections by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/50
+* ✨ Organize components by feature by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/51
+* ⬆️ Upgrade dependencies by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/52
+* ✨ More meatballs by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/53
+* 📱 Change post view for mobile by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/54
+* ✨ Add post meatballs by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/57
+* 🐛 Fix scrolling up or down in comment pagination by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/58
+* ✨ Add comment meatballs by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/59
+* 📝 Update screenshot by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/60
+* ⬆️ Upgrade deps by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/61
+* 📝 Add phosphor's license by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/63
+* ✨ Add search page by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/64
+* ✨ Add show context buttons by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/65
+* 🐛 More fix for comment tree by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/67
+* ✨ Android by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/68
+* ✨ Add ionic configs by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/69
+* ✨ Change some version numbers with Android Studio by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/70
+* ✨ Start building with Gradle instead of capacitor by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/71
+* 🔨 Update CLI options by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/76
+* ✨ Move ProfileMenu by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/77
+* 🐛 Fix Android login by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/80
+* ✨ Add dockerfile by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/81
+* ✨ Add visited sites to home page by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/83
+* ✨ Add error page by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/89
+* 🔨 Add asdf by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/90
+* Bump postcss from 8.4.27 to 8.4.31 by @dependabot in https://github.com/NatoBoram/Leanish/pull/91
+* ⬆️ Upgrade deps to the latest SvelteKit release by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/95
+* ⬆️ Upgrade to Node 21 by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/96
+* 👷 Add Dependabot file by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/97
+* 🏷️ `interface Request extends globalThis.Request` by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/103
+* ⬆️ Bump the patch group with 7 updates by @dependabot in https://github.com/NatoBoram/Leanish/pull/98
+* ⬆️ Bump the eslint group with 4 updates by @dependabot in https://github.com/NatoBoram/Leanish/pull/99
+* 👷 strict-peer-dependencies by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/104
+* Add fullTimeAgo function to calculate time duration in various units by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/94
+* ⬆️ Bump the typescript group with 1 update by @dependabot in https://github.com/NatoBoram/Leanish/pull/101
+* ⬆️ Bump the capacitor group with 4 updates by @dependabot in https://github.com/NatoBoram/Leanish/pull/102
+* 🔧 Attempt to migrate to NodeNext by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/105
+* 📝 Add badges to `README.md` by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/106
+* ⬆️ Manually set sharp@0.32.6 in pnpm-lock.yaml by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/107
+* 💚 Add (yes || true) to sdk_manager by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/114
+* ⬆️ Bump the patch group with 7 updates by @dependabot in https://github.com/NatoBoram/Leanish/pull/115
+* ⬆️ Bump the vite group with 1 update by @dependabot in https://github.com/NatoBoram/Leanish/pull/116
+* ⬆️ Bump the eslint group with 4 updates by @dependabot in https://github.com/NatoBoram/Leanish/pull/117
+* 🔧 Config changes (act, true, coverage) by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/118
+* ✅ Play around with tests on durationAgo by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/119
+* ⬆️ Bump @ts-stack/markdown from 1.4.0 to 1.5.0 by @dependabot in https://github.com/NatoBoram/Leanish/pull/111
+* ✅ Add playwright by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/120
+* 👷 Add a workflow to bump the patch version number by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/121
+* 🐛 if (date.endsWith('Z')) by @NatoBoram in https://github.com/NatoBoram/Leanish/pull/122
+
+## New Contributors
+* @NatoBoram made their first contribution in https://github.com/NatoBoram/Leanish/pull/30
+* @dependabot made their first contribution in https://github.com/NatoBoram/Leanish/pull/91
+
+**Full Changelog**: https://github.com/NatoBoram/Leanish/commits/v0.0.1

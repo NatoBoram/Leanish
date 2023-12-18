@@ -1,0 +1,60 @@
+## Ce qui a changé
+* ✨ Construction statique par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/30
+* ✨ Modifier et supprimer les commentaires de @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/43
+* ✨ Boulettes de viande pour les messages de @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/48
+* ✨ Suivre toutes les communautés d'un utilisateur de @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/49
+* 🐛 Correction des commentaires dans les sections de commentaires par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/50
+* ✨ Organiser les composants par fonctionnalité par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/51
+* ⬆️ Mettre à niveau les dépendances par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/52
+* ✨ Plus de boulettes de viande par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/53
+* 📱 Changer l'affichage de la publication pour mobile par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/54
+* ✨ Ajouter un article sur les boulettes de viande de @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/57
+* 🐛 Correction du défilement vers le haut ou vers le bas dans la pagination des commentaires par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/58
+* ✨ Ajouter un commentaire sur les boulettes de viande de @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/59
+* 📝 Mise à jour de la capture d'écran par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/60
+* ⬆️ Mise à niveau des dépôts par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/61
+* 📝 Ajouter la licence du phosphore par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/63
+* ✨ Ajouter une page de recherche par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/64
+* ✨ Ajouter les boutons contextuels d'affichage par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/65
+* 🐛 Plus de correctifs pour l'arborescence des commentaires par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/67
+* ✨ Android par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/68
+* ✨ Ajouter des configurations ioniques par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/69
+* ✨ Modifier certains numéros de version avec Android Studio par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/70
+* ✨ Commencer à construire avec Gradle au lieu du condensateur par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/71
+* 🔨 Mettre à jour les options CLI par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/76
+* ✨ Déplacer ProfileMenu par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/77
+* 🐛 Correction de la connexion Android par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/80
+* ✨ Ajouter dockerfile par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/81
+* ✨ Ajouter les sites visités à la page d'accueil par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/83
+* ✨ Ajouter une page d'erreur par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/89
+* 🔨 Ajouter asdf par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/90
+* Bump postcss du 8.4.27 au 8.4.31 par @dependabot sur https://github.com/NatoBoram/Leanish/pull/91
+* ⬆️ Mettre à niveau les dépôts vers la dernière version de SvelteKit par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/95
+* ⬆️ Mise à niveau vers Node 21 par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/96
+* 👷 Ajouter le fichier Dependabot par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/97
+* 🏷️ `interface Request extends globalThis.Request` par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/103
+* ⬆️ Améliorer le groupe de correctifs avec 7 mises à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/98
+* ⬆️ Renforcer le groupe eslint avec 4 mises à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/99
+* 👷 dépendances strictes entre pairs par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/104
+* Ajouter la fonction fullTimeAgo pour calculer la durée en différentes unités par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/94
+* ⬆️ Renforcer le groupe Typescript avec 1 mise à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/101
+* ⬆️ Bump le groupe de condensateurs avec 4 mises à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/102
+* 🔧 Tentative de migration vers NodeNext par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/105
+* 📝 Ajouter des badges à `README.md` par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/106
+* ⬆️ Définir manuellement sharp@0.32.6 dans pnpm-lock.yaml par @NatoBoram dans https://github.com/NatoBoram/Leanish/pull/107
+* 💚 Ajouter (oui || vrai) à sdk_manager par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/114
+* ⬆️ Augmenter le groupe de correctifs avec 7 mises à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/115
+* ⬆️ Renforcer le groupe vite avec 1 mise à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/116
+* ⬆️ Renforcer le groupe eslint avec 4 mises à jour par @dependabot sur https://github.com/NatoBoram/Leanish/pull/117
+* 🔧 Modifications de configuration (act, true, couverture) par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/118
+* ✅ Jouer avec les tests sur durationAgo par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/119
+* ⬆️ Bump @ts-stack/markdown de 1.4.0 à 1.5.0 par @dependabot sur https://github.com/NatoBoram/Leanish/pull/111
+* ✅ Ajouter le dramaturge de @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/120
+* 👷 Ajouter un workflow pour augmenter le numéro de version du correctif par @NatoBoram sur https://github.com/NatoBoram/Lenish/pull/121
+* 🐛 if (date.endsWith('Z')) par @NatoBoram sur https://github.com/NatoBoram/Leanish/pull/122
+
+## Nouveaux contributeurs
+* @NatoBoram a apporté sa première contribution sur https://github.com/NatoBoram/Leanish/pull/30
+* @dependabot a apporté sa première contribution sur https://github.com/NatoBoram/Leanish/pull/91
+
+**Journal des modifications complet** : https://github.com/NatoBoram/Leanish/commits/v0.0.1

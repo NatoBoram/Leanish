@@ -1,0 +1,1 @@
+Leanish est un client web assez simple pour Lemmy. Il vous donne un contrôle total sur votre expérience de navigation et est entièrement open source.
