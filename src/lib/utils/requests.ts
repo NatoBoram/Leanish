@@ -18,11 +18,11 @@ export function headers(
 					Host: params.site,
 					Origin: `https://${params.site}`,
 					Referer: `https://${params.site}${referer}`,
-			  }
+				}
 			: {
 					// https://github.com/LemmyNet/lemmy/issues/3537
 					'User-Agent': `${PACKAGE_NAME}@${PACKAGE_VERSION}`,
-			  }),
+				}),
 	}
 }
 

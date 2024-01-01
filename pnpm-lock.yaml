@@ -36,7 +36,7 @@ devDependencies:
     version: 1.40.1
   '@prettier/plugin-xml':
     specifier: ^3.2.2
-    version: 3.2.2(prettier@3.1.0)
+    version: 3.2.2(prettier@3.1.1)
   '@sveltejs/adapter-auto':
     specifier: ^2.1.1
     version: 2.1.1(@sveltejs/kit@1.27.7)
@@ -50,8 +50,8 @@ devDependencies:
     specifier: ^1.27.7
     version: 1.27.7(svelte@4.2.8)(vite@4.5.1)
   '@sveltejs/package':
-    specifier: ^2.2.3
-    version: 2.2.3(svelte@4.2.8)(typescript@5.3.3)
+    specifier: ^2.2.5
+    version: 2.2.5(svelte@4.2.8)(typescript@5.3.3)
   '@tailwindcss/forms':
     specifier: ^0.5.7
     version: 0.5.7(tailwindcss@3.4.0)
@@ -60,7 +60,7 @@ devDependencies:
     version: 0.5.10(tailwindcss@3.4.0)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.3.0
-    version: 4.3.0(prettier@3.1.0)
+    version: 4.3.0(prettier@3.1.1)
   '@ts-stack/markdown':
     specifier: ^1.5.0
     version: 1.5.0
@@ -101,17 +101,17 @@ devDependencies:
     specifier: ^8.4.32
     version: 8.4.32
   prettier:
-    specifier: ^3.1.0
-    version: 3.1.0
+    specifier: ^3.1.1
+    version: 3.1.1
   prettier-plugin-svelte:
     specifier: ^3.1.2
-    version: 3.1.2(prettier@3.1.0)(svelte@4.2.8)
+    version: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
   prettier-plugin-tailwindcss:
-    specifier: ^0.5.9
-    version: 0.5.9(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier-plugin-svelte@3.1.2)(prettier@3.1.0)
+    specifier: ^0.5.10
+    version: 0.5.10(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier-plugin-svelte@3.1.2)(prettier@3.1.1)
   publint:
-    specifier: ^0.2.6
-    version: 0.2.6
+    specifier: ^0.2.7
+    version: 0.2.7
   svelte:
     specifier: ^4.2.8
     version: 4.2.8
@@ -905,16 +905,16 @@ packages:
     resolution: {integrity: sha512-UWRmygBsyj4bVXvDiqSccwT1kmsorcwQwaIy30yVh8T+Gspx4OlC0shX1y+ZuwXZvgnafmpRYKks0bAu9urJew==}
     dependencies:
       '@xml-tools/parser': 1.0.11
-      prettier: 3.1.0
+      prettier: 3.1.1
     dev: true
 
-  /@prettier/plugin-xml@3.2.2(prettier@3.1.0):
+  /@prettier/plugin-xml@3.2.2(prettier@3.1.1):
     resolution: {integrity: sha512-SoE70SQF1AKIvK7LVK80JcdAe6wrDcbodFFjcoqb1FkOqV0G0oSlgAFDwoRXPqkUE5p/YF2nGsnUbnfm6471sw==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
       '@xml-tools/parser': 1.0.11
-      prettier: 3.1.0
+      prettier: 3.1.1
     dev: true
 
   /@rollup/plugin-commonjs@25.0.3(rollup@3.27.2):
@@ -1042,8 +1042,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/package@2.2.3(svelte@4.2.8)(typescript@5.3.3):
-    resolution: {integrity: sha512-iZEC5qw+2RIjfIAHR3O+IeokJIjVM/ieoxPxj6YmZCwu5JKFADtC4jzjSUJ7GkCMUQ4HqE7u4/3cCxXBocxi8A==}
+  /@sveltejs/package@2.2.5(svelte@4.2.8)(typescript@5.3.3):
+    resolution: {integrity: sha512-H0dFDrp7b/tr4zrUzOfqPKHG8y6ceNlGKPfSpp4ym1kTPWP79Mea5rvDlcmsbOS26FmHN/vttubalBdOCGA6qA==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     peerDependencies:
@@ -1159,7 +1159,7 @@ packages:
       - typescript
     dev: true
 
-  /@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.1.0):
+  /@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.1.1):
     resolution: {integrity: sha512-r3n0onD3BTOVUNPhR4lhVK4/pABGpbA7bW3eumZnYdKaHkf1qEC+Mag6DPbGNuuh0eG8AaYj+YqmVHSiGslaTQ==}
     peerDependencies:
       '@vue/compiler-sfc': 3.x
@@ -1174,7 +1174,7 @@ packages:
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.1.0
+      prettier: 3.1.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4241,18 +4241,18 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-svelte@3.1.2(prettier@3.1.0)(svelte@4.2.8):
+  /prettier-plugin-svelte@3.1.2(prettier@3.1.1)(svelte@4.2.8):
     resolution: {integrity: sha512-7xfMZtwgAWHMT0iZc8jN4o65zgbAQ3+O32V6W7pXrqNvKnHnkoyQCGCbKeUyXKZLbYE0YhFRnamfxfkEGxm8qA==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
     dependencies:
-      prettier: 3.1.0
+      prettier: 3.1.1
       svelte: 4.2.8
     dev: true
 
-  /prettier-plugin-tailwindcss@0.5.9(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier-plugin-svelte@3.1.2)(prettier@3.1.0):
-    resolution: {integrity: sha512-9x3t1s2Cjbut2QiP+O0mDqV3gLXTe2CgRlQDgucopVkUdw26sQi53p/q4qvGxMLBDfk/dcTV57Aa/zYwz9l8Ew==}
+  /prettier-plugin-tailwindcss@0.5.10(@trivago/prettier-plugin-sort-imports@4.3.0)(prettier-plugin-svelte@3.1.2)(prettier@3.1.1):
+    resolution: {integrity: sha512-9UGSejqFxGG6brYjFfTYlJ8zs4L/lvZg1AngFfaC5Fs1otSskASv5IWKmjPu5MlABQUtTKtMArKyYr/hWpXSUg==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -4300,9 +4300,9 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.1.0)
-      prettier: 3.1.0
-      prettier-plugin-svelte: 3.1.2(prettier@3.1.0)(svelte@4.2.8)
+      '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.1.1)
+      prettier: 3.1.1
+      prettier-plugin-svelte: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
     dev: true
 
   /prettier@2.8.8:
@@ -4311,8 +4311,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+  /prettier@3.1.1:
+    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -4342,8 +4342,8 @@ packages:
     resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
     dev: true
 
-  /publint@0.2.6:
-    resolution: {integrity: sha512-zMwDVwrlLnCsviDXlczhuc5nIljsjZUgbLeKNyMYqbIJLRhcW81xrKsHlEu21YUaIxpa8T66tdIqP0mZm9ym3A==}
+  /publint@0.2.7:
+    resolution: {integrity: sha512-tLU4ee3110BxWfAmCZggJmCUnYWgPTr0QLnx08sqpLYa8JHRiOudd+CgzdpfU5x5eOaW2WMkpmOrFshRFYK7Mw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
