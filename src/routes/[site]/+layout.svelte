@@ -48,8 +48,7 @@
 
 		void App.addListener('backButton', ({ canGoBack }) => {
 			// Don't go to the site selector
-			if (canGoBack && $page.url.pathname !== `${siteLink(data.site_view.site)}`)
-				window.history.back()
+			if (canGoBack && $page.url.pathname !== siteLink(data.site_view.site)) window.history.back()
 		})
 	})
 
