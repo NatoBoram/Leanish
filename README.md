@@ -1,6 +1,6 @@
 # Leanish
 
-[![Android CI](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml) [![Docker](https://github.com/NatoBoram/Leanish/actions/workflows/docker.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/docker.yaml) [![GitHub Pages](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml) [![Node.js CI](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml)
+[![Android CI](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml) [![Docker CI](https://github.com/NatoBoram/Leanish/actions/workflows/docker.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/docker.yaml) [![Node.js CI](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/node.js.yaml) [![GitHub Pages](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/NatoBoram/Leanish/actions/workflows/github-pages.yaml) [![Docker Pulls](https://img.shields.io/docker/pulls/natoboram/leanish?logo=docker)](https://hub.docker.com/repository/docker/natoboram/leanish) [![GitHub Downloads](https://img.shields.io/github/downloads/NatoBoram/Leanish/total?logo=github)](https://github.com/NatoBoram/Leanish/releases) [![NPM Downloads](https://img.shields.io/npm/dt/%40natoboram/leanish?logo=npm)](https://www.npmjs.com/package/@natoboram/leanish) [![Play Store Downloads](https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.natoboram.leanish%26m%3D%24installs&logo=Google%20Play&label=downloads)](https://play.google.com/store/apps/details?id=com.natoboram.leanish)
 
 A lean-ish web client for Lemmy.
 
@@ -10,11 +10,9 @@ A lean-ish web client for Lemmy.
 
 Leanish is currently in alpha. The roadmap to beta is in [the Beta milestone](https://github.com/NatoBoram/Leanish/milestone/1).
 
-There is a CSR deployment at [natoboram.github.io/Leanish](https://natoboram.github.io/Leanish). It can be installed as a Progressive Web App.
+There is a client-side rendered deployment at [natoboram.github.io/Leanish](https://natoboram.github.io/Leanish). It can be installed as a Progressive Web App.
 
-Android builds are available in the [Releases](https://github.com/NatoBoram/Leanish/releases) tab.
-
-For a more cutting-edge experience, the CI builds are available in [the Actions tab](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml).
+Android builds are available in the [Releases](https://github.com/NatoBoram/Leanish/releases) tab. For a more cutting-edge experience, CI builds are available in the [Actions](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml) tab.
 
 <div style="text-align: center">
 	<a href="https://github.com/ImranR98/Obtainium">
@@ -36,6 +34,20 @@ For a more cutting-edge experience, the CI builds are available in [the Actions 
 		/>
 	</a>
 </div>
+
+## Deploy
+
+A [docker image](https://hub.docker.com/repository/docker/natoboram/leanish) and a [`npm` package](https://www.npmjs.com/package/@natoboram/leanish) are available for deployment.
+
+```sh
+docker pull natoboram/leanish
+docker run -p 3000:3000 natoboram/leanish
+```
+
+```sh
+pnpm install -g @natoboram/leanish
+leanish
+```
 
 ## Build from source
 
@@ -92,7 +104,7 @@ pnpm run install:apk
 
 This will create a release build at `android/app/build/outputs/apk/release/app-release.apk` and install it on your phone.
 
-### Signatures
+## Signatures
 
 Files in the [Releases](https://github.com/NatoBoram/Leanish/releases) tab are signed with a SSH key. You can verify the files' signature with the following commands:
 
