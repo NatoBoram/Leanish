@@ -11,26 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
         with:
           version: latest
       - uses: actions/setup-node@v3
         with:
-          node-version: 21
           cache: pnpm
+          node-version: 21
+          registry-url: https://registry.npmjs.org
+          scope: '@natoboram'
       - uses: actions/cache@v3
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - run: pnpm exec playwright install
       - run: pnpm run test
       - run: pnpm run check
       - run: pnpm run lint
       - run: pnpm run package
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: playwright

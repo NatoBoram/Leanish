@@ -15,9 +15,9 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: temurin
@@ -26,11 +26,11 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: latest
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 21
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - name: Secrets
         run: |
@@ -54,7 +54,7 @@ jobs:
           ssh-keygen -Y sign -f '${{ runner.temp }}/SIGNING_KEY_PUBLIC.pub' -n file android/app/build/outputs/apk/release/app-release.apk
           ssh-keygen -Y verify -f ./.github/allowed_signers.txt -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s android/app/build/outputs/apk/release/app-release.apk.sig < android/app/build/outputs/apk/release/app-release.apk
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ github.ref_name == 'main' && github.actor != 'nektos/act' }}
         with:
           name: app-release
