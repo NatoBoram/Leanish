@@ -12,7 +12,7 @@ jobs:
       contents: write
       packages: write
 
-    if: ${{ github.actor != 'nektos/act' }}
+    if: github.actor != 'nektos/act'
 
     steps:
       - uses: actions/checkout@v4

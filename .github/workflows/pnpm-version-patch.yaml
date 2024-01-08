@@ -6,7 +6,7 @@ jobs:
   patch:
     runs-on: ubuntu-latest
 
-    if: ${{ github.actor != 'nektos/act' }}
+    if: github.actor != 'nektos/act'
 
     permissions:
       contents: write
