@@ -6,13 +6,13 @@ jobs:
   patch:
     runs-on: ubuntu-latest
 
-    if: ${{ github.actor != 'nektos/act' }}
+    if: github.actor != 'nektos/act'
 
     permissions:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ssh-key: '${{ secrets.SIGNING_KEY_PRIVATE }}'
       - uses: pnpm/action-setup@v2
