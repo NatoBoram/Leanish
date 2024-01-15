@@ -22,7 +22,9 @@
 			10_000,
 		)
 
-		return () => clearInterval(interval)
+		return () => {
+			clearInterval(interval)
+		}
 	})
 </script>
 
