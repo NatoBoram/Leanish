@@ -2,6 +2,7 @@ import adapterAuto from '@sveltejs/adapter-auto'
 import adapterNode from '@sveltejs/adapter-node'
 import adapterStatic from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/kit/vite'
+import { execSync } from 'child_process'
 import { loadEnv } from 'vite'
 
 /** @type {import('./src/lib/utils/vite.js').BuildEnv} */
@@ -24,6 +25,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		paths: { base: env.BUILD_BASE },
+		version: { name: execSync('git describe --always --broken --dirty --tags').toString().trim() },
 	},
 }
 
