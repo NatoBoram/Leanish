@@ -9,6 +9,7 @@ FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM base AS build
+RUN apt update && apt install -y git && rm -rf /var/lib/apt/lists/*
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN --mount=type=secret,id=BUILD_BASE BUILD_BASE="$(cat /run/secrets/BUILD_BASE)" BUILD_ADAPTER='node' pnpm run build
 
