@@ -2,10 +2,10 @@
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Posts from '$lib/posts/Posts.svelte'
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import Tagline from '$lib/Tagline.svelte'
+	import Taglines from '$lib/Taglines.svelte'
+	import Posts from '$lib/posts/Posts.svelte'
 	import type { PageData } from './$types.js'
 
 	export let data: PageData
@@ -47,12 +47,8 @@
 	<!-- Main content -->
 	<main class="flex flex-grow flex-col gap-4 justify-self-stretch">
 		<!-- Taglines -->
-		<div class="flex flex-col gap-4">
-			{#if data.taglines}
-				{#each data.taglines as tagline (tagline.id)}
-					<Tagline {tagline} class="base-container rounded-md" />
-				{/each}
-			{/if}
+		<div class="base-container flex flex-col gap-4 rounded-md">
+			<Taglines taglines={data.taglines} />
 		</div>
 
 		<!-- Post form -->
