@@ -126,7 +126,6 @@
 		"@sveltejs/kit": "^1.27.7",
 		"svelte": "^4.2.8"
 	},
-	"private": true,
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module"
