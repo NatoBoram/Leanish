@@ -4,7 +4,6 @@
 .env.*
 .eslintignore
 .eslintrc.cjs
-.git
 .github
 .gitignore
 .markdownlint.yaml
