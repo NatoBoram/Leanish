@@ -38,7 +38,7 @@ updates:
         patterns:
           - '*capacitor*'
   - package-ecosystem: github-actions
-    directory: /.github/workflows
+    directory: /
     schedule:
       interval: monthly
       timezone: America/Toronto

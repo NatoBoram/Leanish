@@ -1,5 +1,6 @@
 import { error, type HttpError } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
+import { toNumericRange } from '$lib/utils/adapters.js'
 import { formGetComments, headers, serverFetch } from '$lib/utils/index.js'
 import type { PageLoad } from './$types.js'
 
@@ -28,7 +29,7 @@ export const load = (async ({ params, fetch, url, parent, depends }) => {
 
 				default:
 					console.error(e)
-					throw error(e.status, 'Failed to load post.')
+					throw error(toNumericRange(e.status, 400, 599), 'Failed to load post.')
 			}
 		}),
 		client.getComments(formComment).catch((e: Response) => {
