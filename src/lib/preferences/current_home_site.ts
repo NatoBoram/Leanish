@@ -1,8 +1,6 @@
 import { Preferences } from '@capacitor/preferences'
 import type { HomeSite } from './home_site.js'
 
-const currentHomeSiteKey = 'currentHomeSite'
-
 export async function getCurrentHomeSite(): Promise<HomeSite | undefined> {
 	const currentHomeSite = await Preferences.get({ key: currentHomeSiteKey })
 	if (!currentHomeSite.value) return undefined
@@ -16,3 +14,5 @@ export async function getCurrentHomeSite(): Promise<HomeSite | undefined> {
 export async function setCurrentHomeSite(homeSite: HomeSite) {
 	return Preferences.set({ key: currentHomeSiteKey, value: JSON.stringify(homeSite) })
 }
+
+const currentHomeSiteKey = 'currentHomeSite'

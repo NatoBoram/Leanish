@@ -1,17 +1,5 @@
 import { Duration, durationUnit } from './duration.js'
 
-export function lemmyDate(date: string) {
-	if (date.endsWith('Z')) return new Date(date)
-	return new Date(`${date}Z`)
-}
-
-export function timeAgo(date: Date) {
-	const now = new Date()
-	const milliseconds = now.getTime() - date.getTime()
-	const duration = new Duration(milliseconds, durationUnit.millisecond)
-	return durationAgo(duration)
-}
-
 /**
  * @param duration the positive duration to convert to a human-readable string. Negative durations
  * are treated being in the future.
@@ -234,4 +222,16 @@ export function fullTimeAgo(date: Date) {
 
 	result.push('ago')
 	return result.join(' ')
+}
+
+export function lemmyDate(date: string) {
+	if (date.endsWith('Z')) return new Date(date)
+	return new Date(`${date}Z`)
+}
+
+export function timeAgo(date: Date) {
+	const now = new Date()
+	const milliseconds = now.getTime() - date.getTime()
+	const duration = new Duration(milliseconds, durationUnit.millisecond)
+	return durationAgo(duration)
 }
