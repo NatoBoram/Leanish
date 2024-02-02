@@ -37,3 +37,10 @@ updates:
       capacitor:
         patterns:
           - '*capacitor*'
+  - package-ecosystem: github-actions
+    directory: /.github/workflows
+    schedule:
+      interval: monthly
+      timezone: America/Toronto
+    commit-message:
+      prefix: '⬆️ '
