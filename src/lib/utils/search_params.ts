@@ -118,6 +118,19 @@ export function setCommunityName<T extends { community_name?: string }>(form: T,
 	return form
 }
 
+export function setCreatorId<T extends { creator_id?: PersonId }>(form: T, url: URL): T {
+	if (form.creator_id) return form
+
+	const creator_id = url.searchParams.get('creator_id')
+	if (!creator_id) return form
+
+	const number = Number(creator_id)
+	if (isNaN(number)) throw error(400, `Invalid creator_id: ${creator_id}`)
+
+	form.creator_id = number
+	return form
+}
+
 export function setLimit<T extends { limit?: number }>(form: T, url: URL): T {
 	if (form.limit) return form
 
@@ -129,6 +142,17 @@ export function setLimit<T extends { limit?: number }>(form: T, url: URL): T {
 	if (number <= 0) throw error(400, 'Limit must be greater than 0')
 
 	form.limit = number
+	return form
+}
+
+export function setListingType<T extends { listing_type?: ListingType }>(form: T, url: URL): T {
+	if (form.listing_type) return form
+
+	const listing_type = url.searchParams.get('listing_type')
+	if (!listing_type) return form
+	if (!isListingType(listing_type)) throw error(400, `Invalid listing_type: ${listing_type}`)
+
+	form.listing_type = listing_type
 	return form
 }
 
@@ -178,6 +202,17 @@ export function setSavedOnly<T extends { saved_only?: boolean }>(form: T, url: U
 	return form
 }
 
+export function setSearchType<T extends { type_?: SearchType }>(form: T, url: URL): T {
+	if (form.type_) return form
+
+	const type_ = url.searchParams.get('type_')
+	if (!type_) return form
+	if (!isSearchType(type_)) throw error(400, `Invalid type_: ${type_}`)
+
+	form.type_ = type_
+	return form
+}
+
 export function setShowNsfw<T extends { show_nsfw?: boolean }>(form: T, url: URL): T {
 	if (form.show_nsfw) return form
 
@@ -208,41 +243,6 @@ export function setType<T extends { type_?: ListingType }>(form: T, url: URL): T
 	const type_ = url.searchParams.get('type_')
 	if (!type_) return form
 	if (!isListingType(type_)) throw error(400, `Invalid type_: ${type_}`)
-
-	form.type_ = type_
-	return form
-}
-
-export function setListingType<T extends { listing_type?: ListingType }>(form: T, url: URL): T {
-	if (form.listing_type) return form
-
-	const listing_type = url.searchParams.get('listing_type')
-	if (!listing_type) return form
-	if (!isListingType(listing_type)) throw error(400, `Invalid listing_type: ${listing_type}`)
-
-	form.listing_type = listing_type
-	return form
-}
-
-export function setCreatorId<T extends { creator_id?: PersonId }>(form: T, url: URL): T {
-	if (form.creator_id) return form
-
-	const creator_id = url.searchParams.get('creator_id')
-	if (!creator_id) return form
-
-	const number = Number(creator_id)
-	if (isNaN(number)) throw error(400, `Invalid creator_id: ${creator_id}`)
-
-	form.creator_id = number
-	return form
-}
-
-export function setSearchType<T extends { type_?: SearchType }>(form: T, url: URL): T {
-	if (form.type_) return form
-
-	const type_ = url.searchParams.get('type_')
-	if (!type_) return form
-	if (!isSearchType(type_)) throw error(400, `Invalid type_: ${type_}`)
 
 	form.type_ = type_
 	return form
