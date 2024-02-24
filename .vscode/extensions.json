@@ -7,7 +7,12 @@
 		"ms-azuretools.vscode-docker",
 		"ms-playwright.playwright",
 		"svelte.svelte-vscode",
-		"vscjava.vscode-gradle",
-		"zixuanchen.vitest-explorer"
+		"vitest.explorer",
+		"vscjava.vscode-gradle"
+	],
+	"unwantedRecommendations": [
+		"googlecloudtools.cloudcode",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"vscodevim.vim"
 	]
 }
