@@ -77,15 +77,15 @@
 		"docker:kill": "docker ps --format '{{.Image}} {{.ID}}' | grep leanish | awk '{print $2}' | xargs docker kill"
 	},
 	"dependencies": {
-		"@capacitor/android": "^5.6.0",
+		"@capacitor/android": "^5.7.1",
 		"@capacitor/app": "^5.0.7",
 		"@capacitor/clipboard": "^5.0.7",
-		"@capacitor/core": "^5.6.0",
+		"@capacitor/core": "^5.7.1",
 		"@capacitor/preferences": "^5.0.7"
 	},
 	"devDependencies": {
 		"@capacitor/assets": "^3.0.4",
-		"@capacitor/cli": "^5.6.0",
+		"@capacitor/cli": "^5.7.1",
 		"@natoboram/heroicons.svelte": "^1.0.6",
 		"@playwright/test": "^1.41.2",
 		"@prettier/plugin-xml": "^3.3.1",
