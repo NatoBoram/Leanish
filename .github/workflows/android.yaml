@@ -46,7 +46,7 @@ jobs:
       - run: pnpm run build:apk
 
       - name: Sign
-        if: github.actor != 'nektos/act' && (github.ref_type == 'tag' || github.ref_name == 'main')
+        if: github.actor != 'nektos/act' && github.actor != 'dependabot[bot]' && (github.ref_type == 'tag' || github.ref_name == 'main')
         run: |
           eval `ssh-agent -s`
           ssh-add - <<< '${{ secrets.SIGNING_KEY_PRIVATE }}'
