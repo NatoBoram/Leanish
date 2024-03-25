@@ -52,6 +52,10 @@ rules:
   '@typescript-eslint/sort-type-constituents': error
   '@typescript-eslint/switch-exhaustiveness-check': error
 
+  func-style:
+    - error
+    - declaration
+
   # SvelteKit uses that for returning errors in routes
   '@typescript-eslint/no-throw-literal': 'off'
 
