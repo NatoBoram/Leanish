@@ -10,6 +10,7 @@ jobs:
 
     permissions:
       contents: write
+      id-token: write
       packages: write
 
     if: github.actor != 'nektos/act'
@@ -29,7 +30,7 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com
           scope: '@natoboram'
-      - run: pnpm publish --access public --no-git-checks
+      - run: pnpm publish --access public --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -37,7 +38,7 @@ jobs:
         with:
           registry-url: https://registry.npmjs.org
           scope: '@natoboram'
-      - run: pnpm publish --access public --no-git-checks
+      - run: pnpm publish --access public --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
