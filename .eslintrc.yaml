@@ -63,6 +63,7 @@ rules:
 
   # SvelteKit uses that for returning errors in routes
   '@typescript-eslint/no-throw-literal': 'off'
+  '@typescript-eslint/only-throw-error': 'off'
 
   # Receiving markdown from the API
   svelte/no-at-html-tags: 'off'

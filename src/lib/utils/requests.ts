@@ -100,7 +100,6 @@ export function serverFetch(
 		const error = res.clone()
 
 		console.error({
-			// @ts-expect-error No overload matches this call.
 			headers: Object.fromEntries(Array.from(res.headers)),
 			init,
 			input: removeAuth(input),
