@@ -90,7 +90,7 @@
 		"@playwright/test": "^1.41.2",
 		"@prettier/plugin-xml": "^3.4.1",
 		"@sveltejs/adapter-auto": "^3.2.2",
-		"@sveltejs/adapter-node": "^5.0.1",
+		"@sveltejs/adapter-node": "^5.2.0",
 		"@sveltejs/adapter-static": "^3.0.2",
 		"@sveltejs/kit": "^2.5.18",
 		"@sveltejs/package": "^2.3.2",
