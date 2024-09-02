@@ -127,8 +127,8 @@ importers:
         specifier: ^3.4.10
         version: 3.4.10(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.5.4))
       tslib:
-        specifier: ^2.6.3
-        version: 2.6.3
+        specifier: ^2.7.0
+        version: 2.7.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -3235,8 +3235,8 @@ packages:
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
-  tslib@2.6.3:
-    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+  tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
@@ -3678,7 +3678,7 @@ snapshots:
       rimraf: 4.4.1
       semver: 7.6.0
       tar: 6.2.1
-      tslib: 2.6.3
+      tslib: 2.7.0
       xml2js: 0.5.0
     transitivePeerDependencies:
       - supports-color
@@ -3689,7 +3689,7 @@ snapshots:
 
   '@capacitor/core@5.7.4':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   '@capacitor/preferences@5.0.7(@capacitor/core@5.7.4)':
     dependencies:
@@ -3809,14 +3809,14 @@ snapshots:
     dependencies:
       '@ionic/utils-terminal': 2.3.5
       debug: 4.3.4
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
   '@ionic/utils-array@2.1.6':
     dependencies:
       debug: 4.3.4
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3825,14 +3825,14 @@ snapshots:
       '@types/fs-extra': 8.1.2
       debug: 4.3.4
       fs-extra: 9.1.0
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
   '@ionic/utils-object@2.1.6':
     dependencies:
       debug: 4.3.4
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3843,14 +3843,14 @@ snapshots:
       debug: 4.3.4
       signal-exit: 3.0.7
       tree-kill: 1.2.2
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
   '@ionic/utils-stream@3.1.6':
     dependencies:
       debug: 4.3.4
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3863,7 +3863,7 @@ snapshots:
       '@ionic/utils-terminal': 2.3.4
       cross-spawn: 7.0.3
       debug: 4.3.4
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
 
@@ -3875,7 +3875,7 @@ snapshots:
       slice-ansi: 4.0.0
       string-width: 4.2.3
       strip-ansi: 6.0.1
-      tslib: 2.6.3
+      tslib: 2.7.0
       untildify: 4.0.0
       wrap-ansi: 7.0.0
     transitivePeerDependencies:
@@ -3889,7 +3889,7 @@ snapshots:
       slice-ansi: 4.0.0
       string-width: 4.2.3
       strip-ansi: 6.0.1
-      tslib: 2.6.3
+      tslib: 2.7.0
       untildify: 4.0.0
       wrap-ansi: 7.0.0
     transitivePeerDependencies:
@@ -4229,7 +4229,7 @@ snapshots:
 
   '@ts-stack/markdown@1.5.0':
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   '@tsconfig/node10@1.0.11': {}
 
@@ -5565,7 +5565,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   lru-cache@10.2.2: {}
 
@@ -5727,7 +5727,7 @@ snapshots:
       plist: 3.1.0
       split2: 4.2.0
       through2: 4.0.2
-      tslib: 2.6.3
+      tslib: 2.7.0
       yauzl: 2.10.0
     transitivePeerDependencies:
       - supports-color
@@ -5739,7 +5739,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   node-abi@3.57.0:
     dependencies:
@@ -5903,7 +5903,7 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   path-exists@3.0.0: {}
 
@@ -6691,7 +6691,7 @@ snapshots:
 
   tslib@2.6.2: {}
 
-  tslib@2.6.3: {}
+  tslib@2.7.0: {}
 
   tunnel-agent@0.6.0:
     dependencies:
