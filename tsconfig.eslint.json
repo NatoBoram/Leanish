@@ -1,5 +1,6 @@
 {
 	"extends": "./tsconfig.json",
+	"compilerOptions": { "checkJs": true },
 	"include": [
 		".eslintrc.cjs",
 		"capacitor.config.ts",
