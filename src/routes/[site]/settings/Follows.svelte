@@ -76,6 +76,8 @@
 	<button class="surface-container" on:click={followAll}> Follow all </button>
 
 	<div class="font-mono">
-		{@html logs.join('<br />')}
+		{#each logs as log}
+			{log}<br />
+		{/each}
 	</div>
 </div>
