@@ -27,7 +27,7 @@ export class Duration {
 	}
 }
 
-const millisecond = 1 as const
+const millisecond = 1
 const second = 1000 * millisecond
 const minute = 60 * second
 const hour = 60 * minute
