@@ -8,7 +8,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
 	namespace "com.natoboram.leanish"
-	compileSdkVersion rootProject.ext.compileSdkVersion
+	compileSdk rootProject.ext.compileSdkVersion
 	defaultConfig {
 		applicationId "com.natoboram.leanish"
 		minSdkVersion rootProject.ext.minSdkVersion
