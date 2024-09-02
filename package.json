@@ -77,18 +77,18 @@
 		"docker:kill": "docker ps --format '{{.Image}} {{.ID}}' | grep leanish | awk '{print $2}' | xargs docker kill"
 	},
 	"dependencies": {
-		"@capacitor/android": "^5.7.8",
-		"@capacitor/app": "^5.0.8",
-		"@capacitor/clipboard": "^5.0.8",
-		"@capacitor/core": "^5.7.8",
-		"@capacitor/preferences": "^5.0.8"
+		"@capacitor/android": "^6.1.2",
+		"@capacitor/app": "^6.0.1",
+		"@capacitor/clipboard": "^6.0.1",
+		"@capacitor/core": "^6.1.2",
+		"@capacitor/preferences": "^6.0.2"
 	},
 	"devDependencies": {
 		"@capacitor/assets": "^3.0.5",
-		"@capacitor/cli": "^5.7.8",
+		"@capacitor/cli": "^6.1.2",
 		"@eslint/js": "^9.9.1",
 		"@natoboram/heroicons.svelte": "^1.0.6",
-		"@playwright/test": "^1.41.2",
+		"@playwright/test": "^1.46.1",
 		"@prettier/plugin-xml": "^3.4.1",
 		"@sveltejs/adapter-auto": "^3.2.4",
 		"@sveltejs/adapter-node": "^5.2.2",
@@ -110,7 +110,7 @@
 		"globals": "^15.9.0",
 		"highlight.js": "^11.10.0",
 		"lemmy-js-client": "0.19.0",
-		"postcss": "^8.4.42",
+		"postcss": "^8.4.43",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.6",
 		"prettier-plugin-tailwindcss": "^0.6.6",
@@ -122,8 +122,8 @@
 		"tslib": "^2.7.0",
 		"typescript": "^5.5.4",
 		"typescript-eslint": "^8.3.0",
-		"vite": "^5.0.12",
-		"vitest": "^1.2.2"
+		"vite": "^5.4.2",
+		"vitest": "^1.6.0"
 	},
 	"peerDependencies": {
 		"@sveltejs/kit": "^2.5.25",
