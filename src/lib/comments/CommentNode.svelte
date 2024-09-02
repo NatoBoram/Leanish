@@ -199,7 +199,7 @@
 			})
 			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
 
-		if (purged && purged.success) {
+		if (purged?.success) {
 			purging = false
 			dispatch('purge', { commentView, response: purged })
 		}
