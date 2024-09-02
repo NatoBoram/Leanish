@@ -9,27 +9,27 @@ importers:
   .:
     dependencies:
       '@capacitor/android':
-        specifier: ^5.7.4
-        version: 5.7.4(@capacitor/core@5.7.4)
+        specifier: ^5.7.8
+        version: 5.7.8(@capacitor/core@5.7.8)
       '@capacitor/app':
-        specifier: ^5.0.7
-        version: 5.0.7(@capacitor/core@5.7.4)
+        specifier: ^5.0.8
+        version: 5.0.8(@capacitor/core@5.7.8)
       '@capacitor/clipboard':
-        specifier: ^5.0.7
-        version: 5.0.7(@capacitor/core@5.7.4)
+        specifier: ^5.0.8
+        version: 5.0.8(@capacitor/core@5.7.8)
       '@capacitor/core':
-        specifier: ^5.7.4
-        version: 5.7.4
+        specifier: ^5.7.8
+        version: 5.7.8
       '@capacitor/preferences':
-        specifier: ^5.0.7
-        version: 5.0.7(@capacitor/core@5.7.4)
+        specifier: ^5.0.8
+        version: 5.0.8(@capacitor/core@5.7.8)
     devDependencies:
       '@capacitor/assets':
         specifier: ^3.0.5
         version: 3.0.5(@types/node@20.14.0)(typescript@5.5.4)
       '@capacitor/cli':
-        specifier: ^5.7.4
-        version: 5.7.4
+        specifier: ^5.7.8
+        version: 5.7.8
       '@natoboram/heroicons.svelte':
         specifier: ^1.0.6
         version: 1.0.6(svelte@4.2.19)(tailwindcss@3.4.10(ts-node@10.9.2(@types/node@20.14.0)(typescript@5.5.4)))
@@ -239,13 +239,13 @@ packages:
     resolution: {integrity: sha512-7uIFwVYpoplT5jp/kVv6EF93VaJ8H+Yn5IczYiaAi98ajzjfoZfslet/e0sLh+wVBjb2qqIut1b0S26VSafsSQ==}
     engines: {node: '>=6.9.0'}
 
-  '@capacitor/android@5.7.4':
-    resolution: {integrity: sha512-9ETwrCaLaimLHbwGpgfsPS9cHcPMFLmKFdlYsFsYIusMO6aOrcQTA9Q4xVAkr55ava4Wk+pVRniRYsekrbOLdw==}
+  '@capacitor/android@5.7.8':
+    resolution: {integrity: sha512-ooWclwcuW0dy3YfqgoozkHkjatX8H2fb2/RwRsJa3cew1P1lUXIXri3Dquuy4LdqFAJA7UHcJ19Bl/6UKdsZYA==}
     peerDependencies:
       '@capacitor/core': ^5.7.0
 
-  '@capacitor/app@5.0.7':
-    resolution: {integrity: sha512-oad0jwQu+vgQDukeS9UV56yG10dlxkAGGl26IQpZlTmg3dTI9qSJtvhmlLfkF0nEtoj5IsVQUPE+NLH1oZkgGQ==}
+  '@capacitor/app@5.0.8':
+    resolution: {integrity: sha512-ClUPJG6Awkf5HncVCZQwLrnuugjU8TnACSJ1dKJb6QNCHv2jQzmXvB3KvTvxTZyWbh5EVvlla0qlobYyU1lb6A==}
     peerDependencies:
       '@capacitor/core': ^5.0.0
 
@@ -254,21 +254,21 @@ packages:
     engines: {node: '>=10.3.0'}
     hasBin: true
 
-  '@capacitor/cli@5.7.4':
-    resolution: {integrity: sha512-Cn7ndfMHWfMT+A/wRoeac4/mAxZWNTlZoD1Mn7UQyVV+iGxZB2JpS9omqha7gBN4xrAuTi/X9FqkzrmR+1V96A==}
+  '@capacitor/cli@5.7.8':
+    resolution: {integrity: sha512-qN8LDlREMhrYhOvVXahoJVNkP8LP55/YPRJrzTAFrMqlNJC18L3CzgWYIblFPnuwfbH/RxbfoZT/ydkwgVpMrw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@capacitor/clipboard@5.0.7':
-    resolution: {integrity: sha512-N9JJruFB1mKNmA/+HPXyhcSugvEmYYfM4BibYB8lPqGc9QUY8WirU1+/5Keo8+lKJ6Sv9FVyHr2Sf8XFpwK7Tw==}
+  '@capacitor/clipboard@5.0.8':
+    resolution: {integrity: sha512-eIlJDwUp5UrGoNhASqQaHfW4mw5dw/COEoFbdVWC+wcB/fe8crcbYwpm8YbMwp0e/k+i+M/kOYcejvVmuFetZg==}
     peerDependencies:
       '@capacitor/core': ^5.0.0
 
-  '@capacitor/core@5.7.4':
-    resolution: {integrity: sha512-iZBgvx3o4amzKv5ttA+QHB6i7cxK+/mYpCQd1tnSdipg6ZkvfBhg1HkzhEqHk+I7MNur+QwgYDZho9+ycHRwOw==}
+  '@capacitor/core@5.7.8':
+    resolution: {integrity: sha512-rrZcm/2vJM0WdWRQup1TUidbjQV9PfIadSkV4rAGLD7R6PuzZSMPGT0gmoZzCRlXkqrazrWWDkurei3ozU02FA==}
 
-  '@capacitor/preferences@5.0.7':
-    resolution: {integrity: sha512-JvfGP1m8nITWEFdBpKR9HXNeBjLKwO0q1pry7Z5lYrYmCrbyRBLWzaGZGll8py4KmGWL3F5+PZvhrpT4gPoeAQ==}
+  '@capacitor/preferences@5.0.8':
+    resolution: {integrity: sha512-zzz8JC2NuZ+xdBP2Cfhu4uyRUMAFoxMl7l8w5ahQPzckyt7Fk/pWATXj6IcTm7DzbsKc8ryXSsYTkv9ZL3Pfmw==}
     peerDependencies:
       '@capacitor/core': ^5.0.0
 
@@ -2110,10 +2110,6 @@ packages:
   lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
 
-  lru-cache@10.2.2:
-    resolution: {integrity: sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==}
-    engines: {node: 14 || >=16.14}
-
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
@@ -2464,10 +2460,6 @@ packages:
 
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
-
-  path-scurry@1.10.2:
-    resolution: {integrity: sha512-7xTavNy5RQXnsjANvVvMkEjvloOinkAjv/Z6Ildz9v2RinZ4SBKTWFOVRbaF8p0vpHnyjV/UwNDdKuUv6M5qcA==}
-    engines: {node: '>=16 || 14 >=14.17'}
 
   path-scurry@1.11.1:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
@@ -3631,17 +3623,17 @@ snapshots:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  '@capacitor/android@5.7.4(@capacitor/core@5.7.4)':
+  '@capacitor/android@5.7.8(@capacitor/core@5.7.8)':
     dependencies:
-      '@capacitor/core': 5.7.4
+      '@capacitor/core': 5.7.8
 
-  '@capacitor/app@5.0.7(@capacitor/core@5.7.4)':
+  '@capacitor/app@5.0.8(@capacitor/core@5.7.8)':
     dependencies:
-      '@capacitor/core': 5.7.4
+      '@capacitor/core': 5.7.8
 
   '@capacitor/assets@3.0.5(@types/node@20.14.0)(typescript@5.5.4)':
     dependencies:
-      '@capacitor/cli': 5.7.4
+      '@capacitor/cli': 5.7.8
       '@ionic/utils-array': 2.1.6
       '@ionic/utils-fs': 3.1.7
       '@trapezedev/project': 7.0.10(@types/node@20.14.0)(typescript@5.5.4)
@@ -3661,14 +3653,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@capacitor/cli@5.7.4':
+  '@capacitor/cli@5.7.8':
     dependencies:
       '@ionic/cli-framework-output': 2.2.8
       '@ionic/utils-fs': 3.1.7
       '@ionic/utils-subprocess': 2.1.14
       '@ionic/utils-terminal': 2.3.5
       commander: 9.5.0
-      debug: 4.3.4
+      debug: 4.3.6
       env-paths: 2.2.1
       kleur: 4.1.5
       native-run: 2.0.1
@@ -3676,24 +3668,24 @@ snapshots:
       plist: 3.1.0
       prompts: 2.4.2
       rimraf: 4.4.1
-      semver: 7.6.0
+      semver: 7.6.3
       tar: 6.2.1
       tslib: 2.7.0
       xml2js: 0.5.0
     transitivePeerDependencies:
       - supports-color
 
-  '@capacitor/clipboard@5.0.7(@capacitor/core@5.7.4)':
+  '@capacitor/clipboard@5.0.8(@capacitor/core@5.7.8)':
     dependencies:
-      '@capacitor/core': 5.7.4
+      '@capacitor/core': 5.7.8
 
-  '@capacitor/core@5.7.4':
+  '@capacitor/core@5.7.8':
     dependencies:
       tslib: 2.7.0
 
-  '@capacitor/preferences@5.0.7(@capacitor/core@5.7.4)':
+  '@capacitor/preferences@5.0.8(@capacitor/core@5.7.8)':
     dependencies:
-      '@capacitor/core': 5.7.4
+      '@capacitor/core': 5.7.8
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -3808,7 +3800,7 @@ snapshots:
   '@ionic/cli-framework-output@2.2.8':
     dependencies:
       '@ionic/utils-terminal': 2.3.5
-      debug: 4.3.4
+      debug: 4.3.6
       tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
@@ -3884,7 +3876,7 @@ snapshots:
   '@ionic/utils-terminal@2.3.5':
     dependencies:
       '@types/slice-ansi': 4.0.0
-      debug: 4.3.4
+      debug: 4.3.6
       signal-exit: 3.0.7
       slice-ansi: 4.0.0
       string-width: 4.2.3
@@ -5296,7 +5288,7 @@ snapshots:
       fs.realpath: 1.0.0
       minimatch: 8.0.4
       minipass: 4.2.8
-      path-scurry: 1.10.2
+      path-scurry: 1.11.1
 
   globals@11.12.0: {}
 
@@ -5567,8 +5559,6 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
-  lru-cache@10.2.2: {}
-
   lru-cache@10.4.3: {}
 
   lru-cache@6.0.0:
@@ -5721,7 +5711,7 @@ snapshots:
       '@ionic/utils-fs': 3.1.7
       '@ionic/utils-terminal': 2.3.5
       bplist-parser: 0.3.2
-      debug: 4.3.4
+      debug: 4.3.6
       elementtree: 0.1.7
       ini: 4.1.2
       plist: 3.1.0
@@ -5916,11 +5906,6 @@ snapshots:
   path-key@4.0.0: {}
 
   path-parse@1.0.7: {}
-
-  path-scurry@1.10.2:
-    dependencies:
-      lru-cache: 10.2.2
-      minipass: 7.1.2
 
   path-scurry@1.11.1:
     dependencies:
