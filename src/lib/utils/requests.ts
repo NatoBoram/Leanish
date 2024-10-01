@@ -29,7 +29,7 @@ export function addAuthParam(input: RequestInfo | URL, jwt: string) {
 }
 
 export function clientFetch(jwt: string | undefined): typeof globalThis.fetch {
-	return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
+	return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
 		if (jwt) {
 			input = addAuthParam(input, jwt)
 			init = addAuthBody(init, jwt)
@@ -89,7 +89,7 @@ export function serverFetch(
 	fetch: typeof globalThis.fetch,
 	jwt: string | undefined,
 ): typeof globalThis.fetch {
-	return async (input: RequestInfo | URL, init?: RequestInit | undefined): Promise<Response> => {
+	return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
 		if (jwt) {
 			input = addAuthParam(input, jwt)
 			init = addAuthBody(init, jwt)
