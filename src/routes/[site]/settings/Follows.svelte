@@ -18,7 +18,7 @@
 		following = true
 		logs = []
 
-		for await (const follow of follows) {
+		for (const follow of follows) {
 			const uri = communityUri(follow.community)
 
 			if (myUser.follows.some(f => uri === communityUri(f.community))) {
