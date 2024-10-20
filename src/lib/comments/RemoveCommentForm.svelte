@@ -2,14 +2,18 @@
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import { createEventDispatcher } from 'svelte'
 
-	export let disabled = false
+	interface Props {
+		readonly disabled?: boolean
+	}
+
+	const { disabled = false }: Props = $props()
 
 	const placeholders = ['Reason for removing this comment...', 'Why are you removing this comment?']
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]
 
 	const dispatch = createEventDispatcher<{ cancel: undefined; remove: string }>()
 
-	let value = ''
+	let value = $state('')
 
 	function onSubmit() {
 		dispatch('remove', value)
@@ -20,7 +24,7 @@
 	}
 </script>
 
-<form class="flex flex-col justify-start gap-4" on:submit={onSubmit}>
+<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit}>
 	<!-- Input -->
 	<textarea
 		{disabled}

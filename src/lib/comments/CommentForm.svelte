@@ -9,14 +9,24 @@
 		readonly cancel: undefined
 	}>()
 
-	export let allLanguages: Language[]
-	export let content: string
-	export let disabled: boolean
-	export let myUser: MyUserInfo
-	export let languageId = myUser.discussion_languages[0] ?? 0
+	interface Props {
+		readonly allLanguages: Language[]
+		readonly content: string
+		readonly disabled: boolean
+		readonly myUser: MyUserInfo
+		readonly languageId?: any
+	}
 
-	$: myLanguages = myUser.discussion_languages.flatMap(
-		id => allLanguages.find(l => l.id === id) ?? [],
+	let {
+		allLanguages,
+		content = $bindable(),
+		disabled,
+		myUser,
+		languageId = $bindable(myUser.discussion_languages[0] ?? 0),
+	}: Props = $props()
+
+	const myLanguages = $derived(
+		myUser.discussion_languages.flatMap(id => allLanguages.find(l => l.id === id) ?? []),
 	)
 
 	const placeholders = [
@@ -51,7 +61,7 @@
 		return dispatch('submit', { content: content, languageId })
 	}
 
-	let previewing = false
+	let previewing = $state(false)
 </script>
 
 <div class="flex flex-col gap-4">

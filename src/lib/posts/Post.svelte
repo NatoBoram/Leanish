@@ -25,30 +25,42 @@
 	import PurgePostForm from './PurgePostForm.svelte'
 	import ReportPostForm from './ReportPostForm.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly allLanguages: Language[]
+		readonly communityView: CommunityView | undefined
+		readonly jwt: string | undefined
+		readonly moderators: CommunityModeratorView[]
+		readonly myUser: MyUserInfo | undefined
+		readonly postView: PostView
+		readonly site: Site
+		readonly personView: PersonView | undefined
+	}
 
-	export let allLanguages: Language[]
-	export let communityView: CommunityView | undefined
-	export let jwt: string | undefined
-	export let moderators: CommunityModeratorView[]
-	export let myUser: MyUserInfo | undefined
-	export let postView: PostView
-	export let site: Site
-	export let personView: PersonView | undefined
+	let {
+		class: className = undefined,
+		allLanguages,
+		communityView,
+		jwt,
+		moderators,
+		myUser,
+		postView = $bindable(),
+		site,
+		personView,
+	}: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
 
-	let commenting = false
-	let commentPending = false
-	let purgePending = false
-	let purging = false
-	let reporting = false
-	let reportPending = false
+	let commenting = $state(false)
+	let commentPending = $state(false)
+	let purgePending = $state(false)
+	let purging = $state(false)
+	let reporting = $state(false)
+	let reportPending = $state(false)
 
-	let botErrorMessage = ''
-	let topErrorMessage = ''
+	let botErrorMessage = $state('')
+	let topErrorMessage = $state('')
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
 		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')

@@ -2,7 +2,11 @@
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import { createEventDispatcher } from 'svelte'
 
-	export let disabled = false
+	interface Props {
+		readonly disabled?: boolean
+	}
+
+	const { disabled = false }: Props = $props()
 
 	const placeholders = [
 		'Describe the violation',
@@ -29,7 +33,7 @@
 
 	const dispatch = createEventDispatcher<{ cancel: undefined; report: string }>()
 
-	let value = ''
+	let value = $state('')
 
 	function onSubmit() {
 		dispatch('report', value)
@@ -40,7 +44,7 @@
 	}
 </script>
 
-<form class="flex flex-col justify-start gap-4" on:submit={onSubmit}>
+<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit}>
 	<!-- Input -->
 	<textarea
 		{disabled}

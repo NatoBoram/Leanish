@@ -6,12 +6,14 @@
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly postView: PostView
+		readonly type: PostFeatureType
+	}
 
-	export let jwt: string
-	export let postView: PostView
-	export let type: PostFeatureType
+	let { class: className = undefined, jwt, postView = $bindable(), type }: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
@@ -20,7 +22,7 @@
 		response: Response
 	}>()
 
-	let featurePending = false
+	let featurePending = $state(false)
 
 	function featuredValue(postView: PostView, type: PostFeatureType) {
 		switch (type) {

@@ -12,27 +12,37 @@
 	import type { MyUserInfo, PostView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
-
 	const dispatch = createEventDispatcher<{
 		edit: undefined
 		purge: undefined
 		report: undefined
 	}>()
 
-	export let jwt: string
-	export let myUser: MyUserInfo
-	export let position = 'left-8 -top-4'
-	export let postView: PostView
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly myUser: MyUserInfo
+		readonly position?: string
+		readonly postView: PostView
+	}
 
-	let opened = false
+	const {
+		class: className = undefined,
+		jwt,
+		myUser,
+		position = 'left-8 -top-4',
+		postView,
+	}: Props = $props()
+
+	let opened = $state(false)
 
 	function onclick() {
 		opened = !opened
 	}
 
-	$: moderator = myUser.moderates.some(m => m.community.id === postView.post.community_id)
+	const moderator = $derived(
+		myUser.moderates.some(m => m.community.id === postView.post.community_id),
+	)
 
 	function clickReport() {
 		dispatch('report')
@@ -127,7 +137,7 @@
 		</div>
 	{/if}
 
-	<button on:click={onclick}>
+	<button {onclick}>
 		<EllipsisVertical />
 	</button>
 </div>

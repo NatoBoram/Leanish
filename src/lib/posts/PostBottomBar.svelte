@@ -7,18 +7,20 @@
 	import { createEventDispatcher } from 'svelte'
 	import PostMeatballs from './PostMeatballs.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string | undefined
+		readonly myUser: MyUserInfo | undefined
+		readonly postView: PostView
+		readonly site: Site
+	}
 
-	export let jwt: string | undefined
-	export let myUser: MyUserInfo | undefined
-	export let postView: PostView
-	export let site: Site
+	let { class: className = undefined, jwt, myUser, postView = $bindable(), site }: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{ comment: undefined; response: Response; error: Error }>()
 
-	let votePending = false
+	let votePending = $state(false)
 
 	async function like() {
 		const score = (postView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -52,7 +54,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (postView.my_vote ?? 0) > 0}
 			disabled={votePending || !myUser}
-			on:click={like}
+			onclick={like}
 			title="Upvote ({postView.counts.upvotes})"
 		>
 			<ArrowUp />
@@ -62,7 +64,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (postView.my_vote ?? 0) < 0}
 			disabled={votePending || !myUser}
-			on:click={dislike}
+			onclick={dislike}
 			title="Downvote ({postView.counts.downvotes})"
 		>
 			<ArrowDown />
@@ -76,7 +78,7 @@
 	</a>
 
 	{#if myUser}
-		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('comment')}>
+		<button class="flex flex-row items-center gap-2" onclick={() => dispatch('comment')}>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" />
 			Reply
 		</button>

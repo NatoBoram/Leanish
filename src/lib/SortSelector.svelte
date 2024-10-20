@@ -5,9 +5,13 @@
 	import type { SortType } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 
-	export let sort: SortType
+	interface Props {
+		readonly sort: SortType
+	}
 
-	let select: HTMLSelectElement
+	const { sort }: Props = $props()
+
+	let select: HTMLSelectElement = $state()
 
 	const dispatch = createEventDispatcher<{ sort: SortType }>()
 
@@ -34,7 +38,7 @@
 	bind:this={select}
 	value={sort}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeSort($page.url)
 	}}
 >

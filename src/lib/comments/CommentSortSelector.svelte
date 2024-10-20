@@ -5,9 +5,13 @@
 	import type { CommentSortType } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 
-	export let sort: CommentSortType
+	interface Props {
+		readonly sort: CommentSortType
+	}
 
-	let select: HTMLSelectElement
+	const { sort }: Props = $props()
+
+	let select: HTMLSelectElement = $state()
 
 	const dispatch = createEventDispatcher<{ sort: CommentSortType }>()
 
@@ -34,7 +38,7 @@
 	bind:this={select}
 	value={sort}
 	class="w-20 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeSort($page.url)
 	}}
 >

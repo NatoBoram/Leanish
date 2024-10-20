@@ -5,10 +5,14 @@
 	import { createEventDispatcher } from 'svelte'
 	import { isSearchType } from './utils/index.js'
 
-	export let name = 'type_'
-	export let type_: SearchType
+	interface Props {
+		readonly name?: string
+		readonly type_: SearchType
+	}
 
-	let select: HTMLSelectElement
+	const { name = 'type_', type_ }: Props = $props()
+
+	let select: HTMLSelectElement = $state()
 
 	const dispatch = createEventDispatcher<{ search: SearchType }>()
 
@@ -35,7 +39,7 @@
 	bind:this={select}
 	value={type_}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeSearch($page.url)
 	}}
 >

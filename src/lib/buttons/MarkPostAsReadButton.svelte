@@ -6,11 +6,13 @@
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly postView: PostView
+	}
 
-	export let jwt: string
-	export let postView: PostView
+	let { class: className = undefined, jwt, postView = $bindable() }: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
@@ -19,7 +21,7 @@
 		response: Response
 	}>()
 
-	let markPending = false
+	let markPending = $state(false)
 
 	async function markPostAsRead() {
 		if (!jwt) return dispatch('error', new Error('You must be logged in to mark posts as read.'))

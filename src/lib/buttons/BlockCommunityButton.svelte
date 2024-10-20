@@ -5,13 +5,15 @@
 	import type { BlockCommunityResponse, CommunityId, CommunityView } from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
-
 	const client = getClientContext()
 
-	export let communityView: CommunityView
-	export let jwt: string
+	interface Props {
+		readonly class?: string | undefined
+		readonly communityView: CommunityView
+		readonly jwt: string
+	}
+
+	const { class: className = undefined, communityView, jwt }: Props = $props()
 
 	const dispatch = createEventDispatcher<{
 		block_community: BlockCommunityResponse

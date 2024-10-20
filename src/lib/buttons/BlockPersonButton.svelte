@@ -5,19 +5,23 @@
 	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './FlatButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
-
 	const client = getClientContext()
 
-	export let jwt: string
-	export let myUser: MyUserInfo
-	export let personView: PersonView
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly myUser: MyUserInfo
+		readonly personView: PersonView
+	}
 
-	let request: Promise<BlockPersonResponse> = Promise.resolve({
-		blocked: myUser.person_blocks.some(block => block.target.id === personView.person.id),
-		person_view: personView,
-	})
+	const { class: className = undefined, jwt, myUser, personView }: Props = $props()
+
+	let request: Promise<BlockPersonResponse> = $state(
+		Promise.resolve({
+			blocked: myUser.person_blocks.some(block => block.target.id === personView.person.id),
+			person_view: personView,
+		}),
+	)
 
 	const dispatch = createEventDispatcher<{
 		error: Error

@@ -6,12 +6,14 @@
 	import { createEventDispatcher } from 'svelte'
 	import CommentMeatballs from './CommentMeatballs.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly commentView: CommentView
+		readonly jwt: string | undefined
+		readonly myUser: MyUserInfo | undefined
+	}
 
-	export let commentView: CommentView
-	export let jwt: string | undefined
-	export let myUser: MyUserInfo | undefined
+	let { class: className = undefined, commentView = $bindable(), jwt, myUser }: Props = $props()
 
 	const dispatch = createEventDispatcher<{
 		error: Error
@@ -21,7 +23,7 @@
 
 	const client = getClientContext()
 
-	let votePending = false
+	let votePending = $state(false)
 
 	async function like() {
 		const score = (commentView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -60,7 +62,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (commentView.my_vote ?? 0) > 0}
 			disabled={votePending}
-			on:click={like}
+			onclick={like}
 			title="Upvote ({commentView.counts.upvotes})"
 		>
 			<ArrowUp />
@@ -72,7 +74,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (commentView.my_vote ?? 0) < 0}
 			disabled={votePending}
-			on:click={dislike}
+			onclick={dislike}
 			title="Downvote ({commentView.counts.downvotes})"
 		>
 			<ArrowDown />
@@ -81,7 +83,7 @@
 
 	<!-- Reply button -->
 	{#if myUser && !commentView.post.locked}
-		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('reply')}>
+		<button class="flex flex-row items-center gap-2" onclick={() => dispatch('reply')}>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" /> Reply
 		</button>
 	{/if}

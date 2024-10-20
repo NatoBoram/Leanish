@@ -7,11 +7,13 @@
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly post: Post
+	}
 
-	export let jwt: string
-	export let post: Post
+	let { class: className = undefined, jwt, post = $bindable() }: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
@@ -20,7 +22,7 @@
 		response: Response
 	}>()
 
-	let lockPending = false
+	let lockPending = $state(false)
 
 	async function lockPost() {
 		if (!jwt) return dispatch('error', new Error('You must be logged in to lock posts.'))

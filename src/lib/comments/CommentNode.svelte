@@ -18,21 +18,34 @@
 		SuccessResponse,
 	} from 'lemmy-js-client'
 	import { createEventDispatcher } from 'svelte'
+	import CommentNode_1 from './CommentNode.svelte'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
 	import RemoveCommentForm from './RemoveCommentForm.svelte'
 	import type { CommentNode } from './comment_node.js'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly allLanguages: Language[]
+		readonly children: CommentNode[]
+		readonly commentView: CommentView
+		readonly jwt: string | undefined
+		readonly moderators: CommunityModeratorView[]
+		readonly myUser: MyUserInfo | undefined
+		readonly personView: PersonView | undefined
+		readonly site: Site
+	}
 
-	export let allLanguages: Language[]
-	export let children: CommentNode[]
-	export let commentView: CommentView
-	export let jwt: string | undefined
-	export let moderators: CommunityModeratorView[]
-	export let myUser: MyUserInfo | undefined
-	export let personView: PersonView | undefined
-	export let site: Site
+	let {
+		class: className = undefined,
+		allLanguages,
+		children,
+		commentView = $bindable(),
+		jwt,
+		moderators,
+		myUser,
+		personView,
+		site,
+	}: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
@@ -40,18 +53,18 @@
 		purge: { commentView: CommentView; response: SuccessResponse }
 	}>()
 
-	let botErrorMessage = ''
-	let editing = false
-	let editPending = false
-	let purgePending = false
-	let purging = false
-	let removePending = false
-	let removing = false
-	let replying = false
-	let replyPending = false
-	let reporting = false
-	let reportPending = false
-	let topErrorMessage = ''
+	let botErrorMessage = $state('')
+	let editing = $state(false)
+	let editPending = $state(false)
+	let purgePending = $state(false)
+	let purging = $state(false)
+	let removePending = $state(false)
+	let removing = $state(false)
+	let replying = $state(false)
+	let replyPending = $state(false)
+	let reporting = $state(false)
+	let reportPending = $state(false)
+	let topErrorMessage = $state('')
 
 	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
 		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')
@@ -325,7 +338,7 @@
 	<!-- Children -->
 	<div class="ml-4 flex flex-col gap-2 border-l border-muted pl-4">
 		{#each children as child (child.view.comment.id)}
-			<svelte:self
+			<CommentNode_1
 				{allLanguages}
 				{jwt}
 				{moderators}

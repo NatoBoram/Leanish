@@ -7,11 +7,13 @@
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly comment: Comment
+	}
 
-	export let jwt: string
-	export let comment: Comment
+	let { class: className = undefined, jwt, comment = $bindable() }: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
@@ -20,7 +22,7 @@
 		response: Response
 	}>()
 
-	let distinguishPending = false
+	let distinguishPending = $state(false)
 
 	async function distinguishComment() {
 		if (!jwt) return dispatch('error', new Error('You must be logged in to distinguish comments.'))

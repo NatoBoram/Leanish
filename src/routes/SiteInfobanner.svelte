@@ -4,9 +4,6 @@
 	import { siteLink } from '$lib/utils/index.js'
 	import { createEventDispatcher } from 'svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
-
 	const dispatch = createEventDispatcher<{
 		current: HomeSite
 		default: HomeSite
@@ -14,7 +11,12 @@
 		hide: HomeSite
 	}>()
 
-	export let homeSite: HomeSite
+	interface Props {
+		readonly class?: string | undefined
+		readonly homeSite: HomeSite
+	}
+
+	const { class: className = undefined, homeSite }: Props = $props()
 
 	async function onDefault() {
 		const newHomeSite = { ...homeSite, default: !homeSite.default }
@@ -73,7 +75,7 @@
 					class:primary-container={homeSite.default}
 					class:surface-container={!homeSite.default}
 					class="rounded-full px-2 py-1"
-					on:click={onDefault}
+					onclick={onDefault}
 				>
 					Default
 				</button>
@@ -82,16 +84,16 @@
 					class:primary-container={homeSite.current}
 					class:surface-container={!homeSite.current}
 					class="rounded-full px-2 py-1"
-					on:click={onCurrent}
+					onclick={onCurrent}
 				>
 					Current
 				</button>
 
-				<button class="surface-container hover:warning rounded-full px-2 py-1" on:click={onHide}
+				<button class="surface-container hover:warning rounded-full px-2 py-1" onclick={onHide}
 					>Hide</button
 				>
 
-				<button class="surface-container hover:danger rounded-full px-2 py-1" on:click={onDelete}
+				<button class="surface-container hover:danger rounded-full px-2 py-1" onclick={onDelete}
 					>Delete</button
 				>
 			</div>

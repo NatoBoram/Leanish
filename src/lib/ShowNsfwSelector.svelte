@@ -3,12 +3,14 @@
 	import { page } from '$app/stores'
 	import { createEventDispatcher } from 'svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly showNsfw: boolean
+	}
 
-	export let showNsfw: boolean
+	const { class: className = undefined, showNsfw }: Props = $props()
 	const dispatch = createEventDispatcher<{ show_nsfw: boolean }>()
-	let checkbox: HTMLInputElement
+	let checkbox: HTMLInputElement = $state()
 
 	let timeout: NodeJS.Timeout
 	function debounceChangeShowNsfw(url: URL) {
@@ -31,7 +33,7 @@
 		checked={showNsfw}
 		class="border-on-base-container/25 bg-base-container text-primary focus:ring-1 focus:ring-offset-0"
 		id="show_nsfw"
-		on:change={() => {
+		onchange={() => {
 			debounceChangeShowNsfw($page.url)
 		}}
 		type="checkbox"

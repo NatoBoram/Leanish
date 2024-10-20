@@ -1,11 +1,15 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte'
+	import { createEventDispatcher, onMount, type Snippet } from 'svelte'
 
 	const dispatch = createEventDispatcher<{ clickoutside: MouseEvent }>()
-	let node: Node
+	let node: Node = $state()
 
-	let className: string | undefined = ''
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly children?: Snippet
+	}
+
+	const { class: className = '', children }: Props = $props()
 
 	function handleClick(event: MouseEvent) {
 		if (!node.contains(event.target as Node)) dispatch('clickoutside', event)
@@ -20,5 +24,5 @@
 </script>
 
 <div class={className} bind:this={node}>
-	<slot />
+	{@render children?.()}
 </div>

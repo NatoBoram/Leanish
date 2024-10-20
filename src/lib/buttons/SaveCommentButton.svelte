@@ -7,11 +7,13 @@
 	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly commentView: CommentView
+	}
 
-	export let jwt: string
-	export let commentView: CommentView
+	let { class: className = undefined, jwt, commentView = $bindable() }: Props = $props()
 
 	const client = getClientContext()
 	const dispatch = createEventDispatcher<{
@@ -20,7 +22,7 @@
 		response: Response
 	}>()
 
-	let savePending = false
+	let savePending = $state(false)
 
 	async function saveComment() {
 		if (!jwt) return dispatch('error', new Error('You must be logged in to save comments.'))

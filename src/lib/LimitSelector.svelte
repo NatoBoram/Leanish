@@ -3,10 +3,14 @@
 	import { page } from '$app/stores'
 	import { createEventDispatcher } from 'svelte'
 
-	export let limit: number
+	interface Props {
+		readonly limit: number
+	}
+
+	const { limit }: Props = $props()
 
 	const dispatch = createEventDispatcher<{ limit: number }>()
-	let input: HTMLInputElement
+	let input: HTMLInputElement = $state()
 
 	let timeout: NodeJS.Timeout
 	function debounceChangeLimit(url: URL) {
@@ -43,10 +47,10 @@
 		id="limit"
 		max={50}
 		min={1}
-		on:change={() => {
+		onchange={() => {
 			debounceChangeLimit($page.url)
 		}}
-		on:keypress={e => {
+		onkeypress={e => {
 			if (e.key === 'Enter') debounceChangeLimit($page.url)
 		}}
 		type="number"

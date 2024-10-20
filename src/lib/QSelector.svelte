@@ -3,11 +3,15 @@
 	import { page } from '$app/stores'
 	import { createEventDispatcher } from 'svelte'
 
-	export let q: string
+	interface Props {
+		readonly q: string
+	}
+
+	let { q = $bindable() }: Props = $props()
 
 	const dispatch = createEventDispatcher<{ q: string }>()
 
-	let input: HTMLInputElement
+	let input: HTMLInputElement = $state()
 	let timeout: NodeJS.Timeout
 
 	function debounceChangeQ(url: URL) {
@@ -29,7 +33,7 @@
 	bind:this={input}
 	bind:value={q}
 	class="base-container rounded-md border-none px-4 py-2"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeQ($page.url)
 	}}
 	placeholder="Search"

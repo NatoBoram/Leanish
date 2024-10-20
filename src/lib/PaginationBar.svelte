@@ -9,15 +9,17 @@
 	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './buttons/FlatButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly length: number
+		readonly limit: number
+		readonly nav?: HTMLElement | undefined
+	}
 
-	export let length: number
-	export let limit: number
-	export let nav: HTMLElement | undefined = undefined
+	let { class: className = undefined, length, limit, nav = $bindable(undefined) }: Props = $props()
 
 	const dispatch = createEventDispatcher<{ previous: number; next: number; first: 1 }>()
-	let input: HTMLInputElement
+	let input: HTMLInputElement = $state()
 
 	function initialIndex(url: URL): number {
 		const index = Number(url.searchParams.get('page') ?? 1)
@@ -125,10 +127,10 @@
 			class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
 			min={1}
-			on:change={() => {
+			onchange={() => {
 				debounceChangePage($page.url)
 			}}
-			on:keypress={e => {
+			onkeypress={e => {
 				if (e.key === 'Enter') debounceChangePage($page.url)
 			}}
 			type="number"
