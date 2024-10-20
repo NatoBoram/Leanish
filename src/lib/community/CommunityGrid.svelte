@@ -22,7 +22,7 @@
 				<th class="max-sm:hidden">Subscribers</th>
 				<th class="max-md:hidden">Posts</th>
 				<th class="max-lg:hidden">Comments</th>
-				<th class="" />
+				<th class=""></th>
 			</tr>
 		</thead>
 

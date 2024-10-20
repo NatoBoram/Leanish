@@ -70,7 +70,7 @@
 		{placeholder}
 		class="h-32 w-full resize-y rounded-xl border-0 bg-surface-container p-4 text-on-surface-container focus:border-on-surface-container/25 focus:ring-on-surface-container/25"
 		bind:value={content}
-	/>
+	></textarea>
 
 	<!-- Actions -->
 	<div class="flex flex-row items-center justify-between gap-4">

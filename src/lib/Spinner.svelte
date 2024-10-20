@@ -10,4 +10,4 @@
 	class="inline-block animate-spin rounded-full border-4 border-solid border-current
 		border-r-transparent {className}"
 	role="status"
-/>
+></div>

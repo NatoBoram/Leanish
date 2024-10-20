@@ -26,7 +26,7 @@
 		<!-- Anonymous infobanner -->
 		<div class="flex flex-row items-center gap-4 bg-surface-container/25 p-4">
 			<!-- Avatar -->
-			<div class="h-24 w-24 rounded-full bg-muted object-cover" />
+			<div class="h-24 w-24 rounded-full bg-muted object-cover"></div>
 
 			<div class="text-xl font-semibold">Anonymous</div>
 		</div>

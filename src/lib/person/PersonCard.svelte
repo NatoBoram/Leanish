@@ -27,7 +27,7 @@
 			src={personView.person.banner}
 		/>
 	{:else}
-		<div class="surface-container absolute left-0 right-0 top-0 h-32 object-cover" />
+		<div class="surface-container absolute left-0 right-0 top-0 h-32 object-cover"></div>
 	{/if}
 
 	<div class="flex flex-col gap-2">

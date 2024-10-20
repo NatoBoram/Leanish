@@ -6,7 +6,7 @@
 
 <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 	<!-- Backdrop -->
-	<div class="fixed inset-0 bg-base bg-opacity-50 transition-opacity" />
+	<div class="fixed inset-0 bg-base bg-opacity-50 transition-opacity"></div>
 
 	<div class="fixed inset-0 z-10 overflow-y-auto">
 		<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">

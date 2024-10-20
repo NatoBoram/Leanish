@@ -47,7 +47,7 @@
 		{placeholder}
 		bind:value
 		class="surface-container rounded-md border-none px-4 py-2"
-	/>
+	></textarea>
 
 	<!-- Actions -->
 	<div class="flex flex-row items-center justify-end gap-4">

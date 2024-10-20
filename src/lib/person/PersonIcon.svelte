@@ -17,5 +17,5 @@
 		on:error={e => (error = e)}
 	/>
 {:else}
-	<div class="bg-muted {className}" />
+	<div class="bg-muted {className}"></div>
 {/if}

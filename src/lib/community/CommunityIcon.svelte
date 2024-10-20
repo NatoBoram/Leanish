@@ -10,5 +10,5 @@
 {#if community.icon}
 	<img src={community.icon} alt="icon" class="object-cover {className}" />
 {:else}
-	<div class="bg-muted {className}" />
+	<div class="bg-muted {className}"></div>
 {/if}

@@ -59,7 +59,7 @@
 				alt="avatar"
 			/>
 		{:else}
-			<div class="h-24 w-24 rounded-full bg-muted object-cover" />
+			<div class="h-24 w-24 rounded-full bg-muted object-cover"></div>
 		{/if}
 
 		<div>
