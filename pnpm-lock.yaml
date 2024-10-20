@@ -82,8 +82,8 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       cookie:
-        specifier: ^0.7.2
-        version: 0.7.2
+        specifier: ^1.0.0
+        version: 1.0.0
       eslint:
         specifier: ^9.13.0
         version: 9.13.0(jiti@1.21.6)
@@ -1273,9 +1273,9 @@ packages:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
 
-  cookie@0.7.2:
-    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
-    engines: {node: '>= 0.6'}
+  cookie@1.0.0:
+    resolution: {integrity: sha512-bsSztFoaR8bw9MlFCrTHzc1wOKCUKOBsbgFdoDilZDkETAOOjKSqV7L+EQLbTaylwvZasd9vM4MGKotJaUfSpA==}
+    engines: {node: '>=18'}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -4643,7 +4643,7 @@ snapshots:
 
   cookie@0.6.0: {}
 
-  cookie@0.7.2: {}
+  cookie@1.0.0: {}
 
   core-util-is@1.0.3: {}
 
