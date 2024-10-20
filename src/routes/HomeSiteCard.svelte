@@ -3,12 +3,14 @@
 	import PersonInfobanner from './PersonInfobanner.svelte'
 	import SiteInfobanner from './SiteInfobanner.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly homeSite: HomeSite
+	}
 
-	export let homeSite: HomeSite
+	let { class: className = undefined, homeSite }: Props = $props()
 
-	$: if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
+	if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
 </script>
 
 <div class="flex flex-col justify-between {className}">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
+	import Dismissable from '$lib/Dismissable.svelte'
 	import Spinner from '$lib/Spinner.svelte'
 	import {
 		findDefaultHomeSite,
@@ -13,29 +14,31 @@
 	import { onMount } from 'svelte'
 	import HomeSiteCard from './HomeSiteCard.svelte'
 
-	let input: string
-	let message: string | undefined
+	let input: string = $state('')
+	let message: string | undefined = $state()
+	let detail: string | undefined = $state()
 
 	onMount(() => {
 		void (async () => {
 			const homeSite = await findDefaultHomeSite()
-
 			if (homeSite) await goto(siteLink(homeSite.siteResponse.site_view.site))
 		})()
 	})
 
 	async function submit() {
-		if (input.startsWith('http://')) input = input.replace('http://', 'https://')
-		if (!input.startsWith('https://')) input = `https://${input}`
-
-		const url = newUrl(input)
+		const inputUrl = input.indexOf('//') === -1 ? `https://${input}` : input
+		const url = newUrl(inputUrl)
 		if (!url) {
 			message = 'Please enter a valid URL.'
 			return
 		}
 
-		const client = new LemmyHttp(input, { fetchFunction: clientFetch(undefined) })
-		const siteResponse = await client.getSite()
+		const client = new LemmyHttp(url.href, { fetchFunction: clientFetch(undefined) })
+		const siteResponse = await client.getSite().catch((error: unknown) => {
+			message = 'Failed to connect to the Lemmy instance.'
+			if (error instanceof Error) detail = error.message
+		})
+		if (!siteResponse) return
 
 		// Hidden sites need a way to connect to them
 		const found = await findHomeSite(siteResponse.site_view.site, siteResponse.my_user)
@@ -52,10 +55,9 @@
 		return goto(siteLink(siteResponse.site_view.site))
 	}
 
-	$: homeSitesPromise = browser && getHomeSites()
-
+	let homeSitesPromise = $state(getHomeSites())
 	function reloadHomeSites() {
-		homeSitesPromise = browser && getHomeSites()
+		if (browser) homeSitesPromise = getHomeSites()
 	}
 </script>
 
@@ -76,20 +78,29 @@
 			bind:value={input}
 			class="base-container rounded border-none p-2"
 			id="input"
-			on:keypress={k => k.key === 'Enter' && submit()}
-			on:submit={submit}
+			onkeypress={k => k.key === 'Enter' && submit()}
+			onsubmit={submit}
 			type="url"
 		/>
 
-		<button class="base-container rounded px-4 py-2" on:click={submit} type="submit">
+		<button class="base-container rounded px-4 py-2" onclick={submit} type="submit">
 			Submit
 		</button>
 	</div>
 
 	{#if message}
-		<p class="rounded-md bg-danger-container p-4 text-on-danger-container">
-			{message}
-		</p>
+		<Dismissable
+			on:dismiss={() => (message = undefined)}
+			class="bg-danger-container text-on-danger-container"
+		>
+			{@html message}
+
+			{#if detail}
+				<p class="text-muted">
+					{detail}
+				</p>
+			{/if}
+		</Dismissable>
 	{/if}
 
 	<h2 class="text-2xl font-semibold">Logins</h2>

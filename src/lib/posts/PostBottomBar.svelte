@@ -62,7 +62,7 @@
 		<div>{postView.counts.score}</div>
 		<button
 			class:text-muted={votePending}
-			class:text-primary={!votePending && (postView.my_vote ?? 0) < 0}
+			class:text-secondary={!votePending && (postView.my_vote ?? 0) < 0}
 			disabled={votePending || !myUser}
 			onclick={dislike}
 			title="Downvote ({postView.counts.downvotes})"
