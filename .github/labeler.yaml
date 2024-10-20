@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pull-request-labeler-5.json
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/dependabot.yaml
+          - .syncpackrc.yaml
+          - '**/package.json'
+          - '**/pnpm-lock.yaml'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+
+github_actions:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/labeler-sync.yaml
+          - .github/labeler.yaml
+          - .github/workflows/**
