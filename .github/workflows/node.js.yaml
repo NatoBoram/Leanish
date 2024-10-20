@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version: 21
+          node-version: 23
       - uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
