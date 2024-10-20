@@ -10,8 +10,8 @@ export async function getJwt(
 	data: { jwt: string | undefined } | null,
 ): Promise<string | undefined> {
 	if (browser) return parseCurrentHomeSite(hostname).then(hs => hs?.jwt)
-	else if (data) return data.jwt
-	else throw new Error("`getJwt` wasn't run in the browser nor in the server.")
+	if (data) return data.jwt
+	throw new Error("`getJwt` wasn't run in the browser nor in the server.")
 }
 
 export async function setJwt(site: Site, jwt: string) {
