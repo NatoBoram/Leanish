@@ -6,20 +6,29 @@
 		ChevronLeft,
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
-	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './buttons/FlatButton.svelte'
 
 	interface Props {
 		readonly class?: string | undefined
 		readonly length: number
 		readonly limit: number
-		readonly nav?: HTMLElement | undefined
+		readonly nav?: HTMLElement
+		readonly onFirst: () => void
+		readonly onPrevious: (destination: number) => void
+		readonly onNext: (destination: number) => void
 	}
 
-	let { class: className = undefined, length, limit, nav = $bindable(undefined) }: Props = $props()
+	let {
+		class: className = undefined,
+		length,
+		limit,
+		nav = $bindable(undefined),
+		onFirst,
+		onNext,
+		onPrevious,
+	}: Props = $props()
 
-	const dispatch = createEventDispatcher<{ previous: number; next: number; first: 1 }>()
-	let input: HTMLInputElement = $state()
+	let input: HTMLInputElement
 
 	function initialIndex(url: URL): number {
 		const index = Number(url.searchParams.get('page') ?? 1)
@@ -52,7 +61,7 @@
 		url.searchParams.set('page', String(1))
 		await goto(url, { noScroll: true })
 
-		dispatch('first', 1)
+		onFirst()
 		await invalidate('app:paginate')
 	}
 
@@ -69,7 +78,7 @@
 		url.searchParams.set('page', String(destination))
 		await goto(url, { noScroll: true })
 
-		dispatch('next', destination)
+		onNext(destination)
 		await invalidate('app:paginate')
 	}
 
@@ -80,7 +89,7 @@
 		url.searchParams.set('page', String(destination))
 		await goto(url, { noScroll: true })
 
-		dispatch('previous', destination)
+		onPrevious(destination)
 		await invalidate('app:paginate')
 	}
 </script>
@@ -92,7 +101,7 @@
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
 		{#if canFirst($page.url)}
-			<FlatButton on:click={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
+			<FlatButton onclick={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
 				<ChevronDoubleLeft />
 				First
 			</FlatButton>
@@ -105,7 +114,7 @@
 
 		<!-- Previous -->
 		{#if hasPrevious($page.url)}
-			<FlatButton class="base-container w-32 rounded-lg" on:click={() => previous($page.url)}>
+			<FlatButton class="base-container w-32 rounded-lg" onclick={() => previous($page.url)}>
 				<ChevronLeft />
 				Previous
 			</FlatButton>
@@ -142,7 +151,7 @@
 	{#if length >= limit}
 		<FlatButton
 			class="base-container w-28 justify-self-end rounded-lg"
-			on:click={() => next($page.url)}
+			onclick={() => next($page.url)}
 		>
 			Next
 			<ChevronRight />

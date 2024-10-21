@@ -2,43 +2,46 @@
 	import type { HomeSite } from '$lib/preferences/index.js'
 	import { editHomeSite, removeHomeSite } from '$lib/preferences/index.js'
 	import { siteLink } from '$lib/utils/index.js'
-	import { createEventDispatcher } from 'svelte'
-
-	const dispatch = createEventDispatcher<{
-		current: HomeSite
-		default: HomeSite
-		delete: HomeSite
-		hide: HomeSite
-	}>()
 
 	interface Props {
 		readonly class?: string | undefined
 		readonly homeSite: HomeSite
+		readonly onCurrent: (homeSite: HomeSite) => void
+		readonly onDefault: (homeSite: HomeSite) => void
+		readonly onDelete: (homeSite: HomeSite) => void
+		readonly onHide: (homeSite: HomeSite) => void
 	}
 
-	const { class: className = undefined, homeSite }: Props = $props()
+	const {
+		class: className = undefined,
+		homeSite,
+		onCurrent,
+		onDefault,
+		onDelete,
+		onHide,
+	}: Props = $props()
 
-	async function onDefault() {
+	async function handleDefault() {
 		const newHomeSite = { ...homeSite, default: !homeSite.default }
 		await editHomeSite(newHomeSite)
-		dispatch('default', newHomeSite)
+		onDefault(newHomeSite)
 	}
 
-	async function onCurrent() {
+	async function handleCurrent() {
 		const newHomeSite = { ...homeSite, current: !homeSite.current }
 		await editHomeSite(newHomeSite)
-		dispatch('current', newHomeSite)
+		onCurrent(newHomeSite)
 	}
 
-	async function onHide() {
+	async function handleHide() {
 		const newHomeSite = { ...homeSite, hidden: !homeSite.hidden }
 		await editHomeSite(newHomeSite)
-		dispatch('hide', newHomeSite)
+		onHide(newHomeSite)
 	}
 
-	async function onDelete() {
+	async function handleDelete() {
 		await removeHomeSite(homeSite.siteResponse.site_view.site, homeSite.siteResponse.my_user)
-		dispatch('delete', homeSite)
+		onDelete(homeSite)
 	}
 </script>
 
@@ -75,7 +78,7 @@
 					class:primary-container={homeSite.default}
 					class:surface-container={!homeSite.default}
 					class="rounded-full px-2 py-1"
-					onclick={onDefault}
+					onclick={handleDefault}
 				>
 					Default
 				</button>
@@ -84,16 +87,16 @@
 					class:primary-container={homeSite.current}
 					class:surface-container={!homeSite.current}
 					class="rounded-full px-2 py-1"
-					onclick={onCurrent}
+					onclick={handleCurrent}
 				>
 					Current
 				</button>
 
-				<button class="surface-container hover:warning rounded-full px-2 py-1" onclick={onHide}
+				<button class="surface-container hover:warning rounded-full px-2 py-1" onclick={handleHide}
 					>Hide</button
 				>
 
-				<button class="surface-container hover:danger rounded-full px-2 py-1" onclick={onDelete}
+				<button class="surface-container hover:danger rounded-full px-2 py-1" onclick={handleDelete}
 					>Delete</button
 				>
 			</div>

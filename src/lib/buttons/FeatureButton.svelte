@@ -3,7 +3,6 @@
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { PushPin, PushPinFill } from '$lib/svg/index.js'
 	import type { PostFeatureType, PostResponse, PostView } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -11,16 +10,22 @@
 		readonly jwt: string
 		readonly postView: PostView
 		readonly type: PostFeatureType
+		readonly onFeature: (featured: PostResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
 	}
 
-	let { class: className = undefined, jwt, postView = $bindable(), type }: Props = $props()
+	let {
+		class: className = undefined,
+		jwt,
+		onError,
+		onFeature,
+		onResponse,
+		postView = $bindable(),
+		type,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		feature: PostResponse
-		error: Error
-		response: Response
-	}>()
 
 	let featurePending = $state(false)
 
@@ -33,14 +38,17 @@
 
 			default: {
 				const error = new Error('Invalid feature type.')
-				dispatch('error', error)
+				onError(error)
 				throw error
 			}
 		}
 	}
 
 	async function featurePost() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to feature posts.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to feature posts.'))
+			return
+		}
 		if (featurePending) return
 
 		featurePending = true
@@ -51,11 +59,13 @@
 				featured: !featuredValue(postView, type),
 				post_id: postView.post.id,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (featured) {
 			postView = featured.post_view
-			dispatch('feature', featured)
+			onFeature(featured)
 		}
 
 		featurePending = false
@@ -64,7 +74,7 @@
 </script>
 
 <MeatballButton
-	on:click={featurePost}
+	onclick={featurePost}
 	class="{featurePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={featurePending}
 >

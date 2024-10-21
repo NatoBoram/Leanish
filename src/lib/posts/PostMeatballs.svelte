@@ -9,19 +9,23 @@
 	import SavePostButton from '$lib/buttons/SavePostButton.svelte'
 	import { Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { MyUserInfo, PostView } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
-
-	const dispatch = createEventDispatcher<{
-		edit: undefined
-		purge: undefined
-		report: undefined
-	}>()
+	import type { MyUserInfo, PostResponse, PostView } from 'lemmy-js-client'
 
 	interface Props {
 		readonly class?: string | undefined
 		readonly jwt: string
 		readonly myUser: MyUserInfo
+		readonly onDelete: (deleted: PostResponse) => void
+		readonly onEdit: () => void
+		readonly onError: (error: Error) => void
+		readonly onFeature: (featured: PostResponse) => void
+		readonly onLock: (locked: PostResponse) => void
+		readonly onPurge: () => void
+		readonly onRead: (post: PostView) => void
+		readonly onRemove: (post: PostResponse) => void
+		readonly onReport: () => void
+		readonly onResponse: (response: Response) => void
+		readonly onSave: (post: PostResponse) => void
 		readonly position?: string
 		readonly postView: PostView
 	}
@@ -30,6 +34,17 @@
 		class: className = undefined,
 		jwt,
 		myUser,
+		onDelete,
+		onEdit,
+		onError,
+		onFeature,
+		onLock,
+		onPurge,
+		onRead,
+		onRemove,
+		onReport,
+		onResponse,
+		onSave,
 		position = 'left-8 -top-4',
 		postView,
 	}: Props = $props()
@@ -45,7 +60,7 @@
 	)
 
 	function clickReport() {
-		dispatch('report')
+		onReport()
 		opened = false
 	}
 </script>
@@ -53,12 +68,12 @@
 <div class="relative flex flex-col items-center {className}">
 	{#if opened}
 		<div class="surface-container absolute z-10 rounded py-1 {position}">
-			<ClickOutside on:clickoutside={() => (opened = false)} class="flex flex-col">
+			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col">
 				<!-- Authenticated -->
 				{#if jwt}
-					<MarkPostAsReadButton {jwt} {postView} on:error on:read on:response />
-					<SavePostButton {jwt} {postView} on:error on:response on:save />
-					<MeatballButton class="hover:surface surface-container" on:click={clickReport}>
+					<MarkPostAsReadButton {jwt} {postView} {onError} {onRead} {onResponse} />
+					<SavePostButton {jwt} {postView} {onError} {onResponse} {onSave} />
+					<MeatballButton class="hover:surface surface-container" onclick={clickReport}>
 						<Flag class="h-5 w-5" />
 						Report
 					</MeatballButton>
@@ -68,11 +83,16 @@
 				{#if postView.post.creator_id === myUser.local_user_view.person.id}
 					<hr class="my-2 border-muted" />
 
-					<MeatballButton class="hover:surface surface-container" on:click={() => dispatch('edit')}>
+					<MeatballButton
+						class="hover:surface surface-container"
+						onclick={() => {
+							onEdit()
+						}}
+					>
 						<Pencil class="h-5 w-5" />
 						Edit
 					</MeatballButton>
-					<DeletePostButton {jwt} on:delete on:error on:response post={postView.post} />
+					<DeletePostButton {jwt} {onDelete} {onError} {onResponse} post={postView.post} />
 				{/if}
 
 				<!-- Moderator -->
@@ -83,33 +103,29 @@
 						{jwt}
 						{postView}
 						class="hover:surface surface-container"
-						on:error
-						on:feature
-						on:response
+						{onError}
+						{onFeature}
+						{onResponse}
 						type="Community"
 					/>
 
 					<LockPostButton
 						{jwt}
 						class="hover:surface surface-container"
-						on:error
-						on:lock
-						on:response
+						{onError}
+						{onLock}
+						{onResponse}
 						post={postView.post}
-					>
-						Lock
-					</LockPostButton>
+					/>
 
 					<RemovePostButton
 						{jwt}
 						class="hover:surface surface-container"
-						on:error
-						on:remove
-						on:response
+						{onError}
+						{onRemove}
+						{onResponse}
 						post={postView.post}
-					>
-						Remove
-					</RemovePostButton>
+					/>
 				{/if}
 
 				<!-- Administrator -->
@@ -120,15 +136,17 @@
 						{jwt}
 						{postView}
 						class="hover:surface surface-container"
-						on:error
-						on:feature
-						on:response
+						{onError}
+						{onFeature}
+						{onResponse}
 						type="Local"
 					/>
 
 					<MeatballButton
 						class="hover:surface surface-container"
-						on:click={() => dispatch('purge')}
+						onclick={() => {
+							onPurge()
+						}}
 					>
 						Purge
 					</MeatballButton>

@@ -4,22 +4,44 @@
 	import FollowCommunityButton from '$lib/buttons/FollowCommunityButton.svelte'
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { CommunityId, CommunityView } from 'lemmy-js-client'
-
-	let className: string | undefined = 'w-6 h-6'
-	export { className as class }
+	import type {
+		BlockCommunityResponse,
+		CommunityId,
+		CommunityResponse,
+		CommunityView,
+	} from 'lemmy-js-client'
 
 	const client = getClientContext()
 
-	export let communityView: CommunityView | undefined
-	export let jwt: string
-	export let communityId: CommunityId
-	export let position = 'bottom-8'
+	interface Props {
+		readonly class?: string | undefined
+		readonly communityView: CommunityView | undefined
+		readonly jwt: string
+		readonly communityId: CommunityId
+		readonly position?: string
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
+		readonly onFollowCommunity: (response: CommunityResponse) => void
+		readonly onBlockCommunity: (response: BlockCommunityResponse) => void
+	}
 
-	let communityViewPromise: Promise<CommunityView> | undefined =
-		communityView && Promise.resolve(communityView)
+	const {
+		class: className = 'w-6 h-6',
+		communityId,
+		communityView,
+		jwt,
+		onBlockCommunity,
+		onError,
+		onFollowCommunity,
+		onResponse,
+		position = 'bottom-8',
+	}: Props = $props()
 
-	let opened = false
+	let communityViewPromise: Promise<CommunityView> | undefined = $state(
+		communityView && Promise.resolve(communityView),
+	)
+
+	let opened = $state(false)
 
 	function onclick() {
 		if (!opened && !communityViewPromise && jwt)
@@ -32,31 +54,31 @@
 <div class="relative flex flex-col items-center {className}">
 	{#if opened && communityViewPromise}
 		<div class="surface-container absolute z-10 rounded px-2 py-1 {position}">
-			<ClickOutside on:clickoutside={() => (opened = false)} class="flex flex-col items-stretch">
+			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col items-stretch">
 				{#await communityViewPromise}
 					Loading...
 				{:then view}
 					<FollowCommunityButton
 						{jwt}
+						{onError}
+						{onFollowCommunity}
+						{onResponse}
 						communityView={view}
-						on:error
-						on:follow_community
-						on:response
 					/>
 
 					<BlockCommunityButton
 						{jwt}
+						{onBlockCommunity}
+						{onError}
+						{onResponse}
 						communityView={view}
-						on:block_community
-						on:error
-						on:response
 					/>
 				{/await}
 			</ClickOutside>
 		</div>
 	{/if}
 
-	<button on:click={onclick}>
+	<button {onclick}>
 		<EllipsisVertical />
 	</button>
 </div>

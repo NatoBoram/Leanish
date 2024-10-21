@@ -2,12 +2,6 @@
 	import Prose from '$lib/Prose.svelte'
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import type { Language, LanguageId, MyUserInfo } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
-
-	const dispatch = createEventDispatcher<{
-		readonly submit: { readonly content: string; readonly languageId: LanguageId }
-		readonly cancel: undefined
-	}>()
 
 	interface Props {
 		readonly allLanguages: Language[]
@@ -15,6 +9,8 @@
 		readonly disabled: boolean
 		readonly myUser: MyUserInfo
 		readonly languageId?: any
+		readonly onSubmit: (content: string, languageId: LanguageId) => void
+		readonly onCancel: () => void
 	}
 
 	let {
@@ -23,6 +19,8 @@
 		disabled,
 		myUser,
 		languageId = $bindable(myUser.discussion_languages[0] ?? 0),
+		onSubmit,
+		onCancel,
 	}: Props = $props()
 
 	const myLanguages = $derived(
@@ -58,7 +56,7 @@
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]
 
 	function clickSubmit() {
-		return dispatch('submit', { content: content, languageId })
+		onSubmit(content, languageId)
 	}
 
 	let previewing = $state(false)
@@ -97,14 +95,14 @@
 		<div class="flex flex-row items-center gap-4">
 			<FlatButton
 				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
-				on:click={() => dispatch('cancel')}
+				onclick={onCancel}
 			>
 				Cancel
 			</FlatButton>
 
 			<FlatButton
 				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
-				on:click={() => (previewing = !previewing)}
+				onclick={() => (previewing = !previewing)}
 			>
 				Preview
 			</FlatButton>
@@ -112,7 +110,7 @@
 			<FlatButton
 				class="rounded-lg bg-surface px-4 py-2 text-on-surface"
 				{disabled}
-				on:click={clickSubmit}
+				onclick={clickSubmit}
 			>
 				Submit
 			</FlatButton>

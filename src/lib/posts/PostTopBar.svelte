@@ -4,7 +4,10 @@
 	import { communityLink, lemmyDate, postLink, timeAgo } from '$lib/utils/index.js'
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import type {
+		BlockCommunityResponse,
+		BlockPersonResponse,
 		CommunityModeratorView,
+		CommunityResponse,
 		CommunityView,
 		MyUserInfo,
 		PersonView,
@@ -13,16 +16,37 @@
 	} from 'lemmy-js-client'
 	import PersonMeatballs from '../person/PersonMeatballs.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly communityView: CommunityView | undefined
+		readonly jwt: string | undefined
+		readonly moderators: CommunityModeratorView[]
+		readonly myUser: MyUserInfo | undefined
+		readonly onBlockCommunity: (response: BlockCommunityResponse) => void
+		readonly onBlockPerson: (response: BlockPersonResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onFollowCommunity: (response: CommunityResponse) => void
+		readonly onResponse: (response: Response) => void
+		readonly personView: PersonView | undefined
+		readonly postView: PostView
+		readonly site: Site
+	}
 
-	export let communityView: CommunityView | undefined
-	export let jwt: string | undefined
-	export let moderators: CommunityModeratorView[]
-	export let myUser: MyUserInfo | undefined
-	export let personView: PersonView | undefined
-	export let postView: PostView
-	export let site: Site
+	const {
+		class: className = undefined,
+		communityView,
+		jwt,
+		moderators,
+		myUser,
+		onBlockCommunity,
+		onBlockPerson,
+		onError,
+		onFollowCommunity,
+		onResponse,
+		personView,
+		postView,
+		site,
+	}: Props = $props()
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
 		year: 'numeric',
@@ -48,9 +72,11 @@
 				<CommunityMeatballs
 					{communityView}
 					{jwt}
+					{onBlockCommunity}
+					{onError}
+					{onFollowCommunity}
+					{onResponse}
 					communityId={postView.community.id}
-					on:block_community
-					on:follow_community
 					position="top-8"
 				/>
 			{/if}
@@ -76,9 +102,9 @@
 					{jwt}
 					{myUser}
 					{personView}
-					on:block_person
-					on:error
-					on:response
+					{onBlockPerson}
+					{onError}
+					{onResponse}
 					personId={postView.creator.id}
 					position="top-8"
 				/>

@@ -4,28 +4,35 @@
 	import { Trash as TrashOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Post, PostResponse } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
 		readonly class?: string | undefined
 		readonly jwt: string
 		readonly post: Post
+		readonly onDelete: (deleted: PostResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
 	}
 
-	let { class: className = undefined, jwt, post = $bindable() }: Props = $props()
+	let {
+		class: className = undefined,
+		jwt,
+		onDelete,
+		onError,
+		onResponse,
+		post = $bindable(),
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		delete: PostResponse
-		error: Error
-		response: Response
-	}>()
 
 	let deletePending = $state(false)
 
 	async function deletePost() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to delete posts.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to delete posts.'))
+			return
+		}
 		if (deletePending) return
 
 		deletePending = true
@@ -34,11 +41,13 @@
 				post_id: post.id,
 				deleted: !post.deleted,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (deleted) {
 			post = deleted.post_view.post
-			dispatch('delete', deleted)
+			onDelete(deleted)
 		}
 
 		deletePending = false
@@ -47,7 +56,7 @@
 </script>
 
 <MeatballButton
-	on:click={deletePost}
+	onclick={deletePost}
 	class="{deletePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={deletePending}
 >

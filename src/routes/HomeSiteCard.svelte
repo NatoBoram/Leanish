@@ -6,16 +6,27 @@
 	interface Props {
 		readonly class?: string | undefined
 		readonly homeSite: HomeSite
+		readonly onCurrent: (homeSite: HomeSite) => void
+		readonly onDefault: (homeSite: HomeSite) => void
+		readonly onDelete: (homeSite: HomeSite) => void
+		readonly onHide: (homeSite: HomeSite) => void
 	}
 
-	let { class: className = undefined, homeSite }: Props = $props()
+	const {
+		class: className = undefined,
+		homeSite,
+		onCurrent,
+		onDefault,
+		onDelete,
+		onHide,
+	}: Props = $props()
 
 	if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
 </script>
 
 <div class="flex flex-col justify-between {className}">
 	<!-- Site infobanner -->
-	<SiteInfobanner {homeSite} on:current on:default on:delete on:hide />
+	<SiteInfobanner {homeSite} {onCurrent} {onDefault} {onDelete} {onHide} />
 
 	{#if homeSite.siteResponse.my_user}
 		<!-- User infobanner -->

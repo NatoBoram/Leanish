@@ -4,14 +4,16 @@
 	import { onMount } from 'svelte'
 	import { fly } from 'svelte/transition'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly taglines: Tagline[]
+	}
 
-	export let taglines: Tagline[]
+	const { class: className = undefined, taglines }: Props = $props()
 
 	// Start with a random tagline
-	let index = Math.floor(Math.random() * taglines.length)
-	$: tagline = taglines[index]
+	let index = $state(Math.floor(Math.random() * taglines.length))
+	const tagline = $derived(taglines[index])
 
 	onMount(() => {
 		if (!taglines.length) return

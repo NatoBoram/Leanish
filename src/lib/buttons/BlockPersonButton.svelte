@@ -2,7 +2,6 @@
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { NoSymbol } from '@natoboram/heroicons.svelte/20/solid'
 	import type { BlockPersonResponse, MyUserInfo, PersonId, PersonView } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './FlatButton.svelte'
 
 	const client = getClientContext()
@@ -11,10 +10,21 @@
 		readonly class?: string | undefined
 		readonly jwt: string
 		readonly myUser: MyUserInfo
+		readonly onBlockPerson: (response: BlockPersonResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
 		readonly personView: PersonView
 	}
 
-	const { class: className = undefined, jwt, myUser, personView }: Props = $props()
+	const {
+		class: className = undefined,
+		jwt,
+		myUser,
+		personView,
+		onBlockPerson,
+		onError,
+		onResponse,
+	}: Props = $props()
 
 	let request: Promise<BlockPersonResponse> = $state(
 		Promise.resolve({
@@ -23,14 +33,11 @@
 		}),
 	)
 
-	const dispatch = createEventDispatcher<{
-		error: Error
-		block_person: BlockPersonResponse
-		response: Response
-	}>()
-
 	async function blockPerson(block: boolean, person_id: PersonId) {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to block a person.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to block a person.'))
+			return
+		}
 
 		request = client.blockPerson({
 			block,
@@ -38,10 +45,10 @@
 		})
 
 		const response = await request.catch((r: Response) => {
-			dispatch('response', r)
+			onResponse(r)
 		})
 
-		if (response) dispatch('block_person', response)
+		if (response) onBlockPerson(response)
 		return response
 	}
 </script>

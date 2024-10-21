@@ -1,33 +1,20 @@
 <script lang="ts">
-	let className: string | undefined = undefined
-	export { className as class }
+	import type { Snippet } from 'svelte'
+	import type { HTMLButtonAttributes } from 'svelte/elements'
 
-	export let disabled: boolean | null | undefined = undefined
-	export let form: string | null | undefined = undefined
-	export let formaction: string | null | undefined = undefined
-	export let formenctype: string | null | undefined = undefined
-	export let formmethod: string | null | undefined = undefined
-	export let formnovalidate: boolean | null | undefined = undefined
-	export let formtarget: string | null | undefined = undefined
-	export let name: string | null | undefined = undefined
-	export let type: 'button' | 'reset' | 'submit' | null | undefined = undefined
-	export let value: string[] | number | string | null | undefined = undefined
+	interface Props extends HTMLButtonAttributes {
+		readonly children?: Snippet
+		readonly class?: string | undefined
+		readonly disabled?: boolean | null | undefined
+	}
+
+	const { children, class: className = undefined, disabled = undefined, ...props }: Props = $props()
 </script>
 
 <button
-	{disabled}
-	{form}
-	{formaction}
-	{formenctype}
-	{formmethod}
-	{formnovalidate}
-	{formtarget}
-	{name}
-	{type}
-	{value}
+	{...props}
 	class:muted={disabled}
 	class="flex flex-row items-center justify-start gap-2 whitespace-nowrap px-4 py-2 {className}"
-	on:click
 >
-	<slot />
+	{@render children?.()}
 </button>

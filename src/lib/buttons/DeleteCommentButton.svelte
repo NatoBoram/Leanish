@@ -4,28 +4,35 @@
 	import { Trash as TrashOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Comment, CommentResponse } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
 		readonly class?: string | undefined
 		readonly jwt: string
 		readonly comment: Comment
+		readonly onDelete: (deleted: CommentResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
 	}
 
-	let { class: className = undefined, jwt, comment = $bindable() }: Props = $props()
+	let {
+		class: className = undefined,
+		jwt,
+		comment = $bindable(),
+		onDelete,
+		onError,
+		onResponse,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		delete: CommentResponse
-		error: Error
-		response: Response
-	}>()
 
 	let deletePending = $state(false)
 
 	async function deleteComment() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to delete comments.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to delete comments.'))
+			return
+		}
 		if (deletePending) return
 
 		deletePending = true
@@ -34,11 +41,13 @@
 				comment_id: comment.id,
 				deleted: !comment.deleted,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (deleted) {
 			comment = deleted.comment_view.comment
-			dispatch('delete', deleted)
+			onDelete(deleted)
 		}
 
 		deletePending = false
@@ -47,7 +56,7 @@
 </script>
 
 <MeatballButton
-	on:click={deleteComment}
+	onclick={deleteComment}
 	class="{deletePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={deletePending}
 >

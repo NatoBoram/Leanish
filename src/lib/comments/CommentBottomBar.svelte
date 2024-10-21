@@ -2,8 +2,7 @@
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
-	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
+	import type { CommentResponse, CommentView, MyUserInfo } from 'lemmy-js-client'
 	import CommentMeatballs from './CommentMeatballs.svelte'
 
 	interface Props {
@@ -11,15 +10,36 @@
 		readonly commentView: CommentView
 		readonly jwt: string | undefined
 		readonly myUser: MyUserInfo | undefined
+		readonly onDelete: (deleted: CommentResponse) => void
+		readonly onDistinguish: (distinguished: CommentResponse) => void
+		readonly onEdit: () => void
+		readonly onError: (error: Error) => void
+		readonly onPurge: () => void
+		readonly onRemove: () => void
+		readonly onReply: () => void
+		readonly onReport: () => void
+		readonly onResponse: (response: Response) => void
+		readonly onRestore: (response: CommentResponse) => void
+		readonly onSave: (comment: CommentResponse) => void
 	}
 
-	let { class: className = undefined, commentView = $bindable(), jwt, myUser }: Props = $props()
-
-	const dispatch = createEventDispatcher<{
-		error: Error
-		reply: undefined
-		response: Response
-	}>()
+	let {
+		class: className = undefined,
+		commentView = $bindable(),
+		jwt,
+		myUser,
+		onDelete,
+		onDistinguish,
+		onEdit,
+		onError,
+		onPurge,
+		onRemove,
+		onReply,
+		onReport,
+		onResponse,
+		onRestore,
+		onSave,
+	}: Props = $props()
 
 	const client = getClientContext()
 
@@ -36,7 +56,10 @@
 	}
 
 	async function likeComment(score: number) {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to vote.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to vote.'))
+			return
+		}
 
 		votePending = true
 
@@ -46,7 +69,7 @@
 				score: score,
 			})
 			.catch((e: unknown) => {
-				if (e instanceof Response) dispatch('response', e)
+				if (e instanceof Response) onResponse(e)
 			})
 
 		if (response) commentView = response.comment_view
@@ -83,7 +106,12 @@
 
 	<!-- Reply button -->
 	{#if myUser && !commentView.post.locked}
-		<button class="flex flex-row items-center gap-2" onclick={() => dispatch('reply')}>
+		<button
+			class="flex flex-row items-center gap-2"
+			onclick={() => {
+				onReply()
+			}}
+		>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" /> Reply
 		</button>
 	{/if}
@@ -94,16 +122,16 @@
 			{commentView}
 			{jwt}
 			{myUser}
-			on:delete
-			on:distinguish
-			on:edit
-			on:error
-			on:purge
-			on:remove
-			on:report
-			on:response
-			on:restore
-			on:save
+			{onDelete}
+			{onDistinguish}
+			{onEdit}
+			{onError}
+			{onPurge}
+			{onRemove}
+			{onReport}
+			{onResponse}
+			{onRestore}
+			{onSave}
 		/>
 	{/if}
 </div>

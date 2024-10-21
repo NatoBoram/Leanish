@@ -3,14 +3,12 @@
 	import { ArrowTopRightOnSquare } from '@natoboram/heroicons.svelte/20/solid'
 	import type { PostView } from 'lemmy-js-client'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly postView: PostView
+	}
 
-	export let postView: PostView
-
-	$: url = getFirstUrl(postView)
-	$: videoType = url && getVideoType(url)
-	$: audioType = url && getAudioType(url)
+	const { class: className = undefined, postView }: Props = $props()
 
 	function getVideoType(url: URL) {
 		const found = Object.entries(videoTypes).find(([, extensions]) =>
@@ -33,10 +31,13 @@
 		if (url) return new URL(url)
 		else return
 	}
+	const url = $derived(getFirstUrl(postView))
+	const videoType = $derived(url && getVideoType(url))
+	const audioType = $derived(url && getAudioType(url))
 </script>
 
 {#if url && videoType}
-	<!-- svelte-ignore a11y-media-has-caption -->
+	<!-- svelte-ignore a11y_media_has_caption -->
 	<video controls={true} class="max-h-screen w-full object-contain {className}">
 		<source type={videoType} src={url.href} />
 	</video>

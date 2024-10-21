@@ -26,7 +26,7 @@
 	})
 
 	async function submit() {
-		const inputUrl = input.indexOf('//') === -1 ? `https://${input}` : input
+		const inputUrl = !input.includes('//') ? `https://${input}` : input
 		const url = newUrl(inputUrl)
 		if (!url) {
 			message = 'Please enter a valid URL.'

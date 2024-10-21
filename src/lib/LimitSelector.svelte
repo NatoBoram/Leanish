@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { createEventDispatcher } from 'svelte'
 
 	interface Props {
 		readonly limit: number
+		readonly onLimit?: (limit: number) => void
 	}
 
-	const { limit }: Props = $props()
+	const { limit, onLimit = () => {} }: Props = $props()
 
-	const dispatch = createEventDispatcher<{ limit: number }>()
-	let input: HTMLInputElement = $state()
+	let input: HTMLInputElement
 
 	let timeout: NodeJS.Timeout
 	function debounceChangeLimit(url: URL) {
@@ -35,7 +34,7 @@
 		url.searchParams.set('limit', String(newLimit))
 		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
-		dispatch('limit', newLimit)
+		onLimit(newLimit)
 	}
 </script>
 

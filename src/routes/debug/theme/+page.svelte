@@ -3,7 +3,6 @@
 	import Post from '$lib/posts/Post.svelte'
 	import type { PageData } from './$types.js'
 	import BgColourTest from './BgColourTest.svelte'
-	import TextColourTests from './TextColourTests.svelte'
 
 	export let data: PageData
 </script>
@@ -103,9 +102,7 @@
 		class="bg-success text-on-success"
 		title="Success"
 		message="This is the colour of success."
-	>
-		<TextColourTests />
-	</BgColourTest>
+	></BgColourTest>
 
 	<BgColourTest
 		class="bg-success-container text-on-success-container"
