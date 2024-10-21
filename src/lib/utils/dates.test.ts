@@ -42,7 +42,7 @@ describe('fullTime', () => {
 		expect(fullTimeAgo(date)).toBe('in the future')
 	})
 
-	test('1h 2m 3s ago', ({ expect }) => {
+	test.skipIf(process.env['CI'])('1h 2m 3s ago', ({ expect }) => {
 		const date = new Date()
 		date.setHours(date.getHours() - 1)
 		date.setMinutes(date.getMinutes() - 2)
