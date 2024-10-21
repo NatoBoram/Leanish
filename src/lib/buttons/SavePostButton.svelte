@@ -22,7 +22,7 @@
 		onResponse,
 		onSave,
 		postView = $bindable(),
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	const client = getClientContext()
 

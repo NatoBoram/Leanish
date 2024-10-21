@@ -20,7 +20,7 @@
 		readonly data: PageData
 	}
 
-	let { data = $bindable() }: Props = $props() as Props
+	let { data = $bindable() }: Props = $props()
 
 	const tree = $derived(buildCommentTree(data.comments, data.parent_id ?? 0))
 

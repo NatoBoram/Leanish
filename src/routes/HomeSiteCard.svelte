@@ -19,7 +19,7 @@
 		onDefault,
 		onDelete,
 		onHide,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
 </script>

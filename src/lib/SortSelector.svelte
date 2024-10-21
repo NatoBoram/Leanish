@@ -9,7 +9,7 @@
 		readonly onSort?: (sort: SortType) => void
 	}
 
-	const { sort, onSort = () => {} }: Props = $props() as Props
+	const { sort, onSort = () => {} }: Props = $props()
 
 	let select: HTMLSelectElement
 

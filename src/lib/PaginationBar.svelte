@@ -18,15 +18,17 @@
 		readonly onNext: (destination: number) => void
 	}
 
+	$effect(() => void nav)
+
 	let {
 		class: className = undefined,
 		length,
 		limit,
-		nav = $bindable(undefined),
+		nav = $bindable(),
 		onFirst,
 		onNext,
 		onPrevious,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	let input: HTMLInputElement
 

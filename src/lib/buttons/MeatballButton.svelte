@@ -13,7 +13,7 @@
 		onclick,
 		type,
 		...attributes
-	}: Props = $props() as Props
+	}: Props = $props()
 </script>
 
 <button

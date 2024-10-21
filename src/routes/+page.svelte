@@ -90,7 +90,7 @@
 
 	{#if message}
 		<Dismissable
-			on:dismiss={() => (message = undefined)}
+			onDismiss={() => (message = undefined)}
 			class="bg-danger-container text-on-danger-container"
 		>
 			{@html message}
@@ -118,10 +118,10 @@
 							<HomeSiteCard
 								{homeSite}
 								class="base-container h-full"
-								on:current={reloadHomeSites}
-								on:default={reloadHomeSites}
-								on:delete={reloadHomeSites}
-								on:hide={reloadHomeSites}
+								onCurrent={reloadHomeSites}
+								onDefault={reloadHomeSites}
+								onDelete={reloadHomeSites}
+								onHide={reloadHomeSites}
 							/>
 						{/if}
 					{/each}

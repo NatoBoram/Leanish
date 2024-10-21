@@ -8,7 +8,7 @@
 		readonly onReport: (reason: string) => void
 	}
 
-	const { disabled = false, onCancel, onReport, ...attributes }: Props = $props() as Props
+	const { disabled = false, onCancel, onReport, ...attributes }: Props = $props()
 
 	const placeholders = [
 		'Describe the violation',

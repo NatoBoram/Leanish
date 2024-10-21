@@ -24,7 +24,7 @@
 		onBlockPerson,
 		onError,
 		onResponse,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	let request: Promise<BlockPersonResponse> = $state(
 		Promise.resolve({
@@ -57,12 +57,12 @@
 	<FlatButton class={className}>Loading...</FlatButton>
 {:then response}
 	{#if response.blocked}
-		<FlatButton class={className} on:click={() => blockPerson(false, personView.person.id)}>
+		<FlatButton class={className} onclick={() => blockPerson(false, personView.person.id)}>
 			Blocked
 			<NoSymbol class="h-5 w-5 text-danger" />
 		</FlatButton>
 	{:else}
-		<FlatButton class={className} on:click={() => blockPerson(true, personView.person.id)}>
+		<FlatButton class={className} onclick={() => blockPerson(true, personView.person.id)}>
 			Block
 		</FlatButton>
 	{/if}

@@ -5,10 +5,10 @@
 	interface Props {
 		readonly class?: string | undefined
 		readonly showNsfw: boolean
-		readonly onShowNsfw: (showNsfw: boolean) => void
+		readonly onShowNsfw?: (showNsfw: boolean) => void
 	}
 
-	const { class: className = undefined, showNsfw, onShowNsfw }: Props = $props() as Props
+	const { class: className = undefined, showNsfw, onShowNsfw = () => {} }: Props = $props()
 	let checkbox: HTMLInputElement
 
 	let timeout: NodeJS.Timeout

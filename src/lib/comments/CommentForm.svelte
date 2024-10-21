@@ -21,7 +21,7 @@
 		languageId = $bindable(myUser.discussion_languages[0] ?? 0),
 		onSubmit,
 		onCancel,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	const myLanguages = $derived(
 		myUser.discussion_languages.flatMap(id => allLanguages.find(l => l.id === id) ?? []),

@@ -106,7 +106,7 @@
 				<div class="danger-container relative rounded-md p-4">Loading error message...</div>
 			{:then text}
 				{#if text}
-					<Dismissable on:dismiss={() => (request = undefined)} class="danger-container">
+					<Dismissable onDismiss={() => (request = undefined)} class="danger-container">
 						{@html text}
 					</Dismissable>
 				{:else}

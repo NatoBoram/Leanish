@@ -7,7 +7,7 @@
 		readonly class?: string | undefined
 	}
 
-	const { children, class: className = undefined, ...attributes }: Props = $props() as Props
+	const { children, class: className = undefined, ...attributes }: Props = $props()
 </script>
 
 <button

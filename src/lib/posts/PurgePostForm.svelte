@@ -7,7 +7,7 @@
 		readonly onPurge: (reason: string) => void
 	}
 
-	const { disabled = false, onPurge, onCancel }: Props = $props() as Props
+	const { disabled = false, onPurge, onCancel }: Props = $props()
 
 	const placeholders = ['Reason for purging this post...', 'Why are you purging this post?']
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]

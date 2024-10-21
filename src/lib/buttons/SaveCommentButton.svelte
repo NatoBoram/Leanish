@@ -22,7 +22,7 @@
 		onError,
 		onResponse,
 		onSave,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	const client = getClientContext()
 

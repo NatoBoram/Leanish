@@ -8,7 +8,11 @@
 	import type { BlockCommunityResponse, CommunityResponse } from 'lemmy-js-client'
 	import type { PageData } from './$types.js'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
+
+	let { data = $bindable() }: Props = $props()
 
 	function onNext() {
 		const first = data.communities[0]
@@ -28,23 +32,23 @@
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
-	function onBlock(event: CustomEvent<BlockCommunityResponse>) {
+	function onBlock(event: BlockCommunityResponse) {
 		const index = data.communities.findIndex(
-			view => view.community.id === event.detail.community_view.community.id,
+			view => view.community.id === event.community_view.community.id,
 		)
 		if (index === -1) return
 
-		data.communities[index] = event.detail.community_view
+		data.communities[index] = event.community_view
 		data = data
 	}
 
-	function onFollow(event: CustomEvent<CommunityResponse>) {
+	function onFollow(event: CommunityResponse) {
 		const index = data.communities.findIndex(
-			view => view.community.id === event.detail.community_view.community.id,
+			view => view.community.id === event.community_view.community.id,
 		)
 		if (index === -1) return
 
-		data.communities[index] = event.detail.community_view
+		data.communities[index] = event.community_view
 		data = data
 	}
 </script>
@@ -68,17 +72,17 @@
 		<PaginationBar
 			length={data.communities.length}
 			limit={data.limit ?? 10}
-			on:next={onNext}
-			on:previous={onPrevious}
-			on:first={onNext}
+			{onNext}
+			{onPrevious}
+			onFirst={onNext}
 		/>
 	{/if}
 
 	<CommunityGrid
 		communityViews={data.communities}
 		jwt={data.jwt}
-		on:block_community={onBlock}
-		on:follow_community={onFollow}
+		onBlockCommunity={onBlock}
+		onFollowCommunity={onFollow}
 		site={data.site_view.site}
 	/>
 
@@ -86,9 +90,9 @@
 		<PaginationBar
 			length={data.communities.length}
 			limit={data.limit ?? 10}
-			on:next={onNext}
-			on:previous={onPrevious}
-			on:first={onNext}
+			{onNext}
+			{onPrevious}
+			onFirst={onNext}
 		/>
 	{/if}
 </div>

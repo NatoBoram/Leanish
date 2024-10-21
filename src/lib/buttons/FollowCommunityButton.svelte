@@ -22,7 +22,7 @@
 		onError,
 		onResponse,
 		onFollowCommunity,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	async function followCommunity(follow: boolean, community_id: CommunityId) {
 		if (!jwt) {

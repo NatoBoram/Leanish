@@ -46,7 +46,7 @@
 		personView,
 		postView,
 		site,
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
 		year: 'numeric',

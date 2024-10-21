@@ -29,7 +29,7 @@
 		personId,
 		personView,
 		position = 'bottom-8',
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	let personViewPromise: Promise<PersonView> | undefined = $state(
 		personView && Promise.resolve(personView),

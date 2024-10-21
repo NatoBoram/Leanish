@@ -9,7 +9,7 @@
 		readonly onClickoutside: (event: MouseEvent) => void
 	}
 
-	const { class: className = '', children, onClickoutside }: Props = $props() as Props
+	const { class: className = '', children, onClickoutside }: Props = $props()
 
 	function handleClick(event: MouseEvent) {
 		if (!node.contains(event.target as Node)) onClickoutside(event)

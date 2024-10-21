@@ -16,7 +16,7 @@
 		readonly data: PageData
 	}
 
-	let { data = $bindable() }: Props = $props() as Props
+	let { data = $bindable() }: Props = $props()
 
 	const tree = $derived(buildCommentTree(data.comments, undefined))
 
@@ -24,7 +24,9 @@
 		Math.max(data.comments.length, data.communities.length, data.posts.length, data.users.length),
 	)
 
+	// svelte-ignore non_reactive_update
 	let paginationBarTop: HTMLElement
+	// svelte-ignore non_reactive_update
 	let paginationBarBot: HTMLElement
 
 	function onNext() {
@@ -98,8 +100,8 @@
 			<CommunityGrid
 				communityViews={data.communities}
 				jwt={data.jwt}
-				on:block_community={onBlock}
-				on:follow_community={onFollow}
+				onBlockCommunity={onBlock}
+				onFollowCommunity={onFollow}
 				site={data.site_view.site}
 			/>
 		{/if}

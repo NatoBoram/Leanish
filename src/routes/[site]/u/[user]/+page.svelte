@@ -7,7 +7,11 @@
 	import { personUri } from '$lib/utils/index.js'
 	import type { PageData } from './$types.js'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
+
+	let { data }: Props = $props()
 
 	function onNext() {
 		const first = data.posts[0]
@@ -58,9 +62,9 @@
 				<PaginationBar
 					length={data.posts.length}
 					limit={data.limit ?? 10}
-					on:next={onNext}
-					on:previous={onPrevious}
-					on:first={onNext}
+					{onNext}
+					{onPrevious}
+					onFirst={onNext}
 				/>
 			{/if}
 			<Posts
@@ -77,9 +81,9 @@
 				<PaginationBar
 					length={data.posts.length}
 					limit={data.limit ?? 10}
-					on:next={onNext}
-					on:previous={onPrevious}
-					on:first={onNext}
+					{onNext}
+					{onPrevious}
+					onFirst={onNext}
 				/>
 			{/if}
 		</div>

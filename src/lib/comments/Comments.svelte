@@ -36,7 +36,7 @@
 		onPurge = () => {},
 		site,
 		tree,
-	}: Props = $props() as Props
+	}: Props = $props()
 </script>
 
 <div class="flex flex-col gap-4 {className}">

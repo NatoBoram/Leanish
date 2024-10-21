@@ -35,7 +35,7 @@
 		onFollowCommunity,
 		onResponse,
 		position = 'bottom-8',
-	}: Props = $props() as Props
+	}: Props = $props()
 
 	let communityViewPromise: Promise<CommunityView> | undefined = $state(
 		communityView && Promise.resolve(communityView),

@@ -10,7 +10,7 @@
 		readonly onSearch?: (search: SearchType) => void
 	}
 
-	const { name = 'type_', type_, onSearch = () => {} }: Props = $props() as Props
+	const { name = 'type_', type_, onSearch = () => {} }: Props = $props()
 
 	let select: HTMLSelectElement
 

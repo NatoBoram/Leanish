@@ -1,19 +1,42 @@
 <script lang="ts">
 	import Prose from '$lib/Prose.svelte'
-	import type { MyUserInfo, PersonView, Site } from 'lemmy-js-client'
+	import type { BlockPersonResponse, MyUserInfo, PersonView, Site } from 'lemmy-js-client'
 	import PersonCard from './PersonCard.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string | undefined
+		readonly myUser: MyUserInfo | undefined
+		readonly personView: PersonView
+		readonly site: Site
+		readonly onBlockPerson?: (response: BlockPersonResponse) => void
+		readonly onError?: (error: Error) => void
+		readonly onResponse?: (response: Response) => void
+	}
 
-	export let jwt: string | undefined
-	export let myUser: MyUserInfo | undefined
-	export let personView: PersonView
-	export let site: Site
+	let {
+		class: className = undefined,
+		jwt,
+		myUser,
+		onBlockPerson = () => {},
+		onError = () => {},
+		onResponse = () => {},
+		personView,
+		site,
+	}: Props = $props()
 </script>
 
 <aside class={className}>
-	<PersonCard {jwt} {myUser} {personView} {site} bannerClass="rounded-lg" />
+	<PersonCard
+		{jwt}
+		{myUser}
+		{onBlockPerson}
+		{onError}
+		{onResponse}
+		{personView}
+		{site}
+		bannerClass="rounded-lg"
+	/>
 
 	<div class="flex flex-col gap-4 p-4">
 		{#if personView.person.bio}

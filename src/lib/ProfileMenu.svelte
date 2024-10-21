@@ -43,7 +43,7 @@
 	{#if opened}
 		<ClickOutside
 			class="surface-container absolute left-0 top-[100%] z-10 mt-4 flex flex-col rounded"
-			on:clickoutside={onClick}
+			onClickoutside={onClick}
 		>
 			<a
 				href={personLink(site, myUser.local_user_view.person)}

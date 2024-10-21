@@ -8,7 +8,7 @@
 		readonly onRemove: (reason: string) => void
 	}
 
-	const { disabled = false, onCancel, onRemove, ...attributes }: Props = $props() as Props
+	const { disabled = false, onCancel, onRemove, ...attributes }: Props = $props()
 
 	const placeholders = ['Reason for removing this comment...', 'Why are you removing this comment?']
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]
