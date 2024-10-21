@@ -2,21 +2,29 @@
 	import Prose from '$lib/Prose.svelte'
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import type { Language, LanguageId, MyUserInfo } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 
-	const dispatch = createEventDispatcher<{
-		readonly submit: { readonly content: string; readonly languageId: LanguageId }
-		readonly cancel: undefined
-	}>()
+	interface Props {
+		readonly allLanguages: Language[]
+		readonly content: string
+		readonly disabled: boolean
+		readonly myUser: MyUserInfo
+		readonly languageId?: LanguageId
+		readonly onSubmit: (content: string, languageId: LanguageId) => void
+		readonly onCancel: () => void
+	}
 
-	export let allLanguages: Language[]
-	export let content: string
-	export let disabled: boolean
-	export let myUser: MyUserInfo
-	export let languageId = myUser.discussion_languages[0] ?? 0
+	let {
+		allLanguages,
+		content = $bindable(),
+		disabled,
+		myUser,
+		languageId = $bindable(myUser.discussion_languages[0] ?? 0),
+		onSubmit,
+		onCancel,
+	}: Props = $props()
 
-	$: myLanguages = myUser.discussion_languages.flatMap(
-		id => allLanguages.find(l => l.id === id) ?? [],
+	const myLanguages = $derived(
+		myUser.discussion_languages.flatMap(id => allLanguages.find(l => l.id === id) ?? []),
 	)
 
 	const placeholders = [
@@ -48,10 +56,10 @@
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]
 
 	function clickSubmit() {
-		return dispatch('submit', { content: content, languageId })
+		onSubmit(content, languageId)
 	}
 
-	let previewing = false
+	let previewing = $state(false)
 </script>
 
 <div class="flex flex-col gap-4">
@@ -70,7 +78,7 @@
 		{placeholder}
 		class="h-32 w-full resize-y rounded-xl border-0 bg-surface-container p-4 text-on-surface-container focus:border-on-surface-container/25 focus:ring-on-surface-container/25"
 		bind:value={content}
-	/>
+	></textarea>
 
 	<!-- Actions -->
 	<div class="flex flex-row items-center justify-between gap-4">
@@ -87,14 +95,14 @@
 		<div class="flex flex-row items-center gap-4">
 			<FlatButton
 				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
-				on:click={() => dispatch('cancel')}
+				onclick={onCancel}
 			>
 				Cancel
 			</FlatButton>
 
 			<FlatButton
 				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
-				on:click={() => (previewing = !previewing)}
+				onclick={() => (previewing = !previewing)}
 			>
 				Preview
 			</FlatButton>
@@ -102,7 +110,7 @@
 			<FlatButton
 				class="rounded-lg bg-surface px-4 py-2 text-on-surface"
 				{disabled}
-				on:click={clickSubmit}
+				onclick={clickSubmit}
 			>
 				Submit
 			</FlatButton>

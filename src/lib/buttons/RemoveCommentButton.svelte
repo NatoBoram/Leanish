@@ -4,27 +4,37 @@
 	import { Trash as TrashOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Comment, CommentResponse } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly comment: Comment
+		readonly onError: (error: Error) => void
+		readonly onRemove: () => void
+		readonly onResponse: (response: Response) => void
+		readonly onRestore: (response: CommentResponse) => void
+	}
 
-	export let jwt: string
-	export let comment: Comment
+	let {
+		class: className = undefined,
+		comment = $bindable(),
+		jwt,
+		onError,
+		onRemove,
+		onResponse,
+		onRestore,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		error: Error
-		remove: undefined
-		response: Response
-		restore: CommentResponse
-	}>()
 
-	let removePending = false
+	let removePending = $state(false)
 
 	async function removeComment() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to remove comments.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to remove comments.'))
+			return
+		}
 		if (removePending) return
 
 		removePending = true
@@ -33,11 +43,13 @@
 				comment_id: comment.id,
 				removed: !comment.removed,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (removed) {
 			comment = removed.comment_view.comment
-			dispatch('restore', removed)
+			onRestore(removed)
 		}
 
 		removePending = false
@@ -48,13 +60,14 @@
 		if (comment.removed) {
 			return removeComment()
 		} else {
-			return dispatch('remove')
+			onRemove()
+			return
 		}
 	}
 </script>
 
 <MeatballButton
-	on:click={() => onClick(comment)}
+	onclick={() => onClick(comment)}
 	class="{removePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={removePending}
 >

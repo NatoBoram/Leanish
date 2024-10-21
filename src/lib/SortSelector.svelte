@@ -3,13 +3,15 @@
 	import { page } from '$app/stores'
 	import { isSortType } from '$lib/utils/index.js'
 	import type { SortType } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 
-	export let sort: SortType
+	interface Props {
+		readonly sort: SortType
+		readonly onSort?: (sort: SortType) => void
+	}
+
+	const { sort, onSort = () => {} }: Props = $props()
 
 	let select: HTMLSelectElement
-
-	const dispatch = createEventDispatcher<{ sort: SortType }>()
 
 	let timeout: NodeJS.Timeout
 	function debounceChangeSort(url: URL) {
@@ -25,7 +27,7 @@
 			url.searchParams.set('sort', String(value))
 			await goto(url.toString(), { noScroll: true })
 			await invalidate('app:paginate')
-			dispatch('sort', value)
+			onSort(value)
 		}
 	}
 </script>
@@ -34,7 +36,7 @@
 	bind:this={select}
 	value={sort}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeSort($page.url)
 	}}
 >

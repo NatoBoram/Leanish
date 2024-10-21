@@ -1,8 +1,13 @@
 <script lang="ts">
 	import FlatButton from '$lib/buttons/FlatButton.svelte'
-	import { createEventDispatcher } from 'svelte'
 
-	export let disabled = false
+	interface Props {
+		readonly disabled?: boolean
+		readonly onCancel: () => void
+		readonly onReport: (reason: string) => void
+	}
+
+	const { disabled = false, onCancel, onReport }: Props = $props()
 
 	const placeholders = [
 		'Describe the violation',
@@ -27,31 +32,25 @@
 	]
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]
 
-	const dispatch = createEventDispatcher<{ cancel: undefined; report: string }>()
-
-	let value = ''
+	let value = $state('')
 
 	function onSubmit() {
-		dispatch('report', value)
-	}
-
-	function onCancel() {
-		dispatch('cancel')
+		onReport(value)
 	}
 </script>
 
-<form class="flex flex-col justify-start gap-4" on:submit={onSubmit}>
+<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit}>
 	<!-- Input -->
 	<textarea
 		{disabled}
 		{placeholder}
 		bind:value
 		class="surface-container rounded-md border-none px-4 py-2"
-	/>
+	></textarea>
 
 	<!-- Actions -->
 	<div class="flex flex-row items-center justify-end gap-4">
-		<FlatButton type="button" class="surface-container rounded-lg" on:click={onCancel}>
+		<FlatButton type="button" class="surface-container rounded-lg" onclick={onCancel}>
 			Cancel
 		</FlatButton>
 		<FlatButton {disabled} type="submit" class="danger rounded-lg">Report</FlatButton>

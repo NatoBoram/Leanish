@@ -21,7 +21,7 @@
 	{:else}
 		<div
 			class="surface-container absolute left-0 right-0 top-0 h-full w-full object-cover opacity-25"
-		/>
+		></div>
 	{/if}
 
 	<div class="relative flex flex-row items-center gap-4">
@@ -29,7 +29,7 @@
 		{#if myUser.local_user_view.person.avatar}
 			<img class="h-24 w-24 object-cover" src={myUser.local_user_view.person.avatar} alt="avatar" />
 		{:else}
-			<div class="h-24 w-24 rounded-full bg-muted object-cover" />
+			<div class="h-24 w-24 rounded-full bg-muted object-cover"></div>
 		{/if}
 
 		<div>

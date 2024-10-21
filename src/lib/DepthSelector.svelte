@@ -2,7 +2,11 @@
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
 
-	export let maxDepth: number
+	interface Props {
+		readonly maxDepth: number
+	}
+
+	const { maxDepth }: Props = $props()
 
 	let input: HTMLInputElement
 
@@ -31,10 +35,10 @@
 		id="max_depth"
 		max={50}
 		min={1}
-		on:change={() => {
+		onchange={() => {
 			debounceChangeDepth($page.url)
 		}}
-		on:keypress={e => {
+		onkeypress={e => {
 			if (e.key === 'Enter') debounceChangeDepth($page.url)
 		}}
 		type="number"

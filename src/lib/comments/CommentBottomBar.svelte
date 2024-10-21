@@ -2,26 +2,48 @@
 	import { getClientContext } from '$lib/contexts/index.js'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
-	import type { CommentView, MyUserInfo } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
+	import type { CommentResponse, CommentView, MyUserInfo } from 'lemmy-js-client'
 	import CommentMeatballs from './CommentMeatballs.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly commentView: CommentView
+		readonly jwt: string | undefined
+		readonly myUser: MyUserInfo | undefined
+		readonly onDelete: (deleted: CommentResponse) => void
+		readonly onDistinguish: (distinguished: CommentResponse) => void
+		readonly onEdit: () => void
+		readonly onError: (error: Error) => void
+		readonly onPurge: () => void
+		readonly onRemove: () => void
+		readonly onReply: () => void
+		readonly onReport: () => void
+		readonly onResponse: (response: Response) => void
+		readonly onRestore: (response: CommentResponse) => void
+		readonly onSave: (comment: CommentResponse) => void
+	}
 
-	export let commentView: CommentView
-	export let jwt: string | undefined
-	export let myUser: MyUserInfo | undefined
-
-	const dispatch = createEventDispatcher<{
-		error: Error
-		reply: undefined
-		response: Response
-	}>()
+	let {
+		class: className = undefined,
+		commentView = $bindable(),
+		jwt,
+		myUser,
+		onDelete,
+		onDistinguish,
+		onEdit,
+		onError,
+		onPurge,
+		onRemove,
+		onReply,
+		onReport,
+		onResponse,
+		onRestore,
+		onSave,
+	}: Props = $props()
 
 	const client = getClientContext()
 
-	let votePending = false
+	let votePending = $state(false)
 
 	async function like() {
 		const score = (commentView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -34,7 +56,10 @@
 	}
 
 	async function likeComment(score: number) {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to vote.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to vote.'))
+			return
+		}
 
 		votePending = true
 
@@ -44,7 +69,7 @@
 				score: score,
 			})
 			.catch((e: unknown) => {
-				if (e instanceof Response) dispatch('response', e)
+				if (e instanceof Response) onResponse(e)
 			})
 
 		if (response) commentView = response.comment_view
@@ -60,7 +85,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (commentView.my_vote ?? 0) > 0}
 			disabled={votePending}
-			on:click={like}
+			onclick={like}
 			title="Upvote ({commentView.counts.upvotes})"
 		>
 			<ArrowUp />
@@ -72,7 +97,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (commentView.my_vote ?? 0) < 0}
 			disabled={votePending}
-			on:click={dislike}
+			onclick={dislike}
 			title="Downvote ({commentView.counts.downvotes})"
 		>
 			<ArrowDown />
@@ -81,7 +106,12 @@
 
 	<!-- Reply button -->
 	{#if myUser && !commentView.post.locked}
-		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('reply')}>
+		<button
+			class="flex flex-row items-center gap-2"
+			onclick={() => {
+				onReply()
+			}}
+		>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" /> Reply
 		</button>
 	{/if}
@@ -92,16 +122,16 @@
 			{commentView}
 			{jwt}
 			{myUser}
-			on:delete
-			on:distinguish
-			on:edit
-			on:error
-			on:purge
-			on:remove
-			on:report
-			on:response
-			on:restore
-			on:save
+			{onDelete}
+			{onDistinguish}
+			{onEdit}
+			{onError}
+			{onPurge}
+			{onRemove}
+			{onReport}
+			{onResponse}
+			{onRestore}
+			{onSave}
 		/>
 	{/if}
 </div>

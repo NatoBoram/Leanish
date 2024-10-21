@@ -4,26 +4,35 @@
 	import { LockClosed as LockClosedOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { LockClosed as LockClosedSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Post, PostResponse } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string
+		readonly post: Post
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
+		readonly onLock: (locked: PostResponse) => void
+	}
 
-	export let jwt: string
-	export let post: Post
+	let {
+		class: className = undefined,
+		jwt,
+		onError,
+		onLock,
+		onResponse,
+		post = $bindable(),
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		lock: PostResponse
-		error: Error
-		response: Response
-	}>()
 
-	let lockPending = false
+	let lockPending = $state(false)
 
 	async function lockPost() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to lock posts.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to lock posts.'))
+			return
+		}
 		if (lockPending) return
 
 		lockPending = true
@@ -32,11 +41,13 @@
 				locked: !post.locked,
 				post_id: post.id,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (locked) {
 			post = locked.post_view.post
-			dispatch('lock', locked)
+			onLock(locked)
 		}
 
 		lockPending = false
@@ -45,7 +56,7 @@
 </script>
 
 <MeatballButton
-	on:click={lockPost}
+	onclick={lockPost}
 	class="{lockPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={lockPending}
 >

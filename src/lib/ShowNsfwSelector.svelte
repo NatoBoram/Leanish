@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { createEventDispatcher } from 'svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly showNsfw: boolean
+		readonly onShowNsfw?: (showNsfw: boolean) => void
+	}
 
-	export let showNsfw: boolean
-	const dispatch = createEventDispatcher<{ show_nsfw: boolean }>()
+	const { class: className = undefined, showNsfw, onShowNsfw = () => {} }: Props = $props()
 	let checkbox: HTMLInputElement
 
 	let timeout: NodeJS.Timeout
@@ -20,7 +21,7 @@
 		url.searchParams.set('show_nsfw', checkbox.checked.toString())
 		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
-		dispatch('show_nsfw', checkbox.checked)
+		onShowNsfw(checkbox.checked)
 	}
 </script>
 
@@ -31,7 +32,7 @@
 		checked={showNsfw}
 		class="border-on-base-container/25 bg-base-container text-primary focus:ring-1 focus:ring-offset-0"
 		id="show_nsfw"
-		on:change={() => {
+		onchange={() => {
 			debounceChangeShowNsfw($page.url)
 		}}
 		type="checkbox"

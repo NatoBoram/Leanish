@@ -3,17 +3,30 @@
 	import PersonInfobanner from './PersonInfobanner.svelte'
 	import SiteInfobanner from './SiteInfobanner.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly homeSite: HomeSite
+		readonly onCurrent: (homeSite: HomeSite) => void
+		readonly onDefault: (homeSite: HomeSite) => void
+		readonly onDelete: (homeSite: HomeSite) => void
+		readonly onHide: (homeSite: HomeSite) => void
+	}
 
-	export let homeSite: HomeSite
+	const {
+		class: className = undefined,
+		homeSite,
+		onCurrent,
+		onDefault,
+		onDelete,
+		onHide,
+	}: Props = $props()
 
-	$: if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
+	if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
 </script>
 
 <div class="flex flex-col justify-between {className}">
 	<!-- Site infobanner -->
-	<SiteInfobanner {homeSite} on:current on:default on:delete on:hide />
+	<SiteInfobanner {homeSite} {onCurrent} {onDefault} {onDelete} {onHide} />
 
 	{#if homeSite.siteResponse.my_user}
 		<!-- User infobanner -->
@@ -26,7 +39,7 @@
 		<!-- Anonymous infobanner -->
 		<div class="flex flex-row items-center gap-4 bg-surface-container/25 p-4">
 			<!-- Avatar -->
-			<div class="h-24 w-24 rounded-full bg-muted object-cover" />
+			<div class="h-24 w-24 rounded-full bg-muted object-cover"></div>
 
 			<div class="text-xl font-semibold">Anonymous</div>
 		</div>

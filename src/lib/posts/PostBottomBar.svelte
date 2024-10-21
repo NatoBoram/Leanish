@@ -3,22 +3,52 @@
 	import { postLink } from '$lib/utils/index.js'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeft, ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
-	import type { MyUserInfo, PostView, Site } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
+	import type { MyUserInfo, PostResponse, PostView, Site } from 'lemmy-js-client'
 	import PostMeatballs from './PostMeatballs.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly jwt: string | undefined
+		readonly myUser: MyUserInfo | undefined
+		readonly onComment: () => void
+		readonly onDelete: (deleted: PostResponse) => void
+		readonly onEdit: () => void
+		readonly onError: (error: Error) => void
+		readonly onFeature: (featured: PostResponse) => void
+		readonly onLock: (locked: PostResponse) => void
+		readonly onPurge: () => void
+		readonly onRead: (post: PostView) => void
+		readonly onRemove: (post: PostResponse) => void
+		readonly onReport: () => void
+		readonly onResponse: (response: Response) => void
+		readonly onSave: (post: PostResponse) => void
+		readonly postView: PostView
+		readonly site: Site
+	}
 
-	export let jwt: string | undefined
-	export let myUser: MyUserInfo | undefined
-	export let postView: PostView
-	export let site: Site
+	let {
+		class: className = undefined,
+		jwt,
+		myUser,
+		onComment,
+		onDelete,
+		onEdit,
+		onError,
+		onFeature,
+		onLock,
+		onPurge,
+		onRead,
+		onRemove,
+		onReport,
+		onResponse,
+		onSave,
+		postView = $bindable(),
+		site,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{ comment: undefined; response: Response; error: Error }>()
 
-	let votePending = false
+	let votePending = $state(false)
 
 	async function like() {
 		const score = (postView.my_vote ?? 0) <= 0 ? 1 : 0
@@ -31,13 +61,16 @@
 	}
 
 	async function likePost(score: -1 | 0 | 1) {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to vote on posts.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to vote on posts.'))
+			return
+		}
 
 		votePending = true
 		const response = await client
 			.likePost({ post_id: postView.post.id, score: score })
 			.catch((e: unknown) => {
-				if (e instanceof Response) dispatch('response', e)
+				if (e instanceof Response) onResponse(e)
 			})
 
 		if (response) postView = response.post_view
@@ -52,7 +85,7 @@
 			class:text-muted={votePending}
 			class:text-primary={!votePending && (postView.my_vote ?? 0) > 0}
 			disabled={votePending || !myUser}
-			on:click={like}
+			onclick={like}
 			title="Upvote ({postView.counts.upvotes})"
 		>
 			<ArrowUp />
@@ -60,9 +93,9 @@
 		<div>{postView.counts.score}</div>
 		<button
 			class:text-muted={votePending}
-			class:text-primary={!votePending && (postView.my_vote ?? 0) < 0}
+			class:text-secondary={!votePending && (postView.my_vote ?? 0) < 0}
 			disabled={votePending || !myUser}
-			on:click={dislike}
+			onclick={dislike}
 			title="Downvote ({postView.counts.downvotes})"
 		>
 			<ArrowDown />
@@ -76,7 +109,12 @@
 	</a>
 
 	{#if myUser}
-		<button class="flex flex-row items-center gap-2" on:click={() => dispatch('comment')}>
+		<button
+			class="flex flex-row items-center gap-2"
+			onclick={() => {
+				onComment()
+			}}
+		>
 			<ChatBubbleLeftEllipsis class="h-5 w-5" />
 			Reply
 		</button>
@@ -86,17 +124,17 @@
 				{jwt}
 				{myUser}
 				{postView}
-				on:delete
-				on:edit
-				on:error
-				on:feature
-				on:lock
-				on:purge
-				on:read
-				on:remove
-				on:report
-				on:response
-				on:save
+				{onDelete}
+				{onEdit}
+				{onError}
+				{onFeature}
+				{onLock}
+				{onPurge}
+				{onRead}
+				{onRemove}
+				{onReport}
+				{onResponse}
+				{onSave}
 			/>
 		{/if}
 	{/if}

@@ -8,56 +8,78 @@
 	import { communityLink, postLink } from '$lib/utils/index.js'
 	import { LockClosed, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
+		BlockCommunityResponse,
+		BlockPersonResponse,
 		CommentResponse,
 		CommunityModeratorView,
+		CommunityResponse,
 		CommunityView,
 		Language,
+		LanguageId,
 		MyUserInfo,
 		PersonView,
 		PostResponse,
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
 	import PostUrl from './PostUrl.svelte'
 	import PurgePostForm from './PurgePostForm.svelte'
 	import ReportPostForm from './ReportPostForm.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly allLanguages: Language[]
+		readonly class?: string | undefined
+		readonly communityView: CommunityView | undefined
+		readonly jwt: string | undefined
+		readonly moderators: CommunityModeratorView[]
+		readonly myUser: MyUserInfo | undefined
+		readonly onBlockCommunity?: (response: BlockCommunityResponse) => void
+		readonly onBlockPerson?: (response: BlockPersonResponse) => void
+		readonly onComment?: (comment: CommentResponse) => void
+		readonly onFollowCommunity?: (response: CommunityResponse) => void
+		readonly personView: PersonView | undefined
+		readonly postView: PostView
+		readonly site: Site
+	}
 
-	export let allLanguages: Language[]
-	export let communityView: CommunityView | undefined
-	export let jwt: string | undefined
-	export let moderators: CommunityModeratorView[]
-	export let myUser: MyUserInfo | undefined
-	export let postView: PostView
-	export let site: Site
-	export let personView: PersonView | undefined
+	let {
+		allLanguages,
+		class: className = undefined,
+		communityView,
+		jwt,
+		moderators,
+		myUser,
+		onBlockCommunity = () => {},
+		onBlockPerson = () => {},
+		onComment = () => {},
+		onFollowCommunity = () => {},
+		personView,
+		postView = $bindable(),
+		site,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{ comment: CommentResponse }>()
 
-	let commenting = false
-	let commentPending = false
-	let purgePending = false
-	let purging = false
-	let reporting = false
-	let reportPending = false
+	let commenting = $state(false)
+	let commentPending = $state(false)
+	let purgePending = $state(false)
+	let purging = $state(false)
+	let reporting = $state(false)
+	let reportPending = $state(false)
 
-	let botErrorMessage = ''
-	let topErrorMessage = ''
+	let botErrorMessage = $state('')
+	let topErrorMessage = $state('')
 
-	async function createComment(e: CustomEvent<{ content: string; languageId: number }>) {
+	async function createComment(content: string, languageId: LanguageId) {
 		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')
 
 		commentPending = true
 		const response = await client
 			.createComment({
-				content: e.detail.content,
-				language_id: e.detail.languageId,
+				content: content,
+				language_id: languageId,
 				post_id: postView.post.id,
 			})
 			.catch(async (e: Response) => {
@@ -65,7 +87,7 @@
 			})
 
 		if (response) {
-			dispatch('comment', response)
+			onComment(response)
 			commenting = false
 		}
 
@@ -73,31 +95,31 @@
 		return response
 	}
 
-	function onBotError(event: CustomEvent<Error>) {
-		botErrorMessage = event.detail.message
+	function onBotError(event: Error) {
+		botErrorMessage = event.message
 	}
 
-	async function onBotResponse(event: CustomEvent<Response>) {
-		botErrorMessage = await event.detail.text()
+	async function onBotResponse(event: Response) {
+		botErrorMessage = await event.text()
 	}
 
-	function onTopError(event: CustomEvent<Error>) {
-		topErrorMessage = event.detail.message
+	function onTopError(event: Error) {
+		topErrorMessage = event.message
 	}
 
-	async function onTopResponse(event: CustomEvent<Response>) {
-		topErrorMessage = await event.detail.text()
+	async function onTopResponse(event: Response) {
+		topErrorMessage = await event.text()
 	}
 
-	async function createPostReport(e: CustomEvent<string>) {
+	async function createPostReport(e: string) {
 		if (!jwt) return (botErrorMessage = 'You must be logged in to report posts.')
-		if (!e.detail) return
+		if (!e) return
 
 		reportPending = true
 		const response = await client
 			.createPostReport({
 				post_id: postView.post.id,
-				reason: e.detail,
+				reason: e,
 			})
 			.catch(async (e: Response) => {
 				botErrorMessage = await e.text()
@@ -109,23 +131,23 @@
 		return response
 	}
 
-	function onPostReponse(event: CustomEvent<PostResponse>) {
-		postView = event.detail.post_view
+	function onPostReponse(event: PostResponse) {
+		postView = event.post_view
 	}
 
-	function onPostView(event: CustomEvent<PostView>) {
-		postView = event.detail
+	function onPostView(event: PostView) {
+		postView = event
 	}
 
-	async function purgePost(event: CustomEvent<string>) {
+	async function purgePost(event: string) {
 		if (!jwt) return (botErrorMessage = 'You must be logged in to purge posts.')
-		if (!event.detail) return
+		if (!event) return
 
 		purgePending = true
 		const purged = await client
 			.purgePost({
 				post_id: postView.post.id,
-				reason: event.detail,
+				reason: event,
 			})
 			.catch(async (e: Response) => {
 				botErrorMessage = await e.text()
@@ -139,6 +161,10 @@
 		purgePending = false
 		return purged
 	}
+
+	function onEdit() {
+		botErrorMessage = 'Editing posts is not yet supported.'
+	}
 </script>
 
 <article
@@ -150,18 +176,18 @@
 		{jwt}
 		{moderators}
 		{myUser}
+		{onBlockCommunity}
+		{onBlockPerson}
+		{onFollowCommunity}
 		{personView}
 		{postView}
 		{site}
-		on:block_community
-		on:block_person
-		on:error={onTopError}
-		on:follow_community
-		on:response={onTopResponse}
+		onError={onTopError}
+		onResponse={onTopResponse}
 	/>
 
 	{#if topErrorMessage}
-		<Dismissable class="danger-container" on:dismiss={() => (topErrorMessage = '')}>
+		<Dismissable class="danger-container" onDismiss={() => (topErrorMessage = '')}>
 			{topErrorMessage}
 		</Dismissable>
 	{/if}
@@ -239,21 +265,22 @@
 		{myUser}
 		{postView}
 		{site}
-		on:comment={() => (commenting = !commenting)}
-		on:delete={onPostReponse}
-		on:error={onBotError}
-		on:feature={onPostReponse}
-		on:lock={onPostReponse}
-		on:purge={() => (purging = !purging)}
-		on:read={onPostView}
-		on:remove={onPostReponse}
-		on:report={() => (reporting = !reporting)}
-		on:response={onBotResponse}
-		on:save={onPostReponse}
+		onComment={() => (commenting = !commenting)}
+		onDelete={onPostReponse}
+		onError={onBotError}
+		onFeature={onPostReponse}
+		onLock={onPostReponse}
+		onPurge={() => (purging = !purging)}
+		onRead={onPostView}
+		onRemove={onPostReponse}
+		onReport={() => (reporting = !reporting)}
+		onResponse={onBotResponse}
+		onSave={onPostReponse}
+		{onEdit}
 	/>
 
 	{#if botErrorMessage}
-		<Dismissable class="danger-container" on:dismiss={() => (botErrorMessage = '')}>
+		<Dismissable class="danger-container" onDismiss={() => (botErrorMessage = '')}>
 			{botErrorMessage}
 		</Dismissable>
 	{/if}
@@ -262,8 +289,8 @@
 	{#if purging}
 		<PurgePostForm
 			disabled={purgePending}
-			on:cancel={() => (purging = !purging)}
-			on:purge={purgePost}
+			onCancel={() => (purging = !purging)}
+			onPurge={purgePost}
 		/>
 	{/if}
 
@@ -271,8 +298,8 @@
 	{#if reporting}
 		<ReportPostForm
 			disabled={reportPending}
-			on:cancel={() => (reporting = !reporting)}
-			on:report={createPostReport}
+			onCancel={() => (reporting = !reporting)}
+			onReport={createPostReport}
 		/>
 	{/if}
 
@@ -283,8 +310,8 @@
 			{myUser}
 			content=""
 			disabled={commentPending}
-			on:cancel={() => (commenting = !commenting)}
-			on:submit={createComment}
+			onCancel={() => (commenting = !commenting)}
+			onSubmit={createComment}
 		/>
 	{/if}
 </article>

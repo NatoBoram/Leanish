@@ -16,12 +16,16 @@
 	} from 'lemmy-js-client'
 	import type { PageData } from './$types.js'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
 
-	$: tree = buildCommentTree(data.comments, data.parent_id ?? 0)
+	let { data = $bindable() }: Props = $props()
 
-	function onComment(e: CustomEvent<CommentResponse>) {
-		data.comments.unshift(e.detail.comment_view)
+	const tree = $derived(buildCommentTree(data.comments, data.parent_id ?? 0))
+
+	function onComment(e: CommentResponse) {
+		data.comments.unshift(e.comment_view)
 		data = data
 	}
 
@@ -43,23 +47,19 @@
 			?.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
-	function onBlockPerson(event: CustomEvent<BlockPersonResponse>) {
-		if (!event.detail.blocked) return
+	function onBlockPerson(event: BlockPersonResponse) {
+		if (!event.blocked) return
 
 		data.comments = data.comments.filter(
-			comment => comment.creator.id !== event.detail.person_view.person.id,
+			comment => comment.creator.id !== event.person_view.person.id,
 		)
 		data = data
 	}
 
-	export function onPurge(
-		event: CustomEvent<{ commentView: CommentView; response: SuccessResponse }>,
-	) {
-		if (!event.detail.response.success) return
+	export function onPurge(commentView: CommentView, response: SuccessResponse) {
+		if (!response.success) return
 
-		data.comments = data.comments.filter(
-			view => view.comment.id !== event.detail.commentView.comment.id,
-		)
+		data.comments = data.comments.filter(view => view.comment.id !== commentView.comment.id)
 		data = data
 	}
 
@@ -120,7 +120,7 @@
 			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}
-			on:comment={onComment}
+			{onComment}
 			personView={undefined}
 			postView={data.post_view}
 			site={data.site_view.site}
@@ -160,9 +160,9 @@
 			<PaginationBar
 				length={data.comments.length}
 				limit={data.limit ?? 50}
-				on:next={onNext}
-				on:previous={onPrevious}
-				on:first={onNext}
+				{onNext}
+				{onPrevious}
+				onFirst={onNext}
 			/>
 		{/if}
 
@@ -172,9 +172,9 @@
 			jwt={data.jwt}
 			moderators={data.moderators}
 			myUser={data.my_user}
-			on:block_person={onBlockPerson}
-			on:comment={onComment}
-			on:purge={onPurge}
+			{onBlockPerson}
+			{onComment}
+			{onPurge}
 			site={data.site_view.site}
 		/>
 
@@ -182,9 +182,9 @@
 			<PaginationBar
 				length={data.comments.length}
 				limit={data.limit ?? 50}
-				on:next={onNext}
-				on:previous={onPrevious}
-				on:first={onNext}
+				{onNext}
+				{onPrevious}
+				onFirst={onNext}
 			/>
 		{/if}
 	</main>

@@ -3,16 +3,18 @@
 	import { getClientContext } from '$lib/contexts/index.js'
 	import type { CommunityView } from 'lemmy-js-client'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly community: CommunityView
+		readonly jwt: string | undefined
+	}
 
-	export let community: CommunityView
-	export let jwt: string | undefined
+	let { class: className = undefined, community = $bindable(), jwt }: Props = $props()
 
 	const client = getClientContext()
 
 	let response: Promise<CommunityView> | undefined
-	let subscribeError = ''
+	let subscribeError = $state('')
 
 	async function followCommunity(follow: boolean) {
 		subscribeError = ''
@@ -43,8 +45,8 @@
 	{#if subscribeError}
 		<p
 			class="rounded-lg bg-danger-container p-4 text-on-danger-container"
-			on:click={() => (subscribeError = '')}
-			on:keypress={e => {
+			onclick={() => (subscribeError = '')}
+			onkeypress={e => {
 				if (e.key === 'Escale') subscribeError = ''
 			}}
 			role="presentation"

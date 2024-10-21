@@ -4,26 +4,35 @@
 	import { Star as StarOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { CommentResponse, CommentView } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly commentView: CommentView
+		readonly jwt: string
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
+		readonly onSave: (comment: CommentResponse) => void
+	}
 
-	export let jwt: string
-	export let commentView: CommentView
+	let {
+		class: className = undefined,
+		commentView = $bindable(),
+		jwt,
+		onError,
+		onResponse,
+		onSave,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		save: CommentResponse
-		error: Error
-		response: Response
-	}>()
 
-	let savePending = false
+	let savePending = $state(false)
 
 	async function saveComment() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to save comments.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to save comments.'))
+			return
+		}
 		if (savePending) return
 
 		savePending = true
@@ -32,11 +41,13 @@
 				comment_id: commentView.comment.id,
 				save: !commentView.saved,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (saved) {
 			commentView = saved.comment_view
-			dispatch('save', saved)
+			onSave(saved)
 		}
 
 		savePending = false
@@ -45,7 +56,7 @@
 </script>
 
 <MeatballButton
-	on:click={saveComment}
+	onclick={saveComment}
 	class="{savePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={savePending}
 >

@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { createEventDispatcher } from 'svelte'
 
-	export let q: string
+	interface Props {
+		readonly q: string
+		readonly onQ?: (q: string) => void
+	}
 
-	const dispatch = createEventDispatcher<{ q: string }>()
+	let { q = $bindable(), onQ = () => {} }: Props = $props()
 
 	let input: HTMLInputElement
 	let timeout: NodeJS.Timeout
@@ -21,7 +23,7 @@
 		url.searchParams.set('q', newQ)
 		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
-		dispatch('q', newQ)
+		onQ(newQ)
 	}
 </script>
 
@@ -29,7 +31,7 @@
 	bind:this={input}
 	bind:value={q}
 	class="base-container rounded-md border-none px-4 py-2"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeQ($page.url)
 	}}
 	placeholder="Search"

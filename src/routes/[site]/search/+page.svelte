@@ -12,18 +12,21 @@
 	import type { BlockCommunityResponse, CommentResponse, CommunityResponse } from 'lemmy-js-client'
 	import type { PageData } from './$types.js'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
 
-	$: tree = buildCommentTree(data.comments, undefined)
+	let { data = $bindable() }: Props = $props()
 
-	$: length = Math.max(
-		data.comments.length,
-		data.communities.length,
-		data.posts.length,
-		data.users.length,
+	const tree = $derived(buildCommentTree(data.comments, undefined))
+
+	const length = $derived(
+		Math.max(data.comments.length, data.communities.length, data.posts.length, data.users.length),
 	)
 
+	// svelte-ignore non_reactive_update
 	let paginationBarTop: HTMLElement
+	// svelte-ignore non_reactive_update
 	let paginationBarBot: HTMLElement
 
 	function onNext() {
@@ -34,28 +37,28 @@
 		paginationBarBot.scrollIntoView({ block: 'start', behavior: 'smooth' })
 	}
 
-	function onBlock(event: CustomEvent<BlockCommunityResponse>) {
+	function onBlock(event: BlockCommunityResponse) {
 		const index = data.communities.findIndex(
-			view => view.community.id === event.detail.community_view.community.id,
+			view => view.community.id === event.community_view.community.id,
 		)
 		if (index === -1) return
 
-		data.communities[index] = event.detail.community_view
+		data.communities[index] = event.community_view
 		data = data
 	}
 
-	function onFollow(event: CustomEvent<CommunityResponse>) {
+	function onFollow(event: CommunityResponse) {
 		const index = data.communities.findIndex(
-			view => view.community.id === event.detail.community_view.community.id,
+			view => view.community.id === event.community_view.community.id,
 		)
 		if (index === -1) return
 
-		data.communities[index] = event.detail.community_view
+		data.communities[index] = event.community_view
 		data = data
 	}
 
-	function onComment(e: CustomEvent<CommentResponse>) {
-		data.comments.unshift(e.detail.comment_view)
+	function onComment(e: CommentResponse) {
+		data.comments.unshift(e.comment_view)
 		data = data
 	}
 </script>
@@ -82,9 +85,9 @@
 				{length}
 				bind:nav={paginationBarTop}
 				limit={data.limit ?? 10}
-				on:first={onNext}
-				on:next={onNext}
-				on:previous={onPrevious}
+				onFirst={onNext}
+				{onNext}
+				{onPrevious}
 			/>
 		{/if}
 
@@ -97,8 +100,8 @@
 			<CommunityGrid
 				communityViews={data.communities}
 				jwt={data.jwt}
-				on:block_community={onBlock}
-				on:follow_community={onFollow}
+				onBlockCommunity={onBlock}
+				onFollowCommunity={onFollow}
 				site={data.site_view.site}
 			/>
 		{/if}
@@ -129,7 +132,7 @@
 				jwt={data.jwt}
 				moderators={[]}
 				myUser={data.my_user}
-				on:comment={onComment}
+				{onComment}
 				site={data.site_view.site}
 			/>
 		{/if}
@@ -150,9 +153,9 @@
 				{length}
 				bind:nav={paginationBarBot}
 				limit={data.limit ?? 10}
-				on:first={onNext}
-				on:next={onNext}
-				on:previous={onPrevious}
+				onFirst={onNext}
+				{onNext}
+				{onPrevious}
 			/>
 		{/if}
 	</div>

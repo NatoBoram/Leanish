@@ -25,40 +25,38 @@
 	export let postViews: PostView[]
 	export let site: Site
 
-	function onBlockCommunity(event: CustomEvent<BlockCommunityResponse>) {
-		if (!event.detail.blocked) return
+	function onBlockCommunity(event: BlockCommunityResponse) {
+		if (!event.blocked) return
 		postViews = postViews.filter(
-			postView => postView.community.id !== event.detail.community_view.community.id,
+			postView => postView.community.id !== event.community_view.community.id,
 		)
 
 		if (!myUser) return
 		myUser.community_blocks.push({
-			community: event.detail.community_view.community,
+			community: event.community_view.community,
 			person: myUser.local_user_view.person,
 		})
 		myUser = myUser
 	}
 
-	function onBlockPerson(event: CustomEvent<BlockPersonResponse>) {
-		if (!event.detail.blocked) return
+	function onBlockPerson(event: BlockPersonResponse) {
+		if (!event.blocked) return
 
 		if (!personView)
-			postViews = postViews.filter(
-				postView => postView.creator.id !== event.detail.person_view.person.id,
-			)
+			postViews = postViews.filter(postView => postView.creator.id !== event.person_view.person.id)
 
 		if (!myUser) return
 		myUser.person_blocks.push({
-			target: event.detail.person_view.person,
+			target: event.person_view.person,
 			person: myUser.local_user_view.person,
 		})
 		myUser = myUser
 	}
 
-	function onFollowCommunity(event: CustomEvent<CommunityResponse>) {
+	function onFollowCommunity(event: CommunityResponse) {
 		if (!myUser) return
 		myUser.follows.push({
-			community: event.detail.community_view.community,
+			community: event.community_view.community,
 			follower: myUser.local_user_view.person,
 		})
 	}
@@ -75,9 +73,9 @@
 			{personView}
 			{postView}
 			{site}
-			on:block_community={onBlockCommunity}
-			on:block_person={onBlockPerson}
-			on:follow_community={onFollowCommunity}
+			{onBlockCommunity}
+			{onBlockPerson}
+			{onFollowCommunity}
 		/>
 	{/each}
 </div>

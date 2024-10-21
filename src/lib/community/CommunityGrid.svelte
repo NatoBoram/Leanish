@@ -1,16 +1,36 @@
 <script lang="ts">
 	import { communityLink, communityUri } from '$lib/utils/index.js'
 	import { EyeSlash, NoSymbol, ShieldCheck, Trash } from '@natoboram/heroicons.svelte/24/solid'
-	import type { CommunityView, Site } from 'lemmy-js-client'
+	import type {
+		BlockCommunityResponse,
+		CommunityResponse,
+		CommunityView,
+		Site,
+	} from 'lemmy-js-client'
 	import CommunityIcon from './CommunityIcon.svelte'
 	import CommunityMeatballs from './CommunityMeatballs.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly communityViews: CommunityView[]
+		readonly jwt: string | undefined
+		readonly onBlockCommunity: (response: BlockCommunityResponse) => void
+		readonly onError?: (error: Error) => void
+		readonly onFollowCommunity: (response: CommunityResponse) => void
+		readonly onResponse?: (response: Response) => void
+		readonly site: Site
+	}
 
-	export let communityViews: CommunityView[]
-	export let jwt: string | undefined
-	export let site: Site
+	const {
+		class: className = undefined,
+		communityViews,
+		jwt,
+		onBlockCommunity,
+		onError = () => {},
+		onFollowCommunity,
+		onResponse = () => {},
+		site,
+	}: Props = $props()
 </script>
 
 <div class="w-full overflow-x-auto">
@@ -22,7 +42,7 @@
 				<th class="max-sm:hidden">Subscribers</th>
 				<th class="max-md:hidden">Posts</th>
 				<th class="max-lg:hidden">Comments</th>
-				<th class="" />
+				<th class=""></th>
 			</tr>
 		</thead>
 
@@ -102,12 +122,12 @@
 							<CommunityMeatballs
 								{communityView}
 								{jwt}
-								position="right-8 -top-4"
+								{onBlockCommunity}
+								{onError}
+								{onFollowCommunity}
+								{onResponse}
 								communityId={communityView.community.id}
-								on:block_community
-								on:error
-								on:follow_community
-								on:response
+								position="right-8 -top-4"
 							/>
 						{/if}
 					</td>

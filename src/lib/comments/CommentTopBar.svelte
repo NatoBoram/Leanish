@@ -7,6 +7,7 @@
 	import { Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import type {
+		BlockPersonResponse,
 		CommentView,
 		CommunityModeratorView,
 		MyUserInfo,
@@ -14,15 +15,31 @@
 		Site,
 	} from 'lemmy-js-client'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly commentView: CommentView
+		readonly jwt: string | undefined
+		readonly moderators: CommunityModeratorView[]
+		readonly myUser: MyUserInfo | undefined
+		readonly onBlockPerson: (response: BlockPersonResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
+		readonly personView: PersonView | undefined
+		readonly site: Site
+	}
 
-	export let commentView: CommentView
-	export let moderators: CommunityModeratorView[]
-	export let site: Site
-	export let jwt: string | undefined
-	export let myUser: MyUserInfo | undefined
-	export let personView: PersonView | undefined
+	const {
+		class: className = undefined,
+		commentView,
+		jwt,
+		moderators,
+		myUser,
+		onBlockPerson,
+		onError,
+		onResponse,
+		personView,
+		site,
+	}: Props = $props()
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
@@ -66,9 +83,9 @@
 				{jwt}
 				{myUser}
 				{personView}
-				on:block_person
-				on:error
-				on:response
+				{onBlockPerson}
+				{onError}
+				{onResponse}
 				personId={commentView.creator.id}
 			/>
 		{/if}

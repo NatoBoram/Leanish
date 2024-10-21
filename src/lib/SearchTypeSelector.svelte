@@ -2,15 +2,17 @@
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
 	import type { SearchType } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import { isSearchType } from './utils/index.js'
 
-	export let name = 'type_'
-	export let type_: SearchType
+	interface Props {
+		readonly name?: string
+		readonly type_: SearchType
+		readonly onSearch?: (search: SearchType) => void
+	}
+
+	const { name = 'type_', type_, onSearch = () => {} }: Props = $props()
 
 	let select: HTMLSelectElement
-
-	const dispatch = createEventDispatcher<{ search: SearchType }>()
 
 	let timeout: NodeJS.Timeout
 	function debounceChangeSearch(url: URL) {
@@ -26,7 +28,7 @@
 			url.searchParams.set(name, String(value))
 			await goto(url.toString(), { noScroll: true })
 			await invalidate('app:paginate')
-			dispatch('search', value)
+			onSearch(value)
 		}
 	}
 </script>
@@ -35,7 +37,7 @@
 	bind:this={select}
 	value={type_}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
-	on:change={() => {
+	onchange={() => {
 		debounceChangeSearch($page.url)
 	}}
 >

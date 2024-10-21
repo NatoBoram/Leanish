@@ -4,26 +4,35 @@
 	import { Sparkles as SparklesOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Sparkles as SparklesSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Comment, CommentResponse } from 'lemmy-js-client'
-	import { createEventDispatcher } from 'svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly comment: Comment
+		readonly jwt: string
+		readonly onDistinguish: (distinguished: CommentResponse) => void
+		readonly onError: (error: Error) => void
+		readonly onResponse: (response: Response) => void
+	}
 
-	export let jwt: string
-	export let comment: Comment
+	let {
+		class: className = undefined,
+		comment = $bindable(),
+		jwt,
+		onDistinguish,
+		onError,
+		onResponse,
+	}: Props = $props()
 
 	const client = getClientContext()
-	const dispatch = createEventDispatcher<{
-		distinguish: CommentResponse
-		error: Error
-		response: Response
-	}>()
 
-	let distinguishPending = false
+	let distinguishPending = $state(false)
 
 	async function distinguishComment() {
-		if (!jwt) return dispatch('error', new Error('You must be logged in to distinguish comments.'))
+		if (!jwt) {
+			onError(new Error('You must be logged in to distinguish comments.'))
+			return
+		}
 		if (distinguishPending) return
 
 		distinguishPending = true
@@ -33,11 +42,13 @@
 				comment_id: comment.id,
 				distinguished: !comment.distinguished,
 			})
-			.catch((e: Response) => void dispatch('response', e))
+			.catch((e: Response) => {
+				onResponse(e)
+			})
 
 		if (distinguished) {
 			comment = distinguished.comment_view.comment
-			dispatch('distinguish', distinguished)
+			onDistinguish(distinguished)
 		}
 
 		distinguishPending = false
@@ -46,7 +57,7 @@
 </script>
 
 <MeatballButton
-	on:click={distinguishComment}
+	onclick={distinguishComment}
 	class="{distinguishPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
 	disabled={distinguishPending}
 >

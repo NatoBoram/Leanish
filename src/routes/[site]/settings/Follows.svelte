@@ -4,13 +4,17 @@
 	import { communityUri } from '$lib/utils/index.js'
 	import type { CommunityFollowerView, MyUserInfo, Site } from 'lemmy-js-client'
 
-	export let follows: CommunityFollowerView[]
-	export let myUser: MyUserInfo
-	export let site: Site
+	interface Props {
+		readonly follows: CommunityFollowerView[]
+		readonly myUser: MyUserInfo
+		readonly site: Site
+	}
+
+	const { follows, myUser, site }: Props = $props()
 
 	const client = getClientContext()
 
-	let logs: string[] = []
+	let logs: string[] = $state([])
 	let following = false
 
 	async function followAll() {
@@ -73,7 +77,7 @@
 		</div>
 	{/each}
 
-	<button class="surface-container" on:click={followAll}> Follow all </button>
+	<button class="surface-container" onclick={followAll}> Follow all </button>
 
 	<div class="font-mono">
 		{#each logs as log}

@@ -6,17 +6,30 @@
 		ChevronLeft,
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
-	import { createEventDispatcher } from 'svelte'
 	import FlatButton from './buttons/FlatButton.svelte'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly length: number
+		readonly limit: number
+		readonly nav?: HTMLElement
+		readonly onFirst: () => void
+		readonly onPrevious: (destination: number) => void
+		readonly onNext: (destination: number) => void
+	}
 
-	export let length: number
-	export let limit: number
-	export let nav: HTMLElement | undefined = undefined
+	$effect(() => void nav)
 
-	const dispatch = createEventDispatcher<{ previous: number; next: number; first: 1 }>()
+	let {
+		class: className = undefined,
+		length,
+		limit,
+		nav = $bindable(),
+		onFirst,
+		onNext,
+		onPrevious,
+	}: Props = $props()
+
 	let input: HTMLInputElement
 
 	function initialIndex(url: URL): number {
@@ -50,7 +63,7 @@
 		url.searchParams.set('page', String(1))
 		await goto(url, { noScroll: true })
 
-		dispatch('first', 1)
+		onFirst()
 		await invalidate('app:paginate')
 	}
 
@@ -67,7 +80,7 @@
 		url.searchParams.set('page', String(destination))
 		await goto(url, { noScroll: true })
 
-		dispatch('next', destination)
+		onNext(destination)
 		await invalidate('app:paginate')
 	}
 
@@ -78,7 +91,7 @@
 		url.searchParams.set('page', String(destination))
 		await goto(url, { noScroll: true })
 
-		dispatch('previous', destination)
+		onPrevious(destination)
 		await invalidate('app:paginate')
 	}
 </script>
@@ -90,7 +103,7 @@
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
 		{#if canFirst($page.url)}
-			<FlatButton on:click={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
+			<FlatButton onclick={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
 				<ChevronDoubleLeft />
 				First
 			</FlatButton>
@@ -103,7 +116,7 @@
 
 		<!-- Previous -->
 		{#if hasPrevious($page.url)}
-			<FlatButton class="base-container w-32 rounded-lg" on:click={() => previous($page.url)}>
+			<FlatButton class="base-container w-32 rounded-lg" onclick={() => previous($page.url)}>
 				<ChevronLeft />
 				Previous
 			</FlatButton>
@@ -125,10 +138,10 @@
 			class="w-16 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container [-moz-appearance:textfield]"
 			id="page"
 			min={1}
-			on:change={() => {
+			onchange={() => {
 				debounceChangePage($page.url)
 			}}
-			on:keypress={e => {
+			onkeypress={e => {
 				if (e.key === 'Enter') debounceChangePage($page.url)
 			}}
 			type="number"
@@ -140,7 +153,7 @@
 	{#if length >= limit}
 		<FlatButton
 			class="base-container w-28 justify-self-end rounded-lg"
-			on:click={() => next($page.url)}
+			onclick={() => next($page.url)}
 		>
 			Next
 			<ChevronRight />

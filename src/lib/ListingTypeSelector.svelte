@@ -9,8 +9,12 @@
 		await invalidate('app:paginate')
 	}
 
-	export let type_: ListingType = 'Local'
-	export let name = 'type_'
+	interface Props {
+		readonly type_?: ListingType
+		readonly name?: string
+	}
+
+	const { type_ = 'Local', name = 'type_' }: Props = $props()
 </script>
 
 <div class="flex flex-row">
@@ -22,7 +26,7 @@
 		class="rounded-l-lg px-4 py-2 {type_ === 'Subscribed'
 			? 'hover:bg-primary/80'
 			: 'hover:bg-muted/20'}"
-		on:click={() => clickListingType($page.url, 'Subscribed')}
+		onclick={() => clickListingType($page.url, 'Subscribed')}
 	>
 		Subscribed
 	</button>
@@ -33,7 +37,7 @@
 		class:text-on-base-container={type_ !== 'Local'}
 		class:text-on-primary={type_ === 'Local'}
 		class="px-4 py-2 {type_ === 'Local' ? 'hover:bg-primary/80' : 'hover:bg-muted/20'}"
-		on:click={() => clickListingType($page.url, 'Local')}
+		onclick={() => clickListingType($page.url, 'Local')}
 	>
 		Local
 	</button>
@@ -44,7 +48,7 @@
 		class:text-on-base-container={type_ !== 'All'}
 		class:text-on-primary={type_ === 'All'}
 		class="rounded-r-lg px-4 py-2 {type_ === 'All' ? 'hover:bg-primary/80' : 'hover:bg-muted/20'}"
-		on:click={() => clickListingType($page.url, 'All')}
+		onclick={() => clickListingType($page.url, 'All')}
 	>
 		All
 	</button>
