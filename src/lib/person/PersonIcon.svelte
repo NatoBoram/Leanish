@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { Person } from 'lemmy-js-client'
 
-	let className: string | undefined = 'w-6 h-6'
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly person: Person
+	}
 
-	export let person: Person
+	let { class: className = 'w-6 h-6', person }: Props = $props()
 
-	let error: (Event & { currentTarget: Element & EventTarget }) | undefined
+	let error: (Event & { currentTarget: Element & EventTarget }) | undefined = $state()
 </script>
 
 {#if person.avatar && !error}
@@ -14,7 +16,7 @@
 		src={person.avatar}
 		alt="avatar"
 		class="object-cover {className}"
-		on:error={e => (error = e)}
+		onerror={e => (error = e)}
 	/>
 {:else}
 	<div class="bg-muted {className}"></div>

@@ -4,7 +4,11 @@
 	import type { PageData } from './$types.js'
 	import Follows from './Follows.svelte'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
+
+	let { data }: Props = $props()
 
 	function exportUser() {
 		if (!data.my_user) return
@@ -23,7 +27,7 @@
 		return JSON.parse(text) as MyUserInfo
 	}
 
-	let importUserFiles: FileList | undefined
+	let importUserFiles: FileList | undefined = $state()
 </script>
 
 <svelte:head>
@@ -43,7 +47,7 @@
 				<button
 					id="export-user"
 					class="surface-container justify-self-start rounded px-2 py-1 sm:col-start-2"
-					on:click={exportUser}
+					onclick={exportUser}
 				>
 					Export user
 				</button>

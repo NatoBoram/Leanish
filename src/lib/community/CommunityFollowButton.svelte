@@ -2,11 +2,13 @@
 	import { Check } from '@natoboram/heroicons.svelte/20/solid'
 	import type { CommunityView } from 'lemmy-js-client'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly communityView: Promise<CommunityView>
+		readonly followCommunity: (follow: boolean) => Promise<void>
+	}
 
-	export let communityView: Promise<CommunityView>
-	export let followCommunity: (follow: boolean) => Promise<void>
+	let { class: className = undefined, communityView, followCommunity }: Props = $props()
 </script>
 
 {#await communityView}
@@ -16,7 +18,7 @@
 		<button
 			class="rounded-full border-surface-container bg-surface-container px-4 py-2
 			text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
-			on:click={() => followCommunity(true)}
+			onclick={() => followCommunity(true)}
 		>
 			Join
 		</button>
@@ -24,7 +26,7 @@
 		<button
 			class="rounded-full border-surface-container bg-surface-container px-4 py-2
 			text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
-			on:click={() => followCommunity(false)}
+			onclick={() => followCommunity(false)}
 		>
 			Pending
 		</button>
@@ -33,7 +35,7 @@
 			class="flex flex-row items-center justify-center gap-2 rounded-full border-surface-container
 			bg-surface-container px-4 py-2 text-on-surface-container hover:bg-surface
 			hover:text-on-surface {className}"
-			on:click={() => followCommunity(false)}
+			onclick={() => followCommunity(false)}
 		>
 			Subscribed
 			<Check class="h-5 w-5 text-success" />
