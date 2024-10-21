@@ -8,7 +8,7 @@
 		readonly onReport: (reason: string) => void
 	}
 
-	const { disabled = false, onCancel, onReport, ...props }: Props = $props()
+	const { disabled = false, onCancel, onReport, ...attributes }: Props = $props() as Props
 
 	const placeholders = [
 		'Describe the violation',
@@ -40,7 +40,7 @@
 	}
 </script>
 
-<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit} {...props}>
+<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit} {...attributes}>
 	<!-- Input -->
 	<textarea
 		{disabled}

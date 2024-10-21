@@ -44,7 +44,7 @@
 		onRestore,
 		onSave,
 		position = 'left-8 -top-4',
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	let opened = $state(false)
 

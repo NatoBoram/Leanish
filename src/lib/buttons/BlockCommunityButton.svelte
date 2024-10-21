@@ -22,7 +22,7 @@
 		onBlockCommunity,
 		onError,
 		onResponse,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	async function blockCommunity(block: boolean, community_id: CommunityId) {
 		if (!jwt) {

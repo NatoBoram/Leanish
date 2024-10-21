@@ -8,7 +8,7 @@
 		readonly content: string
 		readonly disabled: boolean
 		readonly myUser: MyUserInfo
-		readonly languageId?: any
+		readonly languageId?: LanguageId
 		readonly onSubmit: (content: string, languageId: LanguageId) => void
 		readonly onCancel: () => void
 	}
@@ -21,7 +21,7 @@
 		languageId = $bindable(myUser.discussion_languages[0] ?? 0),
 		onSubmit,
 		onCancel,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	const myLanguages = $derived(
 		myUser.discussion_languages.flatMap(id => allLanguages.find(l => l.id === id) ?? []),

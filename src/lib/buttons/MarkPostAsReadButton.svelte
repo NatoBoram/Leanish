@@ -14,14 +14,14 @@
 		readonly postView: PostView
 	}
 
-	let {
+	const {
 		class: className = undefined,
 		jwt,
 		onError,
 		onRead,
 		onResponse,
 		postView = $bindable(),
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	const client = getClientContext()
 

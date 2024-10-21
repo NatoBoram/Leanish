@@ -51,7 +51,7 @@
 		onPurge,
 		personView,
 		site,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	const client = getClientContext()
 

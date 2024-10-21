@@ -8,7 +8,7 @@
 		readonly onRemove: (reason: string) => void
 	}
 
-	const { disabled = false, onCancel, onRemove, ...props }: Props = $props()
+	const { disabled = false, onCancel, onRemove, ...attributes }: Props = $props() as Props
 
 	const placeholders = ['Reason for removing this comment...', 'Why are you removing this comment?']
 	const placeholder = placeholders[Math.floor(Math.random() * placeholders.length)]
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit} {...props}>
+<form class="flex flex-col justify-start gap-4" onsubmit={onSubmit} {...attributes}>
 	<!-- Input -->
 	<textarea
 		{disabled}

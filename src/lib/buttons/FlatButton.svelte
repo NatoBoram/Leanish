@@ -7,9 +7,12 @@
 		readonly class?: string | undefined
 	}
 
-	const { children, class: className = undefined, ...props }: Props = $props()
+	const { children, class: className = undefined, ...attributes }: Props = $props() as Props
 </script>
 
-<button class="flex flex-row items-center justify-center gap-2 px-4 py-2 {className}" {...props}>
+<button
+	{...attributes}
+	class="flex flex-row items-center justify-center gap-2 px-4 py-2 {className}"
+>
 	{@render children?.()}
 </button>

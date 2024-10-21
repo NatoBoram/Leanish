@@ -24,7 +24,7 @@
 		onBlockPerson,
 		onError,
 		onResponse,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	let request: Promise<BlockPersonResponse> = $state(
 		Promise.resolve({

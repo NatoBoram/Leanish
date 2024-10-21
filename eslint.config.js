@@ -67,7 +67,11 @@ export default tseslint.config(
 			parser: svelteParser,
 			parserOptions: { project: './tsconfig.eslint.json', parser: tseslint.parser },
 		},
-		rules: { 'svelte/no-at-html-tags': 'off' },
+		rules: {
+			'@typescript-eslint/no-empty-function': 'off', // This is how you do optional events in SvelteKit
+			'prefer-const': 'off', // This rule is broken when using `$props()`.
+			'svelte/no-at-html-tags': 'off',
+		},
 	},
 
 	{

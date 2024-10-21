@@ -26,7 +26,7 @@
 		onFirst,
 		onNext,
 		onPrevious,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	let input: HTMLInputElement
 

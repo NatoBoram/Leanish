@@ -19,7 +19,7 @@
 		onDefault,
 		onDelete,
 		onHide,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	async function handleDefault() {
 		const newHomeSite = { ...homeSite, default: !homeSite.default }

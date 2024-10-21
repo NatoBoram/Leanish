@@ -47,7 +47,7 @@
 		onSave,
 		position = 'left-8 -top-4',
 		postView,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	let opened = $state(false)
 

@@ -39,7 +39,7 @@
 		onResponse,
 		personView,
 		site,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)

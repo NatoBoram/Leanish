@@ -7,7 +7,7 @@
 		readonly onQ?: (q: string) => void
 	}
 
-	let { q = $bindable(), onQ = () => {} }: Props = $props()
+	let { q = $bindable(), onQ = () => {} }: Props = $props() as Props
 
 	let input: HTMLInputElement
 	let timeout: NodeJS.Timeout

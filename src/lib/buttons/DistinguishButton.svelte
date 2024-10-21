@@ -22,7 +22,7 @@
 		onDistinguish,
 		onError,
 		onResponse,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	const client = getClientContext()
 

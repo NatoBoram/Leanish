@@ -7,7 +7,7 @@
 		readonly message: string
 	}
 
-	const { class: className = '', title, message }: Props = $props()
+	const { class: className = '', title, message }: Props = $props() as Props
 </script>
 
 <div class="w-full p-4 {className}">

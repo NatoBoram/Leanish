@@ -7,7 +7,7 @@
 		readonly onLimit?: (limit: number) => void
 	}
 
-	const { limit, onLimit = () => {} }: Props = $props()
+	const { limit, onLimit = () => {} }: Props = $props() as Props
 
 	let input: HTMLInputElement
 

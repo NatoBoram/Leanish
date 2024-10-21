@@ -22,7 +22,7 @@
 		onError,
 		onResponse,
 		post = $bindable(),
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	const client = getClientContext()
 

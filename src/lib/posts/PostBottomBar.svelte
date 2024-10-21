@@ -44,7 +44,7 @@
 		onSave,
 		postView = $bindable(),
 		site,
-	}: Props = $props()
+	}: Props = $props() as Props
 
 	const client = getClientContext()
 

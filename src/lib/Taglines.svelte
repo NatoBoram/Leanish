@@ -9,7 +9,7 @@
 		readonly taglines: Tagline[]
 	}
 
-	const { class: className = undefined, taglines }: Props = $props()
+	const { class: className = undefined, taglines }: Props = $props() as Props
 
 	// Start with a random tagline
 	let index = $state(Math.floor(Math.random() * taglines.length))
