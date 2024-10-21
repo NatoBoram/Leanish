@@ -14,7 +14,7 @@
 		readonly onResponse?: (response: Response) => void
 	}
 
-	let {
+	const {
 		class: className = undefined,
 		jwt,
 		myUser,

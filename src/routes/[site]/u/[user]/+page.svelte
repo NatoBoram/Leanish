@@ -11,7 +11,7 @@
 		readonly data: PageData
 	}
 
-	let { data }: Props = $props()
+	const { data }: Props = $props()
 
 	function onNext() {
 		const first = data.posts[0]

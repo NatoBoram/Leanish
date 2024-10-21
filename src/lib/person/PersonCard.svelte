@@ -17,7 +17,7 @@
 		readonly site: Site
 	}
 
-	let {
+	const {
 		bannerClass = undefined,
 		class: className = undefined,
 		jwt,

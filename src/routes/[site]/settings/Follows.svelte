@@ -10,7 +10,7 @@
 		readonly site: Site
 	}
 
-	let { follows, myUser, site }: Props = $props()
+	const { follows, myUser, site }: Props = $props()
 
 	const client = getClientContext()
 

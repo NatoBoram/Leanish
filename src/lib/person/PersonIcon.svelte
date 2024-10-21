@@ -6,7 +6,7 @@
 		readonly person: Person
 	}
 
-	let { class: className = 'w-6 h-6', person }: Props = $props()
+	const { class: className = 'w-6 h-6', person }: Props = $props()
 
 	let error: (Event & { currentTarget: Element & EventTarget }) | undefined = $state()
 </script>

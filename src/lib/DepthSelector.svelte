@@ -6,7 +6,7 @@
 		readonly maxDepth: number
 	}
 
-	let { maxDepth }: Props = $props()
+	const { maxDepth }: Props = $props()
 
 	let input: HTMLInputElement
 

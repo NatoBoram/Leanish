@@ -13,7 +13,7 @@
 		readonly site: Site
 	}
 
-	let {
+	const {
 		class: className = undefined,
 		jwt,
 		myUser,

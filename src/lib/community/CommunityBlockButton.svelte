@@ -8,7 +8,7 @@
 		readonly blockCommunity: (block: boolean) => Promise<void>
 	}
 
-	let { class: className = undefined, community, blockCommunity }: Props = $props()
+	const { class: className = undefined, community, blockCommunity }: Props = $props()
 </script>
 
 {#await community}

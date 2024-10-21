@@ -8,7 +8,7 @@
 		readonly data: PageData
 	}
 
-	let { data }: Props = $props()
+	const { data }: Props = $props()
 
 	function exportUser() {
 		if (!data.my_user) return
