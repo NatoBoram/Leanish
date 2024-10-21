@@ -10,13 +10,15 @@
 	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.js'
 	import { personLink, personUri, siteLink, unsetJwt } from './utils/index.js'
 
-	let className: string | undefined = undefined
-	export { className as class }
+	interface Props {
+		readonly class?: string | undefined
+		readonly myUser: MyUserInfo
+		readonly site: Site
+	}
 
-	export let myUser: MyUserInfo
-	export let site: Site
+	let { class: className = undefined, myUser, site }: Props = $props()
 
-	let opened = false
+	let opened = $state(false)
 	function onClick() {
 		opened = !opened
 	}
@@ -35,7 +37,7 @@
 </script>
 
 <div class="relative {className}">
-	<button on:click={onClick} class="flex flex-row items-center gap-4">
+	<button onclick={onClick} class="flex flex-row items-center gap-4">
 		<PersonIcon person={myUser.local_user_view.person} class="h-8 w-8" />
 		{personUri(myUser.local_user_view.person)}
 	</button>
@@ -48,7 +50,7 @@
 			<a
 				href={personLink(site, myUser.local_user_view.person)}
 				class="hover:surface rounded-t"
-				on:click={onClick}
+				onclick={onClick}
 			>
 				<FlatButton class="rounded-none p-4">
 					<User />
@@ -56,21 +58,21 @@
 				</FlatButton>
 			</a>
 
-			<a href="{siteLink(site)}/settings" class="hover:surface" on:click={onClick}>
+			<a href="{siteLink(site)}/settings" class="hover:surface" onclick={onClick}>
 				<FlatButton class="p-4">
 					<Cog8Tooth />
 					Settings
 				</FlatButton>
 			</a>
 
-			<button class="hover:surface" on:click={logout}>
+			<button class="hover:surface" onclick={logout}>
 				<FlatButton>
 					<ArrowRightOnRectangle />
 					Logout
 				</FlatButton>
 			</button>
 
-			<button class="hover:surface rounded-b" on:click={resetDefault}>
+			<button class="hover:surface rounded-b" onclick={resetDefault}>
 				<FlatButton>
 					<ArrowRightOnRectangle />
 					Change instance
