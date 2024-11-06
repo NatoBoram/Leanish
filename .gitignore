@@ -17,8 +17,8 @@ vite.config.ts.timestamp-*
 # Example data
 /examples/my_user.json
 
-# Bun
-bun.lockb
+# pnpm
+pnpm-lock.yaml
 
 # pnpm pack
 natoboram-leanish-*.tgz
