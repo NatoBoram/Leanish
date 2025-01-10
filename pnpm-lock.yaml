@@ -44,16 +44,16 @@ importers:
         version: 3.4.1(prettier@3.3.3)
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
-        version: 3.3.1(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))
+        version: 3.3.1(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))
       '@sveltejs/adapter-node':
         specifier: ^5.2.11
-        version: 5.2.11(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))
+        version: 5.2.11(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))
       '@sveltejs/adapter-static':
         specifier: ^3.0.8
-        version: 3.0.8(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))
+        version: 3.0.8(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))
       '@sveltejs/kit':
-        specifier: ^2.7.4
-        version: 2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
+        specifier: ^2.8.3
+        version: 2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
       '@sveltejs/package':
         specifier: ^2.3.7
         version: 2.3.7(svelte@5.1.9)(typescript@5.6.3)
@@ -814,8 +814,8 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
 
-  '@sveltejs/kit@2.7.4':
-    resolution: {integrity: sha512-3DOPQYck3CpAmPgGq/HuhJMCCz8GF0ukbompPJQ2zShoSzrEKW9iG/l0nZmaxMvuOO3NNLmZj8F3W9uzqmkNdw==}
+  '@sveltejs/kit@2.8.3':
+    resolution: {integrity: sha512-DVBVwugfzzn0SxKA+eAmKqcZ7aHZROCHxH7/pyrOi+HLtQ721eEsctGb9MkhEuqj6q/9S/OFYdn37vdxzFPdvw==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -1390,10 +1390,6 @@ packages:
 
   cross-fetch@3.1.8:
     resolution: {integrity: sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==}
-
-  cross-spawn@7.0.3:
-    resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
-    engines: {node: '>= 8'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -3854,7 +3850,7 @@ snapshots:
       '@ionic/utils-process': 2.1.10
       '@ionic/utils-stream': 3.1.5
       '@ionic/utils-terminal': 2.3.3
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       debug: 4.3.7
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -3867,7 +3863,7 @@ snapshots:
       '@ionic/utils-process': 2.1.11
       '@ionic/utils-stream': 3.1.6
       '@ionic/utils-terminal': 2.3.4
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       debug: 4.3.4
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -4130,24 +4126,24 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.29.1':
     optional: true
 
-  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))':
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))':
     dependencies:
-      '@sveltejs/kit': 2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
+      '@sveltejs/kit': 2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
       import-meta-resolve: 4.1.0
 
-  '@sveltejs/adapter-node@5.2.11(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))':
+  '@sveltejs/adapter-node@5.2.11(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))':
     dependencies:
       '@rollup/plugin-commonjs': 28.0.2(rollup@4.29.1)
       '@rollup/plugin-json': 6.1.0(rollup@4.29.1)
       '@rollup/plugin-node-resolve': 16.0.0(rollup@4.29.1)
-      '@sveltejs/kit': 2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
+      '@sveltejs/kit': 2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
       rollup: 4.29.1
 
-  '@sveltejs/adapter-static@3.0.8(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))':
+  '@sveltejs/adapter-static@3.0.8(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))':
     dependencies:
-      '@sveltejs/kit': 2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
+      '@sveltejs/kit': 2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
 
-  '@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))':
+  '@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 4.0.0(svelte@5.1.9)(vite@5.4.9(@types/node@22.7.7))
       '@types/cookie': 0.6.0
@@ -4156,7 +4152,7 @@ snapshots:
       esm-env: 1.1.4
       import-meta-resolve: 4.1.0
       kleur: 4.1.5
-      magic-string: 0.30.12
+      magic-string: 0.30.17
       mrmime: 2.0.0
       sade: 1.8.1
       set-cookie-parser: 2.7.1
@@ -4222,7 +4218,7 @@ snapshots:
       '@xmldom/xmldom': 0.7.13
       conventional-changelog: 3.1.25
       cross-fetch: 3.1.8
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       diff: 5.2.0
       env-paths: 3.0.0
       gradle-to-js: 2.0.1
@@ -4832,12 +4828,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  cross-spawn@7.0.3:
-    dependencies:
-      path-key: 3.1.1
-      shebang-command: 2.0.0
-      which: 2.0.2
-
   cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
@@ -5075,7 +5065,7 @@ snapshots:
       '@types/json-schema': 7.0.15
       ajv: 6.12.6
       chalk: 4.1.2
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       debug: 4.3.7
       escape-string-regexp: 4.0.0
       eslint-scope: 8.1.0
