@@ -14,6 +14,7 @@
 		/* Modules */
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
+		"rewriteRelativeImportExtensions": true,
 		"resolvePackageJsonExports": true,
 		"resolvePackageJsonImports": true,
 		"resolveJsonModule": true,
@@ -28,7 +29,8 @@
 		/* Interop Constraints */
 		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
-		// "isolatedDeclarations": true,
+		"isolatedDeclarations": true,
+		"erasableSyntaxOnly": true,
 		"forceConsistentCasingInFileNames": true,
 
 		/* Type Checking */
