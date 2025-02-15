@@ -55,8 +55,8 @@ importers:
         specifier: ^2.8.3
         version: 2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.12(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.12(@types/node@22.7.7))
       '@sveltejs/package':
-        specifier: ^2.3.9
-        version: 2.3.9(svelte@5.1.9)(typescript@5.8.1-rc)
+        specifier: ^2.3.10
+        version: 2.3.10(svelte@5.1.9)(typescript@5.8.1-rc)
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.0
         version: 4.0.0(svelte@5.1.9)(vite@5.4.12(@types/node@22.7.7))
@@ -100,8 +100,8 @@ importers:
         specifier: ^11.10.0
         version: 11.10.0
       lemmy-js-client:
-        specifier: 0.19.6
-        version: 0.19.6
+        specifier: 0.19.9
+        version: 0.19.9
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
@@ -822,8 +822,8 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       vite: ^5.0.3
 
-  '@sveltejs/package@2.3.9':
-    resolution: {integrity: sha512-POIiQknGmcGCcM7ZbFG7cjsJ51GndFOY3PTXa8XFzZ+C/GJfx/JufvVXiWcXVsteP74FeXSSgcC+b5sIayXXKw==}
+  '@sveltejs/package@2.3.10':
+    resolution: {integrity: sha512-A4fQacgjJ7C/7oSmxR61/TdB14u6ecyMZ8V9JCR5Lol0bLj/PdJPU4uFodFBsKzO3iFiJMpNTgZZ+zYsYZNpUg==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     peerDependencies:
@@ -2113,8 +2113,8 @@ packages:
   known-css-properties@0.34.0:
     resolution: {integrity: sha512-tBECoUqNFbyAY4RrbqsBQqDFpGXAEbdD5QKr8kACx3+rnArmuuR22nKQWKazvp07N9yjTyDZaw/20UIH8tL9DQ==}
 
-  lemmy-js-client@0.19.6:
-    resolution: {integrity: sha512-5bs9NfjKcXVFJE3goHvu0Uo3u6+CMyQsccT2XCJyp0JExtNZM3F9oBl3t1/wiOMMGyNKiDJ+mCC9Y9gXwa1/iw==}
+  lemmy-js-client@0.19.9:
+    resolution: {integrity: sha512-MjeKtmtO8M9wHiKtm60LpZVd7ieI+4yctwwRhZTaxv6yUDI38bhltq8jFYaMDNQ3PKVHUhn33oDuGVnvV1sxKw==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -2758,8 +2758,8 @@ packages:
     resolution: {integrity: sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==}
     engines: {node: '>= 14.16.0'}
 
-  readdirp@4.1.1:
-    resolution: {integrity: sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==}
+  readdirp@4.1.2:
+    resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
 
   redent@3.0.0:
@@ -2850,8 +2850,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  semver@7.7.0:
-    resolution: {integrity: sha512-DrfFnPzblFmNrIZzg5RzHegbiRWg7KMR7btwi2yjHwx06zsUbO5g613sVwEV7FTwmzJu+Io0lJe2GJ3LxqpvBQ==}
+  semver@7.7.1:
+    resolution: {integrity: sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -3566,7 +3566,7 @@ snapshots:
       plist: 3.1.0
       prompts: 2.4.2
       rimraf: 4.4.1
-      semver: 7.7.0
+      semver: 7.7.1
       tar: 6.2.1
       tslib: 2.8.1
       xml2js: 0.5.0
@@ -4161,12 +4161,12 @@ snapshots:
       tiny-glob: 0.2.9
       vite: 5.4.12(@types/node@22.7.7)
 
-  '@sveltejs/package@2.3.9(svelte@5.1.9)(typescript@5.8.1-rc)':
+  '@sveltejs/package@2.3.10(svelte@5.1.9)(typescript@5.8.1-rc)':
     dependencies:
       chokidar: 4.0.3
       kleur: 4.1.5
       sade: 1.8.1
-      semver: 7.7.0
+      semver: 7.7.1
       svelte: 5.1.9
       svelte2tsx: 0.7.34(svelte@5.1.9)(typescript@5.8.1-rc)
     transitivePeerDependencies:
@@ -4357,7 +4357,7 @@ snapshots:
       fast-glob: 3.3.2
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.7.0
+      semver: 7.7.1
       ts-api-utils: 1.3.0(typescript@5.8.1-rc)
     optionalDependencies:
       typescript: 5.8.1-rc
@@ -4659,7 +4659,7 @@ snapshots:
 
   chokidar@4.0.3:
     dependencies:
-      readdirp: 4.1.1
+      readdirp: 4.1.2
 
   chownr@1.1.4: {}
 
@@ -5514,7 +5514,7 @@ snapshots:
 
   known-css-properties@0.34.0: {}
 
-  lemmy-js-client@0.19.6: {}
+  lemmy-js-client@0.19.9: {}
 
   levn@0.4.1:
     dependencies:
@@ -5712,7 +5712,7 @@ snapshots:
 
   node-abi@3.71.0:
     dependencies:
-      semver: 7.7.0
+      semver: 7.7.1
 
   node-addon-api@6.1.0: {}
 
@@ -5751,7 +5751,7 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.1
-      semver: 7.7.0
+      semver: 7.7.1
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -6090,7 +6090,7 @@ snapshots:
 
   readdirp@4.0.2: {}
 
-  readdirp@4.1.1: {}
+  readdirp@4.1.2: {}
 
   redent@3.0.0:
     dependencies:
@@ -6201,7 +6201,7 @@ snapshots:
 
   semver@7.6.3: {}
 
-  semver@7.7.0: {}
+  semver@7.7.1: {}
 
   set-blocking@2.0.0: {}
 
@@ -6213,7 +6213,7 @@ snapshots:
       detect-libc: 2.0.3
       node-addon-api: 6.1.0
       prebuild-install: 7.1.2
-      semver: 7.7.0
+      semver: 7.7.1
       simple-get: 4.0.1
       tar-fs: 3.0.6
       tunnel-agent: 0.6.0
