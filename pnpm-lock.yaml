@@ -41,7 +41,7 @@ importers:
         version: 1.48.2
       '@prettier/plugin-xml':
         specifier: ^3.4.1
-        version: 3.4.1(prettier@3.3.3)
+        version: 3.4.1(prettier@3.5.1)
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
         version: 3.3.1(@sveltejs/kit@2.8.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.12(@types/node@22.7.7)))(svelte@5.1.9)(vite@5.4.12(@types/node@22.7.7)))
@@ -68,7 +68,7 @@ importers:
         version: 0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.7.7)(typescript@5.8.1-rc)))
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^5.2.2
-        version: 5.2.2(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3)(svelte@5.1.9)
+        version: 5.2.2(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1)(svelte@5.1.9)
       '@ts-stack/markdown':
         specifier: ^1.5.0
         version: 1.5.0
@@ -106,14 +106,14 @@ importers:
         specifier: ^8.4.49
         version: 8.4.49
       prettier:
-        specifier: ^3.3.3
-        version: 3.3.3
+        specifier: ^3.5.1
+        version: 3.5.1
       prettier-plugin-svelte:
-        specifier: ^3.2.7
-        version: 3.2.7(prettier@3.3.3)(svelte@5.1.9)
+        specifier: ^3.3.3
+        version: 3.3.3(prettier@3.5.1)(svelte@5.1.9)
       prettier-plugin-tailwindcss:
         specifier: ^0.6.11
-        version: 0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3)(svelte@5.1.9))(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3)
+        version: 0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1)(svelte@5.1.9))(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1)
       publint:
         specifier: ^0.2.12
         version: 0.2.12
@@ -2609,8 +2609,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-svelte@3.2.7:
-    resolution: {integrity: sha512-/Dswx/ea0lV34If1eDcG3nulQ63YNr5KPDfMsjbdtpSWOxKKJ7nAc2qlVuYwEvCr4raIuredNoR7K4JCkmTGaQ==}
+  prettier-plugin-svelte@3.3.3:
+    resolution: {integrity: sha512-yViK9zqQ+H2qZD1w/bH7W8i+bVfKrD8GIFjkFe4Thl6kCT9SlAsXVNmt3jCvQOCsnOhcvYgsoVlRV/Eu6x5nNw==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
@@ -2675,8 +2675,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.3.3:
-    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+  prettier@3.5.1:
+    resolution: {integrity: sha512-hPpFQvHwL3Qv5AdRvBFMhnKo4tYxp0ReXiPn2bxkiohEX6mBeBwEpBSQTkD458RaaDKQMYSp4hX4UtfUTA5wDw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3969,12 +3969,12 @@ snapshots:
   '@prettier/plugin-xml@2.2.0':
     dependencies:
       '@xml-tools/parser': 1.0.11
-      prettier: 3.3.3
+      prettier: 3.5.1
 
-  '@prettier/plugin-xml@3.4.1(prettier@3.3.3)':
+  '@prettier/plugin-xml@3.4.1(prettier@3.5.1)':
     dependencies:
       '@xml-tools/parser': 1.0.11
-      prettier: 3.3.3
+      prettier: 3.5.1
 
   '@rollup/plugin-commonjs@28.0.2(rollup@4.32.1)':
     dependencies:
@@ -4246,7 +4246,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3)(svelte@5.1.9)':
+  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1)(svelte@5.1.9)':
     dependencies:
       '@babel/generator': 7.26.9
       '@babel/parser': 7.26.9
@@ -4254,9 +4254,9 @@ snapshots:
       '@babel/types': 7.26.9
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.3.3
+      prettier: 3.5.1
     optionalDependencies:
-      prettier-plugin-svelte: 3.2.7(prettier@3.3.3)(svelte@5.1.9)
+      prettier-plugin-svelte: 3.3.3(prettier@3.5.1)(svelte@5.1.9)
       svelte: 5.1.9
     transitivePeerDependencies:
       - supports-color
@@ -5987,21 +5987,21 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9):
+  prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9):
     dependencies:
-      prettier: 3.3.3
+      prettier: 3.5.1
       svelte: 5.1.9
 
-  prettier-plugin-tailwindcss@0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3)(svelte@5.1.9))(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3):
+  prettier-plugin-tailwindcss@0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1)(svelte@5.1.9))(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1):
     dependencies:
-      prettier: 3.3.3
+      prettier: 3.5.1
     optionalDependencies:
-      '@trivago/prettier-plugin-sort-imports': 5.2.2(prettier-plugin-svelte@3.2.7(prettier@3.3.3)(svelte@5.1.9))(prettier@3.3.3)(svelte@5.1.9)
-      prettier-plugin-svelte: 3.2.7(prettier@3.3.3)(svelte@5.1.9)
+      '@trivago/prettier-plugin-sort-imports': 5.2.2(prettier-plugin-svelte@3.3.3(prettier@3.5.1)(svelte@5.1.9))(prettier@3.5.1)(svelte@5.1.9)
+      prettier-plugin-svelte: 3.3.3(prettier@3.5.1)(svelte@5.1.9)
 
   prettier@2.8.8: {}
 
-  prettier@3.3.3: {}
+  prettier@3.5.1: {}
 
   process-nextick-args@2.0.1: {}
 
