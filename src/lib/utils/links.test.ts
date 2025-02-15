@@ -9,7 +9,7 @@ import {
 	postLink,
 	siteHostname,
 	siteLink,
-} from './links.js'
+} from './links.ts'
 
 type TestComment = Pick<Comment, 'id'>
 type TestCommunity = Pick<Community, 'actor_id' | 'name'>
