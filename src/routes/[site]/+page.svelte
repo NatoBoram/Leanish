@@ -2,11 +2,11 @@
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
+	import Posts from '$lib/posts/Posts.svelte'
 	import SiteSidebar from '$lib/SiteSidebar.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import Taglines from '$lib/Taglines.svelte'
-	import Posts from '$lib/posts/Posts.svelte'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	export let data: PageData
 

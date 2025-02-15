@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { sveltekit } from '@sveltejs/kit/vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
-import { loadEnv } from 'vite'
+import { loadEnv, type UserConfig } from 'vite'
 import { defineConfig } from 'vitest/config'
-import pkg from './package.json'
-import { toBuildEnv } from './src/lib/utils/vite.js'
+import pkg from './package.json' with { type: 'json' }
+import { toBuildEnv } from './src/lib/utils/vite.ts'
 
 const env = toBuildEnv(loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_'))
 
 const https = process.argv.includes('--https')
 
-export default defineConfig({
+const config: UserConfig = defineConfig({
 	// @ts-expect-error Type 'viteBasicSslPlugin' has no call signatures.
 	plugins: [...(https ? [basicSsl()] : []), sveltekit()],
 	test: {
@@ -26,3 +26,5 @@ export default defineConfig({
 		bzxhkm3f325gyo00sb2xdioh5: `"${pkg.version}"`,
 	},
 })
+
+export default config

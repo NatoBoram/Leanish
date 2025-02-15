@@ -1,14 +1,14 @@
 <script lang="ts">
-	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { Clipboard } from '@capacitor/clipboard'
+	import { DocumentDuplicate, Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
+	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
+	import type { CommentResponse, CommentView, MyUserInfo } from 'lemmy-js-client'
 	import DeleteCommentButton from '$lib/buttons/DeleteCommentButton.svelte'
 	import DistinguishButton from '$lib/buttons/DistinguishButton.svelte'
 	import MeatballButton from '$lib/buttons/MeatballButton.svelte'
 	import RemoveCommentButton from '$lib/buttons/RemoveCommentButton.svelte'
 	import SaveCommentButton from '$lib/buttons/SaveCommentButton.svelte'
-	import { Clipboard } from '@capacitor/clipboard'
-	import { DocumentDuplicate, Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { CommentResponse, CommentView, MyUserInfo } from 'lemmy-js-client'
+	import ClickOutside from '$lib/ClickOutside.svelte'
 
 	interface Props {
 		readonly class?: string | undefined

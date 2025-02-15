@@ -8,4 +8,4 @@ export const audioTypes = {
 	'audio/ogg': ['.oga', '.ogg'],
 	'audio/wav': ['.wav'],
 	'audio/webm': ['.webm'],
-}
+} as const

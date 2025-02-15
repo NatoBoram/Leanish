@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit'
 import { LemmyHttp, type Search, type SearchResponse, type SearchType } from 'lemmy-js-client'
 import { formSearch, headers, isSearchType, serverFetch } from '$lib/utils/index.js'
-import type { PageLoad } from './$types.js'
+import type { PageLoad } from './$types.ts'
 
-export const load = (async ({ depends, fetch, params, parent, url }) => {
+export const load: PageLoad = (async ({ depends, fetch, params, parent, url }) => {
 	const _type_ = url.searchParams.get('type_')
 	const type_: SearchType = isSearchType(_type_) ? _type_ : 'All'
 

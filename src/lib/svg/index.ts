@@ -1,1 +1,1 @@
-export * from './phosphor/index.js'
+export * from './phosphor/index.ts'

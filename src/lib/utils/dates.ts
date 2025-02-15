@@ -1,4 +1,4 @@
-import { Duration, durationUnit } from './duration.js'
+import { Duration, durationUnit } from './duration.ts'
 
 /**
  * @param duration the positive duration to convert to a human-readable string. Negative durations
@@ -7,7 +7,7 @@ import { Duration, durationUnit } from './duration.js'
  * @returns a human-readable string representation of how much time ago was this duration.
  * @example "2 hours ago"
  */
-export function durationAgo(duration: Duration) {
+export function durationAgo(duration: Duration): string {
 	duration = duration.to(durationUnit.millisecond)
 	if (duration.value < 0) return 'in the future'
 
@@ -92,7 +92,7 @@ export function durationAgo(duration: Duration) {
 	return `${eons} ${eons === 1 ? 'eon' : 'eons'} ago`
 }
 
-export function fullTimeAgo(date: Date) {
+export function fullTimeAgo(date: Date): string {
 	const now = new Date()
 	const milliseconds = now.getTime() - date.getTime()
 
@@ -224,12 +224,12 @@ export function fullTimeAgo(date: Date) {
 	return result.join(' ')
 }
 
-export function lemmyDate(date: string) {
+export function lemmyDate(date: string): Date {
 	if (date.endsWith('Z')) return new Date(date)
 	return new Date(`${date}Z`)
 }
 
-export function timeAgo(date: Date) {
+export function timeAgo(date: Date): string {
 	const now = new Date()
 	const milliseconds = now.getTime() - date.getTime()
 	const duration = new Duration(milliseconds, durationUnit.millisecond)

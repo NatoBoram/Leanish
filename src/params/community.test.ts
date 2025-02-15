@@ -1,5 +1,5 @@
 import { describe, test } from 'vitest'
-import { match } from './community.js'
+import { match } from './community.ts'
 
 describe.concurrent('community', () => {
 	test('match', ({ expect }) => {

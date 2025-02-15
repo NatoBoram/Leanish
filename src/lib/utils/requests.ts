@@ -1,7 +1,7 @@
-import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
+import { PACKAGE_NAME, PACKAGE_VERSION } from './env.ts'
 
 /** Add the `auth` property to make it compatible with old Lemmy versions. */
-export function addAuthBody(init: RequestInit | undefined, jwt: string) {
+export function addAuthBody(init: RequestInit | undefined, jwt: string): RequestInit | undefined {
 	if (!init?.body) return init
 
 	const body: unknown = JSON.parse(String(init.body))
@@ -11,7 +11,7 @@ export function addAuthBody(init: RequestInit | undefined, jwt: string) {
 }
 
 /** Add the `auth` parameter to make it compatible with old Lemmy versions. */
-export function addAuthParam(input: RequestInfo | URL, jwt: string) {
+export function addAuthParam(input: RequestInfo | URL, jwt: string): string {
 	if (input instanceof URL) {
 		input.searchParams.set('auth', jwt)
 		return input.toString()
@@ -42,12 +42,25 @@ export function clientFetch(jwt: string | undefined): typeof globalThis.fetch {
 	}
 }
 
+interface HeadersBypass {
+	readonly Authorization?: string
+	readonly Host: string
+	readonly Origin: string
+	readonly Referer: string
+}
+
+interface HeadersFriendly {
+	/** @see https://github.com/LemmyNet/lemmy/issues/3537 */
+	readonly 'User-Agent': string
+	readonly Authorization?: string
+}
+
 export function headers(
 	jwt: string | undefined,
 	params: { site: string },
 	referer: `/${string}`,
 	force = false,
-) {
+): Record<string, string> & (HeadersBypass | HeadersFriendly) {
 	return {
 		...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
 

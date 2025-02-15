@@ -1,7 +1,7 @@
 import { Preferences } from '@capacitor/preferences'
 import type { MyUserInfo, Site } from 'lemmy-js-client'
 import { siteHostname } from '$lib/utils/index.js'
-import type { HomeSite } from './home_site.js'
+import type { HomeSite } from './home_site.ts'
 
 export async function editHomeSite(homeSite: HomeSite): Promise<HomeSite> {
 	const homeSites = await getHomeSites()
@@ -24,12 +24,15 @@ function filterHomeSites(homeSites: HomeSite[], site: Site, myUser?: MyUserInfo)
 	)
 }
 
-export async function findDefaultHomeSite() {
+export async function findDefaultHomeSite(): Promise<HomeSite | undefined> {
 	const homeSites = await getHomeSites()
 	return homeSites.find(hs => hs.default)
 }
 
-export async function findHomeSite(site: Site, myUser: MyUserInfo | undefined) {
+export async function findHomeSite(
+	site: Site,
+	myUser: MyUserInfo | undefined,
+): Promise<HomeSite | undefined> {
 	const homeSites = await getHomeSites()
 	return homeSites.find(
 		hs =>
@@ -79,7 +82,7 @@ function matchHomeSite(first: HomeSite, second: HomeSite) {
 	)
 }
 
-export async function parseCurrentHomeSite(hostname: string) {
+export async function parseCurrentHomeSite(hostname: string): Promise<HomeSite | undefined> {
 	const homeSites = await getHomeSites()
 	return homeSites.find(
 		hs => hs.current && siteHostname(hs.siteResponse.site_view.site) === hostname,

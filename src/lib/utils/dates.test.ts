@@ -1,6 +1,6 @@
 import { describe, test } from 'vitest'
-import { durationAgo, fullTimeAgo, timeAgo } from './dates.js'
-import { Duration, durationUnit } from './duration.js'
+import { durationAgo, fullTimeAgo, timeAgo } from './dates.ts'
+import { Duration, durationUnit } from './duration.ts'
 
 describe.concurrent('timeAgo', () => {
 	test('just now', ({ expect }) => {

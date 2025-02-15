@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { CommentNode as CommentNodeSvelte } from '$lib/comments/index.js'
 	import type {
 		BlockPersonResponse,
 		CommentResponse,
@@ -10,7 +9,8 @@
 		Site,
 		SuccessResponse,
 	} from 'lemmy-js-client'
-	import type { CommentNode } from './comment_node.js'
+	import { CommentNode as CommentNodeSvelte } from '$lib/comments/index.js'
+	import type { CommentNode } from './comment_node.ts'
 
 	interface Props {
 		readonly allLanguages: Language[]

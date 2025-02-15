@@ -5,4 +5,4 @@ export const videoTypes = {
 	'video/ogg': ['.ogg', '.ogv'],
 	'video/quicktime': ['.mov'],
 	'video/webm': ['.webm'],
-}
+} as const

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Spinner from '$lib/Spinner.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 	import { Star as StarOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { PostResponse, PostView } from 'lemmy-js-client'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {

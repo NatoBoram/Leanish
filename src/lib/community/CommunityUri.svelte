@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { communityLink, communityUri } from '$lib/utils/index.js'
 	import type { Community, Site } from 'lemmy-js-client'
+	import { communityLink, communityUri } from '$lib/utils/index.js'
 	import CommunityIcon from './CommunityIcon.svelte'
 
 	let className: string | undefined = undefined

@@ -1,7 +1,7 @@
 <script lang="ts">
+	import type { CommunityView } from 'lemmy-js-client'
 	import CommunityBlockButton from '$lib/community/CommunityBlockButton.svelte'
 	import { getClientContext } from '$lib/contexts/index.js'
-	import type { CommunityView } from 'lemmy-js-client'
 
 	interface Props {
 		readonly class?: string | undefined

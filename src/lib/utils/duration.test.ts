@@ -1,5 +1,5 @@
 import { test } from 'vitest'
-import { Duration, durationUnit } from './duration.js'
+import { Duration, durationUnit } from './duration.ts'
 
 test('MAX_SAFE_INTEGER', ({ expect }) => {
 	const duration = new Duration(Number.MAX_SAFE_INTEGER, durationUnit.millisecond)

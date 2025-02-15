@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { getClientContext } from '$lib/contexts/index.js'
-	import { postLink } from '$lib/utils/index.js'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeft, ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, PostResponse, PostView, Site } from 'lemmy-js-client'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import { postLink } from '$lib/utils/index.js'
 	import PostMeatballs from './PostMeatballs.svelte'
 
 	interface Props {

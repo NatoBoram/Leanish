@@ -3,7 +3,7 @@ import type { Site } from 'lemmy-js-client'
 import { browser } from '$app/environment'
 import { base } from '$app/paths'
 import { parseCurrentHomeSite } from '$lib/preferences/index.js'
-import { siteHostname } from './links.js'
+import { siteHostname } from './links.ts'
 
 export async function getJwt(
 	hostname: string,
@@ -14,7 +14,7 @@ export async function getJwt(
 	throw new Error("`getJwt` wasn't run in the browser nor in the server.")
 }
 
-export async function setJwt(site: Site, jwt: string) {
+export async function setJwt(site: Site, jwt: string): Promise<void> {
 	if (!browser) throw new Error('`setJwt()` is only available in the browser')
 	const hostname = siteHostname(site)
 
@@ -30,7 +30,7 @@ export async function setJwt(site: Site, jwt: string) {
 	})
 }
 
-export async function unsetJwt(site: Site) {
+export async function unsetJwt(site: Site): Promise<void> {
 	if (!browser) throw new Error('`unsetJwt()` is only available in the browser')
 	const hostname = siteHostname(site)
 

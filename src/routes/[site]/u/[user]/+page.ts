@@ -1,8 +1,8 @@
 import { LemmyHttp } from 'lemmy-js-client'
 import { formGetPersonDetails, headers, serverFetch } from '$lib/utils/index.js'
-import type { PageLoad } from './$types.js'
+import type { PageLoad } from './$types.ts'
 
-export const load = (async ({ params, url, fetch, depends, parent }) => {
+export const load: PageLoad = (async ({ params, url, fetch, depends, parent }) => {
 	const loaded = await parent()
 
 	const client = new LemmyHttp(`https://${params.site}`, {

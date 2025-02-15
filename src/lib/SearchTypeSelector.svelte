@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { SearchType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import type { SearchType } from 'lemmy-js-client'
-	import { isSearchType } from './utils/index.js'
+	import { isSearchType } from './utils/index.ts'
 
 	interface Props {
 		readonly name?: string

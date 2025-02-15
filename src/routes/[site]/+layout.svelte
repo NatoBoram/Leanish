@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { goto } from '$app/navigation'
-	import { base } from '$app/paths'
-	import { page } from '$app/stores'
-	import ProfileMenu from '$lib/ProfileMenu.svelte'
-	import { markedOptions } from '$lib/consts/index.js'
-	import { setClientContext } from '$lib/contexts/index.js'
-	import { parseCurrentHomeSite, pushHomeSite } from '$lib/preferences/index.js'
-	import { clientFetch, siteHostname, siteLink } from '$lib/utils/index.js'
 	import { App } from '@capacitor/app'
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { onMount } from 'svelte'
-	import type { LayoutData } from './$types.js'
+	import { goto } from '$app/navigation'
+	import { base } from '$app/paths'
+	import { page } from '$app/stores'
+	import { markedOptions } from '$lib/consts/index.js'
+	import { setClientContext } from '$lib/contexts/index.js'
+	import { parseCurrentHomeSite, pushHomeSite } from '$lib/preferences/index.js'
+	import ProfileMenu from '$lib/ProfileMenu.svelte'
+	import { clientFetch, siteHostname, siteLink } from '$lib/utils/index.js'
+	import type { LayoutData } from './$types.ts'
 
 	Marked.setOptions(markedOptions)
 

@@ -1,5 +1,5 @@
 import { describe, test } from 'vitest'
-import { isLessThan, isNumericRange, toLessThan, toNumericRange } from './adapters.js'
+import { isLessThan, isNumericRange, toLessThan, toNumericRange } from './adapters.ts'
 
 describe.concurrent('isLessThan', () => {
 	test('returns `true` if input is less than max', ({ expect }) => {

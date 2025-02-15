@@ -1,12 +1,12 @@
 <script lang="ts">
+	import type { LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import Dismissable from '$lib/Dismissable.svelte'
 	import { getClientContext } from '$lib/contexts/index.js'
+	import Dismissable from '$lib/Dismissable.svelte'
 	import { pushHomeSite } from '$lib/preferences/home_sites.js'
 	import { headers, setJwt, siteHostname, siteLink } from '$lib/utils/index.js'
-	import type { LoginResponse } from 'lemmy-js-client'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	export let data: PageData
 

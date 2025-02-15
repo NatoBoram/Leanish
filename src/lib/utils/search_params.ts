@@ -13,7 +13,7 @@ import type {
 	SearchType,
 	SortType,
 } from 'lemmy-js-client'
-import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards.js'
+import { isCommentSortType, isListingType, isSearchType, isSortType } from './guards.ts'
 
 export function formGetComments(url: URL, form: GetComments = {}): GetComments {
 	setCommentSort(form, url)

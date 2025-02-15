@@ -1,8 +1,8 @@
 <script lang="ts">
-	import TaglineSvelte from '$lib/Tagline.svelte'
 	import type { Tagline } from 'lemmy-js-client'
 	import { onMount } from 'svelte'
 	import { fly } from 'svelte/transition'
+	import TaglineSvelte from '$lib/Tagline.svelte'
 
 	interface Props {
 		readonly class?: string | undefined

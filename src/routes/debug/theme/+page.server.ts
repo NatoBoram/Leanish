@@ -1,8 +1,8 @@
 import { LemmyHttp } from 'lemmy-js-client'
 import { serverFetch } from '$lib/index.js'
-import type { PageServerLoad } from './$types.js'
+import type { PageServerLoad } from './$types.ts'
 
-export const load = (async ({ fetch }) => {
+export const load: PageServerLoad = (async ({ fetch }) => {
 	const client = new LemmyHttp('https://lemmy.world', {
 		fetchFunction: serverFetch(fetch, undefined),
 	})

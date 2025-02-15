@@ -1,6 +1,6 @@
 import type { Comment, CommentView } from 'lemmy-js-client'
 import { describe, test } from 'vitest'
-import { buildCommentTree } from './comment_tree.js'
+import { buildCommentTree } from './comment_tree.ts'
 
 interface TestCommentView {
 	readonly comment: Pick<Comment, 'content' | 'id' | 'path'>

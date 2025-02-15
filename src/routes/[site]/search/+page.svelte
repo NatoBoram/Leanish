@@ -1,16 +1,16 @@
 <script lang="ts">
+	import type { BlockCommunityResponse, CommentResponse, CommunityResponse } from 'lemmy-js-client'
+	import { buildCommentTree, Comments } from '$lib/comments/index.js'
+	import { CommunityGrid } from '$lib/community/index.js'
 	import LimitSelector from '$lib/LimitSelector.svelte'
 	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
 	import PaginationBar from '$lib/PaginationBar.svelte'
+	import { PersonGrid } from '$lib/person/index.js'
+	import { Posts } from '$lib/posts/index.js'
 	import QSelector from '$lib/QSelector.svelte'
 	import SearchTypeSelector from '$lib/SearchTypeSelector.svelte'
 	import SortSelector from '$lib/SortSelector.svelte'
-	import { Comments, buildCommentTree } from '$lib/comments/index.js'
-	import { CommunityGrid } from '$lib/community/index.js'
-	import { PersonGrid } from '$lib/person/index.js'
-	import { Posts } from '$lib/posts/index.js'
-	import type { BlockCommunityResponse, CommentResponse, CommunityResponse } from 'lemmy-js-client'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	interface Props {
 		readonly data: PageData

@@ -1,6 +1,6 @@
-import type { LayoutServerLoad } from './$types.js'
+import type { LayoutServerLoad } from './$types.ts'
 
-export const load = (({ cookies, params }) => {
+export const load: LayoutServerLoad = (({ cookies, params }) => {
 	const jwt = cookies.get(`${params.site}_jwt`)
 	return { jwt }
 }) satisfies LayoutServerLoad
