@@ -1,6 +1,6 @@
 <script lang="ts">
-	import FlatButton from '$lib/buttons/FlatButton.svelte'
 	import type { HTMLFormAttributes } from 'svelte/elements'
+	import FlatButton from '$lib/buttons/FlatButton.svelte'
 
 	interface Props extends HTMLFormAttributes {
 		readonly disabled?: boolean

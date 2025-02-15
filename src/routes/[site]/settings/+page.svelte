@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { personUri } from '$lib/utils/index.js'
 	import type { MyUserInfo } from 'lemmy-js-client'
+	import { personUri } from '$lib/utils/index.js'
 	import type { PageData } from './$types.ts'
 	import Follows from './Follows.svelte'
 

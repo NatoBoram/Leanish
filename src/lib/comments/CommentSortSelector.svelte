@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { CommentSortType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { isCommentSortType } from '$lib/utils/index.js'
-	import type { CommentSortType } from 'lemmy-js-client'
 
 	interface Props {
 		readonly sort: CommentSortType

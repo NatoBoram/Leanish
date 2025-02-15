@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Prose from '$lib/Prose.svelte'
 	import type { BlockPersonResponse, MyUserInfo, PersonView, Site } from 'lemmy-js-client'
+	import Prose from '$lib/Prose.svelte'
 	import PersonCard from './PersonCard.svelte'
 
 	interface Props {

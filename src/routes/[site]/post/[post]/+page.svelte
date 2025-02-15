@@ -1,12 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores'
-	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
-	import PaginationBar from '$lib/PaginationBar.svelte'
-	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
-	import Comments from '$lib/comments/Comments.svelte'
-	import { buildCommentTree } from '$lib/comments/index.js'
-	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
-	import Post from '$lib/posts/Post.svelte'
 	import { ArrowLongRight } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		BlockPersonResponse,
@@ -14,6 +6,14 @@
 		CommentView,
 		SuccessResponse,
 	} from 'lemmy-js-client'
+	import { page } from '$app/stores'
+	import Comments from '$lib/comments/Comments.svelte'
+	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
+	import { buildCommentTree } from '$lib/comments/index.js'
+	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
+	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
+	import PaginationBar from '$lib/PaginationBar.svelte'
+	import Post from '$lib/posts/Post.svelte'
 	import type { PageData } from './$types.ts'
 
 	interface Props {

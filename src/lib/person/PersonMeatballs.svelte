@@ -1,9 +1,9 @@
 <script lang="ts">
-	import ClickOutside from '$lib/ClickOutside.svelte'
-	import BlockPersonButton from '$lib/buttons/BlockPersonButton.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
 	import type { BlockPersonResponse, MyUserInfo, PersonId, PersonView } from 'lemmy-js-client'
+	import BlockPersonButton from '$lib/buttons/BlockPersonButton.svelte'
+	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { getClientContext } from '$lib/contexts/index.js'
 
 	const client = getClientContext()
 

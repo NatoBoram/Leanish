@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { CommunityIcon, CommunityMeatballs, CommunityUri } from '$lib/community/index.js'
-	import PersonUri from '$lib/person/PersonUri.svelte'
-	import { communityLink, lemmyDate, postLink, timeAgo } from '$lib/utils/index.js'
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import type {
 		BlockCommunityResponse,
@@ -14,6 +11,9 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
+	import { CommunityIcon, CommunityMeatballs, CommunityUri } from '$lib/community/index.js'
+	import PersonUri from '$lib/person/PersonUri.svelte'
+	import { communityLink, lemmyDate, postLink, timeAgo } from '$lib/utils/index.js'
 	import PersonMeatballs from '../person/PersonMeatballs.svelte'
 
 	interface Props {

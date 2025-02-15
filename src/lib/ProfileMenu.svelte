@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { goto, invalidateAll } from '$app/navigation'
-	import { base } from '$app/paths'
-	import ClickOutside from '$lib/ClickOutside.svelte'
 	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
 	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
+	import { goto, invalidateAll } from '$app/navigation'
+	import { base } from '$app/paths'
+	import ClickOutside from '$lib/ClickOutside.svelte'
 	import { FlatButton } from './buttons/index.ts'
 	import PersonIcon from './person/PersonIcon.svelte'
 	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.ts'

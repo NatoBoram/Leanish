@@ -1,17 +1,17 @@
 <script lang="ts">
+	import { LemmyHttp } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
 	import { browser } from '$app/environment'
 	import { goto } from '$app/navigation'
 	import Dismissable from '$lib/Dismissable.svelte'
-	import Spinner from '$lib/Spinner.svelte'
 	import {
 		findDefaultHomeSite,
 		findHomeSite,
 		getHomeSites,
 		pushHomeSite,
 	} from '$lib/preferences/index.js'
+	import Spinner from '$lib/Spinner.svelte'
 	import { clientFetch, newUrl, siteLink } from '$lib/utils/index.js'
-	import { LemmyHttp } from 'lemmy-js-client'
-	import { onMount } from 'svelte'
 	import HomeSiteCard from './HomeSiteCard.svelte'
 
 	let input: string = $state('')

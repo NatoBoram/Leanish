@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { PersonIcon } from '$lib/person/index.js'
-	import { personLink, personUri } from '$lib/utils/index.js'
 	import { ShieldCheck, ShieldExclamation, User } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		CommentView,
@@ -12,6 +10,8 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
+	import { PersonIcon } from '$lib/person/index.js'
+	import { personLink, personUri } from '$lib/utils/index.js'
 
 	let className: string | undefined = undefined
 	export { className as class }

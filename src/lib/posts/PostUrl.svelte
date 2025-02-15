@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { audioTypes, imageExtensions, videoTypes } from '$lib/consts/index.js'
 	import { ArrowTopRightOnSquare } from '@natoboram/heroicons.svelte/20/solid'
 	import type { PostView } from 'lemmy-js-client'
+	import { audioTypes, imageExtensions, videoTypes } from '$lib/consts/index.js'
 
 	interface Props {
 		readonly class?: string | undefined

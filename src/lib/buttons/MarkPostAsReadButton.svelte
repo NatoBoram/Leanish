@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Spinner from '$lib/Spinner.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 	import { Check } from '@natoboram/heroicons.svelte/20/solid'
 	import type { PostView } from 'lemmy-js-client'
+	import { getClientContext } from '$lib/contexts/index.js'
+	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {

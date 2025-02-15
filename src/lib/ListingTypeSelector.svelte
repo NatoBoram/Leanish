@@ -1,7 +1,7 @@
 <script lang="ts">
+	import type { ListingType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
-	import type { ListingType } from 'lemmy-js-client'
 
 	async function clickListingType(url: URL, type_: ListingType) {
 		url.searchParams.set(name, type_)

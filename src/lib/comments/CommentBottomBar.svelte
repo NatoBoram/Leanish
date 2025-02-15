@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { getClientContext } from '$lib/contexts/index.js'
 	import { ArrowDown, ArrowUp } from '@natoboram/heroicons.svelte/20/solid'
 	import { ChatBubbleLeftEllipsis } from '@natoboram/heroicons.svelte/24/outline'
 	import type { CommentResponse, CommentView, MyUserInfo } from 'lemmy-js-client'
+	import { getClientContext } from '$lib/contexts/index.js'
 	import CommentMeatballs from './CommentMeatballs.svelte'
 
 	interface Props {

@@ -1,5 +1,7 @@
 <script lang="ts">
-	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
+	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
+	import type { MyUserInfo, PostResponse, PostView } from 'lemmy-js-client'
 	import DeletePostButton from '$lib/buttons/DeletePostButton.svelte'
 	import FeatureButton from '$lib/buttons/FeatureButton.svelte'
 	import LockPostButton from '$lib/buttons/LockPostButton.svelte'
@@ -7,9 +9,7 @@
 	import MeatballButton from '$lib/buttons/MeatballButton.svelte'
 	import RemovePostButton from '$lib/buttons/RemovePostButton.svelte'
 	import SavePostButton from '$lib/buttons/SavePostButton.svelte'
-	import { Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
-	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
-	import type { MyUserInfo, PostResponse, PostView } from 'lemmy-js-client'
+	import ClickOutside from '$lib/ClickOutside.svelte'
 
 	interface Props {
 		readonly class?: string | undefined
