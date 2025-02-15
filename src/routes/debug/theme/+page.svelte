@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import Post from '$lib/posts/Post.svelte'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 	import BgColourTest from './BgColourTest.svelte'
 
 	export let data: PageData

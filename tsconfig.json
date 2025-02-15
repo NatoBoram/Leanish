@@ -29,7 +29,7 @@
 		/* Interop Constraints */
 		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
-		"isolatedDeclarations": true,
+		// "isolatedDeclarations": true,
 		"erasableSyntaxOnly": true,
 		"forceConsistentCasingInFileNames": true,
 

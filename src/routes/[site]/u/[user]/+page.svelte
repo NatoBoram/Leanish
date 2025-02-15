@@ -5,7 +5,7 @@
 	import { Posts } from '$lib/posts/index.js'
 	import SortSelector from '$lib/SortSelector.svelte'
 	import { personUri } from '$lib/utils/index.js'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	interface Props {
 		readonly data: PageData

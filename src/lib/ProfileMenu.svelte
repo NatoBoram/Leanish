@@ -5,10 +5,10 @@
 	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
 	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
-	import { FlatButton } from './buttons/index.js'
+	import { FlatButton } from './buttons/index.ts'
 	import PersonIcon from './person/PersonIcon.svelte'
-	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.js'
-	import { personLink, personUri, siteLink, unsetJwt } from './utils/index.js'
+	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.ts'
+	import { personLink, personUri, siteLink, unsetJwt } from './utils/index.ts'
 
 	interface Props {
 		readonly class?: string | undefined

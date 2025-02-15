@@ -7,7 +7,7 @@
 	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
 	import { CommunityUri } from '$lib/community/index.js'
 	import Posts from '$lib/posts/Posts.svelte'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	export let data: PageData
 

@@ -10,7 +10,7 @@
 		Site,
 		SuccessResponse,
 	} from 'lemmy-js-client'
-	import type { CommentNode } from './comment_node.js'
+	import type { CommentNode } from './comment_node.ts'
 
 	interface Props {
 		readonly allLanguages: Language[]

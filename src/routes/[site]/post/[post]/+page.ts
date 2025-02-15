@@ -2,9 +2,9 @@ import { error, type HttpError } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
 import { toNumericRange } from '$lib/utils/adapters.js'
 import { formGetComments, headers, serverFetch } from '$lib/utils/index.js'
-import type { PageLoad } from './$types.js'
+import type { PageLoad } from './$types.ts'
 
-export const load = (async ({ params, fetch, url, parent, depends }) => {
+export const load: PageLoad = (async ({ params, fetch, url, parent, depends }) => {
 	const id = parseInt(params.post)
 	if (isNaN(id)) throw error(400, 'Invalid post ID')
 

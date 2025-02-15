@@ -14,7 +14,7 @@
 		CommentView,
 		SuccessResponse,
 	} from 'lemmy-js-client'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	interface Props {
 		readonly data: PageData
@@ -56,7 +56,7 @@
 		data = data
 	}
 
-	export function onPurge(commentView: CommentView, response: SuccessResponse) {
+	export function onPurge(commentView: CommentView, response: SuccessResponse): void {
 		if (!response.success) return
 
 		data.comments = data.comments.filter(view => view.comment.id !== commentView.comment.id)

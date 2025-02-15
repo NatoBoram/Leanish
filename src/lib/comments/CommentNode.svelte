@@ -21,7 +21,7 @@
 	import CommentNodeSvelte from './CommentNode.svelte'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
 	import RemoveCommentForm from './RemoveCommentForm.svelte'
-	import type { CommentNode } from './comment_node.js'
+	import type { CommentNode } from './comment_node.ts'
 
 	interface Props {
 		readonly allLanguages: Language[]

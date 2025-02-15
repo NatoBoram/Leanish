@@ -14,7 +14,7 @@ export function communityUri(community: Community): string {
 	return `${community.name}@${new URL(community.actor_id).hostname}`
 }
 
-export function newUrl(input: string) {
+export function newUrl(input: string): URL | false {
 	try {
 		return new URL(input)
 	} catch (error) {
@@ -37,7 +37,7 @@ export function postLink(site: Site, post: Post) {
 }
 
 /** @example "lemmy.world" */
-export function siteHostname(site: Site) {
+export function siteHostname(site: Site): string {
 	return new URL(site.actor_id).hostname
 }
 

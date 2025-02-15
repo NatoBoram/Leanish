@@ -12,7 +12,7 @@
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { onMount } from 'svelte'
-	import type { LayoutData } from './$types.js'
+	import type { LayoutData } from './$types.ts'
 
 	Marked.setOptions(markedOptions)
 

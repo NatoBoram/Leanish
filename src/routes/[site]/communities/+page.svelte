@@ -6,7 +6,7 @@
 	import SortSelector from '$lib/SortSelector.svelte'
 	import CommunityGrid from '$lib/community/CommunityGrid.svelte'
 	import type { BlockCommunityResponse, CommunityResponse } from 'lemmy-js-client'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	interface Props {
 		readonly data: PageData

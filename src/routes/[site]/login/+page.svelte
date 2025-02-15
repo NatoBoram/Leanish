@@ -6,7 +6,7 @@
 	import { pushHomeSite } from '$lib/preferences/home_sites.js'
 	import { headers, setJwt, siteHostname, siteLink } from '$lib/utils/index.js'
 	import type { LoginResponse } from 'lemmy-js-client'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	export let data: PageData
 

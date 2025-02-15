@@ -1,10 +1,13 @@
 export type DurationUnit = (typeof durationUnit)[keyof typeof durationUnit]
 
 export class Duration {
-	constructor(
-		readonly value: number,
-		readonly unit: DurationUnit,
-	) {}
+	readonly unit: DurationUnit
+	readonly value: number
+
+	constructor(value: number, unit: DurationUnit) {
+		this.unit = unit
+		this.value = value
+	}
 
 	divide(duration: Duration): Duration {
 		return new Duration(this.value / duration.to(this.unit).value, this.unit)
@@ -46,7 +49,8 @@ const era = 10 * period
 const eon = 10 * era
 // Non sequitur
 const month = year / 12
-export const durationUnit = {
+
+export const durationUnit: DurationUnits = {
 	millisecond,
 	second,
 	minute,
@@ -64,4 +68,24 @@ export const durationUnit = {
 	period,
 	era,
 	eon,
-} as const
+}
+
+export interface DurationUnits {
+	readonly millisecond: 1
+	readonly second: number
+	readonly minute: number
+	readonly hour: number
+	readonly day: number
+	readonly week: number
+	readonly month: number
+	readonly year: number
+	readonly decade: number
+	readonly century: number
+	readonly millennium: number
+	readonly age: number
+	readonly subepoch: number
+	readonly epoch: number
+	readonly period: number
+	readonly era: number
+	readonly eon: number
+}

@@ -6,7 +6,7 @@
 	import SortSelector from '$lib/SortSelector.svelte'
 	import Taglines from '$lib/Taglines.svelte'
 	import Posts from '$lib/posts/Posts.svelte'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	export let data: PageData
 

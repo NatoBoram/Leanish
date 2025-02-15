@@ -2,7 +2,7 @@ import type { MarkedOptions } from '@ts-stack/markdown'
 import { Renderer } from '@ts-stack/markdown'
 import hljs from 'highlight.js'
 
-export const markedOptions = {
+export const markedOptions: MarkedOptions = {
 	renderer: new Renderer(),
 	gfm: true,
 	tables: true,
@@ -13,4 +13,4 @@ export const markedOptions = {
 	smartypants: false,
 	xhtml: true,
 	highlight: (code, lang) => (lang && hljs.highlight(code, { language: lang }).value) || code,
-} as const satisfies MarkedOptions
+}

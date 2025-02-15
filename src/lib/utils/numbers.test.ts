@@ -1,5 +1,5 @@
 import { describe, test } from 'vitest'
-import { toSuffixNumber } from './numbers.js'
+import { toSuffixNumber } from './numbers.ts'
 
 describe.concurrent('toSuffixNumber', () => {
 	test('large numbers', ({ expect }) => {

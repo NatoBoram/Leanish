@@ -1,6 +1,6 @@
 import { describe, test, vitest } from 'vitest'
-import { PACKAGE_NAME, PACKAGE_VERSION } from './env.js'
-import { addAuthBody, addAuthParam, headers, removeAuth, serverFetch } from './requests.js'
+import { PACKAGE_NAME, PACKAGE_VERSION } from './env.ts'
+import { addAuthBody, addAuthParam, headers, removeAuth, serverFetch } from './requests.ts'
 
 type TestResponse = Pick<Response, 'clone' | 'headers' | 'ok' | 'status' | 'statusText' | 'text'>
 

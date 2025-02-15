@@ -10,7 +10,7 @@
 	import { PersonGrid } from '$lib/person/index.js'
 	import { Posts } from '$lib/posts/index.js'
 	import type { BlockCommunityResponse, CommentResponse, CommunityResponse } from 'lemmy-js-client'
-	import type { PageData } from './$types.js'
+	import type { PageData } from './$types.ts'
 
 	interface Props {
 		readonly data: PageData
