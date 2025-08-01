@@ -2,10 +2,13 @@ name: Android CI
 
 on:
   push:
-    branches: main
-    tags: v*
+    branches:
+      - main
+    tags:
+      - v*
   pull_request:
-    branches: main
+    branches:
+      - main
 
 jobs:
   build_android:
@@ -28,7 +31,7 @@ jobs:
           version: latest
       - uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: 24
           cache: pnpm
       - run: pnpm install
 

@@ -2,7 +2,8 @@ name: Node.js Publish
 
 on:
   push:
-    tags: v*
+    tags:
+      - v*
 
 jobs:
   publish:
@@ -23,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version: 23
+          node-version: 24
       - run: pnpm install
 
       - uses: actions/setup-node@v4
