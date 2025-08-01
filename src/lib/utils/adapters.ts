@@ -15,6 +15,8 @@ export function isNumericRange<Min extends number, Max extends number>(
 
 export function toLessThan<Max extends number>(input: number, max: Max): LessThan<Max> {
 	if (isLessThan(input, max)) return input
+
+	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	return (max - 1) as LessThan<Max>
 }
 
@@ -23,8 +25,12 @@ export function toNumericRange<Min extends number, Max extends number>(
 	min: Min,
 	max: Max,
 ): NumericRange<Min, Max> {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	if (isLessThan(input, min)) return min as NumericRange<Min, Max>
+
 	// @ts-expect-error Type instantiation is excessively deep and possibly infinite.ts(2589)
 	if (isLessThan(input, max)) return input
+
+	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	return max as NumericRange<Min, Max>
 }

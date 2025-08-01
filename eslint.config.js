@@ -22,6 +22,7 @@ export default tseslint.config(
 			parser: tseslint.parser,
 			parserOptions: { extraFileExtensions: ['.svelte'], project: './tsconfig.eslint.json' },
 		},
+
 		rules: {
 			'@typescript-eslint/class-methods-use-this': [
 				'error',
@@ -73,6 +74,13 @@ export default tseslint.config(
 			'prefer-const': 'off', // This rule is broken when using `$props()`.
 			'svelte/no-at-html-tags': 'off',
 		},
+	},
+
+	{
+		rules: {
+			'@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+		},
+		ignores: ['**/*.test.ts'],
 	},
 
 	{

@@ -8,6 +8,7 @@ export async function getCurrentHomeSite(): Promise<HomeSite | undefined> {
 	const parsed: unknown = JSON.parse(currentHomeSite.value)
 	if (!parsed) return undefined
 
+	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	return parsed as HomeSite
 }
 
