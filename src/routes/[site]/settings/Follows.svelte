@@ -71,7 +71,7 @@
 <div class="flex flex-col gap-2">
 	<h3 class="text-xl font-semibold">Follows</h3>
 
-	{#each follows as follow}
+	{#each follows as follow (communityUri(follow.community))}
 		<div class="flex flex-row justify-between">
 			<CommunityUri community={follow.community} {site} />
 		</div>
@@ -80,7 +80,7 @@
 	<button class="surface-container" onclick={followAll}> Follow all </button>
 
 	<div class="font-mono">
-		{#each logs as log}
+		{#each logs as log (log)}
 			{log}<br />
 		{/each}
 	</div>

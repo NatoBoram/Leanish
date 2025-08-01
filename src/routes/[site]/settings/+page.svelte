@@ -65,7 +65,7 @@
 
 			<div class="sm:col-span-2">
 				{#if importUserFiles}
-					{#each importUserFiles as importUserFile}
+					{#each importUserFiles as importUserFile (importUserFile.name)}
 						{#await importUserFile.text() then text}
 							{@const user = parseUser(text)}
 

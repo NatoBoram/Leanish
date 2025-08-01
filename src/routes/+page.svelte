@@ -113,6 +113,7 @@
 		{#if homeSites}
 			{#if homeSites.length}
 				<div class="grid gap-4 xl:grid-cols-2">
+					<!-- eslint-disable-next-line svelte/require-each-key -->
 					{#each homeSites as homeSite}
 						{#if !homeSite.hidden}
 							<HomeSiteCard
