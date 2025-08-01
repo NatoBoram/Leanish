@@ -4,6 +4,7 @@
 /// <reference types="@sveltejs/kit" />
 import { build, files, prerendered, version } from '$service-worker'
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const sw = self as unknown as ServiceWorkerGlobalScope
 
 // Create a unique cache name for this deployment

@@ -48,6 +48,7 @@ export async function getHomeSites(): Promise<HomeSite[]> {
 	const parsed: unknown = JSON.parse(homeSites.value)
 	if (!Array.isArray(parsed)) return []
 
+	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	return parsed as HomeSite[]
 }
 
