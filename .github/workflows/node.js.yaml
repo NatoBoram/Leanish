@@ -27,6 +27,7 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm exec playwright install
+      - run: pnpm run sync
 
       - run: pnpm run test
       - run: pnpm run check
