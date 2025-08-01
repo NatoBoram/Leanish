@@ -2,7 +2,8 @@ name: GitHub Pages
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   build_pages:
@@ -17,7 +18,7 @@ jobs:
           version: latest
       - uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: 24
           cache: pnpm
       - run: pnpm install
       - run: pnpm run build:csr

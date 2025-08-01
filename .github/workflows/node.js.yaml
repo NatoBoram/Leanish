@@ -20,13 +20,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version: 23
+          node-version: 24
       - uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm exec playwright install
+      - run: pnpm run sync
 
       - run: pnpm run test
       - run: pnpm run check
@@ -63,7 +64,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version: 23
+          node-version: 24
 
       - run: |
           pnpm install --fix-lockfile --no-frozen-lockfile
