@@ -24,6 +24,7 @@
 	}
 
 	function parseUser(text: string): MyUserInfo {
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		return JSON.parse(text) as MyUserInfo
 	}
 
