@@ -47,7 +47,7 @@
 {#if communityView.subscribed === 'Subscribed'}
 	<FlatButton class={className} onclick={() => followCommunity(false, communityView.community.id)}>
 		Subscribed
-		<Check class="h-5 w-5 text-success" />
+		<Check class="text-success h-5 w-5" />
 	</FlatButton>
 {:else if communityView.subscribed === 'NotSubscribed'}
 	<FlatButton class={className} onclick={() => followCommunity(true, communityView.community.id)}>

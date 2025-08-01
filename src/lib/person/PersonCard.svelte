@@ -36,12 +36,12 @@
 	{#if personView.person.banner && !imgError}
 		<img
 			alt="banner"
-			class="absolute left-0 right-0 top-0 h-32 w-full object-cover {bannerClass}"
+			class="absolute top-0 right-0 left-0 h-32 w-full object-cover {bannerClass}"
 			onerror={e => (imgError = e)}
 			src={personView.person.banner}
 		/>
 	{:else}
-		<div class="surface-container absolute left-0 right-0 top-0 h-32 object-cover"></div>
+		<div class="surface-container absolute top-0 right-0 left-0 h-32 object-cover"></div>
 	{/if}
 
 	<div class="flex flex-col gap-2">
