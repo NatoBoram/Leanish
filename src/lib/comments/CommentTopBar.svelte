@@ -9,6 +9,7 @@
 		PersonView,
 		Site,
 	} from 'lemmy-js-client'
+	import { SvelteURL } from 'svelte/reactivity'
 	import { base } from '$app/paths'
 	import { page } from '$app/stores'
 	import { PersonMeatballs } from '$lib/person/index.js'
@@ -42,7 +43,7 @@
 	}: Props = $props()
 
 	function commentLink(url: URL) {
-		const clone = new URL(url.href)
+		const clone = new SvelteURL(url.href)
 
 		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
 		if (clone.pathname !== pathname) {
