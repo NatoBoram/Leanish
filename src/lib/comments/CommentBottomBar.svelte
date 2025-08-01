@@ -78,7 +78,7 @@
 	}
 </script>
 
-<div class="flex flex-row items-center gap-4 text-sm text-muted {className}">
+<div class="text-muted flex flex-row items-center gap-4 text-sm {className}">
 	<!-- Score -->
 	<div class="flex flex-row items-center gap-2">
 		<button

@@ -21,7 +21,7 @@
 	{onclick}
 	{type}
 	class:muted={disabled}
-	class="flex flex-row items-center justify-start gap-2 whitespace-nowrap px-4 py-2 {className}"
+	class="flex flex-row items-center justify-start gap-2 px-4 py-2 whitespace-nowrap {className}"
 >
 	{@render children?.()}
 </button>
