@@ -5,11 +5,8 @@ import globals from 'globals'
 import svelteParser from 'svelte-eslint-parser'
 import tseslint from 'typescript-eslint'
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 export default tseslint.config(
 	{
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		extends: [
 			eslint.configs.recommended,
 			...tseslint.configs.strictTypeChecked,
