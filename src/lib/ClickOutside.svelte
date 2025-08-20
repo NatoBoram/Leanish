@@ -12,6 +12,7 @@
 	const { class: className = '', children, onClickoutside }: Props = $props()
 
 	function handleClick(event: MouseEvent) {
+		// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 		if (!node.contains(event.target as Node)) onClickoutside(event)
 	}
 
