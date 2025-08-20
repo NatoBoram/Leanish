@@ -63,7 +63,7 @@
 
 									{#if communityView.community.nsfw}
 										<span
-											class="w-fit rounded-full bg-danger px-2 py-1 text-xs font-semibold text-on-danger"
+											class="bg-danger text-on-danger w-fit rounded-full px-2 py-1 text-xs font-semibold"
 										>
 											NSFW
 										</span>
@@ -71,7 +71,7 @@
 
 									{#if communityView.blocked}
 										<span title="Blocked">
-											<NoSymbol class="inline h-6 w-6 text-danger" />
+											<NoSymbol class="text-danger inline h-6 w-6" />
 										</span>
 									{/if}
 
@@ -83,7 +83,7 @@
 
 									{#if communityView.community.removed}
 										<span title="Removed">
-											<Trash class="inline h-6 w-6 text-danger" />
+											<Trash class="text-danger inline h-6 w-6" />
 										</span>
 									{/if}
 

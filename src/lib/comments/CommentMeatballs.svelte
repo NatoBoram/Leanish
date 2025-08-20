@@ -93,7 +93,7 @@
 
 				<!-- Mine -->
 				{#if commentView.comment.creator_id === myUser.local_user_view.person.id}
-					<hr class="my-2 border-muted" />
+					<hr class="border-muted my-2" />
 
 					<MeatballButton
 						class="hover:surface surface-container"
@@ -116,7 +116,7 @@
 
 				<!-- Moderator -->
 				{#if moderator || myUser.local_user_view.local_user.admin}
-					<hr class="my-2 border-muted" />
+					<hr class="border-muted my-2" />
 
 					<DistinguishButton
 						{jwt}
@@ -143,7 +143,7 @@
 
 				<!-- Administrator -->
 				{#if myUser.local_user_view.local_user.admin}
-					<hr class="my-2 border-muted" />
+					<hr class="border-muted my-2" />
 
 					<MeatballButton class="hover:surface surface-container" onclick={clickPurge}>
 						Purge

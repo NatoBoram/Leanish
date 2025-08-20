@@ -10,6 +10,7 @@
 		Site,
 		SuccessResponse,
 	} from 'lemmy-js-client'
+	import { SvelteURL } from 'svelte/reactivity'
 	import { base } from '$app/paths'
 	import { page } from '$app/stores'
 	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments/index.js'
@@ -92,7 +93,7 @@
 	}
 
 	function commentLink(url: URL) {
-		const clone = new URL(url.href)
+		const clone = new SvelteURL(url.href)
 
 		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
 		if (clone.pathname !== pathname) {
@@ -326,7 +327,7 @@
 		<CommentForm
 			{allLanguages}
 			{myUser}
-			content={''}
+			content=""
 			disabled={replyPending}
 			onCancel={toggleReplying}
 			onSubmit={createComment}
@@ -334,7 +335,7 @@
 	{/if}
 
 	<!-- Children -->
-	<div class="ml-4 flex flex-col gap-2 border-l border-muted pl-4">
+	<div class="border-muted ml-4 flex flex-col gap-2 border-l pl-4">
 		{#each children as child (child.view.comment.id)}
 			<CommentNodeSvelte
 				{allLanguages}

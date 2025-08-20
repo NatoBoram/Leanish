@@ -9,6 +9,7 @@
 		PersonView,
 		Site,
 	} from 'lemmy-js-client'
+	import { SvelteURL } from 'svelte/reactivity'
 	import { base } from '$app/paths'
 	import { page } from '$app/stores'
 	import { PersonMeatballs } from '$lib/person/index.js'
@@ -42,7 +43,7 @@
 	}: Props = $props()
 
 	function commentLink(url: URL) {
-		const clone = new URL(url.href)
+		const clone = new SvelteURL(url.href)
 
 		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
 		if (clone.pathname !== pathname) {
@@ -94,7 +95,7 @@
 	<!-- Published -->
 	<a
 		href={commentLink($page.url).toString()}
-		class="text-sm text-muted"
+		class="text-muted text-sm"
 		title={dtf.format(lemmyDate(commentView.comment.published))}
 	>
 		{timeAgo(lemmyDate(commentView.comment.published))}
@@ -106,7 +107,7 @@
 
 		<a
 			href={commentLink($page.url).toString()}
-			class="flex flex-row items-center gap-2 text-sm text-muted"
+			class="text-muted flex flex-row items-center gap-2 text-sm"
 			title={dtf.format(updated)}
 		>
 			<Pencil class="h-5 w-5" />
@@ -125,7 +126,7 @@
 	<!-- Removed -->
 	{#if commentView.comment.removed}
 		<div title="Removed">
-			<Trash class="h-5 w-5 text-danger" />
+			<Trash class="text-danger h-5 w-5" />
 		</div>
 	{/if}
 </div>
