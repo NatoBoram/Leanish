@@ -4,6 +4,7 @@ import { PACKAGE_NAME, PACKAGE_VERSION } from './env.ts'
 export function addAuthBody(init: RequestInit | undefined, jwt: string): RequestInit | undefined {
 	if (!init?.body) return init
 
+	// eslint-disable-next-line @typescript-eslint/no-base-to-string
 	const body: unknown = JSON.parse(String(init.body))
 	if (typeof body !== 'object') return init
 	init.body = JSON.stringify({ ...body, auth: jwt })
