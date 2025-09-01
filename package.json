@@ -80,15 +80,15 @@
 		"sync": "svelte-kit sync"
 	},
 	"dependencies": {
-		"@capacitor/android": "^6.1.2",
-		"@capacitor/app": "^6.0.2",
-		"@capacitor/clipboard": "^6.0.2",
-		"@capacitor/core": "^6.1.2",
-		"@capacitor/preferences": "^6.0.3"
+		"@capacitor/android": "^7.4.3",
+		"@capacitor/app": "^7.0.2",
+		"@capacitor/clipboard": "^7.0.2",
+		"@capacitor/core": "^7.4.3",
+		"@capacitor/preferences": "^7.0.2"
 	},
 	"devDependencies": {
 		"@capacitor/assets": "^3.0.5",
-		"@capacitor/cli": "^6.1.2",
+		"@capacitor/cli": "^7.4.3",
 		"@eslint/js": "^9.13.0",
 		"@natoboram/heroicons.svelte": "^1.0.6",
 		"@playwright/test": "^1.48.2",
