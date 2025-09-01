@@ -44,7 +44,7 @@
 
 	{#if opened}
 		<ClickOutside
-			class="surface-container absolute left-0 top-[100%] z-10 mt-4 flex flex-col rounded"
+			class="surface-container absolute top-[100%] left-0 z-10 mt-4 flex flex-col rounded"
 			onClickoutside={onClick}
 		>
 			<a

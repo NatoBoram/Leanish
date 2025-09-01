@@ -14,13 +14,13 @@
 	<!-- Background banner -->
 	{#if myUser.local_user_view.person.banner}
 		<img
-			class="absolute left-0 right-0 top-0 max-h-full w-full object-cover opacity-10"
+			class="absolute top-0 right-0 left-0 max-h-full w-full object-cover opacity-10"
 			src={myUser.local_user_view.person.banner}
 			alt="banner"
 		/>
 	{:else}
 		<div
-			class="surface-container absolute left-0 right-0 top-0 h-full w-full object-cover opacity-25"
+			class="surface-container absolute top-0 right-0 left-0 h-full w-full object-cover opacity-25"
 		></div>
 	{/if}
 
@@ -29,7 +29,7 @@
 		{#if myUser.local_user_view.person.avatar}
 			<img class="h-24 w-24 object-cover" src={myUser.local_user_view.person.avatar} alt="avatar" />
 		{:else}
-			<div class="h-24 w-24 rounded-full bg-muted object-cover"></div>
+			<div class="bg-muted h-24 w-24 rounded-full object-cover"></div>
 		{/if}
 
 		<div>

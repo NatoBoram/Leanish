@@ -67,7 +67,7 @@
 		<Spinner class="h-5 w-5" />
 		Locking...
 	{:else if post.locked}
-		<LockClosedSolid class="h-5 w-5 text-warning" />
+		<LockClosedSolid class="text-warning h-5 w-5" />
 		Locked
 	{:else}
 		<LockClosedOutline class="h-5 w-5" />

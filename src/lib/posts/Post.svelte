@@ -169,7 +169,7 @@
 
 <article
 	data-post-id={postView.post.id}
-	class="flex flex-col gap-4 rounded-lg bg-base-container p-4 text-on-base-container {className}"
+	class="bg-base-container text-on-base-container flex flex-col gap-4 rounded-lg p-4 {className}"
 >
 	<PostTopBar
 		{communityView}
@@ -202,34 +202,34 @@
 
 		<div class="flex flex-row items-center gap-2">
 			{#if postView.post.nsfw}
-				<div class="rounded-full bg-danger px-2 py-1 text-xs text-on-danger">NSFW</div>
+				<div class="bg-danger text-on-danger rounded-full px-2 py-1 text-xs">NSFW</div>
 			{/if}
 
 			<!-- Saved -->
 			{#if postView.saved}
 				<div title="Saved">
-					<Star class="h-5 w-5 text-warning" />
+					<Star class="text-warning h-5 w-5" />
 				</div>
 			{/if}
 
 			<!-- Featured by mods -->
 			{#if postView.post.featured_community}
 				<div title="Featured">
-					<PushPinFill class="h-5 w-5 text-success" />
+					<PushPinFill class="text-success h-5 w-5" />
 				</div>
 			{/if}
 
 			<!-- Featured by admins -->
 			{#if postView.post.featured_local}
 				<div title="Featured">
-					<PushPinFill class="h-5 w-5 text-danger" />
+					<PushPinFill class="text-danger h-5 w-5" />
 				</div>
 			{/if}
 
 			<!-- Locked -->
 			{#if postView.post.locked}
 				<div title="Locked">
-					<LockClosed class="h-5 w-5 text-warning" />
+					<LockClosed class="text-warning h-5 w-5" />
 				</div>
 			{/if}
 
@@ -243,7 +243,7 @@
 			<!-- Removed -->
 			{#if postView.post.removed}
 				<div title="Removed">
-					<Trash class="h-5 w-5 text-danger" />
+					<Trash class="text-danger h-5 w-5" />
 				</div>
 			{/if}
 		</div>

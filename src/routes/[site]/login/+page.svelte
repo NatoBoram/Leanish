@@ -61,7 +61,7 @@
 			<input
 				id="username_or_email"
 				bind:value={username_or_email}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="bg-base-container text-on-base-container rounded border-none px-2 py-1"
 			/>
 		</div>
 
@@ -71,7 +71,7 @@
 				id="password"
 				type="password"
 				bind:value={password}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="bg-base-container text-on-base-container rounded border-none px-2 py-1"
 			/>
 		</div>
 
@@ -80,21 +80,21 @@
 			<input
 				id="totp_2fa_token"
 				bind:value={totp_2fa_token}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="bg-base-container text-on-base-container rounded border-none px-2 py-1"
 			/>
 		</div>
 
-		<button type="submit" class="rounded bg-primary px-2 py-1 text-on-primary"> Login </button>
+		<button type="submit" class="bg-primary text-on-primary rounded px-2 py-1"> Login </button>
 	</form>
 
 	{#if request}
 		{#await request}
-			<div class="rounded bg-base-container p-4 text-on-base-container">Loading...</div>
+			<div class="bg-base-container text-on-base-container rounded p-4">Loading...</div>
 		{:then response}
 			{#if response.jwt}
-				<div class="rounded bg-primary-container p-4 text-on-primary-container">Logged in!</div>
+				<div class="bg-primary-container text-on-primary-container rounded p-4">Logged in!</div>
 			{:else}
-				<div class="rounded bg-base-container p-4 text-on-base-container">
+				<div class="bg-base-container text-on-base-container rounded p-4">
 					Hm, something strange happened.
 				</div>
 				<div class="prose">

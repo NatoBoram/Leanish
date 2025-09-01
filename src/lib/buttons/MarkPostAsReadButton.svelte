@@ -63,7 +63,7 @@
 		<Spinner class="h-5 w-5" />
 		Marking as read...
 	{:else if postView.read}
-		<Check class="h-5 w-5 text-success" />
+		<Check class="text-success h-5 w-5" />
 		Read
 	{:else}
 		<Check class="h-5 w-5" />

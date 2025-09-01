@@ -67,7 +67,7 @@
 		<Spinner class="h-5 w-5" />
 		Saving...
 	{:else if postView.saved}
-		<StarSolid class="h-5 w-5 text-warning" />
+		<StarSolid class="text-warning h-5 w-5" />
 		Saved
 	{:else}
 		<StarOutline class="h-5 w-5" />

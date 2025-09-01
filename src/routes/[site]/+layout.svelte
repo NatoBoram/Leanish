@@ -59,7 +59,7 @@
 	setClientContext(client)
 </script>
 
-<nav class="left-0 right-0 top-0 mb-4 p-4">
+<nav class="top-0 right-0 left-0 mb-4 p-4">
 	<div
 		class="container mx-auto flex flex-col items-center justify-between gap-4 text-xl sm:flex-row"
 	>
@@ -79,13 +79,13 @@
 			<a href="{base}/{siteHostname(data.site_view.site)}/search"> Search </a>
 		</div>
 
-		<div class="flex flex-col items-center gap-4 text-base text-on-base sm:flex-row">
+		<div class="text-on-base flex flex-col items-center gap-4 text-base sm:flex-row">
 			<!-- User -->
 			{#if data.my_user}
 				<ProfileMenu myUser={data.my_user} site={data.site_view.site} />
 			{:else}
 				<a
-					class="rounded-md bg-base-container px-4 py-2 text-on-base-container"
+					class="bg-base-container text-on-base-container rounded-md px-4 py-2"
 					href="{siteLink(data.site_view.site)}/login?goto={encodeURIComponent(
 						`${$page.url.pathname}${$page.url.search}`,
 					)}"

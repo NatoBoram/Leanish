@@ -334,7 +334,7 @@
 	{/if}
 
 	<!-- Children -->
-	<div class="ml-4 flex flex-col gap-2 border-l border-muted pl-4">
+	<div class="border-muted ml-4 flex flex-col gap-2 border-l pl-4">
 		{#each children as child (child.view.comment.id)}
 			<CommentNodeSvelte
 				{allLanguages}

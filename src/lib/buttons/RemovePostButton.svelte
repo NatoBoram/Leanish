@@ -67,7 +67,7 @@
 		<Spinner class="h-5 w-5" />
 		Deleting...
 	{:else if post.removed}
-		<TrashSolid class="h-5 w-5 text-danger" />
+		<TrashSolid class="text-danger h-5 w-5" />
 		Removed
 	{:else}
 		<TrashOutline class="h-5 w-5" />

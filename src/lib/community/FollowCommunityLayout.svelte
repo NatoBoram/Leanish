@@ -44,7 +44,7 @@
 
 	{#if subscribeError}
 		<p
-			class="rounded-lg bg-danger-container p-4 text-on-danger-container"
+			class="bg-danger-container text-on-danger-container rounded-lg p-4"
 			onclick={() => (subscribeError = '')}
 			onkeypress={e => {
 				if (e.key === 'Escale') subscribeError = ''

@@ -79,7 +79,7 @@
 	}
 </script>
 
-<div class="flex flex-row flex-wrap items-center gap-4 text-sm text-muted {className}">
+<div class="text-muted flex flex-row flex-wrap items-center gap-4 text-sm {className}">
 	<div class="flex flex-row items-center gap-2">
 		<button
 			class:text-muted={votePending}

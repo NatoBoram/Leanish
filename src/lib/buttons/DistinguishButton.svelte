@@ -68,7 +68,7 @@
 		<Spinner class="h-5 w-5" />
 		Distinguishing...
 	{:else if comment.distinguished}
-		<SparklesSolid class="h-5 w-5 text-success" />
+		<SparklesSolid class="text-success h-5 w-5" />
 		Distinguished
 	{:else}
 		<SparklesOutline class="h-5 w-5" />

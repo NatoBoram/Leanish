@@ -59,7 +59,7 @@
 	{#if response.blocked}
 		<FlatButton class={className} onclick={() => blockPerson(false, personView.person.id)}>
 			Blocked
-			<NoSymbol class="h-5 w-5 text-danger" />
+			<NoSymbol class="text-danger h-5 w-5" />
 		</FlatButton>
 	{:else}
 		<FlatButton class={className} onclick={() => blockPerson(true, personView.person.id)}>

@@ -57,7 +57,7 @@
 	})
 </script>
 
-<div class="flex flex-row items-center gap-4 text-sm text-muted {className}">
+<div class="text-muted flex flex-row items-center gap-4 text-sm {className}">
 	<!-- Community icon -->
 	<a href={communityLink(site, postView.community)}>
 		<CommunityIcon class="h-12 w-12" community={postView.community} />
