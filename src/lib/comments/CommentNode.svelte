@@ -326,7 +326,7 @@
 		<CommentForm
 			{allLanguages}
 			{myUser}
-			content={''}
+			content=""
 			disabled={replyPending}
 			onCancel={toggleReplying}
 			onSubmit={createComment}
