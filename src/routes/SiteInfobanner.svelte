@@ -49,7 +49,7 @@
 	<!-- Background banner -->
 	{#if homeSite.siteResponse.site_view.site.banner}
 		<img
-			class="absolute left-0 right-0 top-0 h-32 w-full bg-surface-container object-cover"
+			class="bg-surface-container absolute top-0 right-0 left-0 h-32 w-full object-cover"
 			src={homeSite.siteResponse.site_view.site.banner}
 			alt="banner"
 		/>
@@ -59,12 +59,12 @@
 		<!-- Avatar -->
 		{#if homeSite.siteResponse.site_view.site.icon}
 			<img
-				class="mt-8 h-32 w-32 self-start rounded-full bg-surface-container object-cover"
+				class="bg-surface-container mt-8 h-32 w-32 self-start rounded-full object-cover"
 				src={homeSite.siteResponse.site_view.site.icon}
 				alt="avatar"
 			/>
 		{:else}
-			<div class="h-24 w-24 rounded-full bg-muted object-cover"></div>
+			<div class="bg-muted h-24 w-24 rounded-full object-cover"></div>
 		{/if}
 
 		<div>

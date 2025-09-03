@@ -65,18 +65,18 @@
 <div class="flex flex-col gap-4">
 	<!-- Preview -->
 	{#if previewing}
-		<div class="rounded-xl bg-surface-container p-4 text-on-surface-container">
+		<div class="bg-surface-container text-on-surface-container rounded-xl p-4">
 			{#if content}
 				<Prose markdown={content} />
 			{:else}
-				<p class="text-center text-muted">Nothing to preview</p>
+				<p class="text-muted text-center">Nothing to preview</p>
 			{/if}
 		</div>
 	{/if}
 
 	<textarea
 		{placeholder}
-		class="h-32 w-full resize-y rounded-xl border-0 bg-surface-container p-4 text-on-surface-container focus:border-on-surface-container/25 focus:ring-on-surface-container/25"
+		class="bg-surface-container text-on-surface-container focus:border-on-surface-container/25 focus:ring-on-surface-container/25 h-32 w-full resize-y rounded-xl border-0 p-4"
 		bind:value={content}
 	></textarea>
 
@@ -84,7 +84,7 @@
 	<div class="flex flex-row items-center justify-between gap-4">
 		<select
 			bind:value={languageId}
-			class="w-40 rounded-md border-none bg-surface-container px-4 py-2 text-on-surface-container"
+			class="bg-surface-container text-on-surface-container w-40 rounded-md border-none px-4 py-2"
 			{disabled}
 		>
 			{#each myLanguages as language (language.id)}
@@ -94,21 +94,21 @@
 
 		<div class="flex flex-row items-center gap-4">
 			<FlatButton
-				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
+				class="bg-surface-container text-on-surface-container rounded-lg px-4 py-2"
 				onclick={onCancel}
 			>
 				Cancel
 			</FlatButton>
 
 			<FlatButton
-				class="rounded-lg bg-surface-container px-4 py-2 text-on-surface-container"
+				class="bg-surface-container text-on-surface-container rounded-lg px-4 py-2"
 				onclick={() => (previewing = !previewing)}
 			>
 				Preview
 			</FlatButton>
 
 			<FlatButton
-				class="rounded-lg bg-surface px-4 py-2 text-on-surface"
+				class="bg-surface text-on-surface rounded-lg px-4 py-2"
 				{disabled}
 				onclick={clickSubmit}
 			>

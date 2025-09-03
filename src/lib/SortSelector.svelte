@@ -35,7 +35,7 @@
 <select
 	bind:this={select}
 	value={sort}
-	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
+	class="bg-base-container text-on-base-container rounded-md border-none px-4 py-2"
 	onchange={() => {
 		debounceChangeSort($page.url)
 	}}

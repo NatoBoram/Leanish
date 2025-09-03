@@ -52,20 +52,20 @@
 
 <div class="flex flex-col gap-4 {className}">
 	{#await request}
-		<button class="rounded-full bg-surface px-4 py-2 text-on-surface {className}">
+		<button class="bg-surface text-on-surface rounded-full px-4 py-2 {className}">
 			Loading...
 		</button>
 	{:then response}
 		{#if response.blocked}
 			<button
-				class="rounded-full bg-danger-container px-4 py-2 text-on-danger-container hover:bg-danger hover:text-on-danger {className}"
+				class="bg-danger-container text-on-danger-container hover:bg-danger hover:text-on-danger rounded-full px-4 py-2 {className}"
 				onclick={() => blockPerson(false)}
 			>
 				Blocked
 			</button>
 		{:else}
 			<button
-				class="rounded-full bg-surface-container px-4 py-2 text-on-surface-container hover:bg-surface hover:text-on-surface {className}"
+				class="bg-surface-container text-on-surface-container hover:bg-surface hover:text-on-surface rounded-full px-4 py-2 {className}"
 				onclick={() => blockPerson(true)}
 			>
 				Block
@@ -75,7 +75,7 @@
 
 	{#if blockError}
 		<p
-			class="rounded-lg bg-danger-container p-4 text-on-danger-container"
+			class="bg-danger-container text-on-danger-container rounded-lg p-4"
 			onclick={() => (blockError = '')}
 			onkeypress={e => {
 				if (e.key === 'Escale') blockError = ''
