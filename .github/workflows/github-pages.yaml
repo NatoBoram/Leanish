@@ -23,7 +23,7 @@ jobs:
       - run: pnpm run build:csr
         env:
           BUILD_BASE: /Leanish
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: build
 
