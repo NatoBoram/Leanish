@@ -54,7 +54,7 @@ jobs:
           ssh-keygen -Y sign -f '${{ runner.temp }}/SIGNING_KEY_PUBLIC.pub' -n file android/app/build/outputs/apk/release/app-release.apk
           ssh-keygen -Y verify -f ./.github/authorized_keys -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s android/app/build/outputs/apk/release/app-release.apk.sig < android/app/build/outputs/apk/release/app-release.apk
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: github.ref_name == 'main' && github.actor != 'nektos/act'
         with:
           name: app-release
