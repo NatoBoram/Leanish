@@ -15,14 +15,7 @@
 		readonly onLock: (locked: PostResponse) => void
 	}
 
-	let {
-		class: className = undefined,
-		jwt,
-		onError,
-		onLock,
-		onResponse,
-		post = $bindable(),
-	}: Props = $props()
+	let { class: className, jwt, onError, onLock, onResponse, post = $bindable() }: Props = $props()
 
 	const client = getClientContext()
 

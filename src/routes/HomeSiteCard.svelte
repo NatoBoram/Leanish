@@ -12,14 +12,7 @@
 		readonly onHide: (homeSite: HomeSite) => void
 	}
 
-	const {
-		class: className = undefined,
-		homeSite,
-		onCurrent,
-		onDefault,
-		onDelete,
-		onHide,
-	}: Props = $props()
+	const { class: className, homeSite, onCurrent, onDefault, onDelete, onHide }: Props = $props()
 
 	if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
 </script>

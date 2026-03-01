@@ -17,7 +17,7 @@
 	}
 
 	const {
-		class: className = undefined,
+		class: className,
 		jwt,
 		myUser,
 		personView,

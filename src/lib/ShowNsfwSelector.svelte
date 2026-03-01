@@ -8,7 +8,7 @@
 		readonly onShowNsfw?: (showNsfw: boolean) => void
 	}
 
-	const { class: className = undefined, showNsfw, onShowNsfw = () => {} }: Props = $props()
+	const { class: className, showNsfw, onShowNsfw = () => {} }: Props = $props()
 	let checkbox: HTMLInputElement
 
 	let timeout: NodeJS.Timeout

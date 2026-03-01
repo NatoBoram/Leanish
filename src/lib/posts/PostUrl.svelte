@@ -8,7 +8,7 @@
 		readonly postView: PostView
 	}
 
-	const { class: className = undefined, postView }: Props = $props()
+	const { class: className, postView }: Props = $props()
 
 	function getVideoType(url: URL) {
 		const found = Object.entries(videoTypes).find(([, extensions]) =>
