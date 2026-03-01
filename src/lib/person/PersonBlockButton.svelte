@@ -9,7 +9,7 @@
 		readonly personView: PersonView
 	}
 
-	const { class: className = undefined, jwt, myUser, personView }: Props = $props()
+	const { class: className, jwt, myUser, personView }: Props = $props()
 
 	const client = getClientContext()
 

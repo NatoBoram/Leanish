@@ -6,14 +6,7 @@
 		readonly children?: Snippet
 	}
 
-	const {
-		children,
-		class: className = undefined,
-		disabled,
-		onclick,
-		type,
-		...attributes
-	}: Props = $props()
+	const { children, class: className, disabled, onclick, type, ...attributes }: Props = $props()
 </script>
 
 <button

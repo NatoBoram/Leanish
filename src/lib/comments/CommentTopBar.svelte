@@ -29,7 +29,7 @@
 	}
 
 	const {
-		class: className = undefined,
+		class: className,
 		commentView,
 		jwt,
 		moderators,

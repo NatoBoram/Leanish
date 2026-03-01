@@ -21,7 +21,7 @@
 	$effect(() => void nav)
 
 	let {
-		class: className = undefined,
+		class: className,
 		length,
 		limit,
 		nav = $bindable(),

@@ -41,7 +41,7 @@
 	let {
 		allLanguages,
 		children,
-		class: className = undefined,
+		class: className,
 		commentView = $bindable(),
 		jwt,
 		moderators,

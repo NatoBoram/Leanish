@@ -33,7 +33,7 @@
 	}
 
 	const {
-		class: className = undefined,
+		class: className,
 		communityView,
 		jwt,
 		moderators,

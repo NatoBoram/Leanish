@@ -8,7 +8,7 @@
 		readonly onDismiss: () => void
 	}
 
-	const { class: className = undefined, children, onDismiss }: Props = $props()
+	const { class: className, children, onDismiss }: Props = $props()
 </script>
 
 <div class="relative rounded-md p-4 pr-12 {className}">

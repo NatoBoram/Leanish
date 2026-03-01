@@ -16,7 +16,7 @@
 		readonly site: Site
 	}
 
-	const { class: className = undefined, myUser, site }: Props = $props()
+	const { class: className, myUser, site }: Props = $props()
 
 	let opened = $state(false)
 	function onClick() {
