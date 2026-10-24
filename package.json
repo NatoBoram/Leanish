@@ -81,7 +81,7 @@
 	},
 	"dependencies": {
 		"@capacitor/android": "^6.2.2",
-		"@capacitor/app": "^6.0.2",
+		"@capacitor/app": "^6.0.3",
 		"@capacitor/clipboard": "^6.0.2",
 		"@capacitor/core": "^6.1.2",
 		"@capacitor/preferences": "^6.0.4"
