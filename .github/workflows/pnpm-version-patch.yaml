@@ -12,7 +12,7 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ssh-key: '${{ secrets.SIGNING_KEY_PRIVATE }}'
       - uses: pnpm/action-setup@v6

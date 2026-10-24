@@ -15,9 +15,9 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v5
+      - uses: actions/setup-java@v6
         with:
           java-version: 17
           distribution: temurin
@@ -26,7 +26,7 @@ jobs:
       - uses: pnpm/action-setup@v6
         with:
           version: latest
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
           cache: pnpm
@@ -54,7 +54,7 @@ jobs:
           ssh-keygen -Y sign -f '${{ runner.temp }}/SIGNING_KEY_PUBLIC.pub' -n file android/app/build/outputs/apk/release/app-release.apk
           ssh-keygen -Y verify -f ./.github/authorized_keys -I '41898282+github-actions[bot]@users.noreply.github.com' -n file -s android/app/build/outputs/apk/release/app-release.apk.sig < android/app/build/outputs/apk/release/app-release.apk
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: github.ref_name == 'main' && github.actor != 'nektos/act'
         with:
           name: app-release
