@@ -1,7 +1,7 @@
-import { formListCommunities, headers, serverFetch } from '#lib/utils/index.js';
-import { error } from '@sveltejs/kit';
-import { LemmyHttp } from 'lemmy-js-client';
-import type { PageLoad } from './$types.ts';
+import { formListCommunities, headers, serverFetch } from '#lib/utils/index.js'
+import { error } from '@sveltejs/kit'
+import { LemmyHttp } from 'lemmy-js-client'
+import type { PageLoad } from './$types.ts'
 
 export const load: PageLoad = (async ({ params, fetch, parent, url, depends }) => {
 	const loaded = await parent()
@@ -12,7 +12,7 @@ export const load: PageLoad = (async ({ params, fetch, parent, url, depends }) =
 	})
 
 	const listCommunities = formListCommunities(url)
-	const communities = await client().listCommunities(listCommunities).catch(e => {
+	const communities = await client.listCommunities(listCommunities).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load communities')
 	})

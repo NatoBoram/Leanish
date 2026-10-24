@@ -1,7 +1,7 @@
-import { formSearch, headers, isSearchType, serverFetch } from '#lib/utils/index.js';
-import { error } from '@sveltejs/kit';
-import { LemmyHttp, type Search, type SearchResponse, type SearchType } from 'lemmy-js-client';
-import type { PageLoad } from './$types.ts';
+import { formSearch, headers, isSearchType, serverFetch } from '#lib/utils/index.js'
+import { error } from '@sveltejs/kit'
+import { LemmyHttp, type Search, type SearchResponse, type SearchType } from 'lemmy-js-client'
+import type { PageLoad } from './$types.ts'
 
 export const load: PageLoad = (async ({ depends, fetch, params, parent, url }) => {
 	const _type_ = url.searchParams.get('type_')
@@ -29,7 +29,7 @@ export const load: PageLoad = (async ({ depends, fetch, params, parent, url }) =
 
 	depends('app:paginate')
 
-	const searched = await client().search(form).catch(e => {
+	const searched = await client.search(form).catch(e => {
 		console.error(e)
 		throw error(500, 'Failed to load post')
 	})

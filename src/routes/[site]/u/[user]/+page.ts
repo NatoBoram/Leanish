@@ -1,6 +1,6 @@
-import { formGetPersonDetails, headers, serverFetch } from '#lib/utils/index.js';
-import { LemmyHttp } from 'lemmy-js-client';
-import type { PageLoad } from './$types.ts';
+import { formGetPersonDetails, headers, serverFetch } from '#lib/utils/index.js'
+import { LemmyHttp } from 'lemmy-js-client'
+import type { PageLoad } from './$types.ts'
 
 export const load: PageLoad = (async ({ params, url, fetch, depends, parent }) => {
 	const loaded = await parent()
@@ -13,7 +13,7 @@ export const load: PageLoad = (async ({ params, url, fetch, depends, parent }) =
 	depends('app:paginate')
 
 	const form = formGetPersonDetails(url)
-	const person = await client().getPersonDetails({ ...form, username: params.user })
+	const person = await client.getPersonDetails({ ...form, username: params.user })
 
 	return { ...form, ...person }
 }) satisfies PageLoad
