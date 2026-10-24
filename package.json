@@ -80,7 +80,7 @@
 		"sync": "svelte-kit sync"
 	},
 	"dependencies": {
-		"@capacitor/android": "^6.1.2",
+		"@capacitor/android": "^6.2.2",
 		"@capacitor/app": "^6.0.2",
 		"@capacitor/clipboard": "^6.0.2",
 		"@capacitor/core": "^6.1.2",
