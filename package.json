@@ -139,5 +139,8 @@
 	"imports": {
 		"#lib": "./src/lib/index.js",
 		"#lib/*": "./src/lib/*"
-	}
+	},
+	"sideEffects": [
+		"build/index.js"
+	]
 }
