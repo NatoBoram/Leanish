@@ -28,6 +28,10 @@ jobs:
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm exec playwright install
 
+      - run: pnpm run build
+        env:
+          BUILD_ADAPTER: node
+
       - run: pnpm run test
       - run: pnpm run check
       - run: pnpm run lint
