@@ -75,6 +75,7 @@ export default defineConfig(
 			'@typescript-eslint/no-unsafe-assignment': 'off', // This rule is broken when using `$props()`.
 			'prefer-const': 'off', // This rule is broken when using `$props()`.
 			'svelte/no-at-html-tags': 'off',
+			'svelte/no-navigation-without-resolve': 'off', // Cannot recognise absolute URLs derived from the current page or resolved routes.
 		},
 	},
 

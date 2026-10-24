@@ -60,9 +60,7 @@
 			return
 		}
 
-		return goto(resolve(`${url.pathname.slice(base.length)}${url.search}${url.hash}`), {
-			refreshAll: true,
-		}).catch((error: unknown) => {
+		return goto(url.href, { refreshAll: true }).catch((error: unknown) => {
 			console.error('Navigation failed after login.', { error, destination })
 			location.assign(destination)
 		})

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
-	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	interface Props {
@@ -34,9 +33,7 @@
 		}
 
 		url.searchParams.set('limit', String(newLimit))
-		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-			reset: false,
-		})
+		await goto(url.href, { reset: false })
 		await invalidate('app:paginate')
 		onLimit(newLimit)
 	}

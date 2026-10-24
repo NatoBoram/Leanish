@@ -2,7 +2,6 @@
 	import { isCommentSortType } from '#lib/utils/index.js'
 	import type { CommentSortType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
-	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	interface Props {
@@ -26,9 +25,7 @@
 
 		if (isCommentSortType(value)) {
 			url.searchParams.set('sort', value)
-			await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-				reset: false,
-			})
+			await goto(url.href, { reset: false })
 			await invalidate('app:paginate')
 			onSort(value)
 		}

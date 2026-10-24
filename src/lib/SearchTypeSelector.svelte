@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { SearchType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
-	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 	import { isSearchType } from './utils/index.ts'
 
@@ -27,9 +26,7 @@
 
 		if (isSearchType(value)) {
 			url.searchParams.set(name, value)
-			await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-				reset: false,
-			})
+			await goto(url.href, { reset: false })
 			await invalidate('app:paginate')
 			onSearch(value)
 		}

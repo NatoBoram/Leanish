@@ -54,7 +54,7 @@
 
 		clone.searchParams.set('parent_id', commentView.comment.id.toString())
 		clone.searchParams.delete('page')
-		return resolve(`${params.site}/post/${params.post}${clone.search}${clone.hash}`)
+		return clone.href
 	}
 
 	const dtf = Intl.DateTimeFormat('en-GB', {

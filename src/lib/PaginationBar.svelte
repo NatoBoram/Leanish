@@ -5,7 +5,6 @@
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
 	import { goto, invalidate } from '$app/navigation'
-	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 	import FlatButton from './buttons/FlatButton.svelte'
 
@@ -50,9 +49,7 @@
 
 		value = Math.max(value, 1)
 		url.searchParams.set('page', String(value))
-		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-			reset: false,
-		})
+		await goto(url.href, { reset: false })
 		await invalidate('app:paginate')
 	}
 
@@ -63,9 +60,7 @@
 
 	async function firstPage(url: URL) {
 		url.searchParams.set('page', String(1))
-		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-			reset: false,
-		})
+		await goto(url.href, { reset: false })
 
 		onFirst()
 		await invalidate('app:paginate')
@@ -83,9 +78,7 @@
 		const destination = Math.max(index + amount, 1)
 
 		url.searchParams.set('page', String(destination))
-		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-			reset: false,
-		})
+		await goto(url.href, { reset: false })
 		onNext(destination)
 		await invalidate('app:paginate')
 	}
@@ -96,9 +89,7 @@
 		const destination = Math.max(index + amount, 1)
 
 		url.searchParams.set('page', String(destination))
-		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
-			reset: false,
-		})
+		await goto(url.href, { reset: false })
 		onPrevious(destination)
 		await invalidate('app:paginate')
 	}
