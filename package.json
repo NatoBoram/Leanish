@@ -88,7 +88,7 @@
 	},
 	"devDependencies": {
 		"@capacitor/assets": "^3.0.5",
-		"@capacitor/cli": "^6.1.2",
+		"@capacitor/cli": "^8.5.3",
 		"@eslint/js": "9.39.5",
 		"@natoboram/heroicons.svelte": "^1.2.1",
 		"@playwright/test": "^1.64.1",
