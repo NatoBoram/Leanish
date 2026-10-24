@@ -14,7 +14,7 @@
 
 	const client = getClientContext()
 
-	let logs: { message: string }[] = $state([])
+	let logs: string[] = $state([])
 	let following = false
 
 	async function followAll() {
@@ -26,12 +26,12 @@
 			const uri = communityUri(follow.community)
 
 			if (myUser.follows.some(f => uri === communityUri(f.community))) {
-				logs.push({ message: `Already following ${uri}.` })
+				logs.push(`Already following ${uri}.`)
 				logs = logs
 				continue
 			}
 
-			logs.push({ message: `Searching for ${uri}...` })
+			logs.push(`Searching for ${uri}...`)
 			logs = logs
 
 			const found = await client()
@@ -53,12 +53,12 @@
 				.catch((e: Response) => e)
 
 			if (found instanceof Response) {
-				logs.push({ message: `Couldn't find ${uri}.` })
+				logs.push(`Couldn't find ${uri}.`)
 				logs = logs
 				continue
 			}
 
-			logs.push({ message: `Following ${uri}...` })
+			logs.push(`Following ${uri}...`)
 			logs = logs
 
 			await client().followCommunity({
@@ -66,7 +66,7 @@
 				follow: true,
 			})
 
-			logs.push({ message: `Followed ${uri}!` })
+			logs.push(`Followed ${uri}!`)
 			logs = logs
 		}
 
@@ -87,7 +87,7 @@
 
 	<div class="font-mono">
 		{#each logs as log (log)}
-			{log.message}<br />
+			{log}<br />
 		{/each}
 	</div>
 </div>
