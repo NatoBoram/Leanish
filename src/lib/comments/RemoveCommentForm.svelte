@@ -8,6 +8,7 @@
 		readonly onRemove: (reason: string) => void
 	}
 
+	// eslint-disable-next-line svelte/valid-compile
 	const { disabled = false, onCancel, onRemove, ...attributes }: Props = $props()
 
 	const placeholders = ['Reason for removing this comment...', 'Why are you removing this comment?']

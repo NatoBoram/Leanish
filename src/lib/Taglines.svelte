@@ -12,7 +12,7 @@
 	const { class: className = undefined, taglines }: Props = $props()
 
 	// Start with a random tagline
-	let index = $state(Math.floor(Math.random() * taglines.length))
+	let index = $derived(Math.floor(Math.random() * taglines.length))
 	const tagline = $derived(taglines[index])
 
 	onMount(() => {

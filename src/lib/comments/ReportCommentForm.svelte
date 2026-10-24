@@ -8,6 +8,7 @@
 		readonly onReport: (reason: string) => void
 	}
 
+	// eslint-disable-next-line svelte/valid-compile
 	const { disabled = false, onCancel, onReport, ...attributes }: Props = $props()
 
 	const placeholders = [

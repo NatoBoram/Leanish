@@ -12,6 +12,7 @@
 		disabled,
 		onclick,
 		type,
+		// eslint-disable-next-line svelte/valid-compile
 		...attributes
 	}: Props = $props()
 </script>
