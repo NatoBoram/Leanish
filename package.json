@@ -107,7 +107,7 @@
 		"@types/cookie": "^1.0.0",
 		"@vitejs/plugin-basic-ssl": "^2.3.0",
 		"@vitest/browser-playwright": "^4.1.12",
-		"cookie": "^1.1.0",
+		"cookie": "^2.0.1",
 		"eslint": "^9.13.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^2.45.1",
