@@ -84,7 +84,7 @@
 		"@capacitor/app": "^6.0.2",
 		"@capacitor/clipboard": "^6.0.2",
 		"@capacitor/core": "^6.1.2",
-		"@capacitor/preferences": "^6.0.3"
+		"@capacitor/preferences": "^6.0.4"
 	},
 	"devDependencies": {
 		"@capacitor/assets": "^3.0.5",

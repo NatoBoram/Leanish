@@ -21,8 +21,8 @@ importers:
         specifier: ^6.1.2
         version: 6.1.2
       '@capacitor/preferences':
-        specifier: ^6.0.3
-        version: 6.0.3(@capacitor/core@6.1.2)
+        specifier: ^6.0.4
+        version: 6.0.4(@capacitor/core@6.1.2)
     devDependencies:
       '@capacitor/assets':
         specifier: ^3.0.5
@@ -219,8 +219,8 @@ packages:
   '@capacitor/core@6.1.2':
     resolution: {integrity: sha512-xFy1/4qLFLp5WCIzIhtwUuVNNoz36+V7/BzHmLqgVJcvotc4MMjswW/TshnPQaLLujEOaLkA4h8ZJ0uoK3ImGg==}
 
-  '@capacitor/preferences@6.0.3':
-    resolution: {integrity: sha512-3I1BbhhCBTMBziVvr0fU7RCRXqGvhUW/apHLRJSaJAWonASya5rp6AWsHv1lW1tkF0avUOMwp6e7iNA4UUGu8g==}
+  '@capacitor/preferences@6.0.4':
+    resolution: {integrity: sha512-ziauSI1pgdyl+gduvvf8lInvzF3Wdyu/ok+u7NlnhKp8XOj9plJgtnXZWFiR8CiCK5wMvo+gFaNh3zhMyEUwpA==}
     peerDependencies:
       '@capacitor/core': ^6.0.0
 
@@ -3611,7 +3611,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@capacitor/preferences@6.0.3(@capacitor/core@6.1.2)':
+  '@capacitor/preferences@6.0.4(@capacitor/core@6.1.2)':
     dependencies:
       '@capacitor/core': 6.1.2
 
