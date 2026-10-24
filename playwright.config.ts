@@ -1,9 +1,9 @@
 import type { PlaywrightTestConfig } from '@playwright/test'
 
 const reporter: PlaywrightTestConfig['reporter'] = [['html']]
-if (process.env.CI) reporter.push(['dot'])
+if (process.env['CI']) reporter.push(['dot'])
 else reporter.push(['list'])
-if (process.env.GITHUB_ACTIONS) reporter.push(['github'])
+if (process.env['GITHUB_ACTIONS']) reporter.push(['github'])
 
 const config: PlaywrightTestConfig = {
 	webServer: {

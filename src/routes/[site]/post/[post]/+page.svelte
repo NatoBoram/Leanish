@@ -146,13 +146,13 @@
 
 			<a
 				class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
-				href={postLink(page.url)}>View all comments <ArrowLongRight /></a
+				href={postLink(new URL(page.url.href))}>View all comments <ArrowLongRight /></a
 			>
 
 			{#if hasContext(data.parent_id)}
 				<a
 					class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
-					href={parentLink(page.url)}>Show context <ArrowLongRight /></a
+					href={parentLink(new URL(page.url.href))}>Show context <ArrowLongRight /></a
 				>
 			{/if}
 		{/if}

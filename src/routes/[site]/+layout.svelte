@@ -11,16 +11,25 @@
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import { resolve } from '$app/paths'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import type { LayoutData } from './$types.ts'
 
 	Marked.setOptions(markedOptions)
 
-	export let data: LayoutData
+	interface Props {
+		readonly data: LayoutData
+	}
+
+	const { data }: Props = $props()
 
 	onMount(() => {
+		const site = data.site_view.site
+		const jwt = data.jwt
+		const myUser = data.my_user
+		const siteResponse = data
+
 		void (async () => {
-			const hostname = siteHostname(data.site_view.site)
+			const hostname = siteHostname(site)
 			const currentSite = await parseCurrentHomeSite(hostname)
 
 			// Followed a link, first time here
@@ -29,31 +38,31 @@
 					current: true,
 					default: false,
 					hidden: false,
-					jwt: data.jwt,
-					siteResponse: data,
+					jwt,
+					siteResponse,
 				})
 
 			// Newly-logged-in or returning user
-			if (data.my_user)
+			if (myUser)
 				return pushHomeSite({
 					...currentSite,
-					jwt: data.jwt,
-					siteResponse: data,
+					jwt,
+					siteResponse,
 				})
 
 			// JWT expired, redirect to login
 			if (
 				currentSite.siteResponse.my_user &&
-				$page.url.pathname !== resolve(`/${hostname}/login`.slice(1))
+				page.url.pathname !== resolve(`/${hostname}/login`.slice(1))
 			)
 				return goto(
-					resolve(`/${hostname}/login?goto=${encodeURIComponent($page.url.pathname)}`.slice(1)),
+					resolve(`/${hostname}/login?goto=${encodeURIComponent(page.url.pathname)}`.slice(1)),
 				)
 		})()
 
 		void App.addListener('backButton', ({ canGoBack }) => {
 			// Don't go to the site selector
-			if (canGoBack && $page.url.pathname !== siteLink(data.site_view.site)) window.history.back()
+			if (canGoBack && page.url.pathname !== siteLink(site)) window.history.back()
 		})
 	})
 
@@ -64,8 +73,6 @@
 
 	setClientContext(client)
 </script>
-
-<!-- @migration-task could not auto-migrate `$app/stores` to `$app/state`: legacy `export let` props; migrate manually -->
 
 <nav class="left-0 right-0 top-0 mb-4 p-4">
 	<div
@@ -101,7 +108,7 @@
 				<a
 					class="rounded-md bg-base-container px-4 py-2 text-on-base-container"
 					href="{siteLink(data.site_view.site)}/login?goto={encodeURIComponent(
-						`${$page.url.pathname}${$page.url.search}`,
+						`${page.url.pathname}${page.url.search}`,
 					)}"
 				>
 					Login

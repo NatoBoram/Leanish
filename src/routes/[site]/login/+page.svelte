@@ -5,16 +5,20 @@
 	import { headers, setJwt, siteHostname, siteLink } from '#lib/utils/index.js'
 	import type { LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import type { PageData } from './$types.ts'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
+
+	const { data }: Props = $props()
 
 	const client = getClientContext()
-	let username_or_email = ''
-	let password = ''
-	let totp_2fa_token = ''
-	let request: Promise<LoginResponse> | undefined = undefined
+	let username_or_email = $state('')
+	let password = $state('')
+	let totp_2fa_token = $state('')
+	let request: Promise<LoginResponse> | undefined = $state(undefined)
 
 	async function login() {
 		request = client.login({
@@ -43,8 +47,12 @@
 			siteResponse,
 		})
 
-		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
-		return goto(redirect, { invalidateAll: true })
+		const redirect = page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
+		const destination = new URL(redirect, page.url.href).toString()
+		return goto(destination, { refreshAll: true }).catch((error: unknown) => {
+			console.error('Navigation failed after login.', { error, destination })
+			location.assign(destination)
+		})
 	}
 
 	function errorToResponse(error: unknown) {
@@ -53,11 +61,16 @@
 	}
 </script>
 
-<!-- @migration-task could not auto-migrate `$app/stores` to `$app/state`: legacy `export let` props; migrate manually -->
 <svelte:head><title>Login to {siteHostname(data.site_view.site)}</title></svelte:head>
 
 <div class="mx-auto flex max-w-md flex-col gap-4 p-4">
-	<form on:submit|preventDefault={login} class="flex flex-col gap-4">
+	<form
+		onsubmit={event => {
+			event.preventDefault()
+			void login()
+		}}
+		class="flex flex-col gap-4"
+	>
 		<div class="flex flex-col gap-2">
 			<label for="username_or_email">Username or email</label>
 			<input

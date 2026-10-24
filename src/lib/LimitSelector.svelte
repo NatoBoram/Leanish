@@ -33,7 +33,7 @@
 		}
 
 		url.searchParams.set('limit', String(newLimit))
-		await goto(url.toString(), { noScroll: true })
+		await goto(url.toString(), { reset: false })
 		await invalidate('app:paginate')
 		onLimit(newLimit)
 	}
@@ -48,10 +48,10 @@
 		max={50}
 		min={1}
 		onchange={() => {
-			debounceChangeLimit(page.url)
+			debounceChangeLimit(new URL(page.url.href))
 		}}
 		onkeypress={e => {
-			if (e.key === 'Enter') debounceChangeLimit(page.url)
+			if (e.key === 'Enter') debounceChangeLimit(new URL(page.url.href))
 		}}
 		type="number"
 		value={limit}

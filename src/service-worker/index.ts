@@ -1,23 +1,16 @@
-/// <reference lib="esnext" />
-/// <reference lib="webworker" />
-/// <reference no-default-lib="true"/>
-/// <reference types="@sveltejs/kit" />
-import { build, files, prerendered, version } from '$service-worker'
+import { version } from '$app/env'
+import { assets, immutable, prerendered } from '$app/manifest'
+import { resolve } from '$app/paths'
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-const sw = self as unknown as ServiceWorkerGlobalScope
-
-// Create a unique cache name for this deployment
 const cacheKey = `cache-${version}`
 
 const ASSETS = [
-	...build, // the app itself
-	...files, // everything in `static`
-	...prerendered, // prerendered pages
+	...immutable.map(({ path }) => resolve(path)),
+	...assets.map(({ path }) => resolve(path)),
+	...prerendered.map(({ path }) => resolve(path)),
 ]
 
-sw.addEventListener('install', event => {
-	// Create a new cache and add all files to it
+self.addEventListener('install', event => {
 	async function addFilesToCache() {
 		const cache = await caches.open(cacheKey)
 		await cache.addAll(ASSETS)
@@ -26,8 +19,7 @@ sw.addEventListener('install', event => {
 	event.waitUntil(addFilesToCache())
 })
 
-sw.addEventListener('activate', event => {
-	// Remove previous cached data from disk
+self.addEventListener('activate', event => {
 	async function deleteOldCaches() {
 		for (const key of await caches.keys()) {
 			if (key !== cacheKey) await caches.delete(key)
@@ -37,8 +29,7 @@ sw.addEventListener('activate', event => {
 	event.waitUntil(deleteOldCaches())
 })
 
-sw.addEventListener('fetch', event => {
-	// ignore POST requests etc
+self.addEventListener('fetch', event => {
 	if (event.request.method !== 'GET') return
 
 	void respond(event).then(response => {
@@ -50,16 +41,12 @@ async function respond(event: FetchEvent) {
 	const url = new URL(event.request.url)
 	const cache = await caches.open(cacheKey)
 
-	// `build`/`files` can always be served from the cache
 	if (ASSETS.includes(url.pathname)) {
 		return cache.match(url.pathname)
 	}
 
-	// for everything else, try the network first, but
-	// fall back to the cache if we're offline
 	try {
 		const response = await fetch(event.request)
-
 		if (response.status === 200) {
 			await cache.put(event.request, response.clone())
 		}

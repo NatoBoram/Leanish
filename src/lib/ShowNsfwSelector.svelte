@@ -20,7 +20,7 @@
 
 	async function changeShowNsfw(url: URL) {
 		url.searchParams.set('show_nsfw', checkbox.checked.toString())
-		await goto(url.toString(), { noScroll: true })
+		await goto(url.toString(), { reset: false })
 		await invalidate('app:paginate')
 		onShowNsfw(checkbox.checked)
 	}
@@ -34,7 +34,7 @@
 		class="border-on-base-container/25 bg-base-container text-primary focus:ring-1 focus:ring-offset-0"
 		id="show_nsfw"
 		onchange={() => {
-			debounceChangeShowNsfw(page.url)
+			debounceChangeShowNsfw(new URL(page.url.href))
 		}}
 		type="checkbox"
 	/>

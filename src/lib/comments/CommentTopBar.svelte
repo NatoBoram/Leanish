@@ -93,7 +93,7 @@
 
 	<!-- Published -->
 	<a
-		href={commentLink(page.url).toString()}
+		href={commentLink(new URL(page.url.href)).toString()}
 		class="text-sm text-muted"
 		title={dtf.format(lemmyDate(commentView.comment.published))}
 	>
@@ -105,7 +105,7 @@
 		{@const updated = lemmyDate(commentView.comment.updated)}
 
 		<a
-			href={commentLink(page.url).toString()}
+			href={commentLink(new URL(page.url.href)).toString()}
 			class="flex flex-row items-center gap-2 text-sm text-muted"
 			title={dtf.format(updated)}
 		>

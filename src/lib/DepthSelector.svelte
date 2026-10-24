@@ -22,7 +22,7 @@
 
 		value = Math.min(Math.max(value, 1), 50)
 		url.searchParams.set('max_depth', String(value))
-		await goto(url.toString(), { noScroll: true })
+		await goto(url.toString(), { reset: false })
 		await invalidate('app:paginate')
 	}
 </script>
@@ -36,10 +36,10 @@
 		max={50}
 		min={1}
 		onchange={() => {
-			debounceChangeDepth(page.url)
+			debounceChangeDepth(new URL(page.url.href))
 		}}
 		onkeypress={e => {
-			if (e.key === 'Enter') debounceChangeDepth(page.url)
+			if (e.key === 'Enter') debounceChangeDepth(new URL(page.url.href))
 		}}
 		type="number"
 		value={maxDepth}

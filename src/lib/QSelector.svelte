@@ -20,7 +20,7 @@
 		const newQ = input.value
 
 		url.searchParams.set('q', newQ)
-		await goto(url.toString(), { noScroll: true })
+		await goto(url.toString(), { reset: false })
 		await invalidate('app:paginate')
 		onQ(newQ)
 	}
@@ -31,7 +31,7 @@
 	bind:value={q}
 	class="base-container rounded-md border-none px-4 py-2"
 	onchange={() => {
-		debounceChangeQ(page.url)
+		debounceChangeQ(new URL(page.url.href))
 	}}
 	placeholder="Search"
 	type="text"

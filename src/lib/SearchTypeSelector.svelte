@@ -26,7 +26,7 @@
 
 		if (isSearchType(value)) {
 			url.searchParams.set(name, String(value))
-			await goto(url.toString(), { noScroll: true })
+			await goto(url.toString(), { reset: false })
 			await invalidate('app:paginate')
 			onSearch(value)
 		}
@@ -38,7 +38,7 @@
 	value={type_}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
 	onchange={() => {
-		debounceChangeSearch(page.url)
+		debounceChangeSearch(new URL(page.url.href))
 	}}
 >
 	<option disabled={true} aria-hidden={true} value={undefined}>Search Type</option>

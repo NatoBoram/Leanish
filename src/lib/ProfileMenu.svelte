@@ -3,7 +3,7 @@
 	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
 	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
-	import { goto, invalidateAll } from '$app/navigation'
+	import { goto, refreshAll } from '$app/navigation'
 	import { resolve } from '$app/paths'
 	import { FlatButton } from './buttons/index.ts'
 	import PersonIcon from './person/PersonIcon.svelte'
@@ -25,7 +25,7 @@
 
 	async function logout() {
 		await Promise.all([removeHomeSite(site, myUser), unsetJwt(site)])
-		return invalidateAll()
+		return refreshAll()
 	}
 
 	async function resetDefault() {

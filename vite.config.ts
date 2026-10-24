@@ -12,6 +12,8 @@ import { toBuildEnv } from './src/lib/utils/vite.ts'
 
 const env = toBuildEnv(loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_'))
 const https = process.argv.includes('--https')
+/** @type {import('./src/lib/utils/vite.js').BuildEnv} */
+const env2 = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_')
 
 const config: UserConfig = defineConfig({
 	// @ts-expect-error Type 'viteBasicSslPlugin' has no call signatures.
@@ -20,7 +22,7 @@ const config: UserConfig = defineConfig({
 		sveltekit({
 			preprocess: [vitePreprocess()],
 			adapter: adapter(),
-			paths: { base: env2.BUILD_BASE },
+			paths: { base: env2['BUILD_BASE'] },
 			version: {
 				name: execSync('git describe --always --broken --dirty --tags').toString().trim(),
 			},
@@ -40,16 +42,10 @@ const config: UserConfig = defineConfig({
 	},
 })
 
-/** @type {import('./src/lib/utils/vite.js').BuildEnv} */ const env2 = loadEnv(
-	process.env['NODE_ENV'] ?? 'development',
-	process.cwd(),
-	'BUILD_',
-)
-
 /** @returns {import('@sveltejs/kit').Adapter} */ function adapter() {
-	if (env2.BUILD_IPFS === 'true') return adapterStatic({ fallback: 'ipfs-404.html' })
-	else if (env2.BUILD_ADAPTER === 'node') return adapterNode()
-	else if (env2.BUILD_ADAPTER === 'static' || process.env.GITHUB_ACTIONS === 'true')
+	if (env2['BUILD_IPFS'] === 'true') return adapterStatic({ fallback: 'ipfs-404.html' })
+	else if (env2['BUILD_ADAPTER'] === 'node') return adapterNode()
+	else if (env2['BUILD_ADAPTER'] === 'static' || process.env['GITHUB_ACTIONS'] === 'true')
 		return adapterStatic({ fallback: '404.html' })
 
 	return adapterAuto()

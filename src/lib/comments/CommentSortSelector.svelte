@@ -25,7 +25,7 @@
 
 		if (isCommentSortType(value)) {
 			url.searchParams.set('sort', String(value))
-			await goto(url.toString(), { noScroll: true })
+			await goto(url.toString(), { reset: false })
 			await invalidate('app:paginate')
 			onSort(value)
 		}
@@ -37,7 +37,7 @@
 	value={sort}
 	class="w-20 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
 	onchange={() => {
-		debounceChangeSort(page.url)
+		debounceChangeSort(new URL(page.url.href))
 	}}
 >
 	<option value="Hot">Hot</option>

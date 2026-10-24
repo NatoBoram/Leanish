@@ -36,5 +36,6 @@
 		"allowUnreachableCode": false,
 		"skipDefaultLibCheck": true
 	},
-	"include": ["src", "vite.config.ts", "playwright.config.ts", "tests"]
+	"include": ["src", "vite.config.ts", "playwright.config.ts", "tests"],
+	"exclude": ["src/service-worker"]
 }

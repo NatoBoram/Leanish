@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation'
+	import { refreshAll } from '$app/navigation'
 	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
@@ -28,7 +28,7 @@
 		if (refreshing) return
 
 		refreshing = true
-		await invalidateAll()
+		await refreshAll()
 		refreshing = false
 	}
 </script>
