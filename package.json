@@ -114,6 +114,7 @@
 		"globals": "^17.13.0",
 		"highlight.js": "^11.10.0",
 		"lemmy-js-client": "0.19.9",
+		"markdownlint-cli2": "^0.24.0",
 		"prettier": "^3.9.10",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.8.1",
