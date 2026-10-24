@@ -8,7 +8,7 @@
 	}
 
 	// eslint-disable-next-line svelte/valid-compile
-	const { children, class: className = undefined, ...attributes }: Props = $props()
+	const { children, class: className, ...attributes }: Props = $props()
 </script>
 
 <button

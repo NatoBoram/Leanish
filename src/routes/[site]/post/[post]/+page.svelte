@@ -97,14 +97,14 @@
 		clone.searchParams.set('parent_id', id)
 		clone.searchParams.delete('page')
 
-		return clone.toString()
+		return clone.href
 	}
 
 	function postLink(url: URL) {
 		const clone = new URL(url.href)
 		clone.searchParams.delete('parent_id')
 		clone.searchParams.delete('page')
-		return clone.toString()
+		return clone.href
 	}
 </script>
 

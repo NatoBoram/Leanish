@@ -8,7 +8,7 @@
 		readonly followCommunity: (follow: boolean) => Promise<void>
 	}
 
-	const { class: className = undefined, communityView, followCommunity }: Props = $props()
+	const { class: className, communityView, followCommunity }: Props = $props()
 </script>
 
 {#await communityView}

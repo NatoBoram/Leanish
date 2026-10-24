@@ -9,7 +9,7 @@
 		readonly jwt: string | undefined
 	}
 
-	let { class: className = undefined, community = $bindable(), jwt }: Props = $props()
+	let { class: className, community = $bindable(), jwt }: Props = $props()
 
 	const client = getClientContext()
 

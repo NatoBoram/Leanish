@@ -18,6 +18,7 @@
 		Site,
 		SuccessResponse,
 	} from 'lemmy-js-client'
+	import { SvelteURL } from 'svelte/reactivity'
 	import type { CommentNode } from './comment_node.ts'
 	import CommentNodeSvelte from './CommentNode.svelte'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
@@ -41,7 +42,7 @@
 	let {
 		allLanguages,
 		children,
-		class: className = undefined,
+		class: className,
 		commentView = $bindable(),
 		jwt,
 		moderators,
@@ -91,9 +92,10 @@
 		return response
 	}
 
-	function commentLink(url: URL) {
-		const clone = new URL(url.href)
-		const pathname = resolve(`/${siteHostname(site)}/post/${commentView.post.id}`.slice(1))
+	function commentLink(url: Pick<URL, 'href'>) {
+		const clone = new SvelteURL(url.href)
+		const params = { site: siteHostname(site), post: commentView.post.id.toString() }
+		const pathname = new URL(resolve('/[site]/post/[post]', params), url.href).pathname
 
 		if (clone.pathname !== pathname) {
 			clone.pathname = pathname
@@ -102,7 +104,7 @@
 
 		clone.searchParams.set('parent_id', commentView.comment.id.toString())
 		clone.searchParams.delete('page')
-		return clone
+		return clone.href
 	}
 
 	function countAllChildren(children: CommentNode[]): number {
@@ -322,7 +324,7 @@
 		<CommentForm
 			{allLanguages}
 			{myUser}
-			content={''}
+			content=""
 			disabled={replyPending}
 			onCancel={toggleReplying}
 			onSubmit={createComment}
@@ -349,9 +351,7 @@
 		<!-- Load more -->
 
 		{#if Number(page.url.searchParams.get('parent_id')) !== commentView.comment.id && commentView.counts.child_count > countAllChildren(children)}
-			<a
-				class="max-w-fit rounded-md base-container px-4 py-2"
-				href={commentLink(new URL(page.url.href)).href}
+			<a class="max-w-fit rounded-md base-container px-4 py-2" href={commentLink(page.url)}
 				>Load {commentView.counts.child_count} comments</a
 			>
 		{/if}

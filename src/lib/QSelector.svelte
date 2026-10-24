@@ -9,7 +9,7 @@
 
 	let { q = $bindable(), onQ = () => {} }: Props = $props()
 	let input: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeQ(url: URL) {
 		clearTimeout(timeout)
@@ -20,7 +20,7 @@
 		const newQ = input.value
 
 		url.searchParams.set('q', newQ)
-		await goto(url.toString(), { reset: false })
+		await goto(url.href, { reset: false })
 		await invalidate('app:paginate')
 		onQ(newQ)
 	}

@@ -1,17 +1,36 @@
 import adapterAuto from '@sveltejs/adapter-auto'
 import adapterNode from '@sveltejs/adapter-node'
 import adapterStatic from '@sveltejs/adapter-static'
+import type { Adapter } from '@sveltejs/kit'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import tailwindcss from '@tailwindcss/vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { playwright } from '@vitest/browser-playwright'
 import { execSync } from 'child_process'
-import type { PluginOption, UserConfig } from 'vite'
+import { readFile, writeFile } from 'node:fs/promises'
+import type { Plugin, PluginOption, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import { defineConfig } from 'vitest/config'
 import pkg from './package.json' with { type: 'json' }
 import { toBuildEnv } from './src/lib/utils/vite.ts'
+
+function nodeShebang(): Plugin {
+	return {
+		name: 'node-shebang',
+		apply: 'build',
+		enforce: 'post',
+		buildApp: {
+			order: 'post',
+			handler: async () => {
+				const file = 'build/index.js'
+				const content = await readFile(file, 'utf8')
+				if (content.startsWith('#!')) return
+				await writeFile(file, `#!/usr/bin/env node\n${content}`)
+			},
+		},
+	}
+}
 
 const env = toBuildEnv(loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_'))
 const https = process.argv.includes('--https')
@@ -20,6 +39,7 @@ const config: UserConfig = defineConfig({
 	plugins: [
 		tailwindcss(),
 
+		...(env.BUILD_ADAPTER === 'node' ? [nodeShebang()] : []),
 		...(https ? [basicSsl()] : []),
 
 		sveltekit({
@@ -45,7 +65,7 @@ const config: UserConfig = defineConfig({
 	},
 })
 
-/** @returns {import('@sveltejs/kit').Adapter} */ function adapter() {
+function adapter(): Adapter {
 	if (env.BUILD_IPFS === 'true') return adapterStatic({ fallback: 'ipfs-404.html' })
 	else if (env.BUILD_ADAPTER === 'node') return adapterNode()
 	else if (env.BUILD_ADAPTER === 'static' || process.env['GITHUB_ACTIONS'] === 'true')

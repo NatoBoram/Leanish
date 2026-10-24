@@ -1,15 +1,13 @@
 import eslint from '@eslint/js'
 import prettier from 'eslint-config-prettier'
 import svelte from 'eslint-plugin-svelte'
+import { defineConfig } from 'eslint/config'
 import globals from 'globals'
 import svelteParser from 'svelte-eslint-parser'
 import tseslint from 'typescript-eslint'
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
-export default tseslint.config(
+export default defineConfig(
 	{
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		extends: [
 			eslint.configs.recommended,
 			...tseslint.configs.strictTypeChecked,
@@ -77,6 +75,7 @@ export default tseslint.config(
 			'@typescript-eslint/no-unsafe-assignment': 'off', // This rule is broken when using `$props()`.
 			'prefer-const': 'off', // This rule is broken when using `$props()`.
 			'svelte/no-at-html-tags': 'off',
+			'svelte/no-navigation-without-resolve': 'off', // Cannot recognise absolute URLs derived from the current page or resolved routes.
 		},
 	},
 

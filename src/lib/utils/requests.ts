@@ -2,9 +2,9 @@ import { PACKAGE_NAME, PACKAGE_VERSION } from './env.ts'
 
 /** Add the `auth` property to make it compatible with old Lemmy versions. */
 export function addAuthBody(init: RequestInit | undefined, jwt: string): RequestInit | undefined {
-	if (!init?.body) return init
+	if (!init || typeof init.body !== 'string' || !init.body) return init
 
-	const body: unknown = JSON.parse(String(init.body))
+	const body: unknown = JSON.parse(init.body)
 	if (typeof body !== 'object') return init
 	init.body = JSON.stringify({ ...body, auth: jwt })
 	return init

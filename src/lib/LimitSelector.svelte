@@ -9,7 +9,7 @@
 
 	const { limit, onLimit = () => {} }: Props = $props()
 	let input: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeLimit(url: URL) {
 		clearTimeout(timeout)
@@ -33,7 +33,7 @@
 		}
 
 		url.searchParams.set('limit', String(newLimit))
-		await goto(url.toString(), { reset: false })
+		await goto(url.href, { reset: false })
 		await invalidate('app:paginate')
 		onLimit(newLimit)
 	}

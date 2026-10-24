@@ -117,7 +117,7 @@
 		{#if homeSites}
 			{#if homeSites.length}
 				<div class="grid gap-4 xl:grid-cols-2">
-					{#each homeSites as homeSite}
+					{#each homeSites as homeSite (homeSite)}
 						{#if !homeSite.hidden}
 							<HomeSiteCard
 								{homeSite}

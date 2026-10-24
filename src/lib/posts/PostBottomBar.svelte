@@ -27,7 +27,7 @@
 	}
 
 	let {
-		class: className = undefined,
+		class: className,
 		jwt,
 		myUser,
 		onComment,

@@ -8,10 +8,10 @@
 		readonly onShowNsfw?: (showNsfw: boolean) => void
 	}
 
-	const { class: className = undefined, showNsfw, onShowNsfw = () => {} }: Props = $props()
+	const { class: className, showNsfw, onShowNsfw = () => {} }: Props = $props()
 
 	let checkbox: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeShowNsfw(url: URL) {
 		clearTimeout(timeout)
@@ -20,7 +20,7 @@
 
 	async function changeShowNsfw(url: URL) {
 		url.searchParams.set('show_nsfw', checkbox.checked.toString())
-		await goto(url.toString(), { reset: false })
+		await goto(url.href, { reset: false })
 		await invalidate('app:paginate')
 		onShowNsfw(checkbox.checked)
 	}

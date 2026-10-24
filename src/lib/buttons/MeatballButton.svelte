@@ -8,7 +8,7 @@
 
 	const {
 		children,
-		class: className = undefined,
+		class: className,
 		disabled,
 		onclick,
 		type,

@@ -15,14 +15,7 @@
 		readonly onResponse: (response: Response) => void
 	}
 
-	let {
-		class: className = undefined,
-		jwt,
-		onDelete,
-		onError,
-		onResponse,
-		post = $bindable(),
-	}: Props = $props()
+	let { class: className, jwt, onDelete, onError, onResponse, post = $bindable() }: Props = $props()
 
 	const client = getClientContext()
 

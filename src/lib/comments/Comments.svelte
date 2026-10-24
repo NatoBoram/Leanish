@@ -27,7 +27,7 @@
 
 	const {
 		allLanguages,
-		class: className = undefined,
+		class: className,
 		jwt,
 		moderators,
 		myUser,

@@ -11,7 +11,7 @@
 
 	const { sort, onSort = () => {} }: Props = $props()
 	let select: HTMLSelectElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeSort(url: URL) {
 		clearTimeout(timeout)
@@ -24,8 +24,8 @@
 		if (!value || !isSortType(value)) value = 'Active' satisfies SortType
 
 		if (isSortType(value)) {
-			url.searchParams.set('sort', String(value))
-			await goto(url.toString(), { reset: false })
+			url.searchParams.set('sort', value)
+			await goto(url.href, { reset: false })
 			await invalidate('app:paginate')
 			onSort(value)
 		}

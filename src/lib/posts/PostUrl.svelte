@@ -8,7 +8,7 @@
 		readonly postView: PostView
 	}
 
-	const { class: className = undefined, postView }: Props = $props()
+	const { class: className, postView }: Props = $props()
 
 	function getVideoType(url: URL) {
 		const found = Object.entries(videoTypes).find(([, extensions]) =>
@@ -55,7 +55,9 @@
 	<p class={className}>
 		<ArrowTopRightOnSquare class="inline h-5 w-5" />
 
-		<a class="break-all hover:underline" href={postView.post.url}>{postView.post.url}</a>
+		<a class="break-all hover:underline" href={postView.post.url} rel="external">
+			{postView.post.url}
+		</a>
 	</p>
 {:else if postView.post.thumbnail_url}
 	<img

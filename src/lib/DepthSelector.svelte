@@ -8,7 +8,7 @@
 
 	const { maxDepth }: Props = $props()
 	let input: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeDepth(url: URL) {
 		clearTimeout(timeout)
@@ -22,7 +22,7 @@
 
 		value = Math.min(Math.max(value, 1), 50)
 		url.searchParams.set('max_depth', String(value))
-		await goto(url.toString(), { reset: false })
+		await goto(url.href, { reset: false })
 		await invalidate('app:paginate')
 	}
 </script>

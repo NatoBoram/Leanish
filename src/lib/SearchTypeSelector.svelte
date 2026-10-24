@@ -12,7 +12,7 @@
 
 	const { name = 'type_', type_, onSearch = () => {} }: Props = $props()
 	let select: HTMLSelectElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeSearch(url: URL) {
 		clearTimeout(timeout)
@@ -25,8 +25,8 @@
 		if (!value || !isSearchType(value)) value = 'All' satisfies SearchType
 
 		if (isSearchType(value)) {
-			url.searchParams.set(name, String(value))
-			await goto(url.toString(), { reset: false })
+			url.searchParams.set(name, value)
+			await goto(url.href, { reset: false })
 			await invalidate('app:paginate')
 			onSearch(value)
 		}

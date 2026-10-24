@@ -31,6 +31,11 @@ jobs:
       - run: pnpm run test
       - run: pnpm run check
       - run: pnpm run lint
+
+      - run: pnpm run build
+        env:
+          BUILD_ADAPTER: node
+
       - run: pnpm run package
 
       - uses: actions/upload-artifact@v7

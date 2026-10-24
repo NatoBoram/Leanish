@@ -41,7 +41,7 @@
 
 	{#if showBadges}
 		<!-- It's me! -->
-		{#if myUser && person.id === myUser.local_user_view.person.id}
+		{#if person.id === myUser?.local_user_view.person.id}
 			<div class="text-primary" title="Me">
 				<User />
 			</div>

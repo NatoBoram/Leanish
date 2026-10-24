@@ -22,7 +22,7 @@
 	}
 
 	const {
-		class: className = undefined,
+		class: className,
 		communityViews,
 		jwt,
 		onBlockCommunity,

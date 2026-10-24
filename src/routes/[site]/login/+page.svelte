@@ -28,13 +28,11 @@
 		})
 
 		const loginResponse = await request
-
 		if (!loginResponse.jwt) return
 
 		await setJwt(data.site_view.site, loginResponse.jwt)
 
 		const site = siteHostname(data.site_view.site)
-
 		client().setHeaders(headers(loginResponse.jwt, { site }, '/'))
 
 		const siteResponse = await client().getSite()
