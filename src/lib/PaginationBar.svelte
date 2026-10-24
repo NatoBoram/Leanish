@@ -5,6 +5,7 @@
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 	import FlatButton from './buttons/FlatButton.svelte'
 
@@ -18,10 +19,8 @@
 		readonly onNext: (destination: number) => void
 	}
 
-	$effect(() => void nav)
-
 	let {
-		class: className = undefined,
+		class: className,
 		length,
 		limit,
 		nav = $bindable(),
@@ -38,7 +37,7 @@
 		return index
 	}
 
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 	function debounceChangePage(url: URL) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => void changePage(url), 1000)
@@ -51,7 +50,9 @@
 
 		value = Math.max(value, 1)
 		url.searchParams.set('page', String(value))
-		await goto(url.toString(), { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		await invalidate('app:paginate')
 	}
 
@@ -62,7 +63,9 @@
 
 	async function firstPage(url: URL) {
 		url.searchParams.set('page', String(1))
-		await goto(url, { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 
 		onFirst()
 		await invalidate('app:paginate')
@@ -80,7 +83,9 @@
 		const destination = Math.max(index + amount, 1)
 
 		url.searchParams.set('page', String(destination))
-		await goto(url, { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		onNext(destination)
 		await invalidate('app:paginate')
 	}
@@ -91,7 +96,9 @@
 		const destination = Math.max(index + amount, 1)
 
 		url.searchParams.set('page', String(destination))
-		await goto(url, { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		onPrevious(destination)
 		await invalidate('app:paginate')
 	}

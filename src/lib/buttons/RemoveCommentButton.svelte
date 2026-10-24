@@ -17,7 +17,7 @@
 	}
 
 	let {
-		class: className = undefined,
+		class: className,
 		comment = $bindable(),
 		jwt,
 		onError,

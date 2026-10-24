@@ -18,8 +18,8 @@
 	}
 
 	const {
-		bannerClass = undefined,
-		class: className = undefined,
+		bannerClass,
+		class: className,
 		jwt,
 		myUser,
 		onBlockPerson,

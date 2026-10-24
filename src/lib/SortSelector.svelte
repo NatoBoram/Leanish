@@ -2,6 +2,7 @@
 	import { isSortType } from '#lib/utils/index.js'
 	import type { SortType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	interface Props {
@@ -11,7 +12,7 @@
 
 	const { sort, onSort = () => {} }: Props = $props()
 	let select: HTMLSelectElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeSort(url: URL) {
 		clearTimeout(timeout)
@@ -24,8 +25,10 @@
 		if (!value || !isSortType(value)) value = 'Active' satisfies SortType
 
 		if (isSortType(value)) {
-			url.searchParams.set('sort', String(value))
-			await goto(url.toString(), { reset: false })
+			url.searchParams.set('sort', value)
+			await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+				reset: false,
+			})
 			await invalidate('app:paginate')
 			onSort(value)
 		}

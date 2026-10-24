@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	interface Props {
@@ -9,7 +10,7 @@
 
 	let { q = $bindable(), onQ = () => {} }: Props = $props()
 	let input: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeQ(url: URL) {
 		clearTimeout(timeout)
@@ -20,7 +21,9 @@
 		const newQ = input.value
 
 		url.searchParams.set('q', newQ)
-		await goto(url.toString(), { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		await invalidate('app:paginate')
 		onQ(newQ)
 	}

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { ListingType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	async function clickListingType(url: URL, type_: ListingType) {
 		url.searchParams.set(name, type_)
-		await goto(url.toString(), { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		await invalidate('app:paginate')
 	}
 

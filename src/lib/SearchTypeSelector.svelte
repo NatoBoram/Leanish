@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { SearchType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 	import { isSearchType } from './utils/index.ts'
 
@@ -12,7 +13,7 @@
 
 	const { name = 'type_', type_, onSearch = () => {} }: Props = $props()
 	let select: HTMLSelectElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeSearch(url: URL) {
 		clearTimeout(timeout)
@@ -25,8 +26,10 @@
 		if (!value || !isSearchType(value)) value = 'All' satisfies SearchType
 
 		if (isSearchType(value)) {
-			url.searchParams.set(name, String(value))
-			await goto(url.toString(), { reset: false })
+			url.searchParams.set(name, value)
+			await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+				reset: false,
+			})
 			await invalidate('app:paginate')
 			onSearch(value)
 		}

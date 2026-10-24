@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	interface Props {
@@ -9,7 +10,7 @@
 
 	const { limit, onLimit = () => {} }: Props = $props()
 	let input: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeLimit(url: URL) {
 		clearTimeout(timeout)
@@ -33,7 +34,9 @@
 		}
 
 		url.searchParams.set('limit', String(newLimit))
-		await goto(url.toString(), { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		await invalidate('app:paginate')
 		onLimit(newLimit)
 	}

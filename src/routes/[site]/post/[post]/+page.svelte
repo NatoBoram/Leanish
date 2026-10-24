@@ -13,6 +13,7 @@
 		CommentView,
 		SuccessResponse,
 	} from 'lemmy-js-client'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 	import type { PageData } from './$types.ts'
 
@@ -97,14 +98,16 @@
 		clone.searchParams.set('parent_id', id)
 		clone.searchParams.delete('page')
 
-		return clone.toString()
+		const base = new URL(resolve('/'), url).pathname.replace(/\/$/, '')
+		return resolve(`${clone.pathname.slice(base.length)}${clone.search}${clone.hash}`)
 	}
 
 	function postLink(url: URL) {
 		const clone = new URL(url.href)
 		clone.searchParams.delete('parent_id')
 		clone.searchParams.delete('page')
-		return clone.toString()
+		const base = new URL(resolve('/'), url).pathname.replace(/\/$/, '')
+		return resolve(`${clone.pathname.slice(base.length)}${clone.search}${clone.hash}`)
 	}
 </script>
 

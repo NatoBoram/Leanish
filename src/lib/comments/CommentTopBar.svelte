@@ -12,6 +12,7 @@
 		PersonView,
 		Site,
 	} from 'lemmy-js-client'
+	import { SvelteURL } from 'svelte/reactivity'
 	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
@@ -29,7 +30,7 @@
 	}
 
 	const {
-		class: className = undefined,
+		class: className,
 		commentView,
 		jwt,
 		moderators,
@@ -41,9 +42,10 @@
 		site,
 	}: Props = $props()
 
-	function commentLink(url: URL) {
-		const clone = new URL(url.href)
-		const pathname = resolve(`/${siteHostname(site)}/post/${commentView.post.id}`.slice(1))
+	function commentLink(url: Pick<URL, 'href'>) {
+		const clone = new SvelteURL(url.href)
+		const params = { site: siteHostname(site), post: commentView.post.id.toString() }
+		const pathname = new URL(resolve('/[site]/post/[post]', params), url.href).pathname
 
 		if (clone.pathname !== pathname) {
 			clone.pathname = pathname
@@ -52,7 +54,7 @@
 
 		clone.searchParams.set('parent_id', commentView.comment.id.toString())
 		clone.searchParams.delete('page')
-		return clone
+		return resolve(`${params.site}/post/${params.post}${clone.search}${clone.hash}`)
 	}
 
 	const dtf = Intl.DateTimeFormat('en-GB', {
@@ -93,7 +95,7 @@
 
 	<!-- Published -->
 	<a
-		href={commentLink(new URL(page.url.href)).toString()}
+		href={commentLink(page.url)}
 		class="text-sm text-muted"
 		title={dtf.format(lemmyDate(commentView.comment.published))}
 	>
@@ -105,7 +107,7 @@
 		{@const updated = lemmyDate(commentView.comment.updated)}
 
 		<a
-			href={commentLink(new URL(page.url.href)).toString()}
+			href={commentLink(page.url)}
 			class="flex flex-row items-center gap-2 text-sm text-muted"
 			title={dtf.format(updated)}
 		>

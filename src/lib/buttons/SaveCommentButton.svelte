@@ -16,7 +16,7 @@
 	}
 
 	let {
-		class: className = undefined,
+		class: className,
 		commentView = $bindable(),
 		jwt,
 		onError,

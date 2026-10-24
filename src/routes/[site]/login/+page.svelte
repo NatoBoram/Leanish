@@ -4,6 +4,7 @@
 	import { pushHomeSite } from '#lib/preferences/home_sites.js'
 	import { headers, setJwt, siteHostname, siteLink } from '#lib/utils/index.js'
 	import { goto } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 	import type { LoginResponse } from 'lemmy-js-client'
 	import type { PageData } from './$types.ts'
@@ -48,8 +49,20 @@
 		})
 
 		const redirect = page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
-		const destination = new URL(redirect, page.url.href).toString()
-		return goto(destination, { refreshAll: true }).catch((error: unknown) => {
+		const url = new URL(redirect, page.url.href)
+		const destination = url.toString()
+		const base = new URL(resolve('/'), page.url.href).pathname.replace(/\/$/, '')
+		if (
+			url.origin !== page.url.origin ||
+			(base && url.pathname !== base && !url.pathname.startsWith(`${base}/`))
+		) {
+			location.assign(destination)
+			return
+		}
+
+		return goto(resolve(`${url.pathname.slice(base.length)}${url.search}${url.hash}`), {
+			refreshAll: true,
+		}).catch((error: unknown) => {
 			console.error('Navigation failed after login.', { error, destination })
 			location.assign(destination)
 		})

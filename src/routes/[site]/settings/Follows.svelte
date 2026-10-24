@@ -14,7 +14,7 @@
 
 	const client = getClientContext()
 
-	let logs: string[] = $state([])
+	let logs: { message: string }[] = $state([])
 	let following = false
 
 	async function followAll() {
@@ -26,12 +26,12 @@
 			const uri = communityUri(follow.community)
 
 			if (myUser.follows.some(f => uri === communityUri(f.community))) {
-				logs.push(`Already following ${uri}.`)
+				logs.push({ message: `Already following ${uri}.` })
 				logs = logs
 				continue
 			}
 
-			logs.push(`Searching for ${uri}...`)
+			logs.push({ message: `Searching for ${uri}...` })
 			logs = logs
 
 			const found = await client()
@@ -53,12 +53,12 @@
 				.catch((e: Response) => e)
 
 			if (found instanceof Response) {
-				logs.push(`Couldn't find ${uri}.`)
+				logs.push({ message: `Couldn't find ${uri}.` })
 				logs = logs
 				continue
 			}
 
-			logs.push(`Following ${uri}...`)
+			logs.push({ message: `Following ${uri}...` })
 			logs = logs
 
 			await client().followCommunity({
@@ -66,7 +66,7 @@
 				follow: true,
 			})
 
-			logs.push(`Followed ${uri}!`)
+			logs.push({ message: `Followed ${uri}!` })
 			logs = logs
 		}
 
@@ -77,7 +77,7 @@
 <div class="flex flex-col gap-2">
 	<h3 class="text-xl font-semibold">Follows</h3>
 
-	{#each follows as follow}
+	{#each follows as follow (follow.community.actor_id)}
 		<div class="flex flex-row justify-between">
 			<CommunityUri community={follow.community} {site} />
 		</div>
@@ -86,8 +86,8 @@
 	<button class="surface-container" onclick={followAll}> Follow all </button>
 
 	<div class="font-mono">
-		{#each logs as log}
-			{log}<br />
+		{#each logs as log (log)}
+			{log.message}<br />
 		{/each}
 	</div>
 </div>

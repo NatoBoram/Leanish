@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
 	interface Props {
@@ -8,7 +9,7 @@
 
 	const { maxDepth }: Props = $props()
 	let input: HTMLInputElement
-	let timeout: NodeJS.Timeout
+	let timeout: ReturnType<typeof setTimeout>
 
 	function debounceChangeDepth(url: URL) {
 		clearTimeout(timeout)
@@ -22,7 +23,9 @@
 
 		value = Math.min(Math.max(value, 1), 50)
 		url.searchParams.set('max_depth', String(value))
-		await goto(url.toString(), { reset: false })
+		await goto(resolve(`${url.pathname.slice(resolve('/').length)}${url.search}${url.hash}`), {
+			reset: false,
+		})
 		await invalidate('app:paginate')
 	}
 </script>
