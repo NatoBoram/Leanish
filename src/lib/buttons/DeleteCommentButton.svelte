@@ -36,7 +36,7 @@
 		if (deletePending) return
 
 		deletePending = true
-		const deleted = await client
+		const deleted = await client()
 			.deleteComment({
 				comment_id: comment.id,
 				deleted: !comment.deleted,

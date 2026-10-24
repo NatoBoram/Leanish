@@ -37,7 +37,7 @@
 
 		distinguishPending = true
 
-		const distinguished = await client
+		const distinguished = await client()
 			.distinguishComment({
 				comment_id: comment.id,
 				distinguished: !comment.distinguished,

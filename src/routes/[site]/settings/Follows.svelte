@@ -34,7 +34,7 @@
 			logs.push(`Searching for ${uri}...`)
 			logs = logs
 
-			const found = await client
+			const found = await client()
 				.search({
 					community_name: uri,
 					listing_type: 'All',
@@ -43,7 +43,13 @@
 				})
 				.then(searched => searched.communities.find(c => uri === communityUri(c.community)))
 				.catch(() => undefined)
-				.then(v => v ?? client.getCommunity({ name: uri }).then(r => r.community_view))
+				.then(
+					v =>
+						v ??
+						client()
+							.getCommunity({ name: uri })
+							.then(r => r.community_view),
+				)
 				.catch((e: Response) => e)
 
 			if (found instanceof Response) {
@@ -55,7 +61,7 @@
 			logs.push(`Following ${uri}...`)
 			logs = logs
 
-			await client.followCommunity({
+			await client().followCommunity({
 				community_id: found.community.id,
 				follow: true,
 			})

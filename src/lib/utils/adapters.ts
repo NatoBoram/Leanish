@@ -1,35 +1,21 @@
-import type { LessThan, NumericRange } from '@sveltejs/kit'
-
-export function isLessThan<Max extends number>(input: number, max: Max): input is LessThan<Max> {
+export function isLessThan(input: number, max: number): boolean {
 	return input < max
 }
 
-export function isNumericRange<Min extends number, Max extends number>(
-	input: number,
-	min: Min,
-	max: Max,
-): input is NumericRange<Min, Max> {
+export function isNumericRange(input: number, min: number, max: number): boolean {
 	return min <= input && input <= max
 }
 
-export function toLessThan<Max extends number>(input: number, max: Max): LessThan<Max> {
+export function toLessThan(input: number, max: number): number {
 	if (isLessThan(input, max)) return input
 
-	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-	return (max - 1) as LessThan<Max>
+	return max - 1
 }
 
-export function toNumericRange<Min extends number, Max extends number>(
-	input: number,
-	min: Min,
-	max: Max,
-): NumericRange<Min, Max> {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-	if (isLessThan(input, min)) return min as NumericRange<Min, Max>
+export function toNumericRange(input: number, min: number, max: number): number {
+	if (isLessThan(input, min)) return min
 
-	// @ts-expect-error Type instantiation is excessively deep and possibly infinite.ts(2589)
 	if (isLessThan(input, max)) return input
 
-	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-	return max as NumericRange<Min, Max>
+	return max
 }

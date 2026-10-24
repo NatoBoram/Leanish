@@ -39,7 +39,7 @@
 			return
 		}
 
-		request = client.blockPerson({
+		request = client().blockPerson({
 			block,
 			person_id,
 		})

@@ -36,7 +36,7 @@
 		if (removePending) return
 
 		removePending = true
-		const removed = await client
+		const removed = await client()
 			.removePost({
 				post_id: post.id,
 				removed: !post.removed,

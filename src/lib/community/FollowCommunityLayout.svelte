@@ -24,7 +24,7 @@
 			return
 		}
 
-		const subscription = await client
+		const subscription = await client()
 			.followCommunity({
 				community_id: community.community.id,
 				follow: follow,

@@ -3,8 +3,8 @@
 	import { resolve } from '$app/paths'
 	import { page } from '$app/state'
 
-	let backing = false
-	let refreshing = false
+	let backing = $state(false)
+	let refreshing = $state(false)
 
 	function back() {
 		if (backing) return
@@ -16,7 +16,7 @@
 
 		pathnames.pop()
 
-		if (resolve('')) pathnames.unshift(resolve(''))
+		pathnames.unshift(resolve(''))
 
 		const url = new URL(pathnames.join('/'), location.origin)
 

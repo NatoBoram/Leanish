@@ -36,7 +36,7 @@
 		if (savePending) return
 
 		savePending = true
-		const saved = await client
+		const saved = await client()
 			.saveComment({
 				comment_id: commentView.comment.id,
 				save: !commentView.saved,

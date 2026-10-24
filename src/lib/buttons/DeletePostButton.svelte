@@ -36,7 +36,7 @@
 		if (deletePending) return
 
 		deletePending = true
-		const deleted = await client
+		const deleted = await client()
 			.deletePost({
 				post_id: post.id,
 				deleted: !post.deleted,

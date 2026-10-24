@@ -8,10 +8,10 @@
 	} from '#lib/preferences/index.js'
 	import Spinner from '#lib/Spinner.svelte'
 	import { clientFetch, newUrl, siteLink } from '#lib/utils/index.js'
-	import { LemmyHttp } from 'lemmy-js-client'
-	import { onMount } from 'svelte'
 	import { browser } from '$app/env'
 	import { goto } from '$app/navigation'
+	import { LemmyHttp } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
 	import HomeSiteCard from './HomeSiteCard.svelte'
 
 	let input: string = $state('')

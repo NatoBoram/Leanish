@@ -67,7 +67,7 @@
 		}
 
 		votePending = true
-		const response = await client
+		const response = await client()
 			.likePost({ post_id: postView.post.id, score: score })
 			.catch((e: unknown) => {
 				if (e instanceof Response) onResponse(e)

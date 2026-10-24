@@ -45,7 +45,9 @@
 
 	function onclick() {
 		if (!opened && !communityViewPromise && jwt)
-			communityViewPromise = client.getCommunity({ id: communityId }).then(r => r.community_view)
+			communityViewPromise = client()
+				.getCommunity({ id: communityId })
+				.then(r => r.community_view)
 
 		opened = !opened
 	}

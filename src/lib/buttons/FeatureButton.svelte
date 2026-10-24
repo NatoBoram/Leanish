@@ -53,7 +53,7 @@
 
 		featurePending = true
 
-		const featured = await client
+		const featured = await client()
 			.featurePost({
 				feature_type: type,
 				featured: !featuredValue(postView, type),

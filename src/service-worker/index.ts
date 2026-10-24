@@ -1,10 +1,11 @@
 import { version } from '$app/env'
 import { assets, immutable, prerendered } from '$app/manifest'
 import { resolve } from '$app/paths'
+import { self } from '$app/service-worker'
 
 const cacheKey = `cache-${version}`
 
-const ASSETS = [
+const ASSETS: string[] = [
 	...immutable.map(({ path }) => resolve(path)),
 	...assets.map(({ path }) => resolve(path)),
 	...prerendered.map(({ path }) => resolve(path)),

@@ -5,6 +5,7 @@
 	import Prose from '#lib/Prose.svelte'
 	import { PushPinFill } from '#lib/svg/index.js'
 	import { communityLink, postLink } from '#lib/utils/index.js'
+	import { goto } from '$app/navigation'
 	import { LockClosed, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		BlockCommunityResponse,
@@ -21,7 +22,6 @@
 		PostView,
 		Site,
 	} from 'lemmy-js-client'
-	import { goto } from '$app/navigation'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
 	import PostUrl from './PostUrl.svelte'
@@ -76,7 +76,7 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')
 
 		commentPending = true
-		const response = await client
+		const response = await client()
 			.createComment({
 				content: content,
 				language_id: languageId,
@@ -116,7 +116,7 @@
 		if (!e) return
 
 		reportPending = true
-		const response = await client
+		const response = await client()
 			.createPostReport({
 				post_id: postView.post.id,
 				reason: e,
@@ -144,7 +144,7 @@
 		if (!event) return
 
 		purgePending = true
-		const purged = await client
+		const purged = await client()
 			.purgePost({
 				post_id: postView.post.id,
 				reason: event,

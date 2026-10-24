@@ -24,7 +24,7 @@
 			return
 		}
 
-		const response = await client
+		const response = await client()
 			.blockCommunity({
 				block,
 				community_id: community.community.id,

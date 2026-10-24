@@ -36,7 +36,7 @@
 		if (lockPending) return
 
 		lockPending = true
-		const locked = await client
+		const locked = await client()
 			.lockPost({
 				locked: !post.locked,
 				post_id: post.id,

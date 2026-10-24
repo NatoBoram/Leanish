@@ -35,7 +35,7 @@
 		if (markPending) return
 
 		markPending = true
-		const marked = await client
+		const marked = await client()
 			.markPostAsRead({ post_ids: [postView.post.id], read: !postView.read })
 			.catch((e: Response) => {
 				onResponse(e)

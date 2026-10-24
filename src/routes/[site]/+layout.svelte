@@ -4,23 +4,25 @@
 	import { parseCurrentHomeSite, pushHomeSite } from '#lib/preferences/index.js'
 	import ProfileMenu from '#lib/ProfileMenu.svelte'
 	import { clientFetch, siteHostname, siteLink } from '#lib/utils/index.js'
+	import { goto } from '$app/navigation'
+	import { resolve } from '$app/paths'
+	import { page } from '$app/state'
 	import { App } from '@capacitor/app'
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
+	import type { Snippet } from 'svelte'
 	import { onMount } from 'svelte'
-	import { goto } from '$app/navigation'
-	import { resolve } from '$app/paths'
-	import { page } from '$app/state'
 	import type { LayoutData } from './$types.ts'
 
 	Marked.setOptions(markedOptions)
 
 	interface Props {
 		readonly data: LayoutData
+		readonly children: Snippet
 	}
 
-	const { data }: Props = $props()
+	const { data, children }: Props = $props()
 
 	onMount(() => {
 		const site = data.site_view.site
@@ -66,12 +68,14 @@
 		})
 	})
 
-	const client = new LemmyHttp(data.site_view.site.actor_id, {
-		fetchFunction: clientFetch(data.jwt),
-		...(data.jwt ? { headers: { Authorization: `Bearer ${data.jwt}` } } : {}),
-	})
+	const client = $derived(
+		new LemmyHttp(data.site_view.site.actor_id, {
+			fetchFunction: clientFetch(data.jwt),
+			...(data.jwt ? { headers: { Authorization: `Bearer ${data.jwt}` } } : {}),
+		}),
+	)
 
-	setClientContext(client)
+	setClientContext(() => client)
 </script>
 
 <nav class="top-0 right-0 left-0 mb-4 p-4">
@@ -118,4 +122,4 @@
 	</div>
 </nav>
 
-<slot></slot>
+{@render children()}

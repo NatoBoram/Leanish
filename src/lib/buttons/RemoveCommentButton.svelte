@@ -38,7 +38,7 @@
 		if (removePending) return
 
 		removePending = true
-		const removed = await client
+		const removed = await client()
 			.removeComment({
 				comment_id: comment.id,
 				removed: !comment.removed,

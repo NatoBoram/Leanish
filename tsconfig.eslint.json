@@ -9,6 +9,5 @@
 		"svelte.config.js",
 		"tests",
 		"vite.config.ts"
-	],
-	"files": ["src/service-worker/index.ts"]
+	]
 }

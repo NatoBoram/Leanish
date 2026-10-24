@@ -36,7 +36,7 @@
 		if (savePending) return
 
 		savePending = true
-		const save = await client
+		const save = await client()
 			.savePost({
 				post_id: postView.post.id,
 				save: !postView.saved,

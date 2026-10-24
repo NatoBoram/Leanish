@@ -30,7 +30,7 @@
 			return
 		}
 
-		request = client
+		request = client()
 			.blockPerson({
 				block,
 				person_id: personView.person.id,

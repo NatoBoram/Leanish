@@ -63,7 +63,7 @@
 
 		votePending = true
 
-		const response = await client
+		const response = await client()
 			.likeComment({
 				comment_id: commentView.comment.id,
 				score: score,

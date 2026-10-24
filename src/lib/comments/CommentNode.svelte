@@ -5,6 +5,8 @@
 	import ReportForm from '#lib/posts/ReportPostForm.svelte'
 	import Prose from '#lib/Prose.svelte'
 	import { siteHostname } from '#lib/utils/index.js'
+	import { resolve } from '$app/paths'
+	import { page } from '$app/state'
 	import type {
 		BlockPersonResponse,
 		CommentResponse,
@@ -16,8 +18,6 @@
 		Site,
 		SuccessResponse,
 	} from 'lemmy-js-client'
-	import { resolve } from '$app/paths'
-	import { page } from '$app/state'
 	import type { CommentNode } from './comment_node.ts'
 	import CommentNodeSvelte from './CommentNode.svelte'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
@@ -72,7 +72,7 @@
 
 		replyPending = true
 
-		const response = await client
+		const response = await client()
 			.createComment({
 				content,
 				language_id: languageId,
@@ -118,7 +118,7 @@
 
 		reportPending = true
 
-		const reported = await client
+		const reported = await client()
 			.createCommentReport({ comment_id: commentView.comment.id, reason: e })
 			.catch(async (e: Response) => {
 				botErrorMessage = await e.text()
@@ -145,7 +145,7 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to edit your comment.')
 
 		editPending = true
-		const response = await client
+		const response = await client()
 			.editComment({
 				comment_id: commentView.comment.id,
 				content,
@@ -205,7 +205,7 @@
 
 		purgePending = true
 
-		const purged = await client
+		const purged = await client()
 			.purgeComment({ comment_id: commentView.comment.id, reason: e })
 			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
 
@@ -226,7 +226,7 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to remove comments.')
 
 		removePending = true
-		const removed = await client
+		const removed = await client()
 			.removeComment({
 				comment_id: commentView.comment.id,
 				reason: e,

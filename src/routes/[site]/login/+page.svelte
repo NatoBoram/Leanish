@@ -3,9 +3,9 @@
 	import Dismissable from '#lib/Dismissable.svelte'
 	import { pushHomeSite } from '#lib/preferences/home_sites.js'
 	import { headers, setJwt, siteHostname, siteLink } from '#lib/utils/index.js'
-	import type { LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
+	import type { LoginResponse } from 'lemmy-js-client'
 	import type { PageData } from './$types.ts'
 
 	interface Props {
@@ -18,10 +18,10 @@
 	let username_or_email = $state('')
 	let password = $state('')
 	let totp_2fa_token = $state('')
-	let request: Promise<LoginResponse> | undefined = $state(undefined)
+	let request = $state<Promise<LoginResponse>>()
 
 	async function login() {
-		request = client.login({
+		request = client().login({
 			password,
 			username_or_email,
 			...(totp_2fa_token ? { totp_2fa_token } : {}),
@@ -35,9 +35,9 @@
 
 		const site = siteHostname(data.site_view.site)
 
-		client.setHeaders(headers(loginResponse.jwt, { site }, '/'))
+		client().setHeaders(headers(loginResponse.jwt, { site }, '/'))
 
-		const siteResponse = await client.getSite()
+		const siteResponse = await client().getSite()
 
 		await pushHomeSite({
 			current: true,
