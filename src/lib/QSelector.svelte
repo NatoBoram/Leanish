@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 
 	interface Props {
 		readonly q: string
@@ -8,7 +8,6 @@
 	}
 
 	let { q = $bindable(), onQ = () => {} }: Props = $props()
-
 	let input: HTMLInputElement
 	let timeout: NodeJS.Timeout
 
@@ -32,7 +31,7 @@
 	bind:value={q}
 	class="base-container rounded-md border-none px-4 py-2"
 	onchange={() => {
-		debounceChangeQ($page.url)
+		debounceChangeQ(page.url)
 	}}
 	placeholder="Search"
 	type="text"

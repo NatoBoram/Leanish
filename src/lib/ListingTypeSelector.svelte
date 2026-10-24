@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ListingType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 
 	async function clickListingType(url: URL, type_: ListingType) {
 		url.searchParams.set(name, type_)
@@ -26,10 +26,8 @@
 		class="rounded-l-lg px-4 py-2 {type_ === 'Subscribed'
 			? 'hover:bg-primary/80'
 			: 'hover:bg-muted/20'}"
-		onclick={() => clickListingType($page.url, 'Subscribed')}
+		onclick={() => clickListingType(page.url, 'Subscribed')}>Subscribed</button
 	>
-		Subscribed
-	</button>
 
 	<button
 		class:bg-base-container={type_ !== 'Local'}
@@ -37,10 +35,8 @@
 		class:text-on-base-container={type_ !== 'Local'}
 		class:text-on-primary={type_ === 'Local'}
 		class="px-4 py-2 {type_ === 'Local' ? 'hover:bg-primary/80' : 'hover:bg-muted/20'}"
-		onclick={() => clickListingType($page.url, 'Local')}
+		onclick={() => clickListingType(page.url, 'Local')}>Local</button
 	>
-		Local
-	</button>
 
 	<button
 		class:bg-base-container={type_ !== 'All'}
@@ -48,8 +44,6 @@
 		class:text-on-base-container={type_ !== 'All'}
 		class:text-on-primary={type_ === 'All'}
 		class="rounded-r-lg px-4 py-2 {type_ === 'All' ? 'hover:bg-primary/80' : 'hover:bg-muted/20'}"
-		onclick={() => clickListingType($page.url, 'All')}
+		onclick={() => clickListingType(page.url, 'All')}>All</button
 	>
-		All
-	</button>
 </div>

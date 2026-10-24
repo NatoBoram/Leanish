@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { isCommentSortType } from '#lib/utils/index.js'
 	import type { CommentSortType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
-	import { isCommentSortType } from '$lib/utils/index.js'
+	import { page } from '$app/state'
 
 	interface Props {
 		readonly sort: CommentSortType
@@ -10,10 +10,9 @@
 	}
 
 	const { sort, onSort = () => {} }: Props = $props()
-
 	let select: HTMLSelectElement
-
 	let timeout: NodeJS.Timeout
+
 	function debounceChangeSort(url: URL) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => void changeSort(url), 1000)
@@ -21,6 +20,7 @@
 
 	async function changeSort(url: URL) {
 		let value = select.value
+
 		if (!value || !isCommentSortType(value)) value = 'Hot' satisfies CommentSortType
 
 		if (isCommentSortType(value)) {
@@ -37,7 +37,7 @@
 	value={sort}
 	class="w-20 rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
 	onchange={() => {
-		debounceChangeSort($page.url)
+		debounceChangeSort(page.url)
 	}}
 >
 	<option value="Hot">Hot</option>

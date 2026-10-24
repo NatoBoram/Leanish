@@ -1,4 +1,11 @@
 <script lang="ts">
+	import Comments from '#lib/comments/Comments.svelte'
+	import CommentSortSelector from '#lib/comments/CommentSortSelector.svelte'
+	import { buildCommentTree } from '#lib/comments/index.js'
+	import CommunitySidebar from '#lib/community/CommunitySidebar.svelte'
+	import ListingTypeSelector from '#lib/ListingTypeSelector.svelte'
+	import PaginationBar from '#lib/PaginationBar.svelte'
+	import Post from '#lib/posts/Post.svelte'
 	import { ArrowLongRight } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		BlockPersonResponse,
@@ -6,14 +13,7 @@
 		CommentView,
 		SuccessResponse,
 	} from 'lemmy-js-client'
-	import { page } from '$app/stores'
-	import Comments from '$lib/comments/Comments.svelte'
-	import CommentSortSelector from '$lib/comments/CommentSortSelector.svelte'
-	import { buildCommentTree } from '$lib/comments/index.js'
-	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
-	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
-	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Post from '$lib/posts/Post.svelte'
+	import { page } from '$app/state'
 	import type { PageData } from './$types.ts'
 
 	interface Props {
@@ -21,7 +21,6 @@
 	}
 
 	let { data = $bindable() }: Props = $props()
-
 	const tree = $derived(buildCommentTree(data.comments, data.parent_id ?? 0))
 
 	function onComment(e: CommentResponse) {
@@ -31,6 +30,7 @@
 
 	function onNext() {
 		const first = tree[0]
+
 		if (!first) return
 
 		document
@@ -40,6 +40,7 @@
 
 	function onPrevious() {
 		const last = tree[tree.length - 1]
+
 		if (!last) return
 
 		document
@@ -67,6 +68,7 @@
 		if (!parentId) return false
 
 		const first = tree[0]
+
 		if (!first) return false
 
 		return first.view.comment.path !== `0.${first.view.comment.id}`
@@ -74,21 +76,27 @@
 
 	function parentLink(url: URL) {
 		const first = tree[0]
+
 		if (!first) return
 
 		const paths = first.view.comment.path.split('.')
+
 		if (paths.length < 3) return
 
 		// Remove 0 and itself
 		paths.shift()
+
 		paths.pop()
 
 		const id = paths.pop()
+
 		if (!id) return
 
 		const clone = new URL(url.href)
+
 		clone.searchParams.set('parent_id', id)
 		clone.searchParams.delete('page')
+
 		return clone.toString()
 	}
 
@@ -138,20 +146,14 @@
 
 			<a
 				class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
-				href={postLink($page.url)}
+				href={postLink(page.url)}>View all comments <ArrowLongRight /></a
 			>
-				View all comments
-				<ArrowLongRight />
-			</a>
 
 			{#if hasContext(data.parent_id)}
 				<a
 					class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
-					href={parentLink($page.url)}
+					href={parentLink(page.url)}>Show context <ArrowLongRight /></a
 				>
-					Show context
-					<ArrowLongRight />
-				</a>
 			{/if}
 		{/if}
 

@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { LemmyHttp } from 'lemmy-js-client'
-	import { onMount } from 'svelte'
-	import { browser } from '$app/environment'
-	import { goto } from '$app/navigation'
-	import Dismissable from '$lib/Dismissable.svelte'
+	import Dismissable from '#lib/Dismissable.svelte'
 	import {
 		findDefaultHomeSite,
 		findHomeSite,
 		getHomeSites,
 		pushHomeSite,
-	} from '$lib/preferences/index.js'
-	import Spinner from '$lib/Spinner.svelte'
-	import { clientFetch, newUrl, siteLink } from '$lib/utils/index.js'
+	} from '#lib/preferences/index.js'
+	import Spinner from '#lib/Spinner.svelte'
+	import { clientFetch, newUrl, siteLink } from '#lib/utils/index.js'
+	import { LemmyHttp } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
+	import { browser } from '$app/env'
+	import { goto } from '$app/navigation'
 	import HomeSiteCard from './HomeSiteCard.svelte'
 
 	let input: string = $state('')
@@ -21,6 +21,7 @@
 	onMount(() => {
 		void (async () => {
 			const homeSite = await findDefaultHomeSite()
+
 			if (homeSite) await goto(siteLink(homeSite.siteResponse.site_view.site))
 		})()
 	})
@@ -36,12 +37,15 @@
 		const client = new LemmyHttp(url.href, { fetchFunction: clientFetch(undefined) })
 		const siteResponse = await client.getSite().catch((error: unknown) => {
 			message = 'Failed to connect to the Lemmy instance.'
+
 			if (error instanceof Error) detail = error.message
 		})
+
 		if (!siteResponse) return
 
 		// Hidden sites need a way to connect to them
 		const found = await findHomeSite(siteResponse.site_view.site, siteResponse.my_user)
+
 		if (found?.hidden) return goto(siteLink(found.siteResponse.site_view.site))
 
 		// If the user doesn't click on an existing site, create a new anonymous entry

@@ -1,12 +1,12 @@
 import type { Comment, Community, Person, Post, Site } from 'lemmy-js-client'
-import { base } from '$app/paths'
+import { resolve } from '$app/paths'
 
 export function commentLink(site: Site, post: Post, comment: Comment) {
 	return `${postLink(site, post)}?parent_id=${comment.id}`
 }
 
 export function communityLink(site: Site, community: Community) {
-	return `${base}/${siteHostname(site)}/c/${communityUri(community)}`
+	return resolve(`/${siteHostname(site)}/c/${communityUri(community)}`.slice(1))
 }
 
 /** @example "lemmyworld@lemmy.world" */
@@ -24,7 +24,7 @@ export function newUrl(input: string): URL | false {
 }
 
 export function personLink(site: Site, person: Person) {
-	return `${base}/${siteHostname(site)}/u/${personUri(person)}`
+	return resolve(`/${siteHostname(site)}/u/${personUri(person)}`.slice(1))
 }
 
 /** @example "ruud@lemmy.world" */
@@ -33,7 +33,7 @@ export function personUri(person: Person): string {
 }
 
 export function postLink(site: Site, post: Post) {
-	return `${base}/${siteHostname(site)}/post/${post.id}`
+	return resolve(`/${siteHostname(site)}/post/${post.id}`.slice(1))
 }
 
 /** @example "lemmy.world" */
@@ -42,5 +42,5 @@ export function siteHostname(site: Site): string {
 }
 
 export function siteLink(site: Site) {
-	return `${base}/${siteHostname(site)}`
+	return resolve(`/${siteHostname(site)}`.slice(1))
 }

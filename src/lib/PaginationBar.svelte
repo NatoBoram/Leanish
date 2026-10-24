@@ -5,7 +5,7 @@
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import FlatButton from './buttons/FlatButton.svelte'
 
 	interface Props {
@@ -46,9 +46,10 @@
 
 	async function changePage(url: URL) {
 		let value = Number(input.value)
-		if (!value || isNaN(value)) return
-		value = Math.max(value, 1)
 
+		if (!value || isNaN(value)) return
+
+		value = Math.max(value, 1)
 		url.searchParams.set('page', String(value))
 		await goto(url.toString(), { noScroll: true })
 		await invalidate('app:paginate')
@@ -77,9 +78,9 @@
 		const amount = 1
 		const index = Number(url.searchParams.get('page') ?? 1)
 		const destination = Math.max(index + amount, 1)
+
 		url.searchParams.set('page', String(destination))
 		await goto(url, { noScroll: true })
-
 		onNext(destination)
 		await invalidate('app:paginate')
 	}
@@ -88,9 +89,9 @@
 		const amount = -1
 		const index = Number(url.searchParams.get('page') ?? 1)
 		const destination = Math.max(index + amount, 1)
+
 		url.searchParams.set('page', String(destination))
 		await goto(url, { noScroll: true })
-
 		onPrevious(destination)
 		await invalidate('app:paginate')
 	}
@@ -102,11 +103,10 @@
 >
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
-		{#if canFirst($page.url)}
-			<FlatButton onclick={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
-				<ChevronDoubleLeft />
-				First
-			</FlatButton>
+		{#if canFirst(page.url)}
+			<FlatButton onclick={() => firstPage(page.url)} class="base-container w-28 rounded-lg"
+				><ChevronDoubleLeft />First</FlatButton
+			>
 		{:else}
 			<FlatButton disabled={true} class="muted w-28 rounded-lg">
 				<ChevronDoubleLeft />
@@ -115,11 +115,10 @@
 		{/if}
 
 		<!-- Previous -->
-		{#if hasPrevious($page.url)}
-			<FlatButton class="base-container w-32 rounded-lg" onclick={() => previous($page.url)}>
-				<ChevronLeft />
-				Previous
-			</FlatButton>
+		{#if hasPrevious(page.url)}
+			<FlatButton class="base-container w-32 rounded-lg" onclick={() => previous(page.url)}
+				><ChevronLeft />Previous</FlatButton
+			>
 		{:else}
 			<FlatButton disabled={true} class="muted w-32 rounded-lg">
 				<ChevronLeft />
@@ -139,13 +138,13 @@
 			id="page"
 			min={1}
 			onchange={() => {
-				debounceChangePage($page.url)
+				debounceChangePage(page.url)
 			}}
 			onkeypress={e => {
-				if (e.key === 'Enter') debounceChangePage($page.url)
+				if (e.key === 'Enter') debounceChangePage(page.url)
 			}}
 			type="number"
-			value={initialIndex($page.url)}
+			value={initialIndex(page.url)}
 		/>
 	</div>
 
@@ -153,11 +152,8 @@
 	{#if length >= limit}
 		<FlatButton
 			class="base-container w-28 justify-self-end rounded-lg"
-			onclick={() => next($page.url)}
+			onclick={() => next(page.url)}>Next <ChevronRight /></FlatButton
 		>
-			Next
-			<ChevronRight />
-		</FlatButton>
 	{:else}
 		<FlatButton disabled={true} class="muted w-28 justify-self-end rounded-lg">
 			Next

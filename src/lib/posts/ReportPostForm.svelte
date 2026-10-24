@@ -1,5 +1,5 @@
 <script lang="ts">
-	import FlatButton from '$lib/buttons/FlatButton.svelte'
+	import FlatButton from '#lib/buttons/FlatButton.svelte'
 
 	interface Props {
 		readonly disabled?: boolean

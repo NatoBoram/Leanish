@@ -1,10 +1,10 @@
 <script lang="ts">
+	import ClickOutside from '#lib/ClickOutside.svelte'
 	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
 	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
 	import { goto, invalidateAll } from '$app/navigation'
-	import { base } from '$app/paths'
-	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { resolve } from '$app/paths'
 	import { FlatButton } from './buttons/index.ts'
 	import PersonIcon from './person/PersonIcon.svelte'
 	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.ts'
@@ -17,8 +17,8 @@
 	}
 
 	const { class: className = undefined, myUser, site }: Props = $props()
-
 	let opened = $state(false)
+
 	function onClick() {
 		opened = !opened
 	}
@@ -30,9 +30,11 @@
 
 	async function resetDefault() {
 		const homeSite = await findHomeSite(site, myUser)
+
 		if (homeSite) await pushHomeSite({ ...homeSite, default: false })
 		else await removeHomeSite(site, myUser)
-		return goto(`${base}/`)
+
+		return goto(resolve(`/`.slice(1)))
 	}
 </script>
 

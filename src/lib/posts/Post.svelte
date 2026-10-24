@@ -1,4 +1,10 @@
 <script lang="ts">
+	import CommentForm from '#lib/comments/CommentForm.svelte'
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Dismissable from '#lib/Dismissable.svelte'
+	import Prose from '#lib/Prose.svelte'
+	import { PushPinFill } from '#lib/svg/index.js'
+	import { communityLink, postLink } from '#lib/utils/index.js'
 	import { LockClosed, Star, Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import type {
 		BlockCommunityResponse,
@@ -16,12 +22,6 @@
 		Site,
 	} from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
-	import CommentForm from '$lib/comments/CommentForm.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Dismissable from '$lib/Dismissable.svelte'
-	import Prose from '$lib/Prose.svelte'
-	import { PushPinFill } from '$lib/svg/index.js'
-	import { communityLink, postLink } from '$lib/utils/index.js'
 	import PostBottomBar from './PostBottomBar.svelte'
 	import PostTopBar from './PostTopBar.svelte'
 	import PostUrl from './PostUrl.svelte'

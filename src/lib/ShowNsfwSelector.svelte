@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 
 	interface Props {
 		readonly class?: string | undefined
@@ -9,9 +9,10 @@
 	}
 
 	const { class: className = undefined, showNsfw, onShowNsfw = () => {} }: Props = $props()
-	let checkbox: HTMLInputElement
 
+	let checkbox: HTMLInputElement
 	let timeout: NodeJS.Timeout
+
 	function debounceChangeShowNsfw(url: URL) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => void changeShowNsfw(url), 1000)
@@ -33,7 +34,7 @@
 		class="border-on-base-container/25 bg-base-container text-primary focus:ring-1 focus:ring-offset-0"
 		id="show_nsfw"
 		onchange={() => {
-			debounceChangeShowNsfw($page.url)
+			debounceChangeShowNsfw(page.url)
 		}}
 		type="checkbox"
 	/>

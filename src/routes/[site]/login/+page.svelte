@@ -1,17 +1,16 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Dismissable from '#lib/Dismissable.svelte'
+	import { pushHomeSite } from '#lib/preferences/home_sites.js'
+	import { headers, setJwt, siteHostname, siteLink } from '#lib/utils/index.js'
 	import type { LoginResponse } from 'lemmy-js-client'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Dismissable from '$lib/Dismissable.svelte'
-	import { pushHomeSite } from '$lib/preferences/home_sites.js'
-	import { headers, setJwt, siteHostname, siteLink } from '$lib/utils/index.js'
 	import type { PageData } from './$types.ts'
 
 	export let data: PageData
 
 	const client = getClientContext()
-
 	let username_or_email = ''
 	let password = ''
 	let totp_2fa_token = ''
@@ -25,11 +24,15 @@
 		})
 
 		const loginResponse = await request
+
 		if (!loginResponse.jwt) return
 
 		await setJwt(data.site_view.site, loginResponse.jwt)
+
 		const site = siteHostname(data.site_view.site)
+
 		client.setHeaders(headers(loginResponse.jwt, { site }, '/'))
+
 		const siteResponse = await client.getSite()
 
 		await pushHomeSite({
@@ -37,7 +40,7 @@
 			default: false,
 			hidden: false,
 			jwt: loginResponse.jwt,
-			siteResponse: siteResponse,
+			siteResponse,
 		})
 
 		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
@@ -50,9 +53,8 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Login to {siteHostname(data.site_view.site)}</title>
-</svelte:head>
+<!-- @migration-task could not auto-migrate `$app/stores` to `$app/state`: legacy `export let` props; migrate manually -->
+<svelte:head><title>Login to {siteHostname(data.site_view.site)}</title></svelte:head>
 
 <div class="mx-auto flex max-w-md flex-col gap-4 p-4">
 	<form on:submit|preventDefault={login} class="flex flex-col gap-4">
@@ -106,9 +108,9 @@
 				<div class="danger-container relative rounded-md p-4">Loading error message...</div>
 			{:then text}
 				{#if text}
-					<Dismissable onDismiss={() => (request = undefined)} class="danger-container">
-						{@html text}
-					</Dismissable>
+					<Dismissable onDismiss={() => (request = undefined)} class="danger-container"
+						>{@html text}</Dismissable
+					>
 				{:else}
 					<div class="danger-container relative rounded-md p-4">An unexpected error happened.</div>
 				{/if}

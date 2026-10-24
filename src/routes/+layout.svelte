@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { base } from '$app/paths'
+	import { resolve } from '$app/paths'
 	import '../app.postcss'
 </script>
 
 <svelte:head>
-	<link rel="manifest" href="{base}/manifest.webmanifest" />
+	<link rel="manifest" href="{resolve('')}/manifest.webmanifest" />
 </svelte:head>
 
-<slot />
+<slot></slot>

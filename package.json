@@ -93,12 +93,12 @@
 		"@natoboram/heroicons.svelte": "^1.0.6",
 		"@playwright/test": "^1.64.1",
 		"@prettier/plugin-xml": "^3.4.2",
-		"@sveltejs/adapter-auto": "^3.3.1",
-		"@sveltejs/adapter-node": "^5.2.12",
-		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.20.6",
-		"@sveltejs/package": "^2.3.12",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@sveltejs/adapter-auto": "^8.0.0",
+		"@sveltejs/adapter-node": "^6.0.0",
+		"@sveltejs/adapter-static": "^4.0.0",
+		"@sveltejs/kit": "^3.0.0",
+		"@sveltejs/package": "^3.0.0",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@tailwindcss/forms": "^0.5.11",
 		"@tailwindcss/typography": "^0.5.20",
 		"@trivago/prettier-plugin-sort-imports": "^5.2.2",
@@ -118,14 +118,14 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.13",
 		"publint": "^0.2.12",
-		"svelte": "^5.55.7",
-		"svelte-check": "^4.0.5",
+		"svelte": "^5.57.1",
+		"svelte-check": "^4.7.5",
 		"svelte-eslint-parser": "^0.42.0",
 		"tailwindcss": "^3.4.17",
 		"tslib": "^2.8.1",
-		"typescript": "5.8.3",
+		"typescript": "^6.0.0",
 		"typescript-eslint": "^8.10.0",
-		"vite": "^5.4.21",
+		"vite": "^8.0.12",
 		"vitest": "^2.1.9"
 	},
 	"peerDependencies": {
@@ -134,5 +134,9 @@
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"type": "module"
+	"type": "module",
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
+	}
 }

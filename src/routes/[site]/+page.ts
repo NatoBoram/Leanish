@@ -1,6 +1,6 @@
+import { formGetPosts, headers, serverFetch } from '#lib/utils/index.js'
 import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
-import { formGetPosts, headers, serverFetch } from '$lib/utils/index.js'
 import type { PageLoad } from './$types.ts'
 
 export const load: PageLoad = (async ({ params, fetch, parent, url, depends }) => {

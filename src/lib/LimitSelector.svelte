@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 
 	interface Props {
 		readonly limit: number
@@ -8,10 +8,9 @@
 	}
 
 	const { limit, onLimit = () => {} }: Props = $props()
-
 	let input: HTMLInputElement
-
 	let timeout: NodeJS.Timeout
+
 	function debounceChangeLimit(url: URL) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => void changeLimit(url), 1000)
@@ -19,7 +18,9 @@
 
 	async function changeLimit(url: URL) {
 		let newLimit = Number(input.value)
+
 		if (!newLimit || isNaN(newLimit)) newLimit = 10
+
 		newLimit = Math.min(Math.max(newLimit, 1), 50)
 
 		// Change the page to keep the middle post within view
@@ -47,10 +48,10 @@
 		max={50}
 		min={1}
 		onchange={() => {
-			debounceChangeLimit($page.url)
+			debounceChangeLimit(page.url)
 		}}
 		onkeypress={e => {
-			if (e.key === 'Enter') debounceChangeLimit($page.url)
+			if (e.key === 'Enter') debounceChangeLimit(page.url)
 		}}
 		type="number"
 		value={limit}

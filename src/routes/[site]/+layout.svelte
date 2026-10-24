@@ -1,17 +1,17 @@
 <script lang="ts">
+	import { markedOptions } from '#lib/consts/index.js'
+	import { setClientContext } from '#lib/contexts/index.js'
+	import { parseCurrentHomeSite, pushHomeSite } from '#lib/preferences/index.js'
+	import ProfileMenu from '#lib/ProfileMenu.svelte'
+	import { clientFetch, siteHostname, siteLink } from '#lib/utils/index.js'
 	import { App } from '@capacitor/app'
 	import { Marked } from '@ts-stack/markdown'
 	import 'highlight.js/styles/vs.css'
 	import { LemmyHttp } from 'lemmy-js-client'
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
-	import { base } from '$app/paths'
+	import { resolve } from '$app/paths'
 	import { page } from '$app/stores'
-	import { markedOptions } from '$lib/consts/index.js'
-	import { setClientContext } from '$lib/contexts/index.js'
-	import { parseCurrentHomeSite, pushHomeSite } from '$lib/preferences/index.js'
-	import ProfileMenu from '$lib/ProfileMenu.svelte'
-	import { clientFetch, siteHostname, siteLink } from '$lib/utils/index.js'
 	import type { LayoutData } from './$types.ts'
 
 	Marked.setOptions(markedOptions)
@@ -42,8 +42,13 @@
 				})
 
 			// JWT expired, redirect to login
-			if (currentSite.siteResponse.my_user && $page.url.pathname !== `${base}/${hostname}/login`)
-				return goto(`${base}/${hostname}/login?goto=${encodeURIComponent($page.url.pathname)}`)
+			if (
+				currentSite.siteResponse.my_user &&
+				$page.url.pathname !== resolve(`/${hostname}/login`.slice(1))
+			)
+				return goto(
+					resolve(`/${hostname}/login?goto=${encodeURIComponent($page.url.pathname)}`.slice(1)),
+				)
 		})()
 
 		void App.addListener('backButton', ({ canGoBack }) => {
@@ -56,8 +61,11 @@
 		fetchFunction: clientFetch(data.jwt),
 		...(data.jwt ? { headers: { Authorization: `Bearer ${data.jwt}` } } : {}),
 	})
+
 	setClientContext(client)
 </script>
+
+<!-- @migration-task could not auto-migrate `$app/stores` to `$app/state`: legacy `export let` props; migrate manually -->
 
 <nav class="left-0 right-0 top-0 mb-4 p-4">
 	<div
@@ -65,7 +73,11 @@
 	>
 		<div class="flex flex-col items-center gap-4 sm:flex-row">
 			<!-- Site -->
-			<a class="flex flex-row items-center gap-4" href="{base}/{siteHostname(data.site_view.site)}">
+
+			<a
+				class="flex flex-row items-center gap-4"
+				href="{resolve('')}/{siteHostname(data.site_view.site)}"
+			>
 				{#if data.site_view.site.icon}
 					<img src={data.site_view.site.icon} alt="icon" class="h-10 w-10" />
 				{/if}
@@ -73,10 +85,12 @@
 			</a>
 
 			<!-- Communities -->
-			<a href="{base}/{siteHostname(data.site_view.site)}/communities"> Communities </a>
+
+			<a href="{resolve('')}/{siteHostname(data.site_view.site)}/communities">Communities</a>
 
 			<!-- Search -->
-			<a href="{base}/{siteHostname(data.site_view.site)}/search"> Search </a>
+
+			<a href="{resolve('')}/{siteHostname(data.site_view.site)}/search">Search</a>
 		</div>
 
 		<div class="flex flex-col items-center gap-4 text-base text-on-base sm:flex-row">
@@ -97,4 +111,4 @@
 	</div>
 </nav>
 
-<slot />
+<slot></slot>

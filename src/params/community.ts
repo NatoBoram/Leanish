@@ -1,5 +1,5 @@
-import type { ParamMatcher } from '@sveltejs/kit'
-import { newUrl } from '$lib/utils/index.js'
+import { newUrl } from '#lib/utils/index.js'
+import type { ParamMatcher } from '@sveltejs/kit/params'
 
 export const match: ParamMatcher = (param => {
 	const [community, instance] = param.split('@')

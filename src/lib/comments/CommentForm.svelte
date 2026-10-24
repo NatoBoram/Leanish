@@ -1,7 +1,7 @@
 <script lang="ts">
+	import FlatButton from '#lib/buttons/FlatButton.svelte'
+	import Prose from '#lib/Prose.svelte'
 	import type { Language, LanguageId, MyUserInfo } from 'lemmy-js-client'
-	import FlatButton from '$lib/buttons/FlatButton.svelte'
-	import Prose from '$lib/Prose.svelte'
 
 	interface Props {
 		readonly allLanguages: Language[]
