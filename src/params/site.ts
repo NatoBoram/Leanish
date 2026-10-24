@@ -1,6 +1,5 @@
-import type { ParamMatcher } from '@sveltejs/kit'
-import { newUrl } from '$lib/utils/index.js'
+import { newUrl } from '#lib/utils/index.js'
 
-export const match: ParamMatcher = (param => {
+export function match(param: string): boolean {
 	return Boolean(newUrl(`https://${param}`))
-}) satisfies ParamMatcher
+}

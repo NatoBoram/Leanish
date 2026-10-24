@@ -1,47 +1,58 @@
 <script lang="ts">
-	import type { LoginResponse } from 'lemmy-js-client'
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Dismissable from '#lib/Dismissable.svelte'
+	import { pushHomeSite } from '#lib/preferences/home_sites.js'
+	import { headers, setJwt, siteHostname, siteLink } from '#lib/utils/index.js'
 	import { goto } from '$app/navigation'
-	import { page } from '$app/stores'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Dismissable from '$lib/Dismissable.svelte'
-	import { pushHomeSite } from '$lib/preferences/home_sites.js'
-	import { headers, setJwt, siteHostname, siteLink } from '$lib/utils/index.js'
+	import { page } from '$app/state'
+	import type { LoginResponse } from 'lemmy-js-client'
 	import type { PageData } from './$types.ts'
 
-	export let data: PageData
+	interface Props {
+		readonly data: PageData
+	}
+
+	const { data }: Props = $props()
 
 	const client = getClientContext()
-
-	let username_or_email = ''
-	let password = ''
-	let totp_2fa_token = ''
-	let request: Promise<LoginResponse> | undefined = undefined
+	let username_or_email = $state('')
+	let password = $state('')
+	let totp_2fa_token = $state('')
+	let request = $state<Promise<LoginResponse>>()
 
 	async function login() {
-		request = client.login({
+		request = client().login({
 			password,
 			username_or_email,
 			...(totp_2fa_token ? { totp_2fa_token } : {}),
 		})
 
 		const loginResponse = await request
+
 		if (!loginResponse.jwt) return
 
 		await setJwt(data.site_view.site, loginResponse.jwt)
+
 		const site = siteHostname(data.site_view.site)
-		client.setHeaders(headers(loginResponse.jwt, { site }, '/'))
-		const siteResponse = await client.getSite()
+
+		client().setHeaders(headers(loginResponse.jwt, { site }, '/'))
+
+		const siteResponse = await client().getSite()
 
 		await pushHomeSite({
 			current: true,
 			default: false,
 			hidden: false,
 			jwt: loginResponse.jwt,
-			siteResponse: siteResponse,
+			siteResponse,
 		})
 
-		const redirect = $page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
-		return goto(redirect, { invalidateAll: true })
+		const redirect = page.url.searchParams.get('goto') ?? siteLink(data.site_view.site)
+		const destination = new URL(redirect, page.url.href).toString()
+		return goto(destination, { refreshAll: true }).catch((error: unknown) => {
+			console.error('Navigation failed after login.', { error, destination })
+			location.assign(destination)
+		})
 	}
 
 	function errorToResponse(error: unknown) {
@@ -50,18 +61,22 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Login to {siteHostname(data.site_view.site)}</title>
-</svelte:head>
+<svelte:head><title>Login to {siteHostname(data.site_view.site)}</title></svelte:head>
 
 <div class="mx-auto flex max-w-md flex-col gap-4 p-4">
-	<form on:submit|preventDefault={login} class="flex flex-col gap-4">
+	<form
+		onsubmit={event => {
+			event.preventDefault()
+			void login()
+		}}
+		class="flex flex-col gap-4"
+	>
 		<div class="flex flex-col gap-2">
 			<label for="username_or_email">Username or email</label>
 			<input
 				id="username_or_email"
 				bind:value={username_or_email}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded-sm border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
@@ -71,7 +86,7 @@
 				id="password"
 				type="password"
 				bind:value={password}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded-sm border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
@@ -80,21 +95,21 @@
 			<input
 				id="totp_2fa_token"
 				bind:value={totp_2fa_token}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded-sm border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
-		<button type="submit" class="rounded bg-primary px-2 py-1 text-on-primary"> Login </button>
+		<button type="submit" class="rounded-sm bg-primary px-2 py-1 text-on-primary"> Login </button>
 	</form>
 
 	{#if request}
 		{#await request}
-			<div class="rounded bg-base-container p-4 text-on-base-container">Loading...</div>
+			<div class="rounded-sm bg-base-container p-4 text-on-base-container">Loading...</div>
 		{:then response}
 			{#if response.jwt}
-				<div class="rounded bg-primary-container p-4 text-on-primary-container">Logged in!</div>
+				<div class="rounded-sm bg-primary-container p-4 text-on-primary-container">Logged in!</div>
 			{:else}
-				<div class="rounded bg-base-container p-4 text-on-base-container">
+				<div class="rounded-sm bg-base-container p-4 text-on-base-container">
 					Hm, something strange happened.
 				</div>
 				<div class="prose">
@@ -103,14 +118,14 @@
 			{/if}
 		{:catch error}
 			{#await errorToResponse(error)?.text()}
-				<div class="danger-container relative rounded-md p-4">Loading error message...</div>
+				<div class="relative rounded-md danger-container p-4">Loading error message...</div>
 			{:then text}
 				{#if text}
-					<Dismissable onDismiss={() => (request = undefined)} class="danger-container">
-						{@html text}
-					</Dismissable>
+					<Dismissable onDismiss={() => (request = undefined)} class="danger-container"
+						>{@html text}</Dismissable
+					>
 				{:else}
-					<div class="danger-container relative rounded-md p-4">An unexpected error happened.</div>
+					<div class="relative rounded-md danger-container p-4">An unexpected error happened.</div>
 				{/if}
 			{/await}
 		{/await}

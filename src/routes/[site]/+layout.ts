@@ -1,6 +1,6 @@
+import { getJwt, headers, serverFetch } from '#lib/utils/index.js'
 import { error } from '@sveltejs/kit'
 import { LemmyHttp } from 'lemmy-js-client'
-import { getJwt, headers, serverFetch } from '$lib/utils/index.js'
 import type { LayoutLoad } from './$types.ts'
 
 export const load: LayoutLoad = (async ({ params, fetch, data }) => {

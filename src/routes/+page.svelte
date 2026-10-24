@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { LemmyHttp } from 'lemmy-js-client'
-	import { onMount } from 'svelte'
-	import { browser } from '$app/environment'
-	import { goto } from '$app/navigation'
-	import Dismissable from '$lib/Dismissable.svelte'
+	import Dismissable from '#lib/Dismissable.svelte'
 	import {
 		findDefaultHomeSite,
 		findHomeSite,
 		getHomeSites,
 		pushHomeSite,
-	} from '$lib/preferences/index.js'
-	import Spinner from '$lib/Spinner.svelte'
-	import { clientFetch, newUrl, siteLink } from '$lib/utils/index.js'
+	} from '#lib/preferences/index.js'
+	import Spinner from '#lib/Spinner.svelte'
+	import { clientFetch, newUrl, siteLink } from '#lib/utils/index.js'
+	import { browser } from '$app/env'
+	import { goto } from '$app/navigation'
+	import { LemmyHttp } from 'lemmy-js-client'
+	import { onMount } from 'svelte'
 	import HomeSiteCard from './HomeSiteCard.svelte'
 
 	let input: string = $state('')
@@ -21,6 +21,7 @@
 	onMount(() => {
 		void (async () => {
 			const homeSite = await findDefaultHomeSite()
+
 			if (homeSite) await goto(siteLink(homeSite.siteResponse.site_view.site))
 		})()
 	})
@@ -36,12 +37,15 @@
 		const client = new LemmyHttp(url.href, { fetchFunction: clientFetch(undefined) })
 		const siteResponse = await client.getSite().catch((error: unknown) => {
 			message = 'Failed to connect to the Lemmy instance.'
+
 			if (error instanceof Error) detail = error.message
 		})
+
 		if (!siteResponse) return
 
 		// Hidden sites need a way to connect to them
 		const found = await findHomeSite(siteResponse.site_view.site, siteResponse.my_user)
+
 		if (found?.hidden) return goto(siteLink(found.siteResponse.site_view.site))
 
 		// If the user doesn't click on an existing site, create a new anonymous entry
@@ -76,14 +80,14 @@
 	<div class="flex flex-col gap-2 sm:flex-row">
 		<input
 			bind:value={input}
-			class="base-container rounded border-none p-2"
+			class="rounded-sm border-none base-container p-2"
 			id="input"
 			onkeypress={k => k.key === 'Enter' && submit()}
 			onsubmit={submit}
 			type="url"
 		/>
 
-		<button class="base-container rounded px-4 py-2" onclick={submit} type="submit">
+		<button class="rounded-sm base-container px-4 py-2" onclick={submit} type="submit">
 			Submit
 		</button>
 	</div>
@@ -117,7 +121,7 @@
 						{#if !homeSite.hidden}
 							<HomeSiteCard
 								{homeSite}
-								class="base-container h-full"
+								class="h-full base-container"
 								onCurrent={reloadHomeSites}
 								onDefault={reloadHomeSites}
 								onDelete={reloadHomeSites}

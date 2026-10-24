@@ -1,7 +1,7 @@
 <script lang="ts">
+	import SubscribeButton from '#lib/community/CommunityFollowButton.svelte'
+	import { getClientContext } from '#lib/contexts/index.js'
 	import type { CommunityView } from 'lemmy-js-client'
-	import SubscribeButton from '$lib/community/CommunityFollowButton.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 
 	interface Props {
 		readonly class?: string | undefined
@@ -24,7 +24,7 @@
 			return
 		}
 
-		const subscription = await client
+		const subscription = await client()
 			.followCommunity({
 				community_id: community.community.id,
 				follow: follow,

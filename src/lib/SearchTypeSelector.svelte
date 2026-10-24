@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SearchType } from 'lemmy-js-client'
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import { isSearchType } from './utils/index.ts'
 
 	interface Props {
@@ -11,10 +11,9 @@
 	}
 
 	const { name = 'type_', type_, onSearch = () => {} }: Props = $props()
-
 	let select: HTMLSelectElement
-
 	let timeout: NodeJS.Timeout
+
 	function debounceChangeSearch(url: URL) {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => void changeSearch(url), 1000)
@@ -22,11 +21,12 @@
 
 	async function changeSearch(url: URL) {
 		let value = select.value
+
 		if (!value || !isSearchType(value)) value = 'All' satisfies SearchType
 
 		if (isSearchType(value)) {
 			url.searchParams.set(name, String(value))
-			await goto(url.toString(), { noScroll: true })
+			await goto(url.toString(), { reset: false })
 			await invalidate('app:paginate')
 			onSearch(value)
 		}
@@ -38,7 +38,7 @@
 	value={type_}
 	class="rounded-md border-none bg-base-container px-4 py-2 text-on-base-container"
 	onchange={() => {
-		debounceChangeSearch($page.url)
+		debounceChangeSearch(new URL(page.url.href))
 	}}
 >
 	<option disabled={true} aria-hidden={true} value={undefined}>Search Type</option>

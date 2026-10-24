@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
 	import type { BlockPersonResponse, MyUserInfo, PersonView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
 
 	interface Props {
 		readonly class?: string | undefined
@@ -30,7 +30,7 @@
 			return
 		}
 
-		request = client
+		request = client()
 			.blockPerson({
 				block,
 				person_id: personView.person.id,

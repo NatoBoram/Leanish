@@ -1,15 +1,15 @@
 <script lang="ts">
+	import DeletePostButton from '#lib/buttons/DeletePostButton.svelte'
+	import FeatureButton from '#lib/buttons/FeatureButton.svelte'
+	import LockPostButton from '#lib/buttons/LockPostButton.svelte'
+	import MarkPostAsReadButton from '#lib/buttons/MarkPostAsReadButton.svelte'
+	import MeatballButton from '#lib/buttons/MeatballButton.svelte'
+	import RemovePostButton from '#lib/buttons/RemovePostButton.svelte'
+	import SavePostButton from '#lib/buttons/SavePostButton.svelte'
+	import ClickOutside from '#lib/ClickOutside.svelte'
 	import { Flag, Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
 	import type { MyUserInfo, PostResponse, PostView } from 'lemmy-js-client'
-	import DeletePostButton from '$lib/buttons/DeletePostButton.svelte'
-	import FeatureButton from '$lib/buttons/FeatureButton.svelte'
-	import LockPostButton from '$lib/buttons/LockPostButton.svelte'
-	import MarkPostAsReadButton from '$lib/buttons/MarkPostAsReadButton.svelte'
-	import MeatballButton from '$lib/buttons/MeatballButton.svelte'
-	import RemovePostButton from '$lib/buttons/RemovePostButton.svelte'
-	import SavePostButton from '$lib/buttons/SavePostButton.svelte'
-	import ClickOutside from '$lib/ClickOutside.svelte'
 
 	interface Props {
 		readonly class?: string | undefined
@@ -67,13 +67,13 @@
 
 <div class="relative flex flex-col items-center {className}">
 	{#if opened}
-		<div class="surface-container absolute z-10 rounded py-1 {position}">
+		<div class="absolute z-10 rounded-sm surface-container py-1 {position}">
 			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col">
 				<!-- Authenticated -->
 				{#if jwt}
 					<MarkPostAsReadButton {jwt} {postView} {onError} {onRead} {onResponse} />
 					<SavePostButton {jwt} {postView} {onError} {onResponse} {onSave} />
-					<MeatballButton class="hover:surface surface-container" onclick={clickReport}>
+					<MeatballButton class="surface-container hover:surface" onclick={clickReport}>
 						<Flag class="h-5 w-5" />
 						Report
 					</MeatballButton>
@@ -84,7 +84,7 @@
 					<hr class="my-2 border-muted" />
 
 					<MeatballButton
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						onclick={() => {
 							onEdit()
 						}}
@@ -102,7 +102,7 @@
 					<FeatureButton
 						{jwt}
 						{postView}
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						{onError}
 						{onFeature}
 						{onResponse}
@@ -111,7 +111,7 @@
 
 					<LockPostButton
 						{jwt}
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						{onError}
 						{onLock}
 						{onResponse}
@@ -120,7 +120,7 @@
 
 					<RemovePostButton
 						{jwt}
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						{onError}
 						{onRemove}
 						{onResponse}
@@ -135,7 +135,7 @@
 					<FeatureButton
 						{jwt}
 						{postView}
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						{onError}
 						{onFeature}
 						{onResponse}
@@ -143,7 +143,7 @@
 					/>
 
 					<MeatballButton
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						onclick={() => {
 							onPurge()
 						}}

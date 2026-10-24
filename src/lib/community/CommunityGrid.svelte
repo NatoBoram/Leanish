@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { communityLink, communityUri } from '#lib/utils/index.js'
 	import { EyeSlash, NoSymbol, ShieldCheck, Trash } from '@natoboram/heroicons.svelte/24/solid'
 	import type {
 		BlockCommunityResponse,
@@ -6,7 +7,6 @@
 		CommunityView,
 		Site,
 	} from 'lemmy-js-client'
-	import { communityLink, communityUri } from '$lib/utils/index.js'
 	import CommunityIcon from './CommunityIcon.svelte'
 	import CommunityMeatballs from './CommunityMeatballs.svelte'
 

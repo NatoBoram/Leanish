@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
 	import { Star as StarOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { PostResponse, PostView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -36,7 +36,7 @@
 		if (savePending) return
 
 		savePending = true
-		const save = await client
+		const save = await client()
 			.savePost({
 				post_id: postView.post.id,
 				save: !postView.saved,
@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={savePost}
-	class="{savePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{savePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={savePending}
 >
 	{#if savePending && postView.saved}

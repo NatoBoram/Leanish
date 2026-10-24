@@ -5,7 +5,7 @@
 		ChevronRight,
 	} from '@natoboram/heroicons.svelte/20/solid'
 	import { goto, invalidate } from '$app/navigation'
-	import { page } from '$app/stores'
+	import { page } from '$app/state'
 	import FlatButton from './buttons/FlatButton.svelte'
 
 	interface Props {
@@ -46,11 +46,12 @@
 
 	async function changePage(url: URL) {
 		let value = Number(input.value)
-		if (!value || isNaN(value)) return
-		value = Math.max(value, 1)
 
+		if (!value || isNaN(value)) return
+
+		value = Math.max(value, 1)
 		url.searchParams.set('page', String(value))
-		await goto(url.toString(), { noScroll: true })
+		await goto(url.toString(), { reset: false })
 		await invalidate('app:paginate')
 	}
 
@@ -61,7 +62,7 @@
 
 	async function firstPage(url: URL) {
 		url.searchParams.set('page', String(1))
-		await goto(url, { noScroll: true })
+		await goto(url, { reset: false })
 
 		onFirst()
 		await invalidate('app:paginate')
@@ -77,9 +78,9 @@
 		const amount = 1
 		const index = Number(url.searchParams.get('page') ?? 1)
 		const destination = Math.max(index + amount, 1)
-		url.searchParams.set('page', String(destination))
-		await goto(url, { noScroll: true })
 
+		url.searchParams.set('page', String(destination))
+		await goto(url, { reset: false })
 		onNext(destination)
 		await invalidate('app:paginate')
 	}
@@ -88,9 +89,9 @@
 		const amount = -1
 		const index = Number(url.searchParams.get('page') ?? 1)
 		const destination = Math.max(index + amount, 1)
-		url.searchParams.set('page', String(destination))
-		await goto(url, { noScroll: true })
 
+		url.searchParams.set('page', String(destination))
+		await goto(url, { reset: false })
 		onPrevious(destination)
 		await invalidate('app:paginate')
 	}
@@ -102,26 +103,26 @@
 >
 	<div class="flex flex-row items-center gap-2 justify-self-start">
 		<!-- First -->
-		{#if canFirst($page.url)}
-			<FlatButton onclick={() => firstPage($page.url)} class="base-container w-28 rounded-lg">
-				<ChevronDoubleLeft />
-				First
-			</FlatButton>
+		{#if canFirst(new URL(page.url.href))}
+			<FlatButton
+				onclick={() => firstPage(new URL(page.url.href))}
+				class="w-28 rounded-lg base-container"><ChevronDoubleLeft />First</FlatButton
+			>
 		{:else}
-			<FlatButton disabled={true} class="muted w-28 rounded-lg">
+			<FlatButton disabled={true} class="w-28 rounded-lg muted">
 				<ChevronDoubleLeft />
 				First
 			</FlatButton>
 		{/if}
 
 		<!-- Previous -->
-		{#if hasPrevious($page.url)}
-			<FlatButton class="base-container w-32 rounded-lg" onclick={() => previous($page.url)}>
-				<ChevronLeft />
-				Previous
-			</FlatButton>
+		{#if hasPrevious(new URL(page.url.href))}
+			<FlatButton
+				class="w-32 rounded-lg base-container"
+				onclick={() => previous(new URL(page.url.href))}><ChevronLeft />Previous</FlatButton
+			>
 		{:else}
-			<FlatButton disabled={true} class="muted w-32 rounded-lg">
+			<FlatButton disabled={true} class="w-32 rounded-lg muted">
 				<ChevronLeft />
 				Previous
 			</FlatButton>
@@ -139,27 +140,24 @@
 			id="page"
 			min={1}
 			onchange={() => {
-				debounceChangePage($page.url)
+				debounceChangePage(new URL(page.url.href))
 			}}
 			onkeypress={e => {
-				if (e.key === 'Enter') debounceChangePage($page.url)
+				if (e.key === 'Enter') debounceChangePage(new URL(page.url.href))
 			}}
 			type="number"
-			value={initialIndex($page.url)}
+			value={initialIndex(new URL(page.url.href))}
 		/>
 	</div>
 
 	<!-- Next -->
 	{#if length >= limit}
 		<FlatButton
-			class="base-container w-28 justify-self-end rounded-lg"
-			onclick={() => next($page.url)}
+			class="w-28 justify-self-end rounded-lg base-container"
+			onclick={() => next(new URL(page.url.href))}>Next <ChevronRight /></FlatButton
 		>
-			Next
-			<ChevronRight />
-		</FlatButton>
 	{:else}
-		<FlatButton disabled={true} class="muted w-28 justify-self-end rounded-lg">
+		<FlatButton disabled={true} class="w-28 justify-self-end rounded-lg muted">
 			Next
 			<ChevronRight />
 		</FlatButton>

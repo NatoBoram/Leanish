@@ -1,6 +1,6 @@
+import { siteHostname } from '#lib/utils/index.js'
 import { Preferences } from '@capacitor/preferences'
 import type { MyUserInfo, Site } from 'lemmy-js-client'
-import { siteHostname } from '$lib/utils/index.js'
 import type { HomeSite } from './home_site.ts'
 
 export async function editHomeSite(homeSite: HomeSite): Promise<HomeSite> {

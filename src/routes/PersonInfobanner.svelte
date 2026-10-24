@@ -1,7 +1,7 @@
 <script lang="ts">
+	import PersonUri from '#lib/person/PersonUri.svelte'
+	import { lemmyDate, personLink, timeAgo } from '#lib/utils/index.js'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
-	import PersonUri from '$lib/person/PersonUri.svelte'
-	import { lemmyDate, personLink, timeAgo } from '$lib/utils/index.js'
 
 	let className: string | undefined = undefined
 	export { className as class }
@@ -14,13 +14,13 @@
 	<!-- Background banner -->
 	{#if myUser.local_user_view.person.banner}
 		<img
-			class="absolute left-0 right-0 top-0 max-h-full w-full object-cover opacity-10"
+			class="absolute top-0 right-0 left-0 max-h-full w-full object-cover opacity-10"
 			src={myUser.local_user_view.person.banner}
 			alt="banner"
 		/>
 	{:else}
 		<div
-			class="surface-container absolute left-0 right-0 top-0 h-full w-full object-cover opacity-25"
+			class="absolute top-0 right-0 left-0 h-full w-full surface-container object-cover opacity-25"
 		></div>
 	{/if}
 

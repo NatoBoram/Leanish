@@ -1,11 +1,11 @@
 <script lang="ts">
-	import LimitSelector from '$lib/LimitSelector.svelte'
-	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
-	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Posts from '$lib/posts/Posts.svelte'
-	import SiteSidebar from '$lib/SiteSidebar.svelte'
-	import SortSelector from '$lib/SortSelector.svelte'
-	import Taglines from '$lib/Taglines.svelte'
+	import LimitSelector from '#lib/LimitSelector.svelte'
+	import ListingTypeSelector from '#lib/ListingTypeSelector.svelte'
+	import PaginationBar from '#lib/PaginationBar.svelte'
+	import Posts from '#lib/posts/Posts.svelte'
+	import SiteSidebar from '#lib/SiteSidebar.svelte'
+	import SortSelector from '#lib/SortSelector.svelte'
+	import Taglines from '#lib/Taglines.svelte'
 	import type { PageData } from './$types.ts'
 
 	export let data: PageData
@@ -40,14 +40,14 @@
 <div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
 	<!-- Sidebar -->
 	<SiteSidebar
-		class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-xs"
+		class="h-fit w-full rounded-lg base-container lg:order-1 lg:max-w-xs"
 		site={data.site_view.site}
 	/>
 
 	<!-- Main content -->
-	<main class="flex flex-grow flex-col gap-4 justify-self-stretch">
+	<main class="flex grow flex-col gap-4 justify-self-stretch">
 		<!-- Taglines -->
-		<div class="base-container flex flex-col gap-4 rounded-md">
+		<div class="flex flex-col gap-4 rounded-md base-container">
 			<Taglines taglines={data.taglines} />
 		</div>
 

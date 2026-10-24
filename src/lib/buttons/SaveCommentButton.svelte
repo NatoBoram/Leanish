@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
 	import { Star as StarOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Star as StarSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { CommentResponse, CommentView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -36,7 +36,7 @@
 		if (savePending) return
 
 		savePending = true
-		const saved = await client
+		const saved = await client()
 			.saveComment({
 				comment_id: commentView.comment.id,
 				save: !commentView.saved,
@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={saveComment}
-	class="{savePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{savePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={savePending}
 >
 	{#if savePending && commentView.saved}

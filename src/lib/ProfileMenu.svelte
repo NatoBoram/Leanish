@@ -1,10 +1,10 @@
 <script lang="ts">
+	import ClickOutside from '#lib/ClickOutside.svelte'
 	import { ArrowRightOnRectangle } from '@natoboram/heroicons.svelte/20/solid'
 	import { Cog8Tooth, User } from '@natoboram/heroicons.svelte/24/outline'
 	import type { MyUserInfo, Site } from 'lemmy-js-client'
-	import { goto, invalidateAll } from '$app/navigation'
-	import { base } from '$app/paths'
-	import ClickOutside from '$lib/ClickOutside.svelte'
+	import { goto, refreshAll } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import { FlatButton } from './buttons/index.ts'
 	import PersonIcon from './person/PersonIcon.svelte'
 	import { findHomeSite, pushHomeSite, removeHomeSite } from './preferences/index.ts'
@@ -17,22 +17,24 @@
 	}
 
 	const { class: className = undefined, myUser, site }: Props = $props()
-
 	let opened = $state(false)
+
 	function onClick() {
 		opened = !opened
 	}
 
 	async function logout() {
 		await Promise.all([removeHomeSite(site, myUser), unsetJwt(site)])
-		return invalidateAll()
+		return refreshAll()
 	}
 
 	async function resetDefault() {
 		const homeSite = await findHomeSite(site, myUser)
+
 		if (homeSite) await pushHomeSite({ ...homeSite, default: false })
 		else await removeHomeSite(site, myUser)
-		return goto(`${base}/`)
+
+		return goto(resolve(`/`.slice(1)))
 	}
 </script>
 
@@ -44,12 +46,12 @@
 
 	{#if opened}
 		<ClickOutside
-			class="surface-container absolute left-0 top-[100%] z-10 mt-4 flex flex-col rounded"
+			class="absolute top-[100%] left-0 z-10 mt-4 flex flex-col rounded-sm surface-container"
 			onClickoutside={onClick}
 		>
 			<a
 				href={personLink(site, myUser.local_user_view.person)}
-				class="hover:surface rounded-t"
+				class="rounded-t-sm hover:surface"
 				onclick={onClick}
 			>
 				<FlatButton class="rounded-none p-4">
@@ -72,7 +74,7 @@
 				</FlatButton>
 			</button>
 
-			<button class="hover:surface rounded-b" onclick={resetDefault}>
+			<button class="rounded-b-sm hover:surface" onclick={resetDefault}>
 				<FlatButton>
 					<ArrowRightOnRectangle />
 					Change instance

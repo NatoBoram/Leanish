@@ -1,4 +1,8 @@
 <script lang="ts">
+	import BlockCommunityButton from '#lib/buttons/BlockCommunityButton.svelte'
+	import FollowCommunityButton from '#lib/buttons/FollowCommunityButton.svelte'
+	import ClickOutside from '#lib/ClickOutside.svelte'
+	import { getClientContext } from '#lib/contexts/index.js'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
 	import type {
 		BlockCommunityResponse,
@@ -6,10 +10,6 @@
 		CommunityResponse,
 		CommunityView,
 	} from 'lemmy-js-client'
-	import BlockCommunityButton from '$lib/buttons/BlockCommunityButton.svelte'
-	import FollowCommunityButton from '$lib/buttons/FollowCommunityButton.svelte'
-	import ClickOutside from '$lib/ClickOutside.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 
 	const client = getClientContext()
 
@@ -45,7 +45,9 @@
 
 	function onclick() {
 		if (!opened && !communityViewPromise && jwt)
-			communityViewPromise = client.getCommunity({ id: communityId }).then(r => r.community_view)
+			communityViewPromise = client()
+				.getCommunity({ id: communityId })
+				.then(r => r.community_view)
 
 		opened = !opened
 	}
@@ -53,7 +55,7 @@
 
 <div class="relative flex flex-col items-center {className}">
 	{#if opened && communityViewPromise}
-		<div class="surface-container absolute z-10 rounded px-2 py-1 {position}">
+		<div class="absolute z-10 rounded-sm surface-container px-2 py-1 {position}">
 			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col items-stretch">
 				{#await communityViewPromise}
 					Loading...

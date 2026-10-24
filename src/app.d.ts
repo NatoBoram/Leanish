@@ -1,4 +1,4 @@
-import type { BuildAdapter } from '$lib/utils/vite.js'
+import type { BuildAdapter } from '#lib/utils/vite.js'
 
 /** @see https://kit.svelte.dev/docs/types#app for information about these interfaces */
 declare global {

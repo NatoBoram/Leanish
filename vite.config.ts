@@ -1,23 +1,41 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import adapterAuto from '@sveltejs/adapter-auto'
+import adapterNode from '@sveltejs/adapter-node'
+import adapterStatic from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import tailwindcss from '@tailwindcss/vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
-import { loadEnv, type UserConfig } from 'vite'
+import { playwright } from '@vitest/browser-playwright'
+import { execSync } from 'child_process'
+import type { PluginOption, UserConfig } from 'vite'
+import { loadEnv } from 'vite'
 import { defineConfig } from 'vitest/config'
 import pkg from './package.json' with { type: 'json' }
 import { toBuildEnv } from './src/lib/utils/vite.ts'
 
 const env = toBuildEnv(loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_'))
-
 const https = process.argv.includes('--https')
 
 const config: UserConfig = defineConfig({
-	// @ts-expect-error Type 'viteBasicSslPlugin' has no call signatures.
-	plugins: [...(https ? [basicSsl()] : []), sveltekit()],
+	plugins: [
+		tailwindcss(),
+
+		...(https ? [basicSsl()] : []),
+
+		sveltekit({
+			preprocess: [vitePreprocess()],
+			adapter: adapter(),
+			paths: { base: env.BUILD_BASE ?? '' },
+			version: {
+				name: execSync('git describe --always --broken --dirty --tags').toString().trim(),
+			},
+		}),
+	] satisfies PluginOption[],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 		browser: {
-			name: 'firefox',
-			provider: 'playwright',
+			instances: [{ browser: 'firefox' }],
+			provider: playwright(),
 		},
 	},
 	define: {
@@ -26,5 +44,14 @@ const config: UserConfig = defineConfig({
 		bzxhkm3f325gyo00sb2xdioh5: `"${pkg.version}"`,
 	},
 })
+
+/** @returns {import('@sveltejs/kit').Adapter} */ function adapter() {
+	if (env.BUILD_IPFS === 'true') return adapterStatic({ fallback: 'ipfs-404.html' })
+	else if (env.BUILD_ADAPTER === 'node') return adapterNode()
+	else if (env.BUILD_ADAPTER === 'static' || process.env['GITHUB_ACTIONS'] === 'true')
+		return adapterStatic({ fallback: '404.html' })
+
+	return adapterAuto()
+}
 
 export default config

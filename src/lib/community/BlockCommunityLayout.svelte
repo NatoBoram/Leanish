@@ -1,7 +1,7 @@
 <script lang="ts">
+	import CommunityBlockButton from '#lib/community/CommunityBlockButton.svelte'
+	import { getClientContext } from '#lib/contexts/index.js'
 	import type { CommunityView } from 'lemmy-js-client'
-	import CommunityBlockButton from '$lib/community/CommunityBlockButton.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 
 	interface Props {
 		readonly class?: string | undefined
@@ -24,7 +24,7 @@
 			return
 		}
 
-		const response = await client
+		const response = await client()
 			.blockCommunity({
 				block,
 				community_id: community.community.id,

@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
 	import { Trash as TrashOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Post, PostResponse } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -36,7 +36,7 @@
 		if (removePending) return
 
 		removePending = true
-		const removed = await client
+		const removed = await client()
 			.removePost({
 				post_id: post.id,
 				removed: !post.removed,
@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={removePost}
-	class="{removePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{removePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={removePending}
 >
 	{#if removePending && post.removed}

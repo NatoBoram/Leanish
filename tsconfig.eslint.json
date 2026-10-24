@@ -5,12 +5,9 @@
 		"capacitor.config.ts",
 		"eslint.config.js",
 		"playwright.config.ts",
-		"postcss.config.js",
 		"src",
 		"svelte.config.js",
-		"tailwind.config.cjs",
 		"tests",
 		"vite.config.ts"
-	],
-	"files": ["src/service-worker.ts"]
+	]
 }

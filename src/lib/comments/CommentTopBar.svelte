@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { PersonMeatballs } from '#lib/person/index.js'
+	import PersonUri from '#lib/person/PersonUri.svelte'
+	import { lemmyDate, siteHostname, timeAgo } from '#lib/utils/index.js'
 	import { Trash } from '@natoboram/heroicons.svelte/20/solid'
 	import { Pencil } from '@natoboram/heroicons.svelte/24/outline'
 	import type {
@@ -9,11 +12,8 @@
 		PersonView,
 		Site,
 	} from 'lemmy-js-client'
-	import { base } from '$app/paths'
-	import { page } from '$app/stores'
-	import { PersonMeatballs } from '$lib/person/index.js'
-	import PersonUri from '$lib/person/PersonUri.svelte'
-	import { lemmyDate, siteHostname, timeAgo } from '$lib/utils/index.js'
+	import { resolve } from '$app/paths'
+	import { page } from '$app/state'
 
 	interface Props {
 		readonly class?: string | undefined
@@ -43,8 +43,8 @@
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
+		const pathname = resolve(`/${siteHostname(site)}/post/${commentView.post.id}`.slice(1))
 
-		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
 		if (clone.pathname !== pathname) {
 			clone.pathname = pathname
 			clone.search = ''
@@ -93,7 +93,7 @@
 
 	<!-- Published -->
 	<a
-		href={commentLink($page.url).toString()}
+		href={commentLink(new URL(page.url.href)).toString()}
 		class="text-sm text-muted"
 		title={dtf.format(lemmyDate(commentView.comment.published))}
 	>
@@ -105,7 +105,7 @@
 		{@const updated = lemmyDate(commentView.comment.updated)}
 
 		<a
-			href={commentLink($page.url).toString()}
+			href={commentLink(new URL(page.url.href)).toString()}
 			class="flex flex-row items-center gap-2 text-sm text-muted"
 			title={dtf.format(updated)}
 		>

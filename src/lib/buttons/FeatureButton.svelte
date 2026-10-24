@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
+	import { PushPin, PushPinFill } from '#lib/svg/index.js'
 	import type { PostFeatureType, PostResponse, PostView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
-	import { PushPin, PushPinFill } from '$lib/svg/index.js'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -53,7 +53,7 @@
 
 		featurePending = true
 
-		const featured = await client
+		const featured = await client()
 			.featurePost({
 				feature_type: type,
 				featured: !featuredValue(postView, type),
@@ -75,7 +75,7 @@
 
 <MeatballButton
 	onclick={featurePost}
-	class="{featurePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{featurePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={featurePending}
 >
 	{#if featurePending && featuredValue(postView, type)}

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import CommunityIcon from '$lib/community/CommunityIcon.svelte'
-	import CommunitySidebar from '$lib/community/CommunitySidebar.svelte'
-	import { CommunityUri } from '$lib/community/index.js'
-	import LimitSelector from '$lib/LimitSelector.svelte'
-	import ListingTypeSelector from '$lib/ListingTypeSelector.svelte'
-	import PaginationBar from '$lib/PaginationBar.svelte'
-	import Posts from '$lib/posts/Posts.svelte'
-	import SortSelector from '$lib/SortSelector.svelte'
+	import CommunityIcon from '#lib/community/CommunityIcon.svelte'
+	import CommunitySidebar from '#lib/community/CommunitySidebar.svelte'
+	import { CommunityUri } from '#lib/community/index.js'
+	import LimitSelector from '#lib/LimitSelector.svelte'
+	import ListingTypeSelector from '#lib/ListingTypeSelector.svelte'
+	import PaginationBar from '#lib/PaginationBar.svelte'
+	import Posts from '#lib/posts/Posts.svelte'
+	import SortSelector from '#lib/SortSelector.svelte'
 	import type { PageData } from './$types.ts'
 
 	export let data: PageData
@@ -61,7 +61,7 @@
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<CommunitySidebar
-			class="base-container w-full rounded-lg lg:order-1 lg:max-w-sm 2xl:max-w-md"
+			class="w-full rounded-lg base-container lg:order-1 lg:max-w-sm 2xl:max-w-md"
 			communityView={data.community_view}
 			jwt={data.jwt}
 			myUser={data.my_user}

@@ -1,9 +1,9 @@
 <script lang="ts">
+	import BlockPersonButton from '#lib/buttons/BlockPersonButton.svelte'
+	import ClickOutside from '#lib/ClickOutside.svelte'
+	import { getClientContext } from '#lib/contexts/index.js'
 	import { EllipsisVertical } from '@natoboram/heroicons.svelte/24/solid'
 	import type { BlockPersonResponse, MyUserInfo, PersonId, PersonView } from 'lemmy-js-client'
-	import BlockPersonButton from '$lib/buttons/BlockPersonButton.svelte'
-	import ClickOutside from '$lib/ClickOutside.svelte'
-	import { getClientContext } from '$lib/contexts/index.js'
 
 	const client = getClientContext()
 
@@ -39,7 +39,9 @@
 
 	function onclick() {
 		if (!opened && !personViewPromise && jwt)
-			personViewPromise = client.getPersonDetails({ person_id: personId }).then(r => r.person_view)
+			personViewPromise = client()
+				.getPersonDetails({ person_id: personId })
+				.then(r => r.person_view)
 
 		opened = !opened
 	}
@@ -47,7 +49,7 @@
 
 <div class="relative flex flex-col items-center {className}">
 	{#if opened && personViewPromise}
-		<div class="surface-container absolute z-10 rounded px-2 py-1 {position}">
+		<div class="absolute z-10 rounded-sm surface-container px-2 py-1 {position}">
 			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col">
 				{#await personViewPromise}
 					Loading...

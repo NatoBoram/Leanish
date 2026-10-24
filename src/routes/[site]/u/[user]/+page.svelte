@@ -1,10 +1,10 @@
 <script lang="ts">
-	import LimitSelector from '$lib/LimitSelector.svelte'
-	import PaginationBar from '$lib/PaginationBar.svelte'
-	import { PersonSidebar } from '$lib/person/index.js'
-	import { Posts } from '$lib/posts/index.js'
-	import SortSelector from '$lib/SortSelector.svelte'
-	import { personUri } from '$lib/utils/index.js'
+	import LimitSelector from '#lib/LimitSelector.svelte'
+	import PaginationBar from '#lib/PaginationBar.svelte'
+	import { PersonSidebar } from '#lib/person/index.js'
+	import { Posts } from '#lib/posts/index.js'
+	import SortSelector from '#lib/SortSelector.svelte'
+	import { personUri } from '#lib/utils/index.js'
 	import type { PageData } from './$types.ts'
 
 	interface Props {
@@ -44,14 +44,14 @@
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<PersonSidebar
-			class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-sm"
+			class="h-fit w-full rounded-lg base-container lg:order-1 lg:max-w-sm"
 			jwt={data.jwt}
 			myUser={data.my_user}
 			personView={data.person_view}
 			site={data.site_view.site}
 		/>
 
-		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
+		<div class="flex grow flex-col gap-4 justify-self-stretch">
 			<!-- Post form -->
 			<div class="flex flex-row flex-wrap items-center gap-4">
 				<SortSelector sort={data.sort ?? 'Active'} />

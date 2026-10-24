@@ -1,4 +1,12 @@
 <script lang="ts">
+	import { CommentBottomBar, CommentForm, CommentTopBar } from '#lib/comments/index.js'
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Dismissable from '#lib/Dismissable.svelte'
+	import ReportForm from '#lib/posts/ReportPostForm.svelte'
+	import Prose from '#lib/Prose.svelte'
+	import { siteHostname } from '#lib/utils/index.js'
+	import { resolve } from '$app/paths'
+	import { page } from '$app/state'
 	import type {
 		BlockPersonResponse,
 		CommentResponse,
@@ -10,14 +18,6 @@
 		Site,
 		SuccessResponse,
 	} from 'lemmy-js-client'
-	import { base } from '$app/paths'
-	import { page } from '$app/stores'
-	import { CommentBottomBar, CommentForm, CommentTopBar } from '$lib/comments/index.js'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Dismissable from '$lib/Dismissable.svelte'
-	import ReportForm from '$lib/posts/ReportPostForm.svelte'
-	import Prose from '$lib/Prose.svelte'
-	import { siteHostname } from '$lib/utils/index.js'
 	import type { CommentNode } from './comment_node.ts'
 	import CommentNodeSvelte from './CommentNode.svelte'
 	import PurgeCommentForm from './PurgeCommentForm.svelte'
@@ -54,7 +54,6 @@
 	}: Props = $props()
 
 	const client = getClientContext()
-
 	let botErrorMessage = $state('')
 	let editing = $state(false)
 	let editPending = $state(false)
@@ -72,9 +71,10 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to comment.')
 
 		replyPending = true
-		const response = await client
+
+		const response = await client()
 			.createComment({
-				content: content,
+				content,
 				language_id: languageId,
 				parent_id: commentView.comment.id,
 				post_id: commentView.post.id,
@@ -93,8 +93,8 @@
 
 	function commentLink(url: URL) {
 		const clone = new URL(url.href)
+		const pathname = resolve(`/${siteHostname(site)}/post/${commentView.post.id}`.slice(1))
 
-		const pathname = `${base}/${siteHostname(site)}/post/${commentView.post.id}`
 		if (clone.pathname !== pathname) {
 			clone.pathname = pathname
 			clone.search = ''
@@ -117,11 +117,9 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to report comments.')
 
 		reportPending = true
-		const reported = await client
-			.createCommentReport({
-				comment_id: commentView.comment.id,
-				reason: e,
-			})
+
+		const reported = await client()
+			.createCommentReport({ comment_id: commentView.comment.id, reason: e })
 			.catch(async (e: Response) => {
 				botErrorMessage = await e.text()
 			})
@@ -134,7 +132,6 @@
 			commentView.creator_banned_from_community =
 				reported.comment_report_view.creator_banned_from_community
 			commentView.post = reported.comment_report_view.post
-
 			commentView = commentView
 			reporting = false
 			botErrorMessage = 'This comment was reported.'
@@ -148,10 +145,10 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to edit your comment.')
 
 		editPending = true
-		const response = await client
+		const response = await client()
 			.editComment({
 				comment_id: commentView.comment.id,
-				content: content,
+				content,
 				language_id: languageId,
 			})
 			.catch(async (e: Response) => {
@@ -207,11 +204,9 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to purge comments.')
 
 		purgePending = true
-		const purged = await client
-			.purgeComment({
-				comment_id: commentView.comment.id,
-				reason: e,
-			})
+
+		const purged = await client()
+			.purgeComment({ comment_id: commentView.comment.id, reason: e })
 			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
 
 		if (purged?.success) {
@@ -231,7 +226,7 @@
 		if (!jwt) return (botErrorMessage = 'You must be logged in to remove comments.')
 
 		removePending = true
-		const removed = await client
+		const removed = await client()
 			.removeComment({
 				comment_id: commentView.comment.id,
 				reason: e,
@@ -240,6 +235,7 @@
 			.catch(async (e: Response) => void (botErrorMessage = await e.text()))
 
 		if (removed) commentView = removed.comment_view
+
 		removePending = false
 
 		return removed
@@ -260,9 +256,9 @@
 	/>
 
 	{#if topErrorMessage}
-		<Dismissable onDismiss={() => (topErrorMessage = '')} class="danger-container">
-			{topErrorMessage}
-		</Dismissable>
+		<Dismissable onDismiss={() => (topErrorMessage = '')} class="danger-container"
+			>{topErrorMessage}</Dismissable
+		>
 	{/if}
 
 	<!-- Body -->
@@ -301,9 +297,9 @@
 	/>
 
 	{#if botErrorMessage}
-		<Dismissable onDismiss={() => (botErrorMessage = '')} class="danger-container">
-			{botErrorMessage}
-		</Dismissable>
+		<Dismissable onDismiss={() => (botErrorMessage = '')} class="danger-container"
+			>{botErrorMessage}</Dismissable
+		>
 	{/if}
 
 	<!-- Purging -->
@@ -351,10 +347,13 @@
 		{/each}
 
 		<!-- Load more -->
-		{#if Number($page.url.searchParams.get('parent_id')) !== commentView.comment.id && commentView.counts.child_count > countAllChildren(children)}
-			<a class="base-container max-w-fit rounded-md px-4 py-2" href={commentLink($page.url).href}>
-				Load {commentView.counts.child_count} comments
-			</a>
+
+		{#if Number(page.url.searchParams.get('parent_id')) !== commentView.comment.id && commentView.counts.child_count > countAllChildren(children)}
+			<a
+				class="max-w-fit rounded-md base-container px-4 py-2"
+				href={commentLink(new URL(page.url.href)).href}
+				>Load {commentView.counts.child_count} comments</a
+			>
 		{/if}
 	</div>
 </div>

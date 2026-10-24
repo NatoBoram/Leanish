@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { base } from '$app/paths'
-	import '../app.postcss'
+	import { asset } from '$app/paths'
+	import '../app.css'
 </script>
 
 <svelte:head>
-	<link rel="manifest" href="{base}/manifest.webmanifest" />
+	<link rel="manifest" href={asset('manifest.webmanifest')} />
 </svelte:head>
 
-<slot />
+<slot></slot>

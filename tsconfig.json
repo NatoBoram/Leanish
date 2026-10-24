@@ -1,39 +1,20 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
+	"extends": "$app/tsconfig",
 	"compilerOptions": {
-		/* Projects */
 		"incremental": true,
 		"composite": true,
-
-		/* Language and Environment */
 		"target": "ESNext",
 		"lib": ["DOM", "ESNext", "DOM.Iterable"],
 		"useDefineForClassFields": true,
-		"moduleDetection": "force",
-
-		/* Modules */
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"rewriteRelativeImportExtensions": true,
 		"resolvePackageJsonExports": true,
 		"resolvePackageJsonImports": true,
-		"resolveJsonModule": true,
-
-		/* JavaScript Support */
-
-		/* Emit */
 		"declaration": true,
 		"declarationMap": true,
 		"sourceMap": true,
-
-		/* Interop Constraints */
-		"isolatedModules": true,
-		"verbatimModuleSyntax": true,
-		// "isolatedDeclarations": true,
 		"erasableSyntaxOnly": true,
-		"forceConsistentCasingInFileNames": true,
-
-		/* Type Checking */
 		"strict": true,
 		"noImplicitAny": true,
 		"strictNullChecks": true,
@@ -53,14 +34,8 @@
 		"noPropertyAccessFromIndexSignature": true,
 		"allowUnusedLabels": false,
 		"allowUnreachableCode": false,
-
-		/* Completeness */
-		"skipDefaultLibCheck": true,
-		"skipLibCheck": true
-	}
-
-	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
-	//
-	// If you want to overwrite includes/excludes, make sure to copy over the relevant
-	// includes/excludes from the referenced tsconfig.json - TypeScript does not merge them in.
+		"skipDefaultLibCheck": true
+	},
+	"include": ["src", "vite.config.ts", "playwright.config.ts", "tests"],
+	"exclude": ["src/service-worker"]
 }

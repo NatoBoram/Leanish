@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
 	import { Check } from '@natoboram/heroicons.svelte/20/solid'
 	import type { PostView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -35,7 +35,7 @@
 		if (markPending) return
 
 		markPending = true
-		const marked = await client
+		const marked = await client()
 			.markPostAsRead({ post_ids: [postView.post.id], read: !postView.read })
 			.catch((e: Response) => {
 				onResponse(e)
@@ -53,7 +53,7 @@
 
 <MeatballButton
 	onclick={markPostAsRead}
-	class="{markPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{markPending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={markPending}
 >
 	{#if markPending && postView.read}

@@ -1,5 +1,3 @@
-<img src="https://raw.githubusercontent.com/phosphor-icons/core/main/meta/phosphor-mark-tight-yellow.png" width="128" align="right" />
-
 # @phosphor-icons/core
 
 This repository hosts the raw SVGs and catalog data – including tags, categories, and release versions – of all icons in the [Phosphor Icons](https://phosphoricons.com) family. It serves as the basis for our fuzzy-search on our website and other tools, and as a dev dependency in the build process in some of our framework-specific libraries. You may find this package is useful to you in implementing a port of Phosphor to your preferred framework, or as a source of truth for our current SVG assets.
@@ -68,7 +66,7 @@ interface IconEntry {
 - [blade-phosphor-icons](https://github.com/codeat3/blade-phosphor-icons) ▲ Phosphor icons in your Laravel Blade views
 - [wireui/phosphoricons](https://github.com/wireui/phosphoricons) ▲ Powered Phosphor icons for Laravel / Blade / Livewire
 
-If you've made a port of Phosphor and you want to see it here, just open a PR [here](https://github.com/phosphor-icons/phosphor-home)!
+If you've made a port of Phosphor and you want to see it here, just open a PR at [github.com/phosphor-icons/phosphor-home](https://github.com/phosphor-icons/phosphor-home)!
 
 ## License
 

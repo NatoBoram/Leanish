@@ -22,7 +22,7 @@ export default tseslint.config(
 			parser: tseslint.parser,
 			parserOptions: {
 				extraFileExtensions: ['.svelte'],
-				project: './tsconfig.eslint.json',
+				project: ['./tsconfig.eslint.json', './src/service-worker/tsconfig.json'],
 				warnOnUnsupportedTypeScriptVersion: false,
 			},
 		},

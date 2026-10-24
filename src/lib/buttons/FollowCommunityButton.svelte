@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
 	import { Check } from '@natoboram/heroicons.svelte/20/solid'
 	import type { CommunityId, CommunityResponse, CommunityView } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
 	import FlatButton from './FlatButton.svelte'
 
 	const client = getClientContext()
@@ -30,7 +30,7 @@
 			return
 		}
 
-		const response = await client
+		const response = await client()
 			.followCommunity({
 				community_id,
 				follow,

@@ -1,5 +1,5 @@
+import { serverFetch } from '#lib/index.js'
 import { LemmyHttp } from 'lemmy-js-client'
-import { serverFetch } from '$lib/index.js'
 import type { PageServerLoad } from './$types.ts'
 
 export const load: PageServerLoad = (async ({ fetch }) => {

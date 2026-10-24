@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
 	import { Trash as TrashOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { Trash as TrashSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Comment, CommentResponse } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -36,7 +36,7 @@
 		if (deletePending) return
 
 		deletePending = true
-		const deleted = await client
+		const deleted = await client()
 			.deleteComment({
 				comment_id: comment.id,
 				deleted: !comment.deleted,
@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={deleteComment}
-	class="{deletePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{deletePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={deletePending}
 >
 	{#if deletePending && comment.deleted}

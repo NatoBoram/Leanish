@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { getClientContext } from '#lib/contexts/index.js'
+	import Spinner from '#lib/Spinner.svelte'
 	import { LockClosed as LockClosedOutline } from '@natoboram/heroicons.svelte/24/outline'
 	import { LockClosed as LockClosedSolid } from '@natoboram/heroicons.svelte/24/solid'
 	import type { Post, PostResponse } from 'lemmy-js-client'
-	import { getClientContext } from '$lib/contexts/index.js'
-	import Spinner from '$lib/Spinner.svelte'
 	import MeatballButton from './MeatballButton.svelte'
 
 	interface Props {
@@ -36,7 +36,7 @@
 		if (lockPending) return
 
 		lockPending = true
-		const locked = await client
+		const locked = await client()
 			.lockPost({
 				locked: !post.locked,
 				post_id: post.id,
@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={lockPost}
-	class="{lockPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{lockPending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={lockPending}
 >
 	{#if lockPending && post.locked}

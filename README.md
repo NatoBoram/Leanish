@@ -15,24 +15,24 @@ There is a client-side rendered deployment at [natoboram.github.io/Leanish](http
 Android builds are available in the [Releases](https://github.com/NatoBoram/Leanish/releases) tab. For a more cutting-edge experience, CI builds are available in the [Actions](https://github.com/NatoBoram/Leanish/actions/workflows/android.yaml) tab.
 
 <div style="text-align: center">
-	<a href="https://github.com/ImranR98/Obtainium">
-		<img
-			align="center"
-			alt="Get it on Obtainium"
-			height="50"
-			hspace="6"
-			src="https://github.com/NatoBoram/Leanish/assets/10495562/ff726d91-8065-483b-a277-57b3c237f9a9"
-		/>
-	</a>
-	<a href="https://play.google.com/store/apps/details?id=com.natoboram.leanish">
-		<img
-			align="center"
-			alt="Get it on Google Play"
-			height="50"
-			hspace="6"
-			src="https://github.com/NatoBoram/Leanish/assets/10495562/f2139ad0-397f-4259-86e5-f24f86ea7e63"
-		/>
-	</a>
+ <a href="https://github.com/ImranR98/Obtainium">
+  <img
+   align="center"
+   alt="Get it on Obtainium"
+   height="50"
+   hspace="6"
+   src="https://github.com/NatoBoram/Leanish/assets/10495562/ff726d91-8065-483b-a277-57b3c237f9a9"
+  />
+ </a>
+ <a href="https://play.google.com/store/apps/details?id=com.natoboram.leanish">
+  <img
+   align="center"
+   alt="Get it on Google Play"
+   height="50"
+   hspace="6"
+   src="https://github.com/NatoBoram/Leanish/assets/10495562/f2139ad0-397f-4259-86e5-f24f86ea7e63"
+  />
+ </a>
 </div>
 
 ## Deploy

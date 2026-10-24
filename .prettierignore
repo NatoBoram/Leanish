@@ -14,6 +14,9 @@ vite.config.ts.timestamp-*
 /test-results
 /playwright-report
 
+# Buggy
+.github/skills/svelte-core-bestpractices/references/attach.md
+
 # Ignore files for PNPM, NPM and YARN
 pnpm-lock.yaml
 package-lock.json
