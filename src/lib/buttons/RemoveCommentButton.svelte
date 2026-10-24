@@ -68,7 +68,7 @@
 
 <MeatballButton
 	onclick={() => onClick(comment)}
-	class="{removePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{removePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={removePending}
 >
 	{#if removePending && comment.removed}

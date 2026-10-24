@@ -3,6 +3,7 @@ import adapterNode from '@sveltejs/adapter-node'
 import adapterStatic from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import tailwindcss from '@tailwindcss/vite'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { execSync } from 'child_process'
 import { loadEnv, type UserConfig } from 'vite'
@@ -16,9 +17,11 @@ const https = process.argv.includes('--https')
 const env2 = loadEnv(process.env['NODE_ENV'] ?? 'development', process.cwd(), 'BUILD_')
 
 const config: UserConfig = defineConfig({
-	// @ts-expect-error Type 'viteBasicSslPlugin' has no call signatures.
 	plugins: [
+		tailwindcss(),
+
 		...(https ? [basicSsl()] : []),
+
 		sveltekit({
 			preprocess: [vitePreprocess()],
 			adapter: adapter(),

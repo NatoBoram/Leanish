@@ -14,9 +14,8 @@ vite.config.ts.timestamp-*
 /test-results
 /playwright-report
 
-# Buggy, probably because of Tailwind
-.github/skills/svelte-core-bestpractices/references/
-.github/skills/svelte-core-bestpractices/SKILL.md
+# Buggy
+.github/skills/svelte-core-bestpractices/references/attach.md
 
 # Ignore files for PNPM, NPM and YARN
 pnpm-lock.yaml

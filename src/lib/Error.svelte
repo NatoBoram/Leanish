@@ -47,7 +47,7 @@
 		Loading...
 	{:then [FlatButton, Spinner]}
 		<div class="flex gap-2 sm:flex-row">
-			<FlatButton class="base-container rounded" onclick={back}>
+			<FlatButton class="rounded-sm base-container" onclick={back}>
 				{#if backing}
 					<Spinner />
 				{/if}
@@ -55,7 +55,7 @@
 				Back
 			</FlatButton>
 
-			<FlatButton class="primary rounded" onclick={refresh}>
+			<FlatButton class="rounded-sm primary" onclick={refresh}>
 				{#if refreshing}
 					<Spinner />
 				{/if}

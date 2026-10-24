@@ -75,7 +75,7 @@
 
 <MeatballButton
 	onclick={featurePost}
-	class="{featurePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{featurePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={featurePending}
 >
 	{#if featurePending && featuredValue(postView, type)}

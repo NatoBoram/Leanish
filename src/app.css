@@ -1,0 +1,90 @@
+@import 'tailwindcss' source('./');
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@source '../node_modules/@natoboram/heroicons.svelte/dist';
+
+@theme inline {
+	--color-base: var(--color-neutral-950);
+	--color-base-container: var(--color-neutral-900);
+	--color-danger: var(--color-rose-600);
+	--color-danger-container: var(--color-rose-800);
+	--color-muted: var(--color-zinc-400);
+	--color-primary: var(--color-sky-600);
+	--color-primary-container: var(--color-sky-900);
+	--color-secondary: var(--color-yellow-400);
+	--color-secondary-container: var(--color-yellow-700);
+	--color-success: var(--color-emerald-400);
+	--color-success-container: var(--color-emerald-950);
+	--color-surface: var(--color-neutral-200);
+	--color-surface-container: var(--color-neutral-800);
+	--color-warning: var(--color-amber-600);
+	--color-warning-container: var(--color-amber-900);
+
+	--color-on-base: var(--color-neutral-100);
+	--color-on-base-container: var(--color-neutral-200);
+	--color-on-danger: var(--color-rose-50);
+	--color-on-danger-container: var(--color-rose-50);
+	--color-on-muted: var(--color-zinc-50);
+	--color-on-primary: var(--color-sky-50);
+	--color-on-primary-container: var(--color-sky-100);
+	--color-on-secondary: var(--color-yellow-800);
+	--color-on-secondary-container: var(--color-yellow-200);
+	--color-on-success: var(--color-emerald-950);
+	--color-on-success-container: var(--color-emerald-50);
+	--color-on-surface: var(--color-neutral-950);
+	--color-on-surface-container: var(--color-neutral-200);
+	--color-on-warning: var(--color-amber-50);
+	--color-on-warning-container: var(--color-amber-100);
+}
+
+@utility base {
+	@apply bg-base text-on-base;
+}
+
+@utility base-container {
+	@apply bg-base-container text-on-base-container;
+}
+
+@utility danger {
+	@apply bg-danger text-on-danger;
+}
+
+@utility danger-container {
+	@apply bg-danger-container text-on-danger-container;
+}
+
+@utility muted {
+	@apply bg-muted text-on-muted;
+}
+
+@utility primary {
+	@apply bg-primary text-on-primary;
+}
+
+@utility primary-container {
+	@apply bg-primary-container text-on-primary-container;
+}
+
+@utility success {
+	@apply bg-success text-on-success;
+}
+
+@utility success-container {
+	@apply bg-success-container text-on-success-container;
+}
+
+@utility surface {
+	@apply bg-surface text-on-surface;
+}
+
+@utility surface-container {
+	@apply bg-surface-container text-on-surface-container;
+}
+
+@utility warning {
+	@apply bg-warning text-on-warning;
+}
+
+@utility warning-container {
+	@apply bg-warning-container text-on-warning-container;
+}

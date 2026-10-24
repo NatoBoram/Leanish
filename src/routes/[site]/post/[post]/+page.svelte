@@ -145,13 +145,13 @@
 			You are viewing a single comment thread.
 
 			<a
-				class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
+				class="flex max-w-fit flex-row items-center gap-2 rounded-md base-container px-4 py-2"
 				href={postLink(new URL(page.url.href))}>View all comments <ArrowLongRight /></a
 			>
 
 			{#if hasContext(data.parent_id)}
 				<a
-					class="base-container flex max-w-fit flex-row items-center gap-2 rounded-md px-4 py-2"
+					class="flex max-w-fit flex-row items-center gap-2 rounded-md base-container px-4 py-2"
 					href={parentLink(new URL(page.url.href))}>Show context <ArrowLongRight /></a
 				>
 			{/if}
@@ -192,7 +192,7 @@
 	</main>
 
 	<CommunitySidebar
-		class="base-container hidden w-full rounded-lg lg:flex lg:max-w-sm 2xl:max-w-md"
+		class="hidden w-full rounded-lg base-container lg:flex lg:max-w-sm 2xl:max-w-md"
 		communityView={data.community_view}
 		jwt={data.jwt}
 		myUser={data.my_user}

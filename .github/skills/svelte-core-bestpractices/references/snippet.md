@@ -379,7 +379,7 @@ Snippets declared at the top level of a `.svelte` file can be exported from a `<
 ```svelte
 <!--- file: snippets.svelte --->
 <script module>
-	export { add };
+	export { add }
 </script>
 
 {#snippet add(a, b)}

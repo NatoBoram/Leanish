@@ -58,7 +58,7 @@
 
 <MeatballButton
 	onclick={distinguishComment}
-	class="{distinguishPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{distinguishPending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={distinguishPending}
 >
 	{#if distinguishPending && comment.distinguished}

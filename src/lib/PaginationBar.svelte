@@ -106,10 +106,10 @@
 		{#if canFirst(new URL(page.url.href))}
 			<FlatButton
 				onclick={() => firstPage(new URL(page.url.href))}
-				class="base-container w-28 rounded-lg"><ChevronDoubleLeft />First</FlatButton
+				class="w-28 rounded-lg base-container"><ChevronDoubleLeft />First</FlatButton
 			>
 		{:else}
-			<FlatButton disabled={true} class="muted w-28 rounded-lg">
+			<FlatButton disabled={true} class="w-28 rounded-lg muted">
 				<ChevronDoubleLeft />
 				First
 			</FlatButton>
@@ -118,11 +118,11 @@
 		<!-- Previous -->
 		{#if hasPrevious(new URL(page.url.href))}
 			<FlatButton
-				class="base-container w-32 rounded-lg"
+				class="w-32 rounded-lg base-container"
 				onclick={() => previous(new URL(page.url.href))}><ChevronLeft />Previous</FlatButton
 			>
 		{:else}
-			<FlatButton disabled={true} class="muted w-32 rounded-lg">
+			<FlatButton disabled={true} class="w-32 rounded-lg muted">
 				<ChevronLeft />
 				Previous
 			</FlatButton>
@@ -153,11 +153,11 @@
 	<!-- Next -->
 	{#if length >= limit}
 		<FlatButton
-			class="base-container w-28 justify-self-end rounded-lg"
+			class="w-28 justify-self-end rounded-lg base-container"
 			onclick={() => next(new URL(page.url.href))}>Next <ChevronRight /></FlatButton
 		>
 	{:else}
-		<FlatButton disabled={true} class="muted w-28 justify-self-end rounded-lg">
+		<FlatButton disabled={true} class="w-28 justify-self-end rounded-lg muted">
 			Next
 			<ChevronRight />
 		</FlatButton>

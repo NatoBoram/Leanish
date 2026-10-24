@@ -40,14 +40,14 @@
 <div class="container mx-auto mb-4 flex flex-col gap-4 lg:flex-row">
 	<!-- Sidebar -->
 	<SiteSidebar
-		class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-xs"
+		class="h-fit w-full rounded-lg base-container lg:order-1 lg:max-w-xs"
 		site={data.site_view.site}
 	/>
 
 	<!-- Main content -->
-	<main class="flex flex-grow flex-col gap-4 justify-self-stretch">
+	<main class="flex grow flex-col gap-4 justify-self-stretch">
 		<!-- Taglines -->
-		<div class="base-container flex flex-col gap-4 rounded-md">
+		<div class="flex flex-col gap-4 rounded-md base-container">
 			<Taglines taglines={data.taglines} />
 		</div>
 

@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={savePost}
-	class="{savePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{savePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={savePending}
 >
 	{#if savePending && postView.saved}

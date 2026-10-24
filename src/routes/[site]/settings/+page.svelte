@@ -36,18 +36,19 @@
 </svelte:head>
 
 <div class="container mx-auto">
-	<div class="base-container grid grid-cols-1 gap-4 rounded p-4 sm:grid-cols-2">
+	<div class="grid grid-cols-1 gap-4 rounded-sm base-container p-4 sm:grid-cols-2">
 		{#if data.my_user && data.jwt}
 			<strong class="font-bold sm:col-span-2"> Export </strong>
 
 			<label for="export-user">
-				Export a <code class="surface-container rounded p-1">json</code> file that represents your user.
+				Export a <code class="rounded-sm surface-container p-1">json</code> file that represents your
+				user.
 			</label>
 
 			<div>
 				<button
 					id="export-user"
-					class="surface-container justify-self-start rounded px-2 py-1 sm:col-start-2"
+					class="justify-self-start rounded-sm surface-container px-2 py-1 sm:col-start-2"
 					onclick={exportUser}
 				>
 					Export user

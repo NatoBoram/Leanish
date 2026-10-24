@@ -53,7 +53,7 @@
 
 <div class="relative flex flex-col items-center {className}">
 	{#if opened && communityViewPromise}
-		<div class="surface-container absolute z-10 rounded px-2 py-1 {position}">
+		<div class="absolute z-10 rounded-sm surface-container px-2 py-1 {position}">
 			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col items-stretch">
 				{#await communityViewPromise}
 					Loading...

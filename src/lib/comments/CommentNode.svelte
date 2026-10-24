@@ -350,7 +350,7 @@
 
 		{#if Number(page.url.searchParams.get('parent_id')) !== commentView.comment.id && commentView.counts.child_count > countAllChildren(children)}
 			<a
-				class="base-container max-w-fit rounded-md px-4 py-2"
+				class="max-w-fit rounded-md base-container px-4 py-2"
 				href={commentLink(new URL(page.url.href)).href}
 				>Load {commentView.counts.child_count} comments</a
 			>

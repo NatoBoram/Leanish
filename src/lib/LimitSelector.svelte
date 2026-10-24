@@ -43,7 +43,7 @@
 	<label for="limit">Limit</label>
 	<input
 		bind:this={input}
-		class="base-container w-16 rounded-md border-none px-4 py-2 [-moz-appearance:textfield]"
+		class="w-16 rounded-md border-none base-container px-4 py-2 [-moz-appearance:textfield]"
 		id="limit"
 		max={50}
 		min={1}

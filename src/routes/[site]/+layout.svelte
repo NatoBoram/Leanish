@@ -74,7 +74,7 @@
 	setClientContext(client)
 </script>
 
-<nav class="left-0 right-0 top-0 mb-4 p-4">
+<nav class="top-0 right-0 left-0 mb-4 p-4">
 	<div
 		class="container mx-auto flex flex-col items-center justify-between gap-4 text-xl sm:flex-row"
 	>

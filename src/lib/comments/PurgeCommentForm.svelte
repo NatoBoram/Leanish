@@ -25,14 +25,14 @@
 		{disabled}
 		{placeholder}
 		bind:value
-		class="surface-container rounded-md border-none px-4 py-2"
+		class="rounded-md border-none surface-container px-4 py-2"
 	></textarea>
 
 	<!-- Actions -->
 	<div class="flex flex-row items-center justify-end gap-4">
-		<FlatButton type="button" class="surface-container rounded-lg" onclick={onCancel}>
+		<FlatButton type="button" class="rounded-lg surface-container" onclick={onCancel}>
 			Cancel
 		</FlatButton>
-		<FlatButton {disabled} type="submit" class="danger rounded-lg">Purge</FlatButton>
+		<FlatButton {disabled} type="submit" class="rounded-lg danger">Purge</FlatButton>
 	</div>
 </form>

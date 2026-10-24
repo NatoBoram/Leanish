@@ -80,14 +80,14 @@
 	<div class="flex flex-col gap-2 sm:flex-row">
 		<input
 			bind:value={input}
-			class="base-container rounded border-none p-2"
+			class="rounded-sm border-none base-container p-2"
 			id="input"
 			onkeypress={k => k.key === 'Enter' && submit()}
 			onsubmit={submit}
 			type="url"
 		/>
 
-		<button class="base-container rounded px-4 py-2" onclick={submit} type="submit">
+		<button class="rounded-sm base-container px-4 py-2" onclick={submit} type="submit">
 			Submit
 		</button>
 	</div>
@@ -121,7 +121,7 @@
 						{#if !homeSite.hidden}
 							<HomeSiteCard
 								{homeSite}
-								class="base-container h-full"
+								class="h-full base-container"
 								onCurrent={reloadHomeSites}
 								onDefault={reloadHomeSites}
 								onDelete={reloadHomeSites}

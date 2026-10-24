@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths'
-	import '../app.postcss'
+	import '../app.css'
 </script>
 
 <svelte:head>

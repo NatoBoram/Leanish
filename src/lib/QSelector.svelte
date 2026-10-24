@@ -29,7 +29,7 @@
 <input
 	bind:this={input}
 	bind:value={q}
-	class="base-container rounded-md border-none px-4 py-2"
+	class="rounded-md border-none base-container px-4 py-2"
 	onchange={() => {
 		debounceChangeQ(new URL(page.url.href))
 	}}

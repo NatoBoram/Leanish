@@ -53,7 +53,7 @@
 
 <MeatballButton
 	onclick={markPostAsRead}
-	class="{markPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{markPending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={markPending}
 >
 	{#if markPending && postView.read}

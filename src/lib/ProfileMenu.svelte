@@ -46,12 +46,12 @@
 
 	{#if opened}
 		<ClickOutside
-			class="surface-container absolute left-0 top-[100%] z-10 mt-4 flex flex-col rounded"
+			class="absolute top-[100%] left-0 z-10 mt-4 flex flex-col rounded-sm surface-container"
 			onClickoutside={onClick}
 		>
 			<a
 				href={personLink(site, myUser.local_user_view.person)}
-				class="hover:surface rounded-t"
+				class="rounded-t-sm hover:surface"
 				onclick={onClick}
 			>
 				<FlatButton class="rounded-none p-4">
@@ -74,7 +74,7 @@
 				</FlatButton>
 			</button>
 
-			<button class="hover:surface rounded-b" onclick={resetDefault}>
+			<button class="rounded-b-sm hover:surface" onclick={resetDefault}>
 				<FlatButton>
 					<ArrowRightOnRectangle />
 					Change instance

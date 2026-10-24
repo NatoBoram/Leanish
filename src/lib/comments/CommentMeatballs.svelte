@@ -74,9 +74,9 @@
 
 <div class="relative flex flex-col items-center {className}">
 	{#if opened}
-		<div class="surface-container absolute z-10 rounded py-1 {position}">
+		<div class="absolute z-10 rounded-sm surface-container py-1 {position}">
 			<ClickOutside onClickoutside={() => (opened = false)} class="flex flex-col">
-				<MeatballButton class="hover:surface surface-container" onclick={clickCopy}>
+				<MeatballButton class="surface-container hover:surface" onclick={clickCopy}>
 					<DocumentDuplicate class="h-5 w-5" />
 					Copy markdown
 				</MeatballButton>
@@ -85,7 +85,7 @@
 				{#if jwt}
 					<SaveCommentButton {jwt} {commentView} {onError} {onResponse} {onSave} />
 
-					<MeatballButton class="hover:surface surface-container" onclick={clickReport}>
+					<MeatballButton class="surface-container hover:surface" onclick={clickReport}>
 						<Flag class="h-5 w-5" />
 						Report
 					</MeatballButton>
@@ -96,7 +96,7 @@
 					<hr class="my-2 border-muted" />
 
 					<MeatballButton
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						onclick={() => {
 							onEdit()
 						}}
@@ -120,7 +120,7 @@
 
 					<DistinguishButton
 						{jwt}
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						comment={commentView.comment}
 						{onError}
 						{onDistinguish}
@@ -132,7 +132,7 @@
 						{onError}
 						{onResponse}
 						{onRestore}
-						class="hover:surface surface-container"
+						class="surface-container hover:surface"
 						comment={commentView.comment}
 						onRemove={() => {
 							opened = !opened
@@ -145,7 +145,7 @@
 				{#if myUser.local_user_view.local_user.admin}
 					<hr class="my-2 border-muted" />
 
-					<MeatballButton class="hover:surface surface-container" onclick={clickPurge}>
+					<MeatballButton class="surface-container hover:surface" onclick={clickPurge}>
 						Purge
 					</MeatballButton>
 				{/if}

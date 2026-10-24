@@ -49,7 +49,7 @@
 	<!-- Background banner -->
 	{#if homeSite.siteResponse.site_view.site.banner}
 		<img
-			class="absolute left-0 right-0 top-0 h-32 w-full bg-surface-container object-cover"
+			class="absolute top-0 right-0 left-0 h-32 w-full bg-surface-container object-cover"
 			src={homeSite.siteResponse.site_view.site.banner}
 			alt="banner"
 		/>
@@ -92,11 +92,11 @@
 					Current
 				</button>
 
-				<button class="surface-container hover:warning rounded-full px-2 py-1" onclick={handleHide}
+				<button class="rounded-full surface-container px-2 py-1 hover:warning" onclick={handleHide}
 					>Hide</button
 				>
 
-				<button class="surface-container hover:danger rounded-full px-2 py-1" onclick={handleDelete}
+				<button class="rounded-full surface-container px-2 py-1 hover:danger" onclick={handleDelete}
 					>Delete</button
 				>
 			</div>

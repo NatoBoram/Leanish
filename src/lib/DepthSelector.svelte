@@ -31,7 +31,7 @@
 	<label for="max_depth">Depth</label>
 	<input
 		bind:this={input}
-		class="base-container w-16 rounded-md border-none px-4 py-2 [-moz-appearance:textfield]"
+		class="w-16 rounded-md border-none base-container px-4 py-2 [-moz-appearance:textfield]"
 		id="max_depth"
 		max={50}
 		min={1}

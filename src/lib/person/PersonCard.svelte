@@ -32,16 +32,16 @@
 	let imgError: (Event & { currentTarget: Element & EventTarget }) | undefined = $state()
 </script>
 
-<div class="base-container relative p-4 {className}">
+<div class="relative base-container p-4 {className}">
 	{#if personView.person.banner && !imgError}
 		<img
 			alt="banner"
-			class="absolute left-0 right-0 top-0 h-32 w-full object-cover {bannerClass}"
+			class="absolute top-0 right-0 left-0 h-32 w-full object-cover {bannerClass}"
 			onerror={e => (imgError = e)}
 			src={personView.person.banner}
 		/>
 	{:else}
-		<div class="surface-container absolute left-0 right-0 top-0 h-32 object-cover"></div>
+		<div class="absolute top-0 right-0 left-0 h-32 surface-container object-cover"></div>
 	{/if}
 
 	<div class="flex flex-col gap-2">

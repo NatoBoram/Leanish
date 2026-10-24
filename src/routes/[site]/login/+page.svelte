@@ -76,7 +76,7 @@
 			<input
 				id="username_or_email"
 				bind:value={username_or_email}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded-sm border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
@@ -86,7 +86,7 @@
 				id="password"
 				type="password"
 				bind:value={password}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded-sm border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
@@ -95,21 +95,21 @@
 			<input
 				id="totp_2fa_token"
 				bind:value={totp_2fa_token}
-				class="rounded border-none bg-base-container px-2 py-1 text-on-base-container"
+				class="rounded-sm border-none bg-base-container px-2 py-1 text-on-base-container"
 			/>
 		</div>
 
-		<button type="submit" class="rounded bg-primary px-2 py-1 text-on-primary"> Login </button>
+		<button type="submit" class="rounded-sm bg-primary px-2 py-1 text-on-primary"> Login </button>
 	</form>
 
 	{#if request}
 		{#await request}
-			<div class="rounded bg-base-container p-4 text-on-base-container">Loading...</div>
+			<div class="rounded-sm bg-base-container p-4 text-on-base-container">Loading...</div>
 		{:then response}
 			{#if response.jwt}
-				<div class="rounded bg-primary-container p-4 text-on-primary-container">Logged in!</div>
+				<div class="rounded-sm bg-primary-container p-4 text-on-primary-container">Logged in!</div>
 			{:else}
-				<div class="rounded bg-base-container p-4 text-on-base-container">
+				<div class="rounded-sm bg-base-container p-4 text-on-base-container">
 					Hm, something strange happened.
 				</div>
 				<div class="prose">
@@ -118,14 +118,14 @@
 			{/if}
 		{:catch error}
 			{#await errorToResponse(error)?.text()}
-				<div class="danger-container relative rounded-md p-4">Loading error message...</div>
+				<div class="relative rounded-md danger-container p-4">Loading error message...</div>
 			{:then text}
 				{#if text}
 					<Dismissable onDismiss={() => (request = undefined)} class="danger-container"
 						>{@html text}</Dismissable
 					>
 				{:else}
-					<div class="danger-container relative rounded-md p-4">An unexpected error happened.</div>
+					<div class="relative rounded-md danger-container p-4">An unexpected error happened.</div>
 				{/if}
 			{/await}
 		{/await}

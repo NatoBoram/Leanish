@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={deletePost}
-	class="{deletePending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{deletePending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={deletePending}
 >
 	{#if deletePending && post.deleted}

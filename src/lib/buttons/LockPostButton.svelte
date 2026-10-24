@@ -57,7 +57,7 @@
 
 <MeatballButton
 	onclick={lockPost}
-	class="{lockPending ? 'cursor-progress' : ''} hover:surface surface-container {className}"
+	class="{lockPending ? 'cursor-progress' : ''} surface-container hover:surface {className}"
 	disabled={lockPending}
 >
 	{#if lockPending && post.locked}

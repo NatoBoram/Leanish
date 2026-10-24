@@ -44,14 +44,14 @@
 	<div class="flex flex-col gap-4 lg:flex-row">
 		<!-- Sidebar -->
 		<PersonSidebar
-			class="base-container h-fit w-full rounded-lg lg:order-1 lg:max-w-sm"
+			class="h-fit w-full rounded-lg base-container lg:order-1 lg:max-w-sm"
 			jwt={data.jwt}
 			myUser={data.my_user}
 			personView={data.person_view}
 			site={data.site_view.site}
 		/>
 
-		<div class="flex flex-grow flex-col gap-4 justify-self-stretch">
+		<div class="flex grow flex-col gap-4 justify-self-stretch">
 			<!-- Post form -->
 			<div class="flex flex-row flex-wrap items-center gap-4">
 				<SortSelector sort={data.sort ?? 'Active'} />

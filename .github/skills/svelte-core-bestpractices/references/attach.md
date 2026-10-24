@@ -18,7 +18,9 @@ Optionally, they can return a function that is called before the attachment re-r
 	}
 </script>
 
-<div {@attach myAttachment}>...</div>
+<div {@attach myAttachment}>
+	<!-- ... -->
+</div>
 ```
 
 An element can have any number of attachments.
