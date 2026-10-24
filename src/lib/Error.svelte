@@ -11,12 +11,13 @@
 
 		backing = true
 
-		const baseless = page.url.pathname.replace(resolve(''), '')
+		const base = resolve('/').replace(/\/$/, '')
+		const baseless = page.url.pathname.replace(base, '')
 		const pathnames = baseless.split('/')
 
 		pathnames.pop()
 
-		pathnames.unshift(resolve(''))
+		if (base) pathnames.unshift(base)
 
 		const url = new URL(pathnames.join('/'), location.origin)
 

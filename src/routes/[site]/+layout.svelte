@@ -84,11 +84,7 @@
 	>
 		<div class="flex flex-col items-center gap-4 sm:flex-row">
 			<!-- Site -->
-
-			<a
-				class="flex flex-row items-center gap-4"
-				href="{resolve('')}/{siteHostname(data.site_view.site)}"
-			>
+			<a class="flex flex-row items-center gap-4" href={siteLink(data.site_view.site)}>
 				{#if data.site_view.site.icon}
 					<img src={data.site_view.site.icon} alt="icon" class="h-10 w-10" />
 				{/if}
@@ -96,15 +92,13 @@
 			</a>
 
 			<!-- Communities -->
-
-			<a href="{resolve('')}/{siteHostname(data.site_view.site)}/communities">Communities</a>
+			<a href="{siteLink(data.site_view.site)}/communities">Communities</a>
 
 			<!-- Search -->
-
-			<a href="{resolve('')}/{siteHostname(data.site_view.site)}/search">Search</a>
+			<a href="{siteLink(data.site_view.site)}/search">Search</a>
 		</div>
 
-		<div class="flex flex-col items-center gap-4 text-base text-on-base sm:flex-row">
+		<div class="flex flex-col items-center gap-4 text-on-base sm:flex-row">
 			<!-- User -->
 			{#if data.my_user}
 				<ProfileMenu myUser={data.my_user} site={data.site_view.site} />
