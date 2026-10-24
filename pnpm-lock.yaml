@@ -3111,8 +3111,8 @@ packages:
     resolution: {integrity: sha512-n1cw8k1k0x4pgA2+9XrOkFydTerNcJ1zWCO5Nn9scWHTD+5tp8dghT2x1uduQePZTZgd3Tupf+x9BxJjeJi77Q==}
     engines: {node: '>=14.0.0'}
 
-  tmp@0.2.5:
-    resolution: {integrity: sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==}
+  tmp@0.2.7:
+    resolution: {integrity: sha512-e0votIpp4Uo2AJYSzVHV6xCcawuiez3DzqDAbrTc3YxBkplN6e+dM13ZeIcZnDg/QpSuU2zfZ3rzwY8ukEnaXw==}
     engines: {node: '>=14.14'}
 
   to-regex-range@5.0.1:
@@ -4208,7 +4208,7 @@ snapshots:
       prompts: 2.4.2
       replace: 1.2.2
       tempy: 1.0.1
-      tmp: 0.2.5
+      tmp: 0.2.7
       ts-node: 10.9.2(@types/node@22.7.7)(typescript@5.8.3)
       xcode: 3.0.1
       xml-js: 1.6.11
@@ -6509,7 +6509,7 @@ snapshots:
 
   tinyspy@3.0.2: {}
 
-  tmp@0.2.5: {}
+  tmp@0.2.7: {}
 
   to-regex-range@5.0.1:
     dependencies:
