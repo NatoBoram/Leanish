@@ -2313,9 +2313,6 @@ packages:
   minimatch@3.0.5:
     resolution: {integrity: sha512-tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==}
 
-  minimatch@3.1.2:
-    resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
-
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
 
@@ -5166,7 +5163,7 @@ snapshots:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -5812,13 +5809,9 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.21
 
-  minimatch@3.1.2:
-    dependencies:
-      brace-expansion: 1.1.21
-
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.12
+      brace-expansion: 1.1.21
 
   minimatch@8.0.4:
     dependencies:
@@ -5905,7 +5898,7 @@ snapshots:
       chokidar: 3.6.0
       debug: 3.2.7(supports-color@5.5.0)
       ignore-by-default: 1.0.1
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       pstree.remy: 1.1.8
       semver: 5.7.2
       simple-update-notifier: 1.1.0
