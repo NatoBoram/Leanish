@@ -14,10 +14,10 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/labeler@v6
-        with:
-          configuration-path: .github/labeler-sync.yaml
-          sync-labels: true
+      # - uses: actions/labeler@v6
+      #   with:
+      #     configuration-path: .github/labeler-sync.yaml
+      #     sync-labels: true
 
       - uses: actions/labeler@v6
         with:
