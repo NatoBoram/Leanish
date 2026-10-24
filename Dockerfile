@@ -1,9 +1,7 @@
-FROM node:26-slim AS base
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-COPY . /app
+FROM ghcr.io/pnpm/pnpm AS base
+RUN pnpm runtime set node --global
 WORKDIR /app
+COPY . .
 
 FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
