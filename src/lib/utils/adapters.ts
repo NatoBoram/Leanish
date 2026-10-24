@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import type { LessThan, NumericRange } from '@sveltejs/kit'
 
 export function isLessThan<Max extends number>(input: number, max: Max): input is LessThan<Max> {
