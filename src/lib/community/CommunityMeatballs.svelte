@@ -37,7 +37,7 @@
 		position = 'bottom-8',
 	}: Props = $props()
 
-	let communityViewPromise: Promise<CommunityView> | undefined = $state(
+	let communityViewPromise: Promise<CommunityView> | undefined = $derived(
 		communityView && Promise.resolve(communityView),
 	)
 

@@ -37,7 +37,6 @@
 </script>
 
 {#if url && videoType}
-	<!-- svelte-ignore a11y_media_has_caption -->
 	<video controls={true} class="max-h-screen w-full object-contain {className}">
 		<source type={videoType} src={url.href} />
 	</video>

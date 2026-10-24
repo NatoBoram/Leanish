@@ -21,6 +21,7 @@
 		onHide,
 	}: Props = $props()
 
+	// svelte-ignore state_referenced_locally
 	if (homeSite.hidden) throw new Error('Attempting to render a hidden home site.')
 </script>
 

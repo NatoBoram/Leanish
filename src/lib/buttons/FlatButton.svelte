@@ -7,6 +7,7 @@
 		readonly class?: string | undefined
 	}
 
+	// eslint-disable-next-line svelte/valid-compile
 	const { children, class: className = undefined, ...attributes }: Props = $props()
 </script>
 

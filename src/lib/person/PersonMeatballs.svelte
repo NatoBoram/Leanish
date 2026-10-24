@@ -31,7 +31,7 @@
 		position = 'bottom-8',
 	}: Props = $props()
 
-	let personViewPromise: Promise<PersonView> | undefined = $state(
+	let personViewPromise: Promise<PersonView> | undefined = $derived(
 		personView && Promise.resolve(personView),
 	)
 

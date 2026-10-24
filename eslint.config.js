@@ -20,7 +20,11 @@ export default tseslint.config(
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node },
 			parser: tseslint.parser,
-			parserOptions: { extraFileExtensions: ['.svelte'], project: './tsconfig.eslint.json' },
+			parserOptions: {
+				extraFileExtensions: ['.svelte'],
+				project: './tsconfig.eslint.json',
+				warnOnUnsupportedTypeScriptVersion: false,
+			},
 		},
 
 		rules: {

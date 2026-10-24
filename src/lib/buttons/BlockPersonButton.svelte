@@ -26,7 +26,7 @@
 		onResponse,
 	}: Props = $props()
 
-	let request: Promise<BlockPersonResponse> = $state(
+	let request: Promise<BlockPersonResponse> = $derived(
 		Promise.resolve({
 			blocked: myUser.person_blocks.some(block => block.target.id === personView.person.id),
 			person_view: personView,
